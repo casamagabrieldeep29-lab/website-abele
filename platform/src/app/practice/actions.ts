@@ -1,0 +1,437 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
+import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
+
+export async function startPracticeAttempt(topicId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { count } = await supabase
+    .from("student_questions")
+    .select("id", { count: "exact", head: true })
+    .eq("topic_id", topicId);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      topic_id: topicId,
+      total_questions: count ?? 0,
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start practice attempt");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+type Weighted = { id: string; weight: number };
+
+/**
+ * Weighted random sample without replacement. Used to build adaptive
+ * sessions that prioritize previously-missed questions over
+ * previously-correct ones, while still surfacing never-seen questions.
+ */
+function weightedSample(candidates: Weighted[], count: number): string[] {
+  const pool = [...candidates];
+  const selected: string[] = [];
+  while (selected.length < Math.min(count, pool.length)) {
+    const totalWeight = pool.reduce((sum, c) => sum + c.weight, 0);
+    let r = Math.random() * totalWeight;
+    let pickIndex = pool.length - 1;
+    for (let i = 0; i < pool.length; i++) {
+      r -= pool[i].weight;
+      if (r <= 0) {
+        pickIndex = i;
+        break;
+      }
+    }
+    selected.push(pool[pickIndex].id);
+    pool.splice(pickIndex, 1);
+  }
+  return selected;
+}
+
+/**
+ * Weighs a set of candidate question ids for THIS user: previously-missed
+ * (by their most recent answer) = 3x, never-attempted = 1.5x,
+ * previously-correct = 1x. Shared by every adaptive session type — topic
+ * practice, Quick Practice, and the Custom Quiz Builder's "prioritize
+ * weaknesses" option.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function weighCandidates(supabase: SupabaseClient<any>, candidateIds: string[]): Promise<Weighted[]> {
+  if (candidateIds.length === 0) return [];
+
+  const { data: pastAnswers } = await supabase
+    .from("attempt_answers")
+    .select("question_id, is_correct, answered_at")
+    .in("question_id", candidateIds)
+    .order("answered_at", { ascending: false });
+
+  const latestOutcome = new Map<string, boolean>();
+  for (const a of pastAnswers ?? []) {
+    if (!latestOutcome.has(a.question_id)) latestOutcome.set(a.question_id, a.is_correct);
+  }
+
+  return candidateIds.map((id) => {
+    const outcome = latestOutcome.get(id);
+    const weight = outcome === undefined ? 1.5 : outcome === false ? 3 : 1;
+    return { id, weight };
+  });
+}
+
+/**
+ * Starts an adaptive practice session for one topic: previously-missed
+ * questions are weighted 3x, never-attempted 1.5x, previously-correct 1x
+ * (see 25_DECISION_LOG.md for why). Unlike startPracticeAttempt, this caps
+ * the session at `count` questions rather than serving the whole topic.
+ */
+export async function startAdaptivePracticeAttempt(topicId: string, count: number) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: candidates } = await supabase
+    .from("student_questions")
+    .select("id")
+    .eq("topic_id", topicId);
+
+  const candidateIds = (candidates ?? []).map((c) => c.id);
+  if (candidateIds.length === 0) {
+    throw new Error("No published questions in this topic yet.");
+  }
+
+  const weighted = await weighCandidates(supabase, candidateIds);
+  const selected = weightedSample(weighted, count);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      topic_id: topicId,
+      total_questions: selected.length,
+      config: { question_ids: selected },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start adaptive practice session");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
+ * Narrows a candidate pool to one of the four Study Preferences practice
+ * modes, using only real, already-existing data sources (get_topic_mastery
+ * for "weak areas", get_mistake_bank for "mistakes", attempt_answers for
+ * "unanswered") — same RPCs the Dashboard/Mistake Bank already use, nothing
+ * new computed just for this. "mixed" is a no-op: it's exactly the existing
+ * missed-weighted selection every other mode also builds on.
+ */
+async function scopeToPracticeMode(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: SupabaseClient<any>,
+  candidates: { id: string; topic_id: string }[],
+  mode: PracticeMode,
+): Promise<string[]> {
+  const allIds = candidates.map((c) => c.id);
+  if (mode === "mixed") return allIds;
+
+  if (mode === "weak_areas") {
+    const { data: masteryRows } = await supabase.rpc("get_topic_mastery");
+    const weakTopicIds = new Set(
+      (masteryRows ?? [])
+        .filter((m: { status: string }) => m.status === "developing" || m.status === "needs_review")
+        .map((m: { topic_id: string }) => m.topic_id),
+    );
+    const scoped = candidates.filter((c) => weakTopicIds.has(c.topic_id)).map((c) => c.id);
+    return scoped.length > 0 ? scoped : allIds;
+  }
+
+  if (mode === "mistakes") {
+    const { data: mistakes } = await supabase.rpc("get_mistake_bank");
+    const mistakeIds = new Set((mistakes ?? []).map((m: { question_id: string }) => m.question_id));
+    const scoped = allIds.filter((id) => mistakeIds.has(id));
+    return scoped.length > 0 ? scoped : allIds;
+  }
+
+  // unanswered
+  const { data: answered } = await supabase
+    .from("attempt_answers")
+    .select("question_id")
+    .in("question_id", allIds);
+  const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+  const scoped = allIds.filter((id) => !answeredIds.has(id));
+  return scoped.length > 0 ? scoped : allIds;
+}
+
+/**
+ * Quick Practice: adaptive session drawn from EVERY published question
+ * (not scoped to one topic) — for students with limited time who just want
+ * "give me N good questions to work on right now." `mode` defaults to the
+ * caller's Study Preferences (Settings) when not passed explicitly; if a
+ * mode's scoped pool is empty (e.g. "Mistakes" with zero current mistakes),
+ * it falls back to the full pool rather than dead-ending the session.
+ */
+export async function startQuickPractice(count: number, mode?: PracticeMode) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const resolvedMode = mode ?? (await getUserSettings(supabase, user.id)).defaultPracticeMode;
+
+  const { data: candidates } = await supabase.from("student_questions").select("id, topic_id");
+  if (!candidates || candidates.length === 0) {
+    throw new Error("No published questions yet.");
+  }
+
+  const candidateIds = await scopeToPracticeMode(supabase, candidates, resolvedMode);
+  const weighted = await weighCandidates(supabase, candidateIds);
+  const selected = weightedSample(weighted, count);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "quick", practice_mode: resolvedMode },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start quick practice session");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+type CustomQuizFilters = {
+  topicIds: string[];
+  difficulties: string[];
+  source: "all" | "incorrect" | "unanswered";
+  count: number;
+};
+
+/**
+ * Custom Quiz Builder: respects the actual available pool — never
+ * duplicates questions to hit the requested count. If fewer questions match
+ * than requested, the session is just built from however many exist and
+ * `adjustedFrom` is returned so the UI can tell the student plainly, rather
+ * than silently serving a shorter quiz.
+ */
+export async function startCustomQuiz(formData: FormData) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const filters: CustomQuizFilters = {
+    topicIds: formData.getAll("topicIds").map(String).filter(Boolean),
+    difficulties: formData.getAll("difficulties").map(String).filter(Boolean),
+    source: (formData.get("source") as CustomQuizFilters["source"]) ?? "all",
+    count: Number(formData.get("count") ?? 20),
+  };
+
+  let query = supabase.from("student_questions").select("id, topic_id, difficulty");
+  if (filters.topicIds.length > 0) query = query.in("topic_id", filters.topicIds);
+  if (filters.difficulties.length > 0) query = query.in("difficulty", filters.difficulties);
+
+  const { data: candidates } = await query;
+  let candidateIds = (candidates ?? []).map((c) => c.id);
+
+  if (filters.source === "incorrect") {
+    const { data: mistakes } = await supabase.rpc("get_mistake_bank");
+    const mistakeIds = new Set((mistakes ?? []).map((m: { question_id: string }) => m.question_id));
+    candidateIds = candidateIds.filter((id) => mistakeIds.has(id));
+  } else if (filters.source === "unanswered") {
+    const { data: answered } = await supabase
+      .from("attempt_answers")
+      .select("question_id")
+      .in("question_id", candidateIds.length ? candidateIds : ["00000000-0000-0000-0000-000000000000"]);
+    const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+    candidateIds = candidateIds.filter((id) => !answeredIds.has(id));
+  }
+
+  if (candidateIds.length === 0) {
+    redirect("/quiz-builder?error=no-match");
+  }
+
+  const weighted = await weighCandidates(supabase, candidateIds);
+  const selected = weightedSample(weighted, filters.count);
+  const adjustedFrom = selected.length < filters.count ? filters.count : null;
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "custom" },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start custom quiz");
+  }
+
+  redirect(adjustedFrom ? `/practice/${attempt.id}?requested=${adjustedFrom}` : `/practice/${attempt.id}`);
+}
+
+/** Starts a practice session against the caller's exact current mistake list. */
+export async function startMistakeRetryAttempt(questionIds: string[]) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  if (questionIds.length === 0) {
+    throw new Error("No mistakes to retry.");
+  }
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: questionIds.length,
+      config: { question_ids: questionIds },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start mistake retry session");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+export async function completePracticeAttempt(attemptId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { count: correctCount } = await supabase
+    .from("attempt_answers")
+    .select("id", { count: "exact", head: true })
+    .eq("attempt_id", attemptId)
+    .eq("is_correct", true);
+
+  const { error } = await supabase
+    .from("attempts")
+    .update({
+      status: "completed",
+      completed_at: new Date().toISOString(),
+      correct_count: correctCount ?? 0,
+    })
+    .eq("id", attemptId)
+    .eq("user_id", user.id);
+
+  if (error) throw new Error(error.message);
+  await supabase.rpc("check_and_award_achievements");
+}
+
+/**
+ * Same adaptive weighting as startAdaptivePracticeAttempt, scoped to a
+ * single subtopic ("concept") rather than a whole topic — the Question
+ * Bank's drill-down practice entry point.
+ */
+export async function startSubtopicPracticeAttempt(subtopicId: string, count: number) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: candidates } = await supabase
+    .from("student_questions")
+    .select("id, topic_id")
+    .eq("subtopic_id", subtopicId);
+
+  const candidateIds = (candidates ?? []).map((c) => c.id);
+  if (candidateIds.length === 0) {
+    throw new Error("No published questions in this concept yet.");
+  }
+
+  const weighted = await weighCandidates(supabase, candidateIds);
+  const selected = weightedSample(weighted, count);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      topic_id: candidates![0].topic_id,
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "concept" },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start concept practice session");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
+ * Question of the Day: deterministically picks the same question for every
+ * user on a given date (hash of the date over the published pool, ordered
+ * by id so it's stable) — no scheduler, no table, no admin step needed.
+ */
+export async function startDailyQuestion() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: candidates } = await supabase.from("student_questions").select("id").order("id");
+  const candidateIds = (candidates ?? []).map((c) => c.id);
+  const questionId = pickDailyQuestionId(candidateIds);
+  if (!questionId) {
+    throw new Error("No published questions yet.");
+  }
+
+  // Reuse today's question if already attempted today (don't start a new
+  // attempt every time the page is visited).
+  const { data: existing } = await supabase
+    .from("attempts")
+    .select("id")
+    .eq("user_id", user.id)
+    .contains("config", { kind: "daily" })
+    .gte("started_at", todayStartIso())
+    .maybeSingle();
+
+  if (existing) {
+    redirect(`/practice/${existing.id}`);
+  }
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: 1,
+      config: { question_ids: [questionId], kind: "daily" },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start today's question");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}

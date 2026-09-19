@@ -1,8 +1,9 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-export type SendMagicLinkResult = { ok: true } | { ok: false; message: string };
+export type SendMagicLinkResult = { ok: true; email: string } | { ok: false; message: string };
 
 export async function sendMagicLink(
   _prev: SendMagicLinkResult | null,
@@ -26,6 +27,7 @@ export async function sendMagicLink(
   });
 
   if (error) {
+    console.error("[sendMagicLink]", error.status, error.message);
     return {
       ok: false,
       message:
@@ -33,5 +35,29 @@ export async function sendMagicLink(
     };
   }
 
-  return { ok: true };
+  return { ok: true, email };
+}
+
+export type VerifyOtpResult = { ok: false; message: string } | null;
+
+export async function verifyOtpCode(
+  _prev: VerifyOtpResult,
+  formData: FormData,
+): Promise<VerifyOtpResult> {
+  const email = String(formData.get("email") ?? "").trim();
+  const token = String(formData.get("token") ?? "").trim();
+
+  if (!token) {
+    return { ok: false, message: "Enter the 6-digit code from your email." };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.verifyOtp({ email, token, type: "email" });
+
+  if (error) {
+    console.error("[verifyOtpCode]", error.status, error.message);
+    return { ok: false, message: "That code didn't work — it may be wrong or expired. Try sending a new one." };
+  }
+
+  redirect("/dashboard");
 }

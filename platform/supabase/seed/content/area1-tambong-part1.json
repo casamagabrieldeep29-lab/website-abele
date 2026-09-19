@@ -1,0 +1,174 @@
+{
+  "_meta": {
+    "source": "ABELE TOP 1/ATTRC/TAMBONG/Area 1/AREA1-2022.pdf",
+    "source_title": "ABE Board Exam Reviewer, Part I — Agricultural Mechanization, Power, Machinery and Equipment and Allied Subjects",
+    "author": "Arthur It. Tambong, FPSAE",
+    "copyright": "Copyright 2022 by Arthur It. Tambong, FPSAE. No part of this ebook may be distributed or modified without the written permission of the author. Private/invite-only use only per 25_DECISION_LOG.md.",
+    "extraction_method": "Manually transcribed by reading rendered page images (poppler pdftoppm) against the source PDF, page by page, not by blind automated text extraction — see 25_DECISION_LOG.md for why.",
+    "extracted_date": "2026-09-18",
+    "status": "draft — not yet spot-checked by a second human reviewer; ready for DB import as status=draft, promote to published after review",
+    "topic_mapping_notes": [
+      "Source topics I-III map directly to official PRC exam area POWER_ENERGY_MACHINERY.",
+      "Source topic IV ('Agricultural Economics and Marketing') is engineering-economy/feasibility content (NPV, IRR, BCR, depreciation, payback period) — mapped to official PRC exam area PROJECT_MGMT_RDE ('Project Management, Feasibility Study Preparation/Evaluation...') rather than POWER_ENERGY_MACHINERY. This is a judgment call, not a verified official classification — flag for admin review.",
+      "Source topic V ('AE Laws...') mapped to official PRC exam area LAWS_ETHICS.",
+      "Source's own weight labels (33% for this whole Part I, with sub-splits like 24%/23%/23%/20%/10%) come from Tambong's personal document and were NOT re-verified against the current official PRC Table of Specifications — do not treat as authoritative; official weights are recorded in 00_MASTER_PROJECT_INSTRUCTIONS.md Section 3 instead."
+    ],
+    "known_source_discrepancies": [
+      "Topic I question 'Jatropha oil expeller crude oil production rate': choice B is printed as '250 kg/min' in the source, but the source's own solution computes 250 kg/h (matching the marked Answer B). Likely a unit typo in the original material. Flagged, not silently corrected — see flag on that question below.",
+      "Topic III difficult question 4 (vermi cast shredder annual waste weight): the source's own worked solution computes 1,075 tonnes/yr, but the source marks 'Answer: C' where choice C = 1,750 tonnes (choice B = 1,075 tonnes). This is an internal inconsistency in the source material itself. Flagged for admin verification before publishing — see flag on that question below."
+    ]
+  },
+  "topics": [
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Power and Tractor Operation",
+      "subtopics": {
+        "GENERAL": "General",
+        "WIND": "Wind Power",
+        "SOLAR": "Solar Power",
+        "HYDRO": "Hydro Power"
+      },
+      "questions": [
+        {"sub": "GENERAL", "diff": "easy", "q": "The time rate of doing work or delivering energy, expressed as the amount of work done W or transferred energy divided by the time elapsed t or computed as W/t.", "choices": ["Force", "Power", "Work", "Energy"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "What is the battery nominal voltage of a 4-wheel 90-hp tractor?", "choices": ["12 Vac", "24 Vdc", "9 Vdc", "12 Vdc"], "answer": 3},
+        {"sub": "GENERAL", "diff": "easy", "q": "The battery of a 24-volt combine harvester needs to be replaced. Two 12-volt batteries are to be used as its replacement. What should be the connection of the batteries?", "choices": ["Series", "Parallel", "Series-Parallel", "Any connection"], "answer": 0},
+        {"sub": "GENERAL", "diff": "easy", "q": "The 12-volt battery of a boom sprayer was drained. A 12-volt battery attached to a vehicle can be used for starting the engine. Jumper wires are available. What should be the connection of the two batteries to facilitate starting?", "choices": ["Series", "Parallel", "Series-Parallel", "Any connection"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "A tractor cannot start due to defective battery. It is being pushed by workers while lever is set to first gear. What should be foot-pressed and released abruptly to start engine?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Accelerator"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "To gradually move a tractor from stop, what should be released while pressing the accelerator?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Lever"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "To roll the tractor set at first gear in a flat land, what should be foot-pressed?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Accelerator"], "answer": 3},
+        {"sub": "GENERAL", "diff": "easy", "q": "To slow down the tractor running at first gear in a flat land, what should be foot-pressed?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Accelerator"], "answer": 1, "explanation": "Clutch is better than clutch and brake since the purpose is only to slow down."},
+        {"sub": "GENERAL", "diff": "easy", "q": "To gradually stop a fast running tractor, what should be foot-pressed?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Accelerator"], "answer": 2},
+        {"sub": "GENERAL", "diff": "easy", "q": "What is the safest gear setting for a descending tractor in a 10% slope?", "choices": ["Neutral", "Third gear", "Second gear", "First gear"], "answer": 3},
+        {"sub": "GENERAL", "diff": "easy", "q": "In a routinary check before using the tractor, what should be checked first?", "choices": ["Fuel", "Water", "Brake", "Oil"], "answer": 2},
+        {"sub": "GENERAL", "diff": "easy", "q": "To roll a tractor from stop and neutral position with engine off in a sloping land, what should be foot-pressed?", "choices": ["Brake", "Clutch", "Clutch and Brake", "Lever"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "The connection to the tractor of an erratic battery is to be stopped quickly. What battery terminal should be disconnected first?", "choices": ["Positive", "Negative", "Both terminals", "Any terminal"], "answer": 0},
+        {"sub": "GENERAL", "diff": "easy", "q": "A new battery is to be installed to a tractor. What battery terminal should be connected first?", "choices": ["Positive", "Negative", "Both terminals", "Any terminal"], "answer": 1},
+        {"sub": "GENERAL", "diff": "easy", "q": "The battery drains while tractor is not in use. What battery terminal should be disconnected when tractor is not in use?", "choices": ["Positive", "Negative", "Both terminals", "Any terminal"], "answer": 0},
+        {"sub": "GENERAL", "diff": "easy", "q": "What kind of hitch is best for a non-hydraulic disk plow?", "choices": ["1-point hitch", "2-point hitch", "3-point hitch", "4-point hitch"], "answer": 2},
+        {"sub": "GENERAL", "diff": "easy", "q": "What kind of hitch is best for a tractor trailer?", "choices": ["1-point hitch", "2-point hitch", "3-point hitch", "4-point hitch"], "answer": 0},
+        {"sub": "GENERAL", "diff": "easy", "q": "A 24-volt battery of a pineapple harvesting conveyor needs to be charged on field using 12-volt solar modules. What is the minimum number of solar modules required?", "choices": ["One", "Two", "Three", "Four"], "answer": 1, "explanation": "Minimum no. of modules = No. of solar modules in series = 24v/12v = 2 modules"},
+        {"sub": "GENERAL", "diff": "easy", "q": "A 12-volt battery of a boom sprayer needs to be charged on field using 6-volt solar modules with 2 modules in parallel to speed up charging. How many solar modules are required?", "choices": ["Two", "Four", "Six", "Eight"], "answer": 1, "explanation": "No. of solar modules in series = 12v/6v = 2 modules. Total no. of solar modules = Modules in series x Modules in parallel = 2x2 = 4 modules"},
+        {"sub": "GENERAL", "diff": "moderate", "q": "What is the actual horsepower of a tractor which can do 149.2 kw-hrs of work in 2 hours?", "choices": ["74.6 hp", "57.5 hp", "100 hp", "105 hp"], "answer": 2, "explanation": "P = W/t x conversion factor = 149.2 kw-hrs/2hrs x 1 hp/0.746 kw = 100 hp"},
+        {"sub": "GENERAL", "diff": "moderate", "q": "What is the electrical energy consumption of a 30-kw vermin cast production shredder plugged in a 220-volt source if it requires 3 hours to shred 3 tonnes of farm waste?", "choices": ["0.02 kwh/kg", "0.03 kwh/kg", "0.05 kwh/kg", "0.08 kwh/kg"], "answer": 1, "explanation": "Ec = PcTo / Wi = 30 kw (3 h) / 3,000 kg = 0.03 kwh/kg"},
+
+        {"sub": "WIND", "diff": "easy", "q": "In an aerogenerator exceeding 100 kw capacity, which part is responsible in converting rotational movement to electricity?", "choices": ["Rotor", "Turbine", "Alternator", "Governor"], "answer": 2},
+        {"sub": "WIND", "diff": "easy", "q": "What component of force is used in multi-bladed windmills?", "choices": ["Lift force", "Drag force", "Side force", "Drop force"], "answer": 0},
+        {"sub": "WIND", "diff": "easy", "q": "What component of force is used in savonius windmills?", "choices": ["Lift force", "Drag force", "Side force", "Drop force"], "answer": 1},
+        {"sub": "WIND", "diff": "easy", "q": "The type of pump is appropriate for multi-bladed windmills.", "choices": ["Hydraulic", "Pneumatic", "Reciprocating", "Diaphragm"], "answer": 2},
+        {"sub": "WIND", "diff": "easy", "q": "While the windmill is in operation, what efficiency can exceed 100%?", "choices": ["Volumetric", "Transmission", "Rotor", "All of the above"], "answer": 0},
+        {"sub": "WIND", "diff": "easy", "q": "What wind energy resource is located about 10-16 km from Earth surface with velocity over 150 kph?", "choices": ["Terrestrial wind", "Extra-terrestrial wind", "Jet stream", "High wind"], "answer": 2},
+        {"sub": "WIND", "diff": "easy", "q": "In multi-bladed windpumps, which part is responsible in converting rotational movement to reciprocating action?", "choices": ["Rotor", "Connecting rod", "Reciprocating pump", "Crank arm"], "answer": 1},
+        {"sub": "WIND", "diff": "easy", "q": "What tail type of multi-bladed windpump is more effective for windy areas?", "choices": ["Hinged side vane", "Ecliptic", "Manual folding", "No tail"], "answer": 0},
+        {"sub": "WIND", "diff": "moderate", "q": "In wind farm development, which should be done first?", "choices": ["Rotor", "Energy demand survey", "Transmission", "Wind velocity measurement"], "answer": 3},
+        {"sub": "WIND", "diff": "moderate", "q": "In multi-bladed windpump manufacturing, which should be done first?", "choices": ["Rotor blade", "Rotor frame", "Tower", "Jig"], "answer": 3},
+        {"sub": "WIND", "diff": "moderate", "q": "To have bigger water displacement volume in windpumps, which should be increased?", "choices": ["Connecting rod length", "Rotor diameter", "Crank arm", "Well diameter"], "answer": 2},
+        {"sub": "WIND", "diff": "moderate", "q": "In windmill design, what should be the average rotor blade twist angle in degrees to have a tip speed ratio of 1:1?", "choices": ["30", "45", "60", "75"], "answer": 1},
+        {"sub": "WIND", "diff": "moderate", "q": "If typical overall efficiency of savonius windmills is 7-10%, what is the typical overall efficiency of aerogenerators?", "choices": ["7-10%", "15-17%", "18-21%", "90-95%"], "answer": 3},
+        {"sub": "WIND", "diff": "difficult", "q": "If a multi-bladed windpump has a tip-speed ratio of 1:1, what windspeed is needed to have its rotor tip move at 3.2 m/s?", "choices": ["1 m/s", "3 m/s", "1 ft/s", "3 ft/s"], "answer": 1, "explanation": "Windspeed = tip speed, since tip-speed ratio is 1:1 = 3.2 m/s"},
+
+        {"sub": "SOLAR", "diff": "easy", "q": "Which battery is designed for slow charging and slow discharging?", "choices": ["Maintenance-free battery", "Automotive battery", "Solar battery", "All of the above"], "answer": 2},
+        {"sub": "SOLAR", "diff": "easy", "q": "Kind of battery useful in solar-powered energy systems.", "choices": ["Lead-acid battery", "Automotive battery", "Solar battery", "All of the above"], "answer": 3},
+        {"sub": "SOLAR", "diff": "easy", "q": "Material used in solar cells.", "choices": ["Silicon", "Boron", "Equal silicon and boron", "Silicon with little boron"], "answer": 3},
+        {"sub": "SOLAR", "diff": "moderate", "q": "In a sunny 12:00 noon in the Philippines, what is the likely voltage reading of solar pump without battery when load is in turned on?", "choices": ["20-22 V", "16-19 V", "14-15 V", "11-13 V"], "answer": 1},
+        {"sub": "SOLAR", "diff": "moderate", "q": "In a sunny 12:00 noon in the Philippines, what is the likely voltage reading of solar battery charger when no battery is being charged?", "choices": ["20-22 V", "16-19 V", "14-15 V", "11-13 V"], "answer": 0},
+        {"sub": "SOLAR", "diff": "moderate", "q": "At 8:00 P.M. in the Philippines, what is the likely voltage reading of a solar home system when all loads are turned on?", "choices": ["20-22 V", "16-19 V", "14-15 V", "11-13 V"], "answer": 3},
+        {"sub": "SOLAR", "diff": "difficult", "q": "In solar panel installation, which positive polarity wire should be connected last to the battery control unit?", "choices": ["Solar module", "Load", "Battery", "Monitor"], "answer": 2},
+        {"sub": "SOLAR", "diff": "difficult", "q": "If a coconut tree shades half of solar module, which condition is true?", "choices": ["Zero voltage", "Low voltage", "Zero amperage", "Low amperage"], "answer": 3},
+
+        {"sub": "HYDRO", "diff": "easy", "q": "A 260 kw hydro power plant is classified as", "choices": ["Microhydro", "Minihydro", "Small hydro", "Big hydro"], "answer": 1},
+        {"sub": "HYDRO", "diff": "easy", "q": "Under Philippine classification, what is the maximum power rating for microhydro?", "choices": ["25 kw", "50 kw", "75 kw", "100 kw"], "answer": 3}
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Management, Extension and Marketing",
+      "questions": [
+        {"diff": "easy", "q": "Refers to machines collectively.", "choices": ["Equipment", "Tools", "Machinery", "Machineries"], "answer": 2},
+        {"diff": "easy", "q": "The process of dealing with or controlling things.", "choices": ["Management", "Managing", "Supervising", "Administering"], "answer": 0},
+        {"diff": "easy", "q": "The action of promoting and selling products or services, including market research and advertising.", "choices": ["Certifying", "Marketing", "Endorsing", "Recommending"], "answer": 1}
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "questions": [
+        {"diff": "easy", "q": "Which one is a part of a vertical feed mixer?", "choices": ["Screw", "Hopper", "Discharge chute", "All of the above"], "answer": 3},
+        {"diff": "easy", "q": "A feed mixer tested to have mixing coefficient of variation of 10-15% is rated as", "choices": ["Poor", "Fair", "Good", "Very good"], "answer": 2},
+        {"diff": "easy", "q": "As a standard, stripping efficiency of the mechanized stripping machine shall be at least", "choices": ["70%", "80%", "85%", "90%"], "answer": 1},
+        {"diff": "moderate", "q": "A 6-bladed windmill with 8 meters rotor diameter and 45 degrees twist angle is to be modified due to insufficient starting torque. What should be done?", "choices": ["Increase blades", "Decrease blades", "Increase twist angle", "Decrease twist angle"], "answer": 0, "explanation": "Increasing blades increases torque."},
+        {"diff": "moderate", "q": "A windmill with 6 meters rotor diameter, 5 cm pump diameter and 2 cm crank arm is to be modified due to low volumetric efficiency. What should be done?", "choices": ["Enlarge rotor", "Reduce rotor", "Elongate crank arm", "Enlarge pump diameter"], "answer": 2, "explanation": "Elongating crank arm increases pump stroke and volumetric efficiency."},
+        {"diff": "moderate", "q": "A 3-bladed 40-meter tall aerogenerator with 20 meters rotor radius designed for 6 m/s wind can't rotate. Average windspeed at rotor center is 5.5 m/s. Which part needs to be increased?", "choices": ["Number of blades", "Rotor radius", "Crank arm", "Tower height"], "answer": 3, "explanation": "Windspeed is higher at higher elevation; increasing rotor radius will severely affect twist angle of entire blade & tip-speed ratio; aerogenerators have no crank arm."},
+        {"diff": "difficult", "q": "A 2-tonne capacity Jatropha oil expeller was loaded full with dried Jatropha seeds in 3 minutes. It produced 750 kg of crude oil in 3 hours. What is its crude oil production rate?", "choices": ["300 kg/h", "250 kg/min", "600 kg/h", "600 kg/min"], "answer": 1, "explanation": "Poil = Weight of crude oil collected / Total time = 750 kg / 3 h = 250 kg/h", "flag": "Source prints choice B's unit as 'kg/min' but the source's own solution computes 250 kg/h, matching the marked answer. Likely a unit typo in the original material — verify before publishing."},
+        {"diff": "difficult", "q": "A castor bean oil expeller was loaded with 4.5 tonnes dried castor bean seeds. It produced 2,250 kg of crude oil in 4 hours. What is its castor bean cake production rate?", "choices": ["653 kg/h", "563 kg/h", "365 kg/h", "635 kg/h"], "answer": 1, "explanation": "Pcake = Weight of resulting cake produced / Total time = (4,500 kg seed - 2,250 kg oil) / 4 h = 562.5 kg/h"},
+        {"diff": "difficult", "q": "A 10-tonne capacity coconut oil expeller was loaded full with grated copra. It produced 5,000 kg of crude oil in 10 hours. What is the copra cake production rate of the machine at 95% cake collection efficiency?", "choices": ["745 kg/h", "475 kg/h", "547 kg/h", "574 kg/h"], "answer": 1, "explanation": "Pcake = [(Wt. of copra input - Wt. of crude oil collected) / Total time] x Eff = [(10,000 kg - 5,000 kg) / 10 h] x 0.95 = 475 kg/h"},
+        {"diff": "difficult", "q": "What is the weight of agricultural waste that is needed annually to optimally operate a 26-ampere 6-kw vermi cast production shredder having a capacity of 0.3 tonne of waste per hour? It optimally operates 16 hours daily during the 4-month peak sunny months and 8 h/day at 26 days/month for the rest of the year.", "choices": ["1,057 tonnes", "1,075 tonnes", "1,750 tonnes", "175 tonnes"], "answer": 1, "explanation": "Wt = Input Rate x (Peak Operating Time + Lean Operating Time) = [0.3 tonne/h][(16 h/d x 30 d/mo x 4 mo/yr) + (8 h/d x 26 d/mo x 8 mos/yr)] = 1,075 tonnes/yr. [CORRECTED after review: the source material marked choice C (1,750 tonnes) as the answer, but its own worked solution computes 1,075 tonnes (choice B). Reviewed and corrected by Gabriel on 2026-09-18 — 1,075 tonnes (B) is the verified correct answer.]"}
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "questions": [
+        {"diff": "easy", "q": "The benefits to society regardless of who in the society receives the benefits.", "choices": ["Financial benefit", "Economic benefit", "Revenue", "Sales"], "answer": 1},
+        {"diff": "easy", "q": "Benefits less costs excluding depreciation.", "choices": ["Profit", "Net benefit", "Cash flow", "Economic benefits"], "answer": 2},
+        {"diff": "easy", "q": "Which one is a one-time expense?", "choices": ["Investment", "Single cost", "One-time cost", "Operating cost"], "answer": 0},
+        {"diff": "easy", "q": "Annually recurring cost.", "choices": ["Investment", "Operating cost", "Contingency", "Operating capital"], "answer": 1},
+        {"diff": "easy", "q": "Land is an example of", "choices": ["Investment", "Operating cost", "Contingency", "Operating capital"], "answer": 0},
+        {"diff": "easy", "q": "Manager's salary is an example of", "choices": ["Investment", "Operating cost", "Maintenance cost", "Operating capital"], "answer": 1},
+        {"diff": "easy", "q": "The cash component of investment.", "choices": ["Cash investment", "Operating cost", "Contingency", "Operating capital"], "answer": 3},
+        {"diff": "easy", "q": "Contingency is normally what percentage of investment cost?", "choices": ["5%", "10%", "15%", "20%"], "answer": 1},
+        {"diff": "easy", "q": "The scrap value of a property?", "choices": ["Salvage value", "Economic value", "Book value", "End value"], "answer": 0},
+        {"diff": "easy", "q": "What is market price deducted by tax.", "choices": ["Discounted price", "Taxed price", "Shadow price", "Economic price"], "answer": 2},
+        {"diff": "easy", "q": "The equivalent value of a property at any given year.", "choices": ["Salvage value", "Economic value", "Book value", "End value"], "answer": 2},
+        {"diff": "easy", "q": "Using simplest computation method, what is the annual depreciation of a tractor purchased at Php 2,500,000 if its life span is assumed at 8 years? Salvage value is 10%.", "choices": ["Php 218,250", "Php 281,250", "Php 821,250", "Php 250,281"], "answer": 1, "explanation": "Depreciation = (Php2,500,000 - Php250,000) / 8 years = Php 281,250/year"},
+        {"diff": "easy", "q": "What feasibility indicator is best for determining how fast the project recovers the investment?", "choices": ["NPV", "IRR", "BCR", "Payback period"], "answer": 3},
+        {"diff": "easy", "q": "What feasibility indicator is best for determining how much can you gain from a certain project?", "choices": ["NPV", "IRR", "BCR", "Payback period"], "answer": 0},
+        {"diff": "easy", "q": "What feasibility indicator is normally compared to bank's interest rate?", "choices": ["NPV", "IRR", "BCR", "Payback period"], "answer": 1},
+        {"diff": "easy", "q": "Which among the feasibility indicators is best for determining project performance?", "choices": ["NPV", "IRR", "BCR", "Payback period"], "answer": 0},
+        {"diff": "easy", "q": "What analysis is done to determine the degree of project feasibility at various scenarios?", "choices": ["Financial analysis", "Economic analysis", "Risk analysis", "Sensitivity analysis"], "answer": 3},
+        {"diff": "easy", "q": "What feasibility analysis uses shadow prices?", "choices": ["Financial analysis", "Economic analysis", "Risk analysis", "Sensitivity analysis"], "answer": 1},
+        {"diff": "easy", "q": "What feasibility analysis uses market prices?", "choices": ["Financial analysis", "Economic analysis", "Risk analysis", "Sensitivity analysis"], "answer": 0},
+        {"diff": "easy", "q": "Which situation is better and attainable for a good economy?", "choices": ["High discount rate", "Low discount rate", "Fast discount rate", "No discount rate"], "answer": 1},
+        {"diff": "easy", "q": "The normal combined discount and inflation rate of the Philippines.", "choices": ["2-4%", "5-7%", "8-12%", "16-20%"], "answer": 2},
+        {"diff": "easy", "q": "The discounted cash flow at project start is always equal to ____.", "choices": ["Zero", "Net benefit", "Net profit", "Net cash flow"], "answer": 3},
+        {"diff": "easy", "q": "The price at which there is no loss or gain.", "choices": ["Discounted price", "Optimum price", "Minimum price", "Break-even price"], "answer": 3},
+        {"diff": "moderate", "q": "The discount rate when the Net Present Value is zero.", "choices": ["Break-even rate", "IRR", "BCR", "ROI"], "answer": 1},
+        {"diff": "moderate", "q": "What is the effect of increasing inflation rate to discounted cash flow at project start?", "choices": ["Increases", "Decreases", "Fluctuates", "None"], "answer": 3},
+        {"diff": "moderate", "q": "What is the effect of increasing discount rate to discounted cash flow at year 10 of the project?", "choices": ["Increases", "Decreases", "Fluctuates", "None"], "answer": 1},
+        {"diff": "moderate", "q": "Which one is true when discount rate increases?", "choices": ["NPV increases", "NPV decreases", "Risk decreases", "Capital reduces"], "answer": 1},
+        {"diff": "moderate", "q": "At project start, the net cash flow of the cassava processing venture is -7 million pesos due to loan and revenue is not materialized yet. Discount rate is 10%. What is the value of the discounted cash flow in million pesos at project start?", "choices": ["7", "-7", "-7.07", "-7.7"], "answer": 1, "explanation": "At project start or time=0, the discounted cash flow is also equal to the net cash flow."},
+        {"diff": "difficult", "q": "Using financial feasibility analysis, the Net Present Values (NPVs) of farm-to-market road, irrigation and flood control projects are 22.5, 7.5 and -3.1 million pesos, while the Internal Rate of Returns (IRRs) are 15%, 7% and 2.1%, respectively. Annual discount plus inflation rate is 10%. Which project shall be implemented?", "choices": ["Farm-to-market road", "Irrigation", "Flood control", "None"], "answer": 0, "explanation": "Only the Farm-to-Market road project has IRR higher than discount plus inflation rate."},
+        {"diff": "difficult", "q": "Using straight line depreciation method, what is the book value at the end of the third year of a tractor purchased at Php 2,500,000 if its life span is assumed at 10 years? Salvage value is 10%.", "choices": ["Php1,285,000", "Php1,582,000", "Php1,825,000", "Php1,852,000"], "answer": 2, "explanation": "Depreciation = (Php2,500,000 - Php250,000) / 10 years = Php 225,000/year. Book value = Purchase price - total depreciations = Php2,500,000 - (Php225,000/yr x 3yrs) = P1,825,000"},
+        {"diff": "difficult", "q": "Using economic feasibility analysis, the Net Present Values (NPVs) of small water impounding project (SWIP), shallow tubewell, small scale irrigation project (SSIP) are -0.5, -0.9 and 0 million pesos, respectively. The proposed projects are owned by the government. Which project is economically feasible?", "choices": ["None", "SWIP", "Shallow tube well", "SSIP"], "answer": 3, "explanation": "In economic analysis, NPV of 0 is feasible since it has economic benefits even if it is just break-even."},
+        {"diff": "difficult", "q": "Microhydro, solar electrification and covered lagoon biodigester projects are evaluated for financial feasibility. Each requires PHP 20,000,000 investment. Only one project can be funded. The financial internal rates of return are 15%, 9% and 8%, respectively. Annual discount plus inflation rate is 10%. Which project shall be implemented?", "choices": ["Covered lagoon biodigester", "Microhydro", "Solar electrification", "None"], "answer": 1, "explanation": "Its IRR is higher than discount plus inflation rate."},
+        {"diff": "difficult", "q": "A banana production and export project is being evaluated for financial feasibility. At 12% annual discount rate, it has the following feasibility indicators: net present value of 1.8 billion pesos and internal rate of return of 58%. If annual discount rate drops to 9%, will it be feasible?", "choices": ["No", "Yes", "Maybe", "Insufficient data to determine"], "answer": 1, "explanation": "If it is feasible at 12% discount rate, the more it will be feasible at 9%."}
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "AE Laws, Professional Ethics, Engineering Contracts, Specifications and Legal Documents",
+      "questions": [
+        {"diff": "easy", "q": "In what year was the Implementing Rules and Regulations (IRR) of the Philippine Agricultural and Biosystems Engineering Act of 2016 approved?", "choices": ["2016", "2018", "2020", "2022"], "answer": 3},
+        {"diff": "easy", "q": "What law is known as the Philippine Agricultural and Biosystems Engineering Act of 2016?", "choices": ["RA 9513", "RA 10601", "RA 10915", "RA 9736"], "answer": 2},
+        {"diff": "easy", "q": "Agricultural and Biosystems Engineering refers to the application of ________ and designs to the processes and systems involved in the sustainable production, post production and processing of safe food, feed, fiber, timber and other agricultural and biological materials and the efficient utilization, conservation, and management of natural and renewable resources in order to enhance human health in harmony with the environment.", "choices": ["Agriculture", "Engineering", "Science", "Engineering science"], "answer": 3},
+        {"diff": "easy", "q": "In ABE law, agricultural and biosystems consist of crops, forestry and other plants, poultry, livestock, fisheries and _____ resources and other animals, wildlife and other living things.", "choices": ["Agriculture", "Aquaculture", "Farm", "Land"], "answer": 1},
+        {"diff": "easy", "q": "Agricultural and Biosystems Engineer refers to a person who is registered and licensed to practice agricultural and biosystems engineering in the country and who holds a ________ and professional identification card from the Board of Agricultural and Biosystems Engineering and the PRC.", "choices": ["Degree", "BSABE degree", "Experience", "Valid certificate of registration"], "answer": 3},
+        {"diff": "easy", "q": "Agricultural and Biosystems Automation and Instrumentation refers to the use and application of agricultural and biosystems ________.", "choices": ["Circuits", "Instruments", "Sensors", "Integrated circuits"], "answer": 2},
+        {"diff": "easy", "q": "Agricultural and Biosystems Resource Conservation and Management refers to measures of conservation and proper management of agricultural and _______ resources.", "choices": ["Biological", "Zoological", "Farm", "Water"], "answer": 0},
+        {"diff": "easy", "q": "In RA 10915, agricultural and _________ refers to local activity or series of activities to maintain or raise the quality or change the form or characteristics of agricultural, fishery, forestry and biological products/materials.", "choices": ["Quality control", "Forestry", "Bio-processing", "Fishery"], "answer": 2},
+        {"diff": "easy", "q": "Agricultural and _______ System refers to utilization of information systems, database, and other information management tools for agricultural use, biological systems modeling to understand the mutual response between life and the environment.", "choices": ["Computer", "Geographic Information", "Modeling", "Bio-information"], "answer": 3},
+        {"diff": "easy", "q": "Agricultural and Biosystems Power and Machinery refers to farm power and machinery for the production, harvesting, processing, storage, manufacture, preserving, transporting and _____ of agricultural and biological products/materials.", "choices": ["Distribution", "Quality control", "Marketing", "Sales"], "answer": 0},
+        {"diff": "easy", "q": "Agricultural and Biosystems Buildings and Structures refer to buildings and structures for the production, harvesting, processing, storage, ______, preserving, transporting and distribution of agricultural and biological products/materials.", "choices": ["Treatment", "Manufacture", "Quality control", "Sales"], "answer": 1},
+        {"diff": "easy", "q": "In Section 36 or ABE law, the existing Philippine Agricultural Engineering Standards (PAES) shall be transformed into a Philippine Agricultural and Biosystems Engineering Standards and shall serve as Code of ______ Standards.", "choices": ["AE", "ABE", "Technical", "Engineering"], "answer": 2},
+        {"diff": "easy", "q": "The ____ earned by the professional shall be required in the renewal of professional license.", "choices": ["Degree", "BSAE degree", "BSABE degree", "CPD credit units"], "answer": 3},
+        {"diff": "easy", "q": "Any person who violates any of the provisions of RA 10915, upon conviction, shall be penalized by a fine of not less than P100,000 but not more than ___, or imprisonment of not less than 6 months but not more than 5 years, or both fine and imprisonment, at the court discretion.", "choices": ["P200,000", "P300,000", "P400,000", "P500,000"], "answer": 3},
+        {"diff": "easy", "q": "In Section 17 of RA 10915, which one is not a scope of Land and Water Resources Engineering?", "choices": ["Irrigation", "Soil and water", "Aquaculture", "Meteorology"], "answer": 3},
+        {"diff": "easy", "q": "Which republic act is known as the Philippine Agri-Fishery Mechanization Law?", "choices": ["RA 9513", "RA 10915", "RA 10601", "RA 9736"], "answer": 2},
+        {"diff": "easy", "q": "Under RA 10915, which one is not under the scope of Land and Water Resources Engineering?", "choices": ["Irrigation", "Soil and water", "Aquaculture", "Meteorology"], "answer": 3, "flag": "Source repeats the same question (and answer) as the 'Section 17' item above almost verbatim — kept as a separate item since it appears twice in the source, but note it's a duplicate for review purposes (could indicate the reviewer intended emphasis, or a copy-paste duplication in the original)."},
+        {"diff": "easy", "q": "Under Washington Accord, an Agricultural and Biosystems Engineer who passed licensure examination in the Philippines can practice his/her profession in another Washington Accord member country.", "choices": ["Yes", "No", "Indeterminate", "Insufficient data to determine"], "answer": 0},
+        {"diff": "easy", "q": "In Washington Accord, the contract of ABE services signed in the Philippines is valid in another Washington Accord member country.", "choices": ["Yes", "No", "Indeterminate", "Insufficient data to determine"], "answer": 1},
+        {"diff": "easy", "q": "As provided in Article V Section 20 of AFMech Law, all agricultural and fisheries machinery manufacturers, fabricators, assemblers, and importers must register with the __________.", "choices": ["BAFE", "AMTEC", "DTI", "LTO"], "answer": 0},
+        {"diff": "easy", "q": "As provided in Article VI Section 27 of AFMech Law, the ___________ is designated as the premier and reference testing center in the country for agricultural and fisheries machinery.", "choices": ["BAFE", "AMTEC", "IPO Philippines", "BAFS"], "answer": 1}
+      ]
+    }
+  ]
+}

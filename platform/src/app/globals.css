@@ -7,7 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -39,6 +39,10 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,73 +52,90 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * ABELIEVER brand palette (light). Deep teal is the primary brand/action
+ * color; warm gold is a deliberately scarce accent reserved for
+ * achievements/streaks/milestones — it is NOT wired into the generic
+ * `accent` token (that stays a neutral teal-tinted hover/selected wash) so
+ * gold can't leak into every hover state across the app. `success` is its
+ * own token, separate from `primary`, so "correct answer" reads as a true
+ * green rather than the brand teal.
+ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.448 0.119 151.328);
-  --primary-foreground: oklch(0.982 0.018 155.826);
-  --secondary: oklch(0.962 0.044 156.743);
-  --secondary-foreground: oklch(0.393 0.095 152.535);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.925 0.084 155.995);
-  --accent-foreground: oklch(0.393 0.095 152.535);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.627 0.194 149.214);
-  --chart-1: oklch(0.527 0.154 150.069);
-  --chart-2: oklch(0.723 0.219 149.579);
-  --chart-3: oklch(0.6 0.08 60);
-  --chart-4: oklch(0.55 0.1 240);
-  --chart-5: oklch(0.393 0.095 152.535);
+  --background: #f8f9f7;
+  --foreground: #172121;
+  --card: #ffffff;
+  --card-foreground: #172121;
+  --popover: #ffffff;
+  --popover-foreground: #172121;
+  --primary: #0f5b5a;
+  --primary-foreground: #ffffff;
+  --secondary: #e4f1f0;
+  --secondary-foreground: #0a4141;
+  --muted: #eff2f1;
+  --muted-foreground: #657272;
+  --accent: #e4f1f0;
+  --accent-foreground: #0a4141;
+  --destructive: #c94a4a;
+  --success: #2f7d5a;
+  --success-foreground: #ffffff;
+  --gold: #d9a441;
+  --gold-foreground: #172121;
+  --border: #dde4e2;
+  --input: #dde4e2;
+  --ring: #0f5b5a;
+  --chart-1: #0f5b5a;
+  --chart-2: #2f7d5a;
+  --chart-3: #d9a441;
+  --chart-4: #657272;
+  --chart-5: #0a4141;
   --radius: 0.625rem;
-  --sidebar: oklch(0.982 0.018 155.826);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.448 0.119 151.328);
-  --sidebar-primary-foreground: oklch(0.982 0.018 155.826);
-  --sidebar-accent: oklch(0.925 0.084 155.995);
-  --sidebar-accent-foreground: oklch(0.393 0.095 152.535);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.627 0.194 149.214);
+  --sidebar: #0a4141;
+  --sidebar-foreground: #f8f9f7;
+  --sidebar-primary: #0f5b5a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #0f5b5a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #55aaa6;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.723 0.219 149.579);
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0.03 152 / 40%);
-  --accent-foreground: oklch(0.925 0.084 155.995);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.627 0.194 149.214);
-  --chart-1: oklch(0.723 0.219 149.579);
-  --chart-2: oklch(0.527 0.154 150.069);
-  --chart-3: oklch(0.65 0.1 60);
-  --chart-4: oklch(0.62 0.1 240);
-  --chart-5: oklch(0.871 0.15 154.449);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.723 0.219 149.579);
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: oklch(0.269 0.03 152 / 40%);
-  --sidebar-accent-foreground: oklch(0.925 0.084 155.995);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.627 0.194 149.214);
+  --background: #0d1717;
+  --foreground: #edf3f1;
+  --card: #142222;
+  --card-foreground: #edf3f1;
+  --popover: #142222;
+  --popover-foreground: #edf3f1;
+  --primary: #55aaa6;
+  --primary-foreground: #0d1717;
+  --secondary: #183c3b;
+  --secondary-foreground: #edf3f1;
+  --muted: #1a2b2b;
+  --muted-foreground: #a8b7b5;
+  --accent: #183c3b;
+  --accent-foreground: #edf3f1;
+  --destructive: #dd6b6b;
+  --success: #4ca57b;
+  --success-foreground: #0d1717;
+  --gold: #e0b45a;
+  --gold-foreground: #0d1717;
+  --border: #29403f;
+  --input: #29403f;
+  --ring: #55aaa6;
+  --chart-1: #55aaa6;
+  --chart-2: #4ca57b;
+  --chart-3: #e0b45a;
+  --chart-4: #a8b7b5;
+  --chart-5: #3f8f8b;
+  --sidebar: #1a2b2b;
+  --sidebar-foreground: #edf3f1;
+  --sidebar-primary: #55aaa6;
+  --sidebar-primary-foreground: #0d1717;
+  --sidebar-accent: #29403f;
+  --sidebar-accent-foreground: #edf3f1;
+  --sidebar-border: #29403f;
+  --sidebar-ring: #55aaa6;
 }
 
 @layer base {
