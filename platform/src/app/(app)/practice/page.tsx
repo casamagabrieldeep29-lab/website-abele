@@ -1,11 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { startPracticeAttempt } from "@/app/practice/actions";
-import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import { PageHeader } from "@/components/page-header";
+import { PracticeAreaTabs, type PracticeTopic } from "./practice-area-tabs";
+import type { MockArea } from "@/app/mock/actions";
 
 export default async function PracticePage() {
   const supabase = await createClient();
@@ -15,7 +12,7 @@ export default async function PracticePage() {
   // PostgREST can't embed through a view via a topics(...) join, so fetch
   // topics and published-question counts separately and merge in JS.
   const [{ data: topics }, { data: publishedQuestions }] = await Promise.all([
-    supabase.from("topics").select("id, name, exam_areas(name)").order("name"),
+    supabase.from("topics").select("id, name, mock_area, exam_areas(name)").order("name"),
     supabase.from("student_questions").select("id, topic_id"),
   ]);
 
@@ -24,6 +21,14 @@ export default async function PracticePage() {
     countByTopic.set(q.topic_id, (countByTopic.get(q.topic_id) ?? 0) + 1);
   }
 
+  const practiceTopics: PracticeTopic[] = (topics ?? []).map((topic) => ({
+    id: topic.id,
+    name: topic.name,
+    mockArea: topic.mock_area as MockArea,
+    examAreaName: (topic.exam_areas as unknown as { name: string } | null)?.name ?? null,
+    questionCount: countByTopic.get(topic.id) ?? 0,
+  }));
+
   return (
     <div className="mx-auto max-w-3xl">
       <PageHeader
@@ -31,38 +36,11 @@ export default async function PracticePage() {
         description="Pick a topic. Questions are answered one at a time with immediate feedback."
       />
 
-      <div className="mt-6 space-y-3">
-        {topics?.map((topic) => {
-          const count = countByTopic.get(topic.id) ?? 0;
-          const examAreaName = (topic.exam_areas as unknown as { name: string } | null)?.name;
-          const accent = getHarmonizedAccent(examAreaName ?? topic.name);
+      <div className="mt-6">
+        <PracticeAreaTabs topics={practiceTopics} />
 
-          return (
-            <Card key={topic.id} className={`border-l-4 ${accent.border} ${accent.bg}`}>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle>{topic.name}</CardTitle>
-                    <CardDescription>{examAreaName}</CardDescription>
-                  </div>
-                  <Badge className={count > 0 ? accent.badge : undefined} variant={count > 0 ? undefined : "secondary"}>
-                    {count} question{count === 1 ? "" : "s"}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <form action={startPracticeAttempt.bind(null, topic.id)}>
-                  <Button type="submit" disabled={count === 0} className="w-full">
-                    {count === 0 ? "No published questions yet" : "Start practicing"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          );
-        })}
-
-        {!topics?.length && (
-          <p className="text-sm text-muted-foreground">No topics yet.</p>
+        {!practiceTopics.length && (
+          <p className="mt-3 text-sm text-muted-foreground">No topics yet.</p>
         )}
       </div>
     </div>
