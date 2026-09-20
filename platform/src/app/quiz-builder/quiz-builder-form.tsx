@@ -3,8 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { startCustomQuiz } from "../practice/actions";
 import { QuestionCountPicker } from "./question-count-picker";
-
-type TopicOption = { id: string; name: string; examAreaName: string };
+import { TopicPicker, type TopicPickerArea } from "./topic-picker";
 
 const DIFFICULTIES = [
   { value: "easy", label: "Easy" },
@@ -25,10 +24,10 @@ const SOURCES = [
 ];
 
 export function QuizBuilderForm({
-  topics,
+  areas,
   showNoMatchError,
 }: {
-  topics: TopicOption[];
+  areas: TopicPickerArea[];
   showNoMatchError: boolean;
 }) {
   return (
@@ -39,14 +38,7 @@ export function QuizBuilderForm({
             <legend className="text-sm font-medium">
               Topics <span className="text-muted-foreground">(leave all unchecked for every topic)</span>
             </legend>
-            <div className="space-y-1.5">
-              {topics.map((t) => (
-                <label key={t.id} className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" name="topicIds" value={t.id} className="h-4 w-4 rounded border-border" />
-                  {t.name} <span className="text-muted-foreground">({t.examAreaName})</span>
-                </label>
-              ))}
-            </div>
+            <TopicPicker areas={areas} />
           </fieldset>
 
           <fieldset className="space-y-2">
