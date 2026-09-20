@@ -250,10 +250,13 @@
  * Whole-site background photo — Ocean/Forest only. Applied to <body> in the
  * root layout, so it's mounted once and persists across every client-side
  * navigation between pages/tabs (Next.js never remounts the root layout on
- * route changes) with zero extra work. `fixed` keeps it from scrolling with
- * page content. A dark scrim is baked into the same background-image stack
- * (on top of the photo, under nothing) so every page's text/cards stay
- * readable against it regardless of which part of the photo shows through.
+ * route changes) with zero extra work. A dark scrim is baked into the same
+ * background-image stack (on top of the photo, under nothing) so every
+ * page's text/cards stay readable regardless of which part of the photo
+ * shows through. No `background-attachment: fixed` — it forces a repaint
+ * of the whole background on every scroll frame in most engines, which
+ * combined with the blur effects below was a real source of jank; letting
+ * it scroll normally with the page is effectively free by comparison.
  * Default keeps its plain flat background — this selector never matches it.
  */
 .theme-ocean body,
@@ -262,7 +265,6 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 /* The authenticated app shell's <main> (SidebarInset) has an opaque
@@ -285,22 +287,34 @@
 }
 
 /*
- * Subtle glassmorphism — restrained to genuine "surface" elements (cards,
- * modals, dropdowns, selects) and only under Ocean/Forest; Default never
- * matches these selectors, so it keeps its plain opaque bg-card/bg-popover
- * exactly as before. The attribute+ancestor selector is specific enough to
- * cleanly override each component's own ring/shadow utility classes without
- * needing !important. Blur is a literal px value (not a var()) — this
- * environment's browser has been unreliable resolving custom properties
- * inside animatable/filter functions elsewhere in this file.
+ * Subtle glassmorphism, only under Ocean/Forest — split into two tiers for
+ * performance. backdrop-filter: blur() is real-time GPU compositing work
+ * per element; a page like Dashboard renders 15-20+ [data-slot="card"]
+ * instances at once (stat cards, quick-jump cards, activity list, etc.),
+ * and blurring all of them simultaneously was the actual cause of the
+ * scroll/hover jank reported after this shipped. Cards get the tinted
+ * translucent look WITHOUT the blur (cheap: just a color + a shadow).
+ * True blur is reserved for elements that only ever appear once or a few
+ * at a time — dialogs, dropdowns, selects, the theme toggle/preview cards,
+ * and the single dashboard hero banner — where the compositing cost never
+ * multiplies. Default never matches any of this, so it stays untouched.
+ * Blur is a literal px value (not a var()) — this environment's browser
+ * has been unreliable resolving custom properties inside filter functions.
  */
 .theme-ocean [data-slot="card"],
+.theme-forest [data-slot="card"] {
+  background-color: var(--glass-bg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px var(--glass-border),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
 .theme-ocean [data-slot="dialog-content"],
 .theme-ocean [data-slot="dropdown-menu-content"],
 .theme-ocean [data-slot="select-content"],
 .theme-ocean .glass-panel,
 .theme-ocean .dashboard-hero,
-.theme-forest [data-slot="card"],
 .theme-forest [data-slot="dialog-content"],
 .theme-forest [data-slot="dropdown-menu-content"],
 .theme-forest [data-slot="select-content"],
