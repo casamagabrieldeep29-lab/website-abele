@@ -25,10 +25,10 @@ const SOURCES = [
 
 export function QuizBuilderForm({
   areas,
-  showNoMatchError,
+  errorCode,
 }: {
   areas: TopicPickerArea[];
-  showNoMatchError: boolean;
+  errorCode: "no-match" | "no-topics" | null;
 }) {
   return (
     <Card className="mt-6">
@@ -36,9 +36,12 @@ export function QuizBuilderForm({
         <form action={startCustomQuiz} className="space-y-6">
           <fieldset className="space-y-2">
             <legend className="text-sm font-medium">
-              Topics <span className="text-muted-foreground">(leave all unchecked for every topic)</span>
+              Topics <span className="text-muted-foreground">(select at least one)</span>
             </legend>
             <TopicPicker areas={areas} />
+            {errorCode === "no-topics" && (
+              <p className="text-sm text-destructive">Check at least one topic to generate a quiz.</p>
+            )}
           </fieldset>
 
           <fieldset className="space-y-2">
@@ -87,7 +90,7 @@ export function QuizBuilderForm({
             <QuestionCountPicker defaultValue={20} />
           </div>
 
-          {showNoMatchError && (
+          {errorCode === "no-match" && (
             <p className="text-sm text-destructive">
               No published questions matched those filters — try widening them.
             </p>
