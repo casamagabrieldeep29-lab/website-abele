@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeSelector } from "@/components/theme-selector";
 import { SettingsForm } from "@/components/settings-form";
 import { DeleteAccountForm } from "@/components/delete-account-form";
 import { signOut } from "@/app/dashboard/actions";
@@ -117,7 +118,7 @@ export default async function SettingsPage({
           </Card>
         </TabsContent>
 
-        <TabsContent value="appearance" className="mt-4">
+        <TabsContent value="appearance" className="mt-4 space-y-4">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Theme</CardTitle>
@@ -126,6 +127,19 @@ export default async function SettingsPage({
               <ThemeToggle />
               <p className="text-xs text-muted-foreground">
                 Applies immediately and is remembered on this device across refreshes, sign-outs, and future visits.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Themes</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">Choose the look and feel of ABELIEVER.</p>
+              <ThemeSelector />
+              <p className="text-xs text-muted-foreground">
+                Applies immediately across the whole site and is remembered on this device.
               </p>
             </CardContent>
           </Card>
