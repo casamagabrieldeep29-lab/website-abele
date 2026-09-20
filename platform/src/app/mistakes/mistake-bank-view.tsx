@@ -13,6 +13,8 @@ export type MistakeRow = {
   topic_name: string;
   exam_area_id: string;
   exam_area_name: string;
+  subject_id: string;
+  subject_name: string;
   times_missed: number;
   last_answered_at: string;
 };
@@ -37,6 +39,7 @@ function RetryButton({ questionIds, label }: { questionIds: string[]; label: str
 
 export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
   const [areaId, setAreaId] = useState<string | null>(null);
+  const [subjectId, setSubjectId] = useState<string | null>(null);
   const [topicId, setTopicId] = useState<string | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("recent");
   const [minMisses, setMinMisses] = useState(1);
@@ -51,17 +54,29 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
     return [...map.values()].sort((a, b) => b.count - a.count);
   }, [rows]);
 
-  const topicsInArea = useMemo(() => {
+  const subjectsInArea = useMemo(() => {
     if (!areaId) return [];
     const map = new Map<string, { id: string; name: string; count: number }>();
     for (const r of rows) {
       if (r.exam_area_id !== areaId) continue;
+      const existing = map.get(r.subject_id);
+      if (existing) existing.count += 1;
+      else map.set(r.subject_id, { id: r.subject_id, name: r.subject_name, count: 1 });
+    }
+    return [...map.values()].sort((a, b) => b.count - a.count);
+  }, [rows, areaId]);
+
+  const topicsInSubject = useMemo(() => {
+    if (!subjectId) return [];
+    const map = new Map<string, { id: string; name: string; count: number }>();
+    for (const r of rows) {
+      if (r.subject_id !== subjectId) continue;
       const existing = map.get(r.topic_id);
       if (existing) existing.count += 1;
       else map.set(r.topic_id, { id: r.topic_id, name: r.topic_name, count: 1 });
     }
     return [...map.values()].sort((a, b) => b.count - a.count);
-  }, [rows, areaId]);
+  }, [rows, subjectId]);
 
   const questionsInTopic = useMemo(() => {
     if (!topicId) return [];
@@ -82,16 +97,18 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
   }
 
   const selectedArea = areas.find((a) => a.id === areaId);
-  const selectedTopic = topicsInArea.find((t) => t.id === topicId);
+  const selectedSubject = subjectsInArea.find((s) => s.id === subjectId);
+  const selectedTopic = topicsInSubject.find((t) => t.id === topicId);
 
   return (
     <div className="mt-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <nav className="flex items-center gap-1.5 text-sm">
+        <nav className="flex flex-wrap items-center gap-1.5 text-sm">
           <button
             type="button"
             onClick={() => {
               setAreaId(null);
+              setSubjectId(null);
               setTopicId(null);
             }}
             className={areaId ? "text-muted-foreground hover:underline" : "font-medium"}
@@ -103,10 +120,25 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
               <span className="text-muted-foreground">/</span>
               <button
                 type="button"
+                onClick={() => {
+                  setSubjectId(null);
+                  setTopicId(null);
+                }}
+                className={subjectId ? "text-muted-foreground hover:underline" : "font-medium"}
+              >
+                {selectedArea.name}
+              </button>
+            </>
+          )}
+          {selectedSubject && (
+            <>
+              <span className="text-muted-foreground">/</span>
+              <button
+                type="button"
                 onClick={() => setTopicId(null)}
                 className={topicId ? "text-muted-foreground hover:underline" : "font-medium"}
               >
-                {selectedArea.name}
+                {selectedSubject.name}
               </button>
             </>
           )}
@@ -120,9 +152,15 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
 
         <RetryButton
           questionIds={
-            topicId ? questionsInTopic.map((r) => r.question_id) : areaId ? rows.filter((r) => r.exam_area_id === areaId).map((r) => r.question_id) : rows.map((r) => r.question_id)
+            topicId
+              ? questionsInTopic.map((r) => r.question_id)
+              : subjectId
+                ? rows.filter((r) => r.subject_id === subjectId).map((r) => r.question_id)
+                : areaId
+                  ? rows.filter((r) => r.exam_area_id === areaId).map((r) => r.question_id)
+                  : rows.map((r) => r.question_id)
           }
-          label={`Practice My Mistakes${topicId || areaId ? " (this view)" : ""} →`}
+          label={`Practice My Mistakes${topicId || subjectId || areaId ? " (this view)" : ""} →`}
         />
       </div>
 
@@ -141,9 +179,24 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
         </div>
       )}
 
-      {areaId && !topicId && (
+      {areaId && !subjectId && (
         <div className="mt-4 space-y-2">
-          {topicsInArea.map((t) => (
+          {subjectsInArea.map((s) => (
+            <Card key={s.id}>
+              <CardContent className="flex items-center justify-between gap-3 py-3">
+                <button type="button" onClick={() => setSubjectId(s.id)} className="text-left text-sm font-medium hover:underline">
+                  {s.name}
+                </button>
+                <Badge variant="secondary">{s.count} mistake{s.count === 1 ? "" : "s"}</Badge>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {subjectId && !topicId && (
+        <div className="mt-4 space-y-2">
+          {topicsInSubject.map((t) => (
             <Card key={t.id}>
               <CardContent className="flex items-center justify-between gap-3 py-3">
                 <button type="button" onClick={() => setTopicId(t.id)} className="text-left text-sm font-medium hover:underline">

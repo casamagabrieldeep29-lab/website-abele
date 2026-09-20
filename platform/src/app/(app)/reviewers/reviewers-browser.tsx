@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
@@ -21,7 +23,9 @@ export type ReviewerEntry = {
   topic_id: string;
   subtopic_id: string | null;
   topic_name: string;
+  exam_area_id: string;
   exam_area_name: string;
+  subject_name: string;
   subtopic_name: string | null;
 };
 
@@ -38,7 +42,7 @@ function EntryCard({ entry }: { entry: ReviewerEntry }) {
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm font-semibold">{entry.title}</p>
           <span className="shrink-0 text-xs text-muted-foreground">
-            {entry.exam_area_name} · {entry.topic_name}
+            {entry.subject_name} · {entry.topic_name}
             {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
           </span>
         </div>
@@ -74,6 +78,60 @@ function EntryCard({ entry }: { entry: ReviewerEntry }) {
   );
 }
 
+/** Groups one kind's filtered entries under their TOS, collapsed by default — a search match auto-expands only the TOS group(s) it's actually in. */
+function TosGroupedEntries({ entries, isSearching }: { entries: ReviewerEntry[]; isSearching: boolean }) {
+  const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+
+  const groups = useMemo(() => {
+    const byArea = new Map<string, { name: string; entries: ReviewerEntry[] }>();
+    for (const e of entries) {
+      const g = byArea.get(e.exam_area_id) ?? { name: e.exam_area_name, entries: [] };
+      g.entries.push(e);
+      byArea.set(e.exam_area_id, g);
+    }
+    return [...byArea.entries()].map(([id, g]) => ({ id, ...g }));
+  }, [entries]);
+
+  function isOpen(id: string) {
+    return isSearching || openIds.has(id);
+  }
+
+  function toggle(id: string) {
+    setOpenIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  return (
+    <div className="space-y-2">
+      {groups.map((group) => {
+        const open = isOpen(group.id);
+        return (
+          <div key={group.id} className="rounded-lg border border-border/60">
+            <Collapsible open={open} onOpenChange={() => toggle(group.id)}>
+              <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2 text-left">
+                <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
+                <span className="min-w-0 flex-1 text-sm font-medium break-words">{group.name}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">{group.entries.length}</span>
+              </CollapsibleTrigger>
+              <CollapsibleContent open={open}>
+                <div className="space-y-2 px-3 pb-3">
+                  {group.entries.map((entry) => (
+                    <EntryCard key={entry.id} entry={entry} />
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: ReviewerEntry[]; initialSearch?: string }) {
   const [search, setSearch] = useState(initialSearch);
 
@@ -81,12 +139,13 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
     const q = search.trim().toLowerCase();
     if (!q) return entries;
     return entries.filter((e) =>
-      [e.title, e.description, e.topic_name, e.exam_area_name, e.subtopic_name, e.symbol, e.formula]
+      [e.title, e.description, e.topic_name, e.exam_area_name, e.subject_name, e.subtopic_name, e.symbol, e.formula]
         .filter(Boolean)
         .some((f) => f!.toLowerCase().includes(q)),
     );
   }, [entries, search]);
 
+  const isSearching = search.trim().length > 0;
   const byKind = (kind: ReviewerEntry["kind"]) => filtered.filter((e) => e.kind === kind);
 
   return (
@@ -94,7 +153,7 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
       <Input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by title, area, topic…"
+        placeholder="Search by title, area, subject, topic…"
         className="mb-4"
       />
 
@@ -109,16 +168,15 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
 
         {(["formula", "table", "constant"] as const).map((kind) => (
           <TabsContent key={kind} value={kind}>
-            <div className="mt-3 space-y-2">
-              {byKind(kind).map((entry) => (
-                <EntryCard key={entry.id} entry={entry} />
-              ))}
-              {byKind(kind).length === 0 && (
+            <div className="mt-3">
+              {byKind(kind).length === 0 ? (
                 <p className="text-sm text-muted-foreground">
                   {entries.length === 0
                     ? `No ${KIND_LABELS[kind].toLowerCase()} published yet.`
                     : "No matches for your search."}
                 </p>
+              ) : (
+                <TosGroupedEntries entries={byKind(kind)} isSearching={isSearching} />
               )}
             </div>
           </TabsContent>

@@ -8,27 +8,35 @@ export default async function MistakesPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data, error }, { data: topics }, { data: examAreas }] = await Promise.all([
+  const [{ data, error }, { data: topics }, { data: examAreas }, { data: subjects }] = await Promise.all([
     supabase.rpc("get_mistake_bank"),
-    supabase.from("topics").select("id, exam_area_id"),
+    supabase.from("topics").select("id, exam_area_id, subject_id"),
     supabase.from("exam_areas").select("id, name").order("sort_order"),
+    supabase.from("subjects").select("id, name"),
   ]);
 
   if (error) {
     return <p className="text-sm text-destructive">Couldn&apos;t load mistake bank: {error.message}</p>;
   }
 
-  const examAreaIdByTopic = new Map((topics ?? []).map((t) => [t.id, t.exam_area_id]));
+  const topicById = new Map((topics ?? []).map((t) => [t.id, t]));
   const areaNameById = new Map((examAreas ?? []).map((a) => [a.id, a.name]));
+  const subjectNameById = new Map((subjects ?? []).map((s) => [s.id, s.name]));
 
-  const rows: MistakeRow[] = (data ?? []).map((r: Omit<MistakeRow, "exam_area_id" | "exam_area_name">) => {
-    const examAreaId = examAreaIdByTopic.get(r.topic_id) ?? "unknown";
-    return {
-      ...r,
-      exam_area_id: examAreaId,
-      exam_area_name: areaNameById.get(examAreaId) ?? "Unknown area",
-    };
-  });
+  const rows: MistakeRow[] = (data ?? []).map(
+    (r: Omit<MistakeRow, "exam_area_id" | "exam_area_name" | "subject_id" | "subject_name">) => {
+      const topic = topicById.get(r.topic_id);
+      const examAreaId = topic?.exam_area_id ?? "unknown";
+      const subjectId = topic?.subject_id ?? null;
+      return {
+        ...r,
+        exam_area_id: examAreaId,
+        exam_area_name: areaNameById.get(examAreaId) ?? "Unknown area",
+        subject_id: subjectId ?? `other:${examAreaId}`,
+        subject_name: subjectId ? (subjectNameById.get(subjectId) ?? "Other Topics") : "Other Topics",
+      };
+    },
+  );
 
   return (
     <div className="mx-auto max-w-2xl">
