@@ -189,3 +189,18 @@ Two things worth calling out specifically:
 **Known pre-existing issue, not introduced by this work:** the shadcn Sidebar's `useIsMobile()` hook causes a dev-only hydration-mismatch warning at viewport widths right around the mobile breakpoint (confirmed reproducible on a completely fresh tab, present before any of this round's changes, cosmetic/dev-overlay-only). Not fixed — out of scope for this round and risky to alter working navigation without being asked.
 
 **How to apply:** Any future content type needing topic/area classification should FK to `topics`/`subtopics` the same way, not introduce a new grouping level. Any future weak-area or mistake-linked feature should call the existing mastery/mistake RPCs, never compute or store a second mastery number.
+
+---
+
+### 2026-09-21 — Area 1/2/3 mapping corrected from the official 2025 ABE Table of Specifications (Annex "A")
+
+**Decision:** The 2026-09-19 Area 1/2/3 mapping entry above is **superseded**. Gabriel supplied the actual signed PRC document (`2025 ABE Table of Specifications Annex.pdf`), which lays out the exam as three combined subject papers, not the mapping guessed on 2026-09-19:
+- **Area 1 / Subject A (32%):** POWER_ENERGY_MACHINERY, LAWS_ETHICS, **PROJECT_MGMT_RDE**
+- **Area 2 / Subject B (32%):** LAND_WATER, **FUNDAMENTALS_SCIENCES**, MATH_BASIC_ENGG
+- **Area 3 / Subject C (36%):** STRUCTURES_ENVIRONMENT, BIOPROCESS
+
+The two changes from the old mapping: Project Management/Feasibility/RDE moves from Area 3 to Area 1, and Fundamentals of Agricultural/Fishery/Ecological/Environmental Sciences moves from Area 3 to Area 2. Math/Basic Engineering's move to Area 2 (already applied ad hoc in `017_reclassify_math_metrology_topics.sql`) is confirmed correct by the same document.
+
+**Why:** The 2026-09-19 mapping was reconciled by inference (review-center folder structure vs. the 8 TOS categories) without the actual board document in hand. Gabriel later provided the real Annex "A", which states the three-paper split explicitly and even names "metrology equipment" as a competency under Subject A's Automation/Instrumentation section (page 4, item IV.2) — confirming "Engineering Metrology and Equipment" belongs under the existing Area 1 Automation subject, not a new Area 3 one (`019_new_automation_subject_area3.sql` had briefly created a duplicate for this before the document surfaced; `020_correct_area_mapping_from_official_tos.sql` reverts it and removes the duplicate subject).
+
+**How to apply:** `007_mock_exam_areas.sql`'s original CASE mapping is now wrong and should not be re-run as-is; `020_correct_area_mapping_from_official_tos.sql` is the current source of truth for the Area 1/2/3 <-> TOS-category mapping. If the real board exam's structure is ever confirmed to change again, get the actual PRC document first rather than reconciling by inference — that's what caused this round of back-and-forth.
