@@ -3,46 +3,8 @@ import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { createFlashcard, deleteFlashcard, publishAllDraftFlashcards, publishFlashcard, unpublishFlashcard, updateFlashcard } from "./actions";
-
-type Topic = { id: string; name: string };
-type Subtopic = { id: string; name: string; topic_id: string };
-
-function TopicSubtopicFields({
-  topics,
-  subtopics,
-  defaultTopicId,
-  defaultSubtopicId,
-}: {
-  topics: Topic[];
-  subtopics: Subtopic[];
-  defaultTopicId?: string;
-  defaultSubtopicId?: string | null;
-}) {
-  return (
-    <div className="grid grid-cols-2 gap-2">
-      <select name="topicId" defaultValue={defaultTopicId ?? ""} required className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
-        <option value="" disabled>
-          Topic…
-        </option>
-        {topics.map((t) => (
-          <option key={t.id} value={t.id}>
-            {t.name}
-          </option>
-        ))}
-      </select>
-      <select name="subtopicId" defaultValue={defaultSubtopicId ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
-        <option value="">(no subtopic / concept)</option>
-        {subtopics.map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
+import { createFlashcard, publishAllDraftFlashcards, unpublishAllFlashcards } from "./actions";
+import { FlashcardsAdminBrowser, TopicSubtopicFields, type TopicGroup } from "./flashcards-admin-browser";
 
 export default async function AdminFlashcardsPage() {
   await requireAdmin();
@@ -62,6 +24,15 @@ export default async function AdminFlashcardsPage() {
     cardsByTopic.set(c.topic_id, list);
   }
   const totalDraftCount = (cards ?? []).filter((c) => c.status === "draft").length;
+  const totalPublishedCount = (cards ?? []).filter((c) => c.status === "published").length;
+
+  const groups: TopicGroup[] = [...cardsByTopic.entries()]
+    .map(([topicId, topicCards]) => ({
+      topicId,
+      topicName: topicNameById.get(topicId) ?? "(unknown topic)",
+      cards: topicCards ?? [],
+    }))
+    .sort((a, b) => a.topicName.localeCompare(b.topicName));
 
   return (
     <main className="min-h-screen bg-background">
@@ -73,87 +44,30 @@ export default async function AdminFlashcardsPage() {
       </header>
 
       <div className="mx-auto max-w-3xl px-6 py-10 space-y-4">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground">
             Front/back study cards for active recall. Never invent content — only enter verified terms/definitions.
           </p>
-          {totalDraftCount > 0 && (
-            <form action={publishAllDraftFlashcards.bind(null, undefined)}>
-              <Button type="submit" size="sm">
-                Publish all drafts ({totalDraftCount})
-              </Button>
-            </form>
-          )}
+          <div className="flex flex-wrap gap-2">
+            {totalDraftCount > 0 && (
+              <form action={publishAllDraftFlashcards.bind(null, undefined)}>
+                <Button type="submit" size="sm">
+                  Publish all drafts ({totalDraftCount})
+                </Button>
+              </form>
+            )}
+            {totalPublishedCount > 0 && (
+              <form action={unpublishAllFlashcards.bind(null, undefined)}>
+                <Button type="submit" size="sm" variant="outline">
+                  Unpublish all ({totalPublishedCount})
+                </Button>
+              </form>
+            )}
+          </div>
         </div>
 
-        {[...cardsByTopic.entries()]
-          .sort(([topicIdA], [topicIdB]) => (topicNameById.get(topicIdA) ?? "").localeCompare(topicNameById.get(topicIdB) ?? ""))
-          .map(([topicId, topicCards]) => {
-            const draftCount = (topicCards ?? []).filter((c) => c.status === "draft").length;
-            return (
-              <div key={topicId} className="space-y-3">
-                <div className="flex items-center justify-between gap-3 border-b pb-1">
-                  <h2 className="text-sm font-semibold text-muted-foreground">
-                    {topicNameById.get(topicId) ?? "(unknown topic)"} — {(topicCards ?? []).length} card{(topicCards ?? []).length === 1 ? "" : "s"}
-                  </h2>
-                  {draftCount > 0 && (
-                    <form action={publishAllDraftFlashcards.bind(null, topicId)}>
-                      <Button type="submit" size="sm" variant="outline">
-                        Publish all drafts in this topic ({draftCount})
-                      </Button>
-                    </form>
-                  )}
-                </div>
-
-                {(topicCards ?? []).map((c) => (
-                  <Card key={c.id}>
-                    <CardContent className="py-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-medium">{c.front}</p>
-                        <Badge variant={c.status === "published" ? "default" : "secondary"}>{c.status}</Badge>
-                      </div>
-                      <p className="mt-1 text-sm text-muted-foreground">{c.back}</p>
-
-                      <details className="mt-2 border-t pt-2">
-                        <summary className="cursor-pointer text-xs font-medium text-primary">Edit</summary>
-                        <form action={updateFlashcard.bind(null, c.id)} className="mt-3 space-y-2">
-                          <textarea name="front" defaultValue={c.front} placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                          <textarea name="back" defaultValue={c.back} placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                          <TopicSubtopicFields topics={topics ?? []} subtopics={subtopics ?? []} defaultTopicId={c.topic_id} defaultSubtopicId={c.subtopic_id} />
-                          <input name="source" defaultValue={c.source ?? ""} placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                          <Button type="submit" size="sm">
-                            Save changes
-                          </Button>
-                        </form>
-                      </details>
-
-                      <div className="mt-3 flex gap-2">
-                        {c.status === "draft" ? (
-                          <form action={publishFlashcard.bind(null, c.id)}>
-                            <Button type="submit" size="sm">
-                              Publish
-                            </Button>
-                          </form>
-                        ) : (
-                          <form action={unpublishFlashcard.bind(null, c.id)}>
-                            <Button type="submit" size="sm" variant="outline">
-                              Unpublish
-                            </Button>
-                          </form>
-                        )}
-                        <form action={deleteFlashcard.bind(null, c.id)}>
-                          <Button type="submit" size="sm" variant="ghost" className="text-destructive">
-                            Delete
-                          </Button>
-                        </form>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            );
-          })}
-        {(cards ?? []).length === 0 && <p className="text-sm text-muted-foreground">No flashcards yet.</p>}
+        <FlashcardsAdminBrowser groups={groups} topics={topics ?? []} subtopics={subtopics ?? []} />
+        {groups.length === 0 && <p className="text-sm text-muted-foreground">No flashcards yet.</p>}
 
         <Card>
           <CardHeader>

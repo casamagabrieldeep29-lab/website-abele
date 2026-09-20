@@ -16,6 +16,86 @@ export type StudyCard = {
   isSaved: boolean;
 };
 
+// Flashcard front/back are stored as plain text (see supabase/seed/content/
+// flashcards-*.sql) — no separate "formula" / "variables" fields, so this is
+// purely a display-time parse of the equation convention already used
+// throughout that content: "<symbol> = <expression>[, where <symbol> is
+// <definition>, <symbol> is <definition>[, and <symbol> is <definition>]]."
+// Anything that doesn't match falls back to the plain-text rendering.
+type ParsedFormula = { formula: string; legend: { symbol: string; definition: string }[]; note: string | null };
+
+function parseFormulaCard(text: string): ParsedFormula | null {
+  // The expression side may contain decimals (e.g. "0.02"), so a bare period
+  // can't be used as a stop character — only a period NOT followed by a
+  // digit ends the equation.
+  const eqMatch = text.match(/^([A-Za-z][A-Za-z0-9]*\s*=\s*(?:[^,;.]|\.(?=\d))+)/);
+  if (!eqMatch) return null;
+
+  const formula = eqMatch[1].trim();
+  const rest = text.slice(eqMatch[0].length);
+
+  const whereMatch = rest.match(/^[,.]?\s*where\s+(.+)$/i);
+  if (whereMatch) {
+    const segments = whereMatch[1]
+      .replace(/\.$/, "")
+      .split(/,\s+(?:and\s+)?|\s+and\s+/i)
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const legend: { symbol: string; definition: string }[] = [];
+    let allMatched = true;
+    for (const segment of segments) {
+      const pair = segment.match(/^([A-Za-z][A-Za-z0-9]*)\s+is\s+(?:the\s+|a\s+|an\s+)?(.+)$/i);
+      if (!pair) {
+        allMatched = false;
+        break;
+      }
+      legend.push({ symbol: pair[1], definition: pair[2] });
+    }
+    if (allMatched && legend.length > 0) return { formula, legend, note: null };
+  }
+
+  const note = rest.replace(/^[;,.]+\s*/, "").trim();
+  return { formula, legend: [], note: note.length > 0 ? note : null };
+}
+
+// Sentence-initial imperative verbs that would otherwise be mistaken for
+// part of a proper formula name (e.g. "Give Hooghoudt's equation" → both
+// "Give" and "Hooghoudt's" are capitalized).
+const LEADING_VERB = /^(Give|State|Name|Define|Differentiate|Classify|Compute|Find|Determine|Derive|Explain|Describe|Identify|What|Which)\b\s*(the\s+)?/i;
+
+// Card text has no separate "formula name" field, so the heading is derived
+// from the prompt side (front) using the same naming convention the content
+// already follows: either "<full name> (<ACRONYM>)" or a proper-named
+// "<Name> equation/formula/law". Returns null rather than guessing when
+// neither pattern is confidently found — no heading beats a wrong one.
+function extractFormulaHeading(promptText: string): string | null {
+  const withAcronym = promptText.match(/\(([A-Z]{2,6})\)/);
+  if (withAcronym) return `${withAcronym[1]} Formula`;
+
+  const cleaned = promptText.replace(LEADING_VERB, "");
+  const named = cleaned.match(/^([A-Z][A-Za-z'-]*(?:[\s-][A-Z][A-Za-z'-]*){0,2})\s+(equation|formula|law)\b/);
+  if (named) return `${named[1]} ${named[2][0].toUpperCase()}${named[2].slice(1).toLowerCase()}`;
+
+  return null;
+}
+
+/** Renders "X_Y" as X with a subscript Y, for the rare card that uses that notation; otherwise renders the text as-is. */
+function withSubscripts(text: string) {
+  const parts = text.split(/([A-Za-z]+_[A-Za-z0-9]+)/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) => {
+    const sub = part.match(/^([A-Za-z]+)_([A-Za-z0-9]+)$/);
+    if (!sub) return <span key={i}>{part}</span>;
+    return (
+      <span key={i}>
+        {sub[1]}
+        <sub>{sub[2]}</sub>
+      </span>
+    );
+  });
+}
+
 export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -25,6 +105,9 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
 
   const card = cards[index];
   const isLast = index === cards.length - 1;
+  const shownText = flipped ? card.back : card.front;
+  const parsedFormula = parseFormulaCard(shownText);
+  const formulaHeading = parsedFormula ? extractFormulaHeading(card.front) : null;
 
   function goNext() {
     if (isLast) {
@@ -109,11 +192,44 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className="mt-4 flex min-h-56 w-full flex-col justify-center rounded-lg border-2 border-border bg-card p-6 text-center transition-colors hover:border-primary/40"
+        className="mt-4 flex min-h-56 w-full flex-col rounded-2xl border border-border/60 bg-card p-6 shadow-sm ring-1 ring-foreground/5 transition-all hover:border-primary/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 sm:p-8"
       >
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{card.topicName}</p>
-        <p className="mt-4 text-lg font-medium leading-relaxed">{flipped ? card.back : card.front}</p>
-        <p className="mt-4 text-xs text-muted-foreground">{flipped ? "Tap to see the term" : "Tap to reveal the answer"}</p>
+        <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{card.topicName}</p>
+
+        <div className="flex flex-1 flex-col items-center justify-center py-6">
+          {parsedFormula ? (
+            <>
+              {formulaHeading && <p className="text-sm font-medium text-muted-foreground">{formulaHeading}</p>}
+              <p className="mt-2 break-words text-center font-mono text-xl font-semibold leading-snug sm:text-2xl">
+                {withSubscripts(parsedFormula.formula)}
+              </p>
+
+              {parsedFormula.legend.length > 0 ? (
+                <div className="mt-6 w-full max-w-sm border-t border-border/60 pt-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Where:</p>
+                  <dl className="mt-2 space-y-1.5">
+                    {parsedFormula.legend.map(({ symbol, definition }) => (
+                      <div key={symbol} className="flex items-baseline gap-2 text-sm">
+                        <dt className="shrink-0 font-mono font-semibold text-primary">{withSubscripts(symbol)}</dt>
+                        <dd className="text-muted-foreground">{definition}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ) : (
+                parsedFormula.note && (
+                  <p className="mt-6 max-w-sm border-t border-border/60 pt-4 text-center text-sm text-muted-foreground">
+                    {parsedFormula.note}
+                  </p>
+                )
+              )}
+            </>
+          ) : (
+            <p className="text-center text-lg font-medium leading-relaxed">{shownText}</p>
+          )}
+        </div>
+
+        <p className="text-center text-xs text-muted-foreground">{flipped ? "Tap to see the term" : "Tap to reveal the answer"}</p>
       </button>
 
       <div className="mt-3 flex items-center justify-between">

@@ -4,8 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
 import {
-  startFlashcardsByArea,
-  startFlashcardsByTopic,
   startMistakeFlashcards,
   startQuickFlashcards,
   startSavedFlashcards,
@@ -22,11 +20,10 @@ export default async function FlashcardsPage({
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ count: publishedCount, error }, { data: examAreas }, { data: topics }] = await Promise.all([
-    supabase.from("flashcards").select("id", { count: "exact", head: true }).eq("status", "published"),
-    supabase.from("exam_areas").select("id, name").order("sort_order"),
-    supabase.from("topics").select("id, name, exam_area_id").order("name"),
-  ]);
+  const { count: publishedCount, error } = await supabase
+    .from("flashcards")
+    .select("id", { count: "exact", head: true })
+    .eq("status", "published");
 
   if (error) {
     return <p className="text-sm text-destructive">Couldn&apos;t load flashcards: {error.message}</p>;
@@ -111,36 +108,6 @@ export default async function FlashcardsPage({
                   Start →
                 </Button>
               </form>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">By Area</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {(examAreas ?? []).map((area) => (
-                <form key={area.id} action={startFlashcardsByArea.bind(null, area.id)}>
-                  <Button type="submit" size="sm" variant="outline">
-                    {area.name}
-                  </Button>
-                </form>
-              ))}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">By Topic</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {(topics ?? []).map((topic) => (
-                <form key={topic.id} action={startFlashcardsByTopic.bind(null, topic.id)}>
-                  <Button type="submit" size="sm" variant="outline">
-                    {topic.name}
-                  </Button>
-                </form>
-              ))}
             </CardContent>
           </Card>
         </div>

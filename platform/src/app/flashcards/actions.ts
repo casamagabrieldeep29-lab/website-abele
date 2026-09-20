@@ -33,20 +33,6 @@ export async function startQuickFlashcards(formData: FormData) {
   await redirectToSession(ids);
 }
 
-/** By exam area (the existing top-level taxonomy — "Subject/Area" in the spec). */
-export async function startFlashcardsByArea(examAreaId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const { data: topics } = await supabase.from("topics").select("id").eq("exam_area_id", examAreaId);
-  const topicIds = (topics ?? []).map((t) => t.id);
-  if (topicIds.length === 0) await redirectToSession([]);
-
-  const { data } = await supabase.from("flashcards").select("id").eq("status", "published").in("topic_id", topicIds);
-  await redirectToSession(shuffle((data ?? []).map((c) => c.id)));
-}
-
 /** By topic. */
 export async function startFlashcardsByTopic(topicId: string) {
   const supabase = await createClient();
