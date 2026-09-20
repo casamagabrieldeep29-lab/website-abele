@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   ArrowRight,
   BookOpen,
@@ -12,6 +13,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 
 const EXAM_AREAS = [
   { name: "Agricultural and Biosystems Power, Energy and Machinery Engineering", weight: "18%" },
@@ -72,7 +74,11 @@ const PREVIEW_FLOW = ["Practice", "Results", "Weak Areas", "Review Mistakes", "P
 
 const STUDY_LOOP = ["Practice", "Review", "Identify Weak Areas", "Learn", "Practice Again", "Track Progress"];
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (user) redirect("/dashboard");
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-10 border-b border-border/70 bg-background/85 backdrop-blur-sm">
