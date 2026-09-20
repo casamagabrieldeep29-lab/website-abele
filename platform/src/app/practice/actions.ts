@@ -134,6 +134,52 @@ export async function startAdaptivePracticeAttempt(topicId: string, count: numbe
 }
 
 /**
+ * Same adaptive weighting as startAdaptivePracticeAttempt, but pooled across
+ * every topic under one official TOS subject rather than a single topic —
+ * a subject can span several topics (see supabase/patches/013_official_
+ * subjects.sql), so this omits `topic_id` on the attempt row and stores the
+ * subject instead, the same "multi-topic pool" pattern startQuickPractice
+ * already uses below.
+ */
+export async function startSubjectPracticeAttempt(subjectId: string, count: number) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: topicsInSubject } = await supabase.from("topics").select("id").eq("subject_id", subjectId);
+  const topicIds = (topicsInSubject ?? []).map((t) => t.id);
+  if (topicIds.length === 0) {
+    throw new Error("No topics assigned to this subject yet.");
+  }
+
+  const { data: candidates } = await supabase.from("student_questions").select("id").in("topic_id", topicIds);
+  const candidateIds = (candidates ?? []).map((c) => c.id);
+  if (candidateIds.length === 0) {
+    throw new Error("No published questions in this subject yet.");
+  }
+
+  const weighted = await weighCandidates(supabase, candidateIds);
+  const selected = weightedSample(weighted, count);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "subject", subject_id: subjectId },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start subject practice session");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
  * Narrows a candidate pool to one of the four Study Preferences practice
  * modes, using only real, already-existing data sources (get_topic_mastery
  * for "weak areas", get_mistake_bank for "mistakes", attempt_answers for

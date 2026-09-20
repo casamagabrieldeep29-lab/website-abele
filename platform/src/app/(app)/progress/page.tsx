@@ -3,17 +3,22 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { startAdaptivePracticeAttempt } from "@/app/practice/actions";
 import { StudyAssistant } from "@/components/study-assistant";
 import { PageHeader } from "@/components/page-header";
+import { MasteryTree, type MasteryStatus, type MasteryTOS } from "./mastery-tree";
 
 type TopicMastery = {
   topic_id: string;
   topic_name: string;
+  exam_area_id: string;
   exam_area_name: string;
+  subject_id: string | null;
+  subject_name: string | null;
   total_attempts: number;
+  overall_accuracy: number | null;
+  recent_accuracy: number | null;
   mastery: number | null;
-  status: "insufficient_data" | "strong" | "developing" | "needs_review";
+  status: MasteryStatus;
 };
 
 type MockAttempt = {
@@ -23,21 +28,13 @@ type MockAttempt = {
   completed_at: string;
 };
 
-const SESSION_SIZE = 20;
-const MIN_ATTEMPTS_FOR_MASTERY = 5;
 const WEEKS_OF_HISTORY = 6;
 
-function statusStyle(status: TopicMastery["status"]) {
-  switch (status) {
-    case "strong":
-      return { bar: "bg-success", card: "border-l-4 border-l-success bg-success/5" };
-    case "developing":
-      return { bar: "bg-gold", card: "border-l-4 border-l-gold bg-gold/5" };
-    case "needs_review":
-      return { bar: "bg-destructive", card: "border-l-4 border-l-destructive bg-destructive/5" };
-    default:
-      return { bar: "bg-muted-foreground/40", card: "border-l-4 border-l-muted-foreground/40 bg-muted/30" };
-  }
+/** Simple mean of the already-computed per-topic mastery numbers — no separate calculation system, just an aggregation of get_topic_mastery()'s own output. Topics without enough data yet (mastery === null) are excluded rather than counted as 0. */
+function avgMastery(rows: { mastery: number | null }[]): number | null {
+  const scored = rows.filter((r) => r.mastery !== null).map((r) => r.mastery as number);
+  if (scored.length === 0) return null;
+  return Math.round(scored.reduce((sum, m) => sum + m, 0) / scored.length);
 }
 
 /** Buckets already-fetched answer rows into the last N ISO weeks and computes accuracy per week. No new query, no charting dependency. */
@@ -75,25 +72,89 @@ export default async function ProgressPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: masteryRows }, { data: answeredRows }, { data: mockAttempts }, { data: allMocks }] = await Promise.all([
-    supabase.rpc("get_topic_mastery"),
-    supabase.from("attempt_answers").select("answered_at, is_correct").not("answered_at", "is", null),
-    supabase
-      .from("attempts")
-      .select("id, total_questions, correct_count, completed_at")
-      .eq("mode", "mock")
-      .eq("status", "completed")
-      .order("completed_at", { ascending: false })
-      .limit(5),
-    supabase
-      .from("attempts")
-      .select("total_questions, correct_count")
-      .eq("mode", "mock")
-      .eq("status", "completed"),
-  ]);
+  const [{ data: masteryRows }, { data: answeredRows }, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
+    await Promise.all([
+      supabase.rpc("get_topic_mastery"),
+      supabase.from("attempt_answers").select("answered_at, is_correct").not("answered_at", "is", null),
+      supabase
+        .from("attempts")
+        .select("id, total_questions, correct_count, completed_at")
+        .eq("mode", "mock")
+        .eq("status", "completed")
+        .order("completed_at", { ascending: false })
+        .limit(5),
+      supabase
+        .from("attempts")
+        .select("total_questions, correct_count")
+        .eq("mode", "mock")
+        .eq("status", "completed"),
+      supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),
+      supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
+    ]);
 
   const mastery = (masteryRows ?? []) as TopicMastery[];
   const answered = (answeredRows ?? []) as { answered_at: string; is_correct: boolean }[];
+
+  // --- Mastery by TOS: same get_topic_mastery() rows, regrouped under the
+  // official TOS -> Subject hierarchy instead of a flat list. A topic whose
+  // subject_id hasn't been assigned yet (see supabase/patches/013_official_
+  // subjects.sql) falls into an "Other Topics" bucket for its TOS rather
+  // than disappearing or being force-fit into the wrong subject. ---
+  const subjectDefs = (subjects ?? []) as { id: string; exam_area_id: string; name: string; sort_order: number }[];
+  const subjectDefsByArea = new Map<string, typeof subjectDefs>();
+  for (const s of subjectDefs) {
+    const list = subjectDefsByArea.get(s.exam_area_id) ?? [];
+    list.push(s);
+    subjectDefsByArea.set(s.exam_area_id, list);
+  }
+
+  const topicsBySubject = new Map<string, TopicMastery[]>();
+  const unmappedTopicsByArea = new Map<string, TopicMastery[]>();
+  for (const m of mastery) {
+    if (m.subject_id) {
+      const list = topicsBySubject.get(m.subject_id) ?? [];
+      list.push(m);
+      topicsBySubject.set(m.subject_id, list);
+    } else {
+      const list = unmappedTopicsByArea.get(m.exam_area_id) ?? [];
+      list.push(m);
+      unmappedTopicsByArea.set(m.exam_area_id, list);
+    }
+  }
+
+  function toTreeTopic(m: TopicMastery) {
+    return {
+      id: m.topic_id,
+      name: m.topic_name,
+      mastery: m.mastery,
+      status: m.status,
+      totalAttempts: m.total_attempts,
+      overallAccuracy: m.overall_accuracy,
+      recentAccuracy: m.recent_accuracy,
+    };
+  }
+
+  const tosList: MasteryTOS[] = (examAreas ?? []).map((area) => {
+    const subjectNodes = subjectDefsByArea.get(area.id)?.map((s) => {
+      const topics = (topicsBySubject.get(s.id) ?? []).map(toTreeTopic);
+      return { id: s.id, name: s.name, mastery: avgMastery(topics), topics };
+    }) ?? [];
+
+    const unmapped = unmappedTopicsByArea.get(area.id) ?? [];
+    if (unmapped.length > 0) {
+      const topics = unmapped.map(toTreeTopic);
+      subjectNodes.push({ id: `other:${area.id}`, name: "Other Topics", mastery: avgMastery(topics), topics });
+    }
+
+    const allTopicsInArea = subjectNodes.flatMap((s) => s.topics);
+    return {
+      id: area.id,
+      name: area.name,
+      weightPercent: area.weight_percent,
+      mastery: avgMastery(allTopicsInArea),
+      subjects: subjectNodes,
+    };
+  });
   const mocks = (mockAttempts ?? []) as MockAttempt[];
 
   const trend = weeklyAccuracy(answered, WEEKS_OF_HISTORY);
@@ -250,51 +311,14 @@ export default async function ProgressPage() {
         </CardContent>
       </Card>
 
-      {/* Mastery by topic */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Mastery by Topic</h2>
-        <div className="mt-2 space-y-2">
-          {mastery.map((m) => {
-            const style = statusStyle(m.status);
-            return (
-            <Card key={m.topic_id} className={style.card}>
-              <CardContent className="py-3">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-medium">{m.topic_name}</p>
-                    <p className="text-xs text-muted-foreground">{m.exam_area_name}</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium">
-                      {m.mastery !== null ? `${m.mastery}%` : "—"}
-                    </span>
-                    <form action={startAdaptivePracticeAttempt.bind(null, m.topic_id, SESSION_SIZE)}>
-                      <Button type="submit" size="sm" variant="outline">
-                        Practice →
-                      </Button>
-                    </form>
-                  </div>
-                </div>
-                <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
-                  <div
-                    className={`h-full rounded-full ${style.bar}`}
-                    style={{ width: `${m.mastery ?? 8}%` }}
-                  />
-                </div>
-                {m.status === "insufficient_data" && (
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Gathering data ({m.total_attempts}/{MIN_ATTEMPTS_FOR_MASTERY} answered)
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-            );
-          })}
-          {mastery.length === 0 && (
-            <p className="text-sm text-muted-foreground">No topics with published content yet.</p>
-          )}
+      {mastery.length === 0 ? (
+        <div>
+          <h2 className="text-sm font-semibold text-muted-foreground">Mastery by TOS</h2>
+          <p className="mt-2 text-sm text-muted-foreground">No topics with published content yet.</p>
         </div>
-      </div>
+      ) : (
+        <MasteryTree tos={tosList} />
+      )}
 
       {/* Mock exam history */}
       <div>

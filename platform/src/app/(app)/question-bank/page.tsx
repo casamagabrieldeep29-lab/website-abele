@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getAuthContext } from "@/lib/auth/session";
 import { PageHeader } from "@/components/page-header";
-import { QuestionBankBrowser, type QuestionBankArea } from "./question-bank-browser";
+import { QuestionBankBrowser, type QuestionBankArea, type QuestionBankOfficialSubject } from "./question-bank-browser";
 
 export default async function QuestionBankPage() {
   const { supabase, user, profile } = await getAuthContext();
@@ -9,12 +9,14 @@ export default async function QuestionBankPage() {
 
   const isAdmin = profile?.role === "admin";
 
-  const [{ data: examAreas }, { data: topics }, { data: subtopics }, { data: published }] = await Promise.all([
-    supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),
-    supabase.from("topics").select("id, name, exam_area_id").order("name"),
-    supabase.from("subtopics").select("id, name, topic_id").order("name"),
-    supabase.from("student_questions").select("topic_id, subtopic_id"),
-  ]);
+  const [{ data: examAreas }, { data: officialSubjects }, { data: topics }, { data: subtopics }, { data: published }] =
+    await Promise.all([
+      supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),
+      supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
+      supabase.from("topics").select("id, name, exam_area_id, subject_id").order("name"),
+      supabase.from("subtopics").select("id, name, topic_id").order("name"),
+      supabase.from("student_questions").select("topic_id, subtopic_id"),
+    ]);
 
   const topicCount = new Map<string, number>();
   const subtopicCount = new Map<string, number>();
@@ -23,12 +25,6 @@ export default async function QuestionBankPage() {
     if (q.subtopic_id) subtopicCount.set(q.subtopic_id, (subtopicCount.get(q.subtopic_id) ?? 0) + 1);
   }
 
-  const topicsByArea = new Map<string, typeof topics>();
-  for (const t of topics ?? []) {
-    const list = topicsByArea.get(t.exam_area_id) ?? [];
-    list.push(t);
-    topicsByArea.set(t.exam_area_id, list);
-  }
   const subtopicsByTopic = new Map<string, typeof subtopics>();
   for (const s of subtopics ?? []) {
     const list = subtopicsByTopic.get(s.topic_id) ?? [];
@@ -36,11 +32,8 @@ export default async function QuestionBankPage() {
     subtopicsByTopic.set(s.topic_id, list);
   }
 
-  const areas: QuestionBankArea[] = (examAreas ?? []).map((area) => ({
-    id: area.id,
-    name: area.name,
-    weightPercent: area.weight_percent,
-    subjects: (topicsByArea.get(area.id) ?? []).map((topic) => ({
+  function buildSubject(topic: { id: string; name: string }) {
+    return {
       id: topic.id,
       name: topic.name,
       questionCount: topicCount.get(topic.id) ?? 0,
@@ -51,8 +44,58 @@ export default async function QuestionBankPage() {
           name: s.name,
           questionCount: subtopicCount.get(s.id) ?? 0,
         })),
-    })),
-  }));
+    };
+  }
+
+  // Groups the existing topics-table rows (unchanged "Subject" level from
+  // the original Question Bank redesign) under the official TOS Subject
+  // they belong to (supabase/patches/013_official_subjects.sql). A topic
+  // without a subject_id yet falls into "Other Topics" for its TOS rather
+  // than disappearing.
+  const officialSubjectsByArea = new Map<string, typeof officialSubjects>();
+  for (const os of officialSubjects ?? []) {
+    const list = officialSubjectsByArea.get(os.exam_area_id) ?? [];
+    list.push(os);
+    officialSubjectsByArea.set(os.exam_area_id, list);
+  }
+
+  const topicsBySubjectId = new Map<string, typeof topics>();
+  const unmappedTopicsByArea = new Map<string, typeof topics>();
+  for (const t of topics ?? []) {
+    if (t.subject_id) {
+      const list = topicsBySubjectId.get(t.subject_id) ?? [];
+      list.push(t);
+      topicsBySubjectId.set(t.subject_id, list);
+    } else {
+      const list = unmappedTopicsByArea.get(t.exam_area_id) ?? [];
+      list.push(t);
+      unmappedTopicsByArea.set(t.exam_area_id, list);
+    }
+  }
+
+  const areas: QuestionBankArea[] = (examAreas ?? []).map((area) => {
+    const officialSubjectNodes: QuestionBankOfficialSubject[] = (officialSubjectsByArea.get(area.id) ?? []).map((os) => ({
+      id: os.id,
+      name: os.name,
+      subjects: (topicsBySubjectId.get(os.id) ?? []).map(buildSubject),
+    }));
+
+    const unmapped = unmappedTopicsByArea.get(area.id) ?? [];
+    if (unmapped.length > 0) {
+      officialSubjectNodes.push({
+        id: `other:${area.id}`,
+        name: "Other Topics",
+        subjects: unmapped.map(buildSubject),
+      });
+    }
+
+    return {
+      id: area.id,
+      name: area.name,
+      weightPercent: area.weight_percent,
+      officialSubjects: officialSubjectNodes,
+    };
+  });
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">

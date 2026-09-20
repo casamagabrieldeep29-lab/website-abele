@@ -28,11 +28,21 @@ export type QuestionBankSubject = {
   topics: QuestionBankTopic[];
 };
 
+// The official PRC TOS subject (supabase/patches/013_official_subjects.sql)
+// — sits between the TOS area and the existing topics-table "Subject"
+// level below, which is otherwise unchanged from the original Question
+// Bank redesign (same ids, same Practice/Flashcards/Reviewers actions).
+export type QuestionBankOfficialSubject = {
+  id: string;
+  name: string;
+  subjects: QuestionBankSubject[];
+};
+
 export type QuestionBankArea = {
   id: string;
   name: string;
   weightPercent: number | null;
-  subjects: QuestionBankSubject[];
+  officialSubjects: QuestionBankOfficialSubject[];
 };
 
 function matchesQuery(name: string, query: string) {
@@ -49,9 +59,12 @@ export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankAre
     const ids: string[] = [];
     for (const area of areas) {
       ids.push(`a:${area.id}`);
-      for (const subject of area.subjects) {
-        ids.push(`s:${subject.id}`);
-        for (const topic of subject.topics) ids.push(`t:${topic.id}`);
+      for (const officialSubject of area.officialSubjects) {
+        ids.push(`os:${officialSubject.id}`);
+        for (const subject of officialSubject.subjects) {
+          ids.push(`s:${subject.id}`);
+          for (const topic of subject.topics) ids.push(`t:${topic.id}`);
+        }
       }
     }
     return ids;
@@ -65,31 +78,48 @@ export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankAre
 
     for (const area of areas) {
       const areaMatches = matchesQuery(area.name, query);
-      let subjects: QuestionBankSubject[];
+      let officialSubjects: QuestionBankOfficialSubject[];
 
       if (areaMatches) {
-        subjects = area.subjects;
+        officialSubjects = area.officialSubjects;
       } else {
-        subjects = area.subjects
-          .map((subject) => {
-            const subjectMatches = matchesQuery(subject.name, query);
-            const topics = subjectMatches
-              ? subject.topics
-              : subject.topics.filter((t) => matchesQuery(t.name, query));
-            if (!subjectMatches && topics.length === 0) return null;
-            return { ...subject, topics };
+        officialSubjects = area.officialSubjects
+          .map((officialSubject) => {
+            const officialSubjectMatches = matchesQuery(officialSubject.name, query);
+            let subjects: QuestionBankSubject[];
+
+            if (officialSubjectMatches) {
+              subjects = officialSubject.subjects;
+            } else {
+              subjects = officialSubject.subjects
+                .map((subject) => {
+                  const subjectMatches = matchesQuery(subject.name, query);
+                  const topics = subjectMatches
+                    ? subject.topics
+                    : subject.topics.filter((t) => matchesQuery(t.name, query));
+                  if (!subjectMatches && topics.length === 0) return null;
+                  return { ...subject, topics };
+                })
+                .filter((s): s is QuestionBankSubject => s !== null);
+            }
+
+            if (!officialSubjectMatches && subjects.length === 0) return null;
+            return { ...officialSubject, subjects };
           })
-          .filter((s): s is QuestionBankSubject => s !== null);
+          .filter((os): os is QuestionBankOfficialSubject => os !== null);
       }
 
-      if (!areaMatches && subjects.length === 0) continue;
+      if (!areaMatches && officialSubjects.length === 0) continue;
 
       openSet.add(`a:${area.id}`);
-      for (const subject of subjects) {
-        openSet.add(`s:${subject.id}`);
-        for (const topic of subject.topics) openSet.add(`t:${topic.id}`);
+      for (const officialSubject of officialSubjects) {
+        openSet.add(`os:${officialSubject.id}`);
+        for (const subject of officialSubject.subjects) {
+          openSet.add(`s:${subject.id}`);
+          for (const topic of subject.topics) openSet.add(`t:${topic.id}`);
+        }
       }
-      result.push({ ...area, subjects });
+      result.push({ ...area, officialSubjects });
     }
 
     return { filteredAreas: result, forceOpenIds: openSet };
@@ -175,93 +205,117 @@ export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankAre
 
                 <CollapsibleContent open={areaOpen}>
                   <div className="space-y-2 px-3 pb-3">
-                    {area.subjects.length === 0 && (
+                    {area.officialSubjects.length === 0 && (
                       <p className="pl-7 text-xs text-muted-foreground">No subjects yet.</p>
                     )}
-                    {area.subjects.map((subject) => {
-                      const subjectOpen = isOpen(`s:${subject.id}`);
+                    {area.officialSubjects.map((officialSubject) => {
+                      const officialSubjectOpen = isOpen(`os:${officialSubject.id}`);
                       return (
-                        <div key={subject.id} className="rounded-md border border-border/60 bg-background/40">
-                          <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
-                            <Collapsible
-                              open={subjectOpen}
-                              onOpenChange={() => toggle(`s:${subject.id}`)}
-                              className="min-w-0 flex-1"
-                            >
-                              <CollapsibleTrigger className="flex w-full min-w-0 items-center gap-2 text-left">
-                                <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
-                                <span className="min-w-0 flex-1 text-sm font-medium break-words">{subject.name}</span>
-                              </CollapsibleTrigger>
-                            </Collapsible>
-                            <div className="flex shrink-0 flex-wrap items-center gap-1.5">
-                              {isAdmin && (
-                                <Badge
-                                  className={subject.questionCount > 0 ? accent.badge : undefined}
-                                  variant={subject.questionCount > 0 ? undefined : "secondary"}
-                                >
-                                  {subject.questionCount} questions
-                                </Badge>
-                              )}
-                              <form action={startAdaptivePracticeAttempt.bind(null, subject.id, SESSION_SIZE)}>
-                                <Button type="submit" size="sm" variant="outline" disabled={subject.questionCount === 0}>
-                                  Practice →
-                                </Button>
-                              </form>
-                              <form action={startFlashcardsByTopic.bind(null, subject.id)}>
-                                <Button type="submit" size="sm" variant="ghost">
-                                  Flashcards →
-                                </Button>
-                              </form>
-                              <Button
-                                render={<Link href={`/reviewers?q=${encodeURIComponent(subject.name)}`}>Reviewers →</Link>}
-                                nativeButton={false}
-                                size="sm"
-                                variant="ghost"
-                              />
-                            </div>
-                          </div>
+                        <div key={officialSubject.id} className="rounded-md border border-border/60">
+                          <Collapsible
+                            open={officialSubjectOpen}
+                            onOpenChange={() => toggle(`os:${officialSubject.id}`)}
+                          >
+                            <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2 text-left">
+                              <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
+                              <span className="min-w-0 flex-1 text-sm font-semibold break-words">{officialSubject.name}</span>
+                            </CollapsibleTrigger>
 
-                          <Collapsible open={subjectOpen}>
-                            <CollapsibleContent open={subjectOpen}>
-                              <div className="space-y-1.5 px-3 pb-2.5 pl-8">
-                                {subject.topics.length === 0 && (
+                            <CollapsibleContent open={officialSubjectOpen}>
+                              <div className="space-y-2 px-3 pb-2.5 pl-6">
+                                {officialSubject.subjects.length === 0 && (
                                   <p className="text-xs text-muted-foreground">No topics yet.</p>
                                 )}
-                                {subject.topics.map((topic) => {
-                                  const topicOpen = isOpen(`t:${topic.id}`);
+                                {officialSubject.subjects.map((subject) => {
+                                  const subjectOpen = isOpen(`s:${subject.id}`);
                                   return (
-                                    <div key={topic.id} className="rounded border border-border/50">
-                                      <div className="flex flex-wrap items-center justify-between gap-2 px-2.5 py-1.5">
+                                    <div key={subject.id} className="rounded-md border border-border/60 bg-background/40">
+                                      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
                                         <Collapsible
-                                          open={topicOpen}
-                                          onOpenChange={() => toggle(`t:${topic.id}`)}
+                                          open={subjectOpen}
+                                          onOpenChange={() => toggle(`s:${subject.id}`)}
                                           className="min-w-0 flex-1"
                                         >
                                           <CollapsibleTrigger className="flex w-full min-w-0 items-center gap-2 text-left">
                                             <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
-                                            <span className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
-                                              {topic.name}
-                                            </span>
+                                            <span className="min-w-0 flex-1 text-sm font-medium break-words">{subject.name}</span>
                                           </CollapsibleTrigger>
                                         </Collapsible>
-                                        <div className="flex shrink-0 items-center gap-1.5">
+                                        <div className="flex shrink-0 flex-wrap items-center gap-1.5">
                                           {isAdmin && (
-                                            <span className="text-xs text-muted-foreground">
-                                              {topic.questionCount} questions
-                                            </span>
+                                            <Badge
+                                              className={subject.questionCount > 0 ? accent.badge : undefined}
+                                              variant={subject.questionCount > 0 ? undefined : "secondary"}
+                                            >
+                                              {subject.questionCount} questions
+                                            </Badge>
                                           )}
-                                          <form action={startSubtopicPracticeAttempt.bind(null, topic.id, SESSION_SIZE)}>
-                                            <Button type="submit" size="sm" variant="ghost" disabled={topic.questionCount === 0}>
+                                          <form action={startAdaptivePracticeAttempt.bind(null, subject.id, SESSION_SIZE)}>
+                                            <Button type="submit" size="sm" variant="outline" disabled={subject.questionCount === 0}>
                                               Practice →
                                             </Button>
                                           </form>
+                                          <form action={startFlashcardsByTopic.bind(null, subject.id)}>
+                                            <Button type="submit" size="sm" variant="ghost">
+                                              Flashcards →
+                                            </Button>
+                                          </form>
+                                          <Button
+                                            render={<Link href={`/reviewers?q=${encodeURIComponent(subject.name)}`}>Reviewers →</Link>}
+                                            nativeButton={false}
+                                            size="sm"
+                                            variant="ghost"
+                                          />
                                         </div>
                                       </div>
 
-                                      <Collapsible open={topicOpen}>
-                                        <CollapsibleContent open={topicOpen} keepMounted>
-                                          <div className="px-2.5 pb-2 pl-6">
-                                            <TopicQuestions subtopicId={topic.id} isOpen={topicOpen} />
+                                      <Collapsible open={subjectOpen}>
+                                        <CollapsibleContent open={subjectOpen}>
+                                          <div className="space-y-1.5 px-3 pb-2.5 pl-8">
+                                            {subject.topics.length === 0 && (
+                                              <p className="text-xs text-muted-foreground">No topics yet.</p>
+                                            )}
+                                            {subject.topics.map((topic) => {
+                                              const topicOpen = isOpen(`t:${topic.id}`);
+                                              return (
+                                                <div key={topic.id} className="rounded border border-border/50">
+                                                  <div className="flex flex-wrap items-center justify-between gap-2 px-2.5 py-1.5">
+                                                    <Collapsible
+                                                      open={topicOpen}
+                                                      onOpenChange={() => toggle(`t:${topic.id}`)}
+                                                      className="min-w-0 flex-1"
+                                                    >
+                                                      <CollapsibleTrigger className="flex w-full min-w-0 items-center gap-2 text-left">
+                                                        <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
+                                                        <span className="min-w-0 flex-1 truncate text-sm text-muted-foreground">
+                                                          {topic.name}
+                                                        </span>
+                                                      </CollapsibleTrigger>
+                                                    </Collapsible>
+                                                    <div className="flex shrink-0 items-center gap-1.5">
+                                                      {isAdmin && (
+                                                        <span className="text-xs text-muted-foreground">
+                                                          {topic.questionCount} questions
+                                                        </span>
+                                                      )}
+                                                      <form action={startSubtopicPracticeAttempt.bind(null, topic.id, SESSION_SIZE)}>
+                                                        <Button type="submit" size="sm" variant="ghost" disabled={topic.questionCount === 0}>
+                                                          Practice →
+                                                        </Button>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+
+                                                  <Collapsible open={topicOpen}>
+                                                    <CollapsibleContent open={topicOpen} keepMounted>
+                                                      <div className="px-2.5 pb-2 pl-6">
+                                                        <TopicQuestions subtopicId={topic.id} isOpen={topicOpen} />
+                                                      </div>
+                                                    </CollapsibleContent>
+                                                  </Collapsible>
+                                                </div>
+                                              );
+                                            })}
                                           </div>
                                         </CollapsibleContent>
                                       </Collapsible>
