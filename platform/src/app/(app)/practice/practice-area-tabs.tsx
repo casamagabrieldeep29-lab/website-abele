@@ -23,7 +23,7 @@ const AREA_LABELS: Record<MockArea, string> = {
   area_3: "Area 3",
 };
 
-export function PracticeAreaTabs({ topics }: { topics: PracticeTopic[] }) {
+export function PracticeAreaTabs({ topics, showCounts }: { topics: PracticeTopic[]; showCounts: boolean }) {
   const byArea = new Map<MockArea, PracticeTopic[]>();
   for (const topic of topics) {
     const list = byArea.get(topic.mockArea) ?? [];
@@ -39,7 +39,8 @@ export function PracticeAreaTabs({ topics }: { topics: PracticeTopic[] }) {
           const totalQuestions = areaTopics.reduce((sum, t) => sum + t.questionCount, 0);
           return (
             <TabsTrigger key={area} value={area}>
-              {AREA_LABELS[area]} ({totalQuestions})
+              {AREA_LABELS[area]}
+              {showCounts ? ` (${totalQuestions})` : ""}
             </TabsTrigger>
           );
         })}
@@ -63,9 +64,11 @@ export function PracticeAreaTabs({ topics }: { topics: PracticeTopic[] }) {
                           <CardTitle>{topic.name}</CardTitle>
                           <CardDescription>{topic.examAreaName}</CardDescription>
                         </div>
-                        <Badge className={count > 0 ? accent.badge : undefined} variant={count > 0 ? undefined : "secondary"}>
-                          {count} question{count === 1 ? "" : "s"}
-                        </Badge>
+                        {showCounts && (
+                          <Badge className={count > 0 ? accent.badge : undefined} variant={count > 0 ? undefined : "secondary"}>
+                            {count} question{count === 1 ? "" : "s"}
+                          </Badge>
+                        )}
                       </div>
                     </CardHeader>
                     <CardContent>

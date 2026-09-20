@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { checkIsAdmin } from "@/lib/auth/is-admin";
 import { PageHeader } from "@/components/page-header";
 import { PracticeAreaTabs, type PracticeTopic } from "./practice-area-tabs";
 import type { MockArea } from "@/app/mock/actions";
@@ -8,6 +9,8 @@ export default async function PracticePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const isAdmin = await checkIsAdmin(supabase, user.id);
 
   // PostgREST can't embed through a view via a topics(...) join, so fetch
   // topics and published-question counts separately and merge in JS.
@@ -37,7 +40,7 @@ export default async function PracticePage() {
       />
 
       <div className="mt-6">
-        <PracticeAreaTabs topics={practiceTopics} />
+        <PracticeAreaTabs topics={practiceTopics} showCounts={isAdmin} />
 
         {!practiceTopics.length && (
           <p className="mt-3 text-sm text-muted-foreground">No topics yet.</p>
