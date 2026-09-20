@@ -67,7 +67,7 @@ export default async function QuizBuilderPage({
     <div className="mx-auto max-w-xl">
       <PageHeader title="Custom Quiz" description="Build a quiz exactly the way you want it." />
 
-      <QuizBuilderForm areas={areas} showNoMatchError={error === "no-match"} />
+      <QuizBuilderForm areas={areas} errorCode={error === "no-match" || error === "no-topics" ? error : null} />
     </div>
   );
 }

@@ -219,11 +219,14 @@ type CustomQuizFilters = {
 };
 
 /**
- * Custom Quiz Builder: respects the actual available pool — never
- * duplicates questions to hit the requested count. If fewer questions match
- * than requested, the session is just built from however many exist and
- * `adjustedFrom` is returned so the UI can tell the student plainly, rather
- * than silently serving a shorter quiz.
+ * Custom Quiz Builder: at least one topic must be checked (no "leave
+ * everything unchecked to mean every topic" fallback) — the generated quiz
+ * strictly draws only from the exact topics the student picked, never
+ * anything outside that set. Also respects the actual available pool —
+ * never duplicates questions to hit the requested count. If fewer
+ * questions match than requested, the session is just built from however
+ * many exist and `adjustedFrom` is returned so the UI can tell the student
+ * plainly, rather than silently serving a shorter quiz.
  */
 export async function startCustomQuiz(formData: FormData) {
   const supabase = await createClient();
@@ -238,8 +241,17 @@ export async function startCustomQuiz(formData: FormData) {
     count: Number(formData.get("count") ?? 20),
   };
 
-  let query = supabase.from("student_questions").select("id, topic_id, difficulty, series_key, series_position");
-  if (filters.topicIds.length > 0) query = query.in("topic_id", filters.topicIds);
+  // At least one topic must be checked — strictly enforced, no "leave
+  // everything unchecked to include every topic" fallback. A quiz only
+  // ever draws from the exact topics the student picked.
+  if (filters.topicIds.length === 0) {
+    redirect("/quiz-builder?error=no-topics");
+  }
+
+  let query = supabase
+    .from("student_questions")
+    .select("id, topic_id, difficulty, series_key, series_position")
+    .in("topic_id", filters.topicIds);
   if (filters.difficulties.length > 0) query = query.in("difficulty", filters.difficulties);
   if (filters.category !== "all") query = query.eq("category", filters.category);
 
