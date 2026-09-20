@@ -28,7 +28,7 @@ function CodeForm({ email, onCancel }: { email: string; onCancel: () => void }) 
   return (
     <div className="space-y-3 rounded-md border border-destructive/30 bg-destructive/5 p-3">
       <p className="text-sm text-destructive">
-        We sent a 6-digit code to <strong>{email}</strong>. Enter it to permanently reset all your
+        We sent a code to <strong>{email}</strong>. Enter it to permanently reset all your
         practice/mock history, mastery, streaks, and flashcard progress. This cannot be undone.
       </p>
       <form action={formAction} className="space-y-2">
