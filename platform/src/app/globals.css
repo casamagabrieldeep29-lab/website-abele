@@ -138,6 +138,98 @@
   --sidebar-ring: #55aaa6;
 }
 
+/*
+ * Ocean color theme — a complete, self-contained palette (independent of
+ * the light/dark toggle above) selected from Settings > Appearance >
+ * Themes. Applied as a class on <html> alongside (and, by CSS source
+ * order, taking priority over) .dark/:root, so switching to Ocean looks
+ * the same regardless of the underlying light/dark selection. Every
+ * variable name matches :root/.dark exactly, so every existing component
+ * (already built on these tokens, not hardcoded colors) re-themes for
+ * free with no component changes.
+ */
+.theme-ocean {
+  --background: #001d29;
+  --foreground: #e3e9f3;
+  --card: #052736;
+  --card-foreground: #e3e9f3;
+  --popover: #052736;
+  --popover-foreground: #e3e9f3;
+  --primary: #0283a1;
+  --primary-foreground: #ffffff;
+  --secondary: #0b3a4a;
+  --secondary-foreground: #c0eeee;
+  --muted: #072f3d;
+  --muted-foreground: #8fb4bf;
+  --accent: #0b3a4a;
+  --accent-foreground: #c0eeee;
+  --destructive: #e5484d;
+  --success: #34c77b;
+  --success-foreground: #00150e;
+  --gold: #e3b341;
+  --gold-foreground: #241900;
+  --border: #0f3d4c;
+  --input: #0f3d4c;
+  --ring: #63b1c6;
+  --chart-1: #0283a1;
+  --chart-2: #63b1c6;
+  --chart-3: #34c77b;
+  --chart-4: #e3b341;
+  --chart-5: #c0eeee;
+  --sidebar: #001d29;
+  --sidebar-foreground: #e3e9f3;
+  --sidebar-primary: #0283a1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #0b3a4a;
+  --sidebar-accent-foreground: #c0eeee;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #63b1c6;
+}
+
+/*
+ * Forest color theme — deep forest green background with moss/olive as
+ * the primary action color and lime kept scarce (ring/chart accent only)
+ * so the interface reads as a sophisticated dark forest, not a neon
+ * gaming UI.
+ */
+.theme-forest {
+  --background: #0c1f14;
+  --foreground: #e7efd8;
+  --card: #142b1c;
+  --card-foreground: #e7efd8;
+  --popover: #142b1c;
+  --popover-foreground: #e7efd8;
+  --primary: #4f7a3e;
+  --primary-foreground: #ffffff;
+  --secondary: #1d3823;
+  --secondary-foreground: #c9ddb0;
+  --muted: #17301f;
+  --muted-foreground: #93ac82;
+  --accent: #1d3823;
+  --accent-foreground: #c9ddb0;
+  --destructive: #d1524b;
+  --success: #4fae64;
+  --success-foreground: #08170b;
+  --gold: #c9a227;
+  --gold-foreground: #1b1400;
+  --border: #24402c;
+  --input: #24402c;
+  --ring: #8fbf4d;
+  --chart-1: #4f7a3e;
+  --chart-2: #8fbf4d;
+  --chart-3: #4fae64;
+  --chart-4: #c9a227;
+  --chart-5: #93ac82;
+  --sidebar: #0c1f14;
+  --sidebar-foreground: #e7efd8;
+  --sidebar-primary: #4f7a3e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1d3823;
+  --sidebar-accent-foreground: #c9ddb0;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #8fbf4d;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -148,4 +240,17 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Smooth, non-flashy color transition when switching color themes — not
+   applied globally (that would fight scroll/hover-driven transitions
+   already used elsewhere), only on the properties themes actually change. */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 200ms ease-out,
+    border-color 200ms ease-out,
+    color 200ms ease-out,
+    fill 200ms ease-out,
+    stroke 200ms ease-out !important;
 }
