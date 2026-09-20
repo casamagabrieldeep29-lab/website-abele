@@ -16,6 +16,12 @@ export default async function AdminFlashcardsPage() {
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);
 
+  // Flashcards only ever attach to the Area 1/2/3 umbrella topics (unlike
+  // MCQ questions, which use the full fine-grained topic taxonomy) — the
+  // picker is restricted to those so new cards can't drift back onto a
+  // specific topic like Hydrology or Irrigation and Drainage Engineering.
+  const areaTopics = (topics ?? []).filter((t) => /^Area [123]$/.test(t.name));
+
   const topicNameById = new Map((topics ?? []).map((t) => [t.id, t.name]));
   const cardsByTopic = new Map<string, typeof cards>();
   for (const c of cards ?? []) {
@@ -66,7 +72,7 @@ export default async function AdminFlashcardsPage() {
           </div>
         </div>
 
-        <FlashcardsAdminBrowser groups={groups} topics={topics ?? []} subtopics={subtopics ?? []} />
+        <FlashcardsAdminBrowser groups={groups} topics={areaTopics} subtopics={subtopics ?? []} />
         {groups.length === 0 && <p className="text-sm text-muted-foreground">No flashcards yet.</p>}
 
         <Card>
@@ -77,7 +83,7 @@ export default async function AdminFlashcardsPage() {
             <form action={createFlashcard} className="space-y-2">
               <textarea name="front" placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <textarea name="back" placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-              <TopicSubtopicFields topics={topics ?? []} subtopics={subtopics ?? []} />
+              <TopicSubtopicFields topics={areaTopics} subtopics={subtopics ?? []} />
               <input name="source" placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <Button type="submit" size="sm">
                 Add flashcard (as draft)
