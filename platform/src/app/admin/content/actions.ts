@@ -64,6 +64,9 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
   const questionText = String(formData.get("questionText") ?? "").trim();
   const difficulty = String(formData.get("difficulty") ?? "") || null;
   const explanation = String(formData.get("explanation") ?? "").trim() || null;
+  const seriesKey = String(formData.get("seriesKey") ?? "").trim() || null;
+  const seriesPositionRaw = String(formData.get("seriesPosition") ?? "").trim();
+  const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { error: qErr } = await supabase
@@ -72,6 +75,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
       question_text: questionText,
       difficulty,
       explanation,
+      series_key: seriesKey,
+      series_position: seriesPosition,
       updated_at: new Date().toISOString(),
     })
     .eq("id", questionId);
@@ -116,6 +121,9 @@ export async function createQuestion(topicId: string, formData: FormData) {
   const questionText = String(formData.get("questionText") ?? "").trim();
   const difficulty = String(formData.get("difficulty") ?? "") || null;
   const explanation = String(formData.get("explanation") ?? "").trim() || null;
+  const seriesKey = String(formData.get("seriesKey") ?? "").trim() || null;
+  const seriesPositionRaw = String(formData.get("seriesPosition") ?? "").trim();
+  const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { data: newQuestion, error: qErr } = await supabase
@@ -125,6 +133,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
       question_text: questionText,
       difficulty,
       explanation,
+      series_key: seriesKey,
+      series_position: seriesPosition,
       status: "draft",
       created_by: user?.id,
     })
