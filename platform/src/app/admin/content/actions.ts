@@ -138,6 +138,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
   const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
   const categoryRaw = String(formData.get("category") ?? "");
   const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
+  const isRecalled = formData.get("isRecalled") === "on";
+  const recalledBatch = isRecalled ? String(formData.get("recalledBatch") ?? "").trim() || null : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { error: qErr } = await supabase
@@ -149,6 +151,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
       series_key: seriesKey,
       series_position: seriesPosition,
       category,
+      is_recalled: isRecalled,
+      recalled_batch: recalledBatch,
       updated_at: new Date().toISOString(),
     })
     .eq("id", questionId);
@@ -198,6 +202,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
   const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
   const categoryRaw = String(formData.get("category") ?? "");
   const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
+  const isRecalled = formData.get("isRecalled") === "on";
+  const recalledBatch = isRecalled ? String(formData.get("recalledBatch") ?? "").trim() || null : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { data: newQuestion, error: qErr } = await supabase
@@ -210,6 +216,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
       series_key: seriesKey,
       series_position: seriesPosition,
       category,
+      is_recalled: isRecalled,
+      recalled_batch: recalledBatch,
       status: "draft",
       created_by: user?.id,
     })
