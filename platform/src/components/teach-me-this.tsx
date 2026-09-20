@@ -3,39 +3,9 @@
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { renderBlockMath, renderInline } from "@/lib/render-inline";
+import { AIMarkdown } from "@/components/ai-markdown";
 
 const FOLLOW_UPS = ["Explain simpler", "Give an example", "Quiz me on this concept"];
-
-function renderText(text: string) {
-  return text.split("\n").map((line, i) => {
-    const trimmed = line.trim();
-    if (!trimmed) return null;
-    const blockMath = trimmed.match(/^\$\$(.+)\$\$$/);
-    if (blockMath) {
-      return <div key={i}>{renderBlockMath(blockMath[1])}</div>;
-    }
-    if (trimmed.startsWith("### ")) {
-      return (
-        <p key={i} className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary first:mt-0">
-          {renderInline(trimmed.slice(4))}
-        </p>
-      );
-    }
-    if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
-      return (
-        <li key={i} className="mt-1 ml-4 list-disc text-sm text-foreground">
-          {renderInline(trimmed.slice(2))}
-        </li>
-      );
-    }
-    return (
-      <p key={i} className="mt-1 text-sm text-foreground">
-        {renderInline(line)}
-      </p>
-    );
-  });
-}
 
 export function TeachMeThis({ attemptId, questionId }: { attemptId: string; questionId: string }) {
   const [open, setOpen] = useState(false);
@@ -100,7 +70,7 @@ export function TeachMeThis({ attemptId, questionId }: { attemptId: string; ques
       )}
       {!loading && text && (
         <>
-          <div>{renderText(text)}</div>
+          <AIMarkdown text={text} />
           <div className="mt-3 flex flex-wrap gap-1.5 border-t border-primary/10 pt-2.5">
             {FOLLOW_UPS.map((f) => (
               <Button
