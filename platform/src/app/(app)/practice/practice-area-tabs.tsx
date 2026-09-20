@@ -6,7 +6,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { startPracticeAttempt, startTosPracticeAttempt } from "@/app/practice/actions";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import type { MockArea } from "@/app/mock/actions";
@@ -55,33 +54,28 @@ function buildTosGroups(topics: PracticeTopic[]): TosGroup[] {
       entry.topics.push(t);
       bySubject.set(key, entry);
     }
-    return {
-      id: examAreaId,
-      name,
-      subjects: [...bySubject.entries()].map(([subjectId, { name: subjectName, topics: subjectTopics }]) => ({
-        id: subjectId,
-        name: subjectName,
-        topics: subjectTopics,
-      })),
-    };
+    const subjects = [...bySubject.entries()].map(([subjectId, { name: subjectName, topics: subjectTopics }]) => ({
+      id: subjectId,
+      name: subjectName,
+      topics: subjectTopics,
+    }));
+    // "other" was keyed last only by luck of Map insertion order (whichever
+    // topic without a subject_id happened to appear first in the query) —
+    // pin it to the end explicitly instead.
+    subjects.sort((a, b) => (a.id === "other" ? 1 : 0) - (b.id === "other" ? 1 : 0));
+
+    return { id: examAreaId, name, subjects };
   });
 }
 
-function TopicCard({ topic, showCounts }: { topic: PracticeTopic; showCounts: boolean }) {
+function TopicCard({ topic }: { topic: PracticeTopic }) {
   const accent = getHarmonizedAccent(topic.examAreaName ?? topic.name);
   const count = topic.questionCount;
 
   return (
     <Card className={`border-l-4 ${accent.border} ${accent.bg}`}>
       <CardHeader>
-        <div className="flex items-center justify-between gap-2">
-          <CardTitle className="text-base">{topic.name}</CardTitle>
-          {showCounts && (
-            <Badge className={count > 0 ? accent.badge : undefined} variant={count > 0 ? undefined : "secondary"}>
-              {count} question{count === 1 ? "" : "s"}
-            </Badge>
-          )}
-        </div>
+        <CardTitle className="text-base">{topic.name}</CardTitle>
       </CardHeader>
       <CardContent>
         <form action={startPracticeAttempt.bind(null, topic.id)}>
@@ -94,7 +88,7 @@ function TopicCard({ topic, showCounts }: { topic: PracticeTopic; showCounts: bo
   );
 }
 
-function TosAccordion({ groups, showCounts }: { groups: TosGroup[]; showCounts: boolean }) {
+function TosAccordion({ groups }: { groups: TosGroup[] }) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set());
 
   function toggle(id: string) {
@@ -144,7 +138,7 @@ function TosAccordion({ groups, showCounts }: { groups: TosGroup[]; showCounts: 
                           <CollapsibleContent open={subjectOpen}>
                             <div className="space-y-2 px-2.5 pb-2.5 pl-5">
                               {subject.topics.map((topic) => (
-                                <TopicCard key={topic.id} topic={topic} showCounts={showCounts} />
+                                <TopicCard key={topic.id} topic={topic} />
                               ))}
                             </div>
                           </CollapsibleContent>
@@ -162,7 +156,7 @@ function TosAccordion({ groups, showCounts }: { groups: TosGroup[]; showCounts: 
   );
 }
 
-export function PracticeAreaTabs({ topics, showCounts }: { topics: PracticeTopic[]; showCounts: boolean }) {
+export function PracticeAreaTabs({ topics }: { topics: PracticeTopic[] }) {
   const byArea = new Map<MockArea, PracticeTopic[]>();
   for (const topic of topics) {
     const list = byArea.get(topic.mockArea) ?? [];
@@ -173,16 +167,11 @@ export function PracticeAreaTabs({ topics, showCounts }: { topics: PracticeTopic
   return (
     <Tabs defaultValue="area_1">
       <TabsList>
-        {AREA_ORDER.map((area) => {
-          const areaTopics = byArea.get(area) ?? [];
-          const totalQuestions = areaTopics.reduce((sum, t) => sum + t.questionCount, 0);
-          return (
-            <TabsTrigger key={area} value={area}>
-              {AREA_LABELS[area]}
-              {showCounts ? ` (${totalQuestions})` : ""}
-            </TabsTrigger>
-          );
-        })}
+        {AREA_ORDER.map((area) => (
+          <TabsTrigger key={area} value={area}>
+            {AREA_LABELS[area]}
+          </TabsTrigger>
+        ))}
       </TabsList>
 
       {AREA_ORDER.map((area) => {
@@ -192,7 +181,7 @@ export function PracticeAreaTabs({ topics, showCounts }: { topics: PracticeTopic
         return (
           <TabsContent key={area} value={area}>
             <div className="mt-3">
-              <TosAccordion groups={tosGroups} showCounts={showCounts} />
+              <TosAccordion groups={tosGroups} />
             </div>
           </TabsContent>
         );

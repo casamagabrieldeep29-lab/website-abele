@@ -4,10 +4,8 @@ import { PageHeader } from "@/components/page-header";
 import { QuestionBankBrowser, type QuestionBankArea, type QuestionBankOfficialSubject } from "./question-bank-browser";
 
 export default async function QuestionBankPage() {
-  const { supabase, user, profile } = await getAuthContext();
+  const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
-
-  const isAdmin = profile?.role === "admin";
 
   const [{ data: examAreas }, { data: officialSubjects }, { data: topics }, { data: subtopics }, { data: published }] =
     await Promise.all([
@@ -103,7 +101,7 @@ export default async function QuestionBankPage() {
         title="Question Bank"
         description="Browse by TOS area, subject, and topic. Drill into a topic to see and practice its questions."
       />
-      <QuestionBankBrowser areas={areas} isAdmin={isAdmin} />
+      <QuestionBankBrowser areas={areas} />
     </div>
   );
 }

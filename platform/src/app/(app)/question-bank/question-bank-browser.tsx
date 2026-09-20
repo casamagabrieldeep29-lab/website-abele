@@ -49,7 +49,7 @@ function matchesQuery(name: string, query: string) {
   return name.toLowerCase().includes(query);
 }
 
-export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankArea[]; isAdmin: boolean }) {
+export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set());
   const [rawQuery, setRawQuery] = useState("");
   const query = rawQuery.trim().toLowerCase();
@@ -242,14 +242,6 @@ export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankAre
                                           </CollapsibleTrigger>
                                         </Collapsible>
                                         <div className="flex shrink-0 flex-wrap items-center gap-1.5">
-                                          {isAdmin && (
-                                            <Badge
-                                              className={subject.questionCount > 0 ? accent.badge : undefined}
-                                              variant={subject.questionCount > 0 ? undefined : "secondary"}
-                                            >
-                                              {subject.questionCount} questions
-                                            </Badge>
-                                          )}
                                           <form action={startAdaptivePracticeAttempt.bind(null, subject.id, SESSION_SIZE)}>
                                             <Button type="submit" size="sm" variant="outline" disabled={subject.questionCount === 0}>
                                               Practice →
@@ -293,11 +285,6 @@ export function QuestionBankBrowser({ areas, isAdmin }: { areas: QuestionBankAre
                                                       </CollapsibleTrigger>
                                                     </Collapsible>
                                                     <div className="flex shrink-0 items-center gap-1.5">
-                                                      {isAdmin && (
-                                                        <span className="text-xs text-muted-foreground">
-                                                          {topic.questionCount} questions
-                                                        </span>
-                                                      )}
                                                       <form action={startSubtopicPracticeAttempt.bind(null, topic.id, SESSION_SIZE)}>
                                                         <Button type="submit" size="sm" variant="ghost" disabled={topic.questionCount === 0}>
                                                           Practice →
