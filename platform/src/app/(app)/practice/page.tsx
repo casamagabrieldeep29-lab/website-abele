@@ -8,10 +8,8 @@ import { PracticeAreaTabs, type PracticeTopic } from "./practice-area-tabs";
 import type { MockArea } from "@/app/mock/actions";
 
 export default async function PracticePage() {
-  const { supabase, user, profile } = await getAuthContext();
+  const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
-
-  const isAdmin = profile?.role === "admin";
 
   // PostgREST can't embed through a view via a topics(...) join, so fetch
   // topics and published-question counts separately and merge in JS.
@@ -53,7 +51,7 @@ export default async function PracticePage() {
       />
 
       <div className="mt-6">
-        <PracticeAreaTabs topics={practiceTopics} showCounts={isAdmin} />
+        <PracticeAreaTabs topics={practiceTopics} />
 
         {!practiceTopics.length && (
           <p className="mt-3 text-sm text-muted-foreground">No topics yet.</p>
