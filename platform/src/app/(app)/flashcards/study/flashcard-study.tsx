@@ -264,7 +264,6 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
           <Star className={`size-4 ${saved.has(card.id) ? "fill-primary text-primary" : ""}`} />
           {saved.has(card.id) ? "Saved" : "Save"}
         </button>
-        {card.source && <span className="text-xs text-muted-foreground">Source: {card.source}</span>}
       </div>
 
       {flipped ? (
