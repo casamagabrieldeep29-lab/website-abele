@@ -55,8 +55,8 @@ const MAIN_NAV_ITEMS = [
 ];
 
 const SECRET_UNLOCK_STORAGE_KEY = "abeliever-secret-unlocked";
-const SECRET_UNLOCK_CLICKS = 7;
-const SECRET_UNLOCK_WINDOW_MS = 1200;
+const SECRET_UNLOCK_CLICKS = 3;
+const SECRET_UNLOCK_WINDOW_MS = 900;
 
 const STUDY_TOOLS_NAV_ITEMS = [
   { href: "/mistakes", label: "Mistake Bank", icon: XCircle },
