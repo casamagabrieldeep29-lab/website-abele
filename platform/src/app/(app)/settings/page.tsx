@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ThemeSelector } from "@/components/theme-selector";
 import { SettingsForm } from "@/components/settings-form";
 import { DeleteAccountForm } from "@/components/delete-account-form";
+import { ResetProgressForm } from "@/components/reset-progress-form";
 import { signOut } from "@/app/dashboard/actions";
 import { updateDisplayName, updateTargetExamDate, clearTargetExamDate } from "@/app/profile/actions";
 import { updateStudyPreferences, deleteAccount } from "@/app/settings/actions";
@@ -245,6 +246,20 @@ export default async function SettingsPage({
               <p className="text-sm text-muted-foreground">
                 You can permanently delete your account and all of this data from the Account tab above.
               </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mt-4 border-destructive/30">
+            <CardHeader>
+              <CardTitle className="text-base text-destructive">Reset progress</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Wipes your practice/mock history, mastery, streaks, and flashcard progress so you can
+                start over — your account, saved notes, and bookmarks are kept. Requires a
+                verification code sent to your email.
+              </p>
+              <ResetProgressForm />
             </CardContent>
           </Card>
         </TabsContent>
