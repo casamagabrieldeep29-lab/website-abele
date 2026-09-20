@@ -5,9 +5,9 @@ import type { LucideIcon } from "lucide-react";
 // mastered counts) — everything else stays teal/neutral so the dashboard
 // doesn't turn into a wall of different colors per stat.
 export const STAT_ACCENTS = {
-  primary: { icon: "bg-primary/15 text-primary", border: "border-l-primary", bar: "bg-primary" },
+  primary: { icon: "bg-primary/15 text-primary glow-primary", border: "border-l-primary", bar: "bg-primary" },
   secondary: { icon: "bg-secondary text-secondary-foreground", border: "border-l-border", bar: "bg-secondary-foreground/40" },
-  gold: { icon: "bg-gold/15 text-gold", border: "border-l-gold", bar: "bg-gold" },
+  gold: { icon: "bg-gold/15 text-gold glow-primary", border: "border-l-gold", bar: "bg-gold" },
 } as const;
 
 /** Shared by /dashboard and /profile so the same stat always looks the same way. */

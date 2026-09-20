@@ -98,6 +98,9 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: #55aaa6;
+  --hero-image: none;
+  --gradient-accent: var(--primary);
+  --glow-primary: none;
 }
 
 .dark {
@@ -136,6 +139,9 @@
   --sidebar-accent-foreground: #edf3f1;
   --sidebar-border: #29403f;
   --sidebar-ring: #55aaa6;
+  --hero-image: none;
+  --gradient-accent: var(--primary);
+  --glow-primary: none;
 }
 
 /*
@@ -184,6 +190,9 @@
   --sidebar-accent-foreground: #c0eeee;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #63b1c6;
+  --hero-image: url("/images/themes/ocean-hero.jpg");
+  --gradient-accent: linear-gradient(90deg, #0283a1, #63b1c6);
+  --glow-primary: 0 0 16px color-mix(in srgb, #0283a1 55%, transparent);
 }
 
 /*
@@ -228,6 +237,52 @@
   --sidebar-accent-foreground: #c9ddb0;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #8fbf4d;
+  --hero-image: url("/images/themes/forest-hero.jpg");
+  --gradient-accent: linear-gradient(90deg, #4f7a3e, #8fbf4d);
+  --glow-primary: 0 0 16px color-mix(in srgb, #4f7a3e 55%, transparent);
+}
+
+/*
+ * Dashboard hero banner — a plain text block with zero extra styling in
+ * Default (same markup renders identically to before this existed). Only
+ * under an active photo theme does the ancestor selector below give it the
+ * background photo, dark-wash overlay, and padding, so no component ever
+ * needs to know which theme is active or fork per theme.
+ */
+.theme-ocean .dashboard-hero,
+.theme-forest .dashboard-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  padding: 1.75rem;
+  min-height: 11rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: center;
+}
+.theme-ocean .dashboard-hero::before,
+.theme-forest .dashboard-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(115deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+}
+
+/* A subtle two-tone gradient fill for progress indicators, used in place of
+   a flat --primary when a theme defines one; Default's --gradient-accent
+   just equals --primary, so this is a no-op visual change there. */
+.gradient-accent-fill {
+  background: var(--gradient-accent);
+}
+
+/* A soft glow behind feature-icon badges — inert (none) for Default. */
+.glow-primary {
+  box-shadow: var(--glow-primary);
 }
 
 @layer base {

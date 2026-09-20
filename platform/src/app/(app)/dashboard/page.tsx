@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BookOpen, Calendar, Flame, GalleryVerticalEnd, Target, TrendingUp } from "lucide-react";
+import {
+  BookOpen,
+  Calendar,
+  CalendarClock,
+  ClipboardList,
+  Compass,
+  Flame,
+  GalleryVerticalEnd,
+  Target,
+  TrendingUp,
+} from "lucide-react";
 import { getAuthContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,6 +20,7 @@ import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { ACHIEVEMENTS } from "@/lib/achievements";
 import { computeStudyStats, type TopicMasteryRow } from "@/lib/study-stats";
 import { StatCard } from "@/components/stat-card";
+import type { PlanDay } from "@/app/study-plan/actions";
 
 type TopicMastery = TopicMasteryRow;
 
@@ -98,6 +109,7 @@ export default async function DashboardPage() {
     { data: recentAttempts },
     { data: todaysDailyAttempt },
     { data: earnedAchievements },
+    { data: studyPlan },
   ] = await Promise.all([
     supabase.rpc("get_topic_mastery"),
     supabase.from("student_questions").select("id, topic_id").order("id"),
@@ -117,6 +129,7 @@ export default async function DashboardPage() {
       .gte("started_at", todayStartIso())
       .maybeSingle(),
     supabase.from("user_achievements").select("achievement_code").eq("user_id", user.id),
+    supabase.from("study_plans").select("generated_plan").eq("user_id", user.id).maybeSingle(),
   ]);
 
   const mastery = (masteryRows ?? []) as TopicMastery[];
@@ -171,12 +184,17 @@ export default async function DashboardPage() {
 
   const earnedCodes = new Set((earnedAchievements ?? []).map((a) => a.achievement_code));
 
+  // --- Upcoming Study Plan — same generated_plan data /study-plan reads,
+  // just the next 3 sessions from today rather than the full 2-week view. ---
+  const planDays = (studyPlan?.generated_plan ?? []) as PlanDay[];
+  const upcomingPlanDays = planDays.filter((d) => d.date >= new Date().toISOString().slice(0, 10)).slice(0, 3);
+
   const displayName = profile?.display_name || user.email?.split("@")[0] || "there";
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
       {/* Hero */}
-      <div>
+      <div className="dashboard-hero">
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {greeting()}, {displayName} 👋
         </h1>
@@ -185,6 +203,56 @@ export default async function DashboardPage() {
             ? `You've answered ${questionsAnswered} question${questionsAnswered === 1 ? "" : "s"} so far. Ready for today's review?`
             : "Ready to start your first review session?"}
         </p>
+      </div>
+
+      {/* Quick jump row */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {recommendation ? (
+          <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)} className="contents">
+            <button type="submit" className="block h-full text-left">
+              <Card className="h-full transition-colors hover:border-primary/50">
+                <CardContent className="py-4">
+                  <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
+                    <Target className="size-4.5" />
+                  </div>
+                  <p className="mt-2.5 text-sm font-semibold">Continue Studying</p>
+                  <p className="text-xs text-muted-foreground">Pick up where you left off</p>
+                </CardContent>
+              </Card>
+            </button>
+          </form>
+        ) : (
+          <Link href="/practice" className="block">
+            <Card className="h-full transition-colors hover:border-primary/50">
+              <CardContent className="py-4">
+                <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
+                  <Target className="size-4.5" />
+                </div>
+                <p className="mt-2.5 text-sm font-semibold">Continue Studying</p>
+                <p className="text-xs text-muted-foreground">Pick up where you left off</p>
+              </CardContent>
+            </Card>
+          </Link>
+        )}
+
+        {[
+          { href: "/question-bank", icon: Compass, label: "TOS", description: "Explore the curriculum" },
+          { href: "/practice", icon: BookOpen, label: "Practice", description: "Sharpen your skills" },
+          { href: "/flashcards", icon: GalleryVerticalEnd, label: "Flashcards", description: "Build your memory" },
+          { href: "/mock", icon: ClipboardList, label: "Mock Exams", description: "Test your knowledge" },
+        ].map((item) => (
+          <Link key={item.label} href={item.href} className="block">
+            <Card className="h-full transition-colors hover:border-primary/50">
+              <CardContent className="py-4">
+                <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
+                  <item.icon className="size-4.5" />
+                </div>
+                <p className="mt-2.5 text-sm font-semibold">{item.label}</p>
+                <p className="text-xs text-muted-foreground">{item.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
 
       {/* Question of the Day */}
@@ -353,9 +421,54 @@ export default async function DashboardPage() {
         )}
       </div>
 
-      {/* Continue Reviewing */}
+      {/* Upcoming Study Plan */}
+      {upcomingPlanDays.length > 0 && (
+        <div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-muted-foreground">Upcoming Study Plan</h2>
+            <Link href="/study-plan" className="text-xs text-primary hover:underline">
+              View all →
+            </Link>
+          </div>
+          <div className="mt-2 space-y-2">
+            {upcomingPlanDays.map((d) => (
+              <Card key={d.date}>
+                <CardContent className="flex items-center justify-between gap-3 py-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex size-9 shrink-0 flex-col items-center justify-center rounded-md bg-secondary text-secondary-foreground">
+                      <CalendarClock className="size-4" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(d.date).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}
+                      </p>
+                      <p className="text-sm font-medium">{d.activity}</p>
+                    </div>
+                  </div>
+                  {d.topicId ? (
+                    <form action={startAdaptivePracticeAttempt.bind(null, d.topicId, SESSION_SIZE)}>
+                      <Button type="submit" size="sm" variant="outline">
+                        Start →
+                      </Button>
+                    </form>
+                  ) : (
+                    <Button
+                      render={<Link href={d.href ?? "/study-plan"}>Start →</Link>}
+                      nativeButton={false}
+                      size="sm"
+                      variant="outline"
+                    />
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Recent Activity */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Continue Reviewing</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground">Recent Activity</h2>
         <div className="mt-2 space-y-2">
           {recent.length > 0 ? (
             recent.map((a) => {
@@ -397,9 +510,9 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Quick Access */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Quick Actions</h2>
+        <h2 className="text-sm font-semibold text-muted-foreground">Quick Access</h2>
         <div className="mt-2 flex flex-wrap gap-2">
           <Button render={<Link href="/quick">Quick 10</Link>} nativeButton={false} variant="secondary" size="sm" />
           <Button render={<Link href="/quiz-builder">Custom Quiz</Link>} nativeButton={false} variant="secondary" size="sm" />
