@@ -142,7 +142,8 @@ $$;
 --   - "Geographic Information System" (LAND_WATER) — none of that TOS's 4
 --     official subjects (Hydrology / Irrigation and Drainage Engineering /
 --     Soil and Water Conservation Engineering / Aquaculture Engineering) is
---     an honest fit.
+--     an honest fit. (Later mapped to Soil and Water Conservation
+--     Engineering per explicit instruction — see patches/014_map_gis_topic.sql.)
 --   - The "Area 1"/"Area 2"/"Area 3" topics — flashcards-only umbrella
 --     containers created solely to satisfy flashcards.topic_id's NOT NULL
 --     FK (see seed/content/flashcards-by-area-pilot.sql), holding zero MCQ
