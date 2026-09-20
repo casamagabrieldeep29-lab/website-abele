@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { startAreaMockExam, type MockArea } from "@/app/mock/actions";
 import { PageHeader } from "@/components/page-header";
-import { MockTosList, type TOSGroup } from "./mock-tos-list";
+import { MockTosList, type MockSubject } from "./mock-tos-list";
 
 const ITEM_COUNT = 100;
 const TIME_LIMIT_HOURS = 3;
@@ -45,40 +45,42 @@ export default async function MockExamSetupPage() {
   }
 
   const examAreaById = new Map((examAreas ?? []).map((a) => [a.id, a]));
-  const subjectDefsByArea = new Map<string, { id: string; name: string }[]>();
+  const subjectDefsByArea = new Map<string, { id: string; name: string; sort_order: number }[]>();
   for (const s of subjects ?? []) {
     const list = subjectDefsByArea.get(s.exam_area_id) ?? [];
     list.push(s);
     subjectDefsByArea.set(s.exam_area_id, list);
   }
 
-  // Groups an Area's topics as TOS -> official Subject, using only the
-  // TOS/subject relationships that already exist on `topics` — never
-  // inventing an Area -> Subject link of its own. A topic without a
-  // subject_id yet falls into "Other Topics" under its TOS rather than
-  // being silently dropped.
-  function buildTosGroups(areaTopics: { exam_area_id: string; subject_id: string | null }[]): TOSGroup[] {
-    const subjectIdsByTos = new Map<string, Set<string | null>>();
+  // Flat list of the official Subjects covered by an Area's topics — not
+  // grouped under their TOS category, since an Area can span several TOS
+  // categories (e.g. Area 1 = Power/Machinery + Project Mgmt/RDE + Laws/
+  // Ethics) and that extra layer just duplicated the same subjects one
+  // level deeper. Sorted by (TOS sort_order, Subject sort_order) so it
+  // reads in official Table-of-Specifications order; a topic without a
+  // subject_id yet contributes "Other Topics", always last.
+  function buildSubjectList(areaTopics: { exam_area_id: string; subject_id: string | null }[]): MockSubject[] {
+    const subjectIds = new Set<string | null>();
+    const examAreaIds = new Set<string>();
     for (const t of areaTopics) {
-      const set = subjectIdsByTos.get(t.exam_area_id) ?? new Set<string | null>();
-      set.add(t.subject_id);
-      subjectIdsByTos.set(t.exam_area_id, set);
+      subjectIds.add(t.subject_id);
+      examAreaIds.add(t.exam_area_id);
     }
 
-    const groups: TOSGroup[] = [];
-    for (const [examAreaId, subjectIdSet] of subjectIdsByTos) {
+    const subjectList: (MockSubject & { sortKey: number })[] = [];
+    for (const examAreaId of examAreaIds) {
       const examArea = examAreaById.get(examAreaId);
       if (!examArea) continue;
-
-      const subjects = (subjectDefsByArea.get(examAreaId) ?? [])
-        .filter((s) => subjectIdSet.has(s.id))
-        .map((s) => ({ id: s.id, name: s.name }));
-      if (subjectIdSet.has(null)) subjects.push({ id: `other:${examAreaId}`, name: "Other Topics" });
-
-      groups.push({ id: examAreaId, name: examArea.name, subjects });
+      for (const s of subjectDefsByArea.get(examAreaId) ?? []) {
+        if (!subjectIds.has(s.id)) continue;
+        subjectList.push({ id: s.id, name: s.name, sortKey: (examArea.sort_order ?? 0) * 1000 + (s.sort_order ?? 0) });
+      }
     }
+    subjectList.sort((a, b) => a.sortKey - b.sortKey);
 
-    return groups.sort((a, b) => (examAreaById.get(a.id)?.sort_order ?? 0) - (examAreaById.get(b.id)?.sort_order ?? 0));
+    const result: MockSubject[] = subjectList.map(({ id, name }) => ({ id, name }));
+    if (subjectIds.has(null)) result.push({ id: "other", name: "Other Topics" });
+    return result;
   }
 
   return (
@@ -92,7 +94,7 @@ export default async function MockExamSetupPage() {
         {AREA_ORDER.map((area) => {
           const meta = AREA_META[area];
           const count = areaCount[area];
-          const tosGroups = buildTosGroups(topicsByArea.get(area) ?? []);
+          const subjectList = buildSubjectList(topicsByArea.get(area) ?? []);
 
           return (
             <Card key={area} className={meta.accent}>
@@ -103,7 +105,7 @@ export default async function MockExamSetupPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <MockTosList groups={tosGroups} />
+                <MockTosList subjects={subjectList} />
 
                 <form action={startAreaMockExam} className="mt-4">
                   <input type="hidden" name="area" value={area} />
