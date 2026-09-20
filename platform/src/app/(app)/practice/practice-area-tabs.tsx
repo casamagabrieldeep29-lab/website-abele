@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { startPracticeAttempt, startTosPracticeAttempt } from "@/app/practice/actions";
+import { startPracticeAttempt, startSubjectPracticeAttempt } from "@/app/practice/actions";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import type { MockArea } from "@/app/mock/actions";
 
@@ -18,8 +18,10 @@ export type PracticeTopic = {
   mockArea: MockArea;
   examAreaId: string | null;
   examAreaName: string | null;
+  examAreaSortOrder: number;
   subjectId: string | null;
   subjectName: string | null;
+  subjectSortOrder: number;
   questionCount: number;
 };
 
@@ -30,42 +32,48 @@ const AREA_LABELS: Record<MockArea, string> = {
   area_3: "Area 3",
 };
 
-type TosGroup = {
+type SubjectGroup = {
   id: string;
   name: string;
-  subjects: { id: string; name: string; topics: PracticeTopic[] }[];
+  topics: PracticeTopic[];
 };
 
-/** Groups one Area's topics as TOS -> official Subject -> topic, mirroring Mock Exam's exact grouping so the two pages feel like the same structure. A topic without a subject_id yet falls into "Other Topics" for its TOS. */
-function buildTosGroups(topics: PracticeTopic[]): TosGroup[] {
-  const byExamArea = new Map<string, { name: string; topics: PracticeTopic[] }>();
+/**
+ * Groups one Area's topics directly by official Subject — one flat list,
+ * not Subject nested inside its TOS category. An Area (e.g. Area 1) can
+ * span several TOS categories (Power/Machinery, Project Mgmt/RDE, Laws/
+ * Ethics), and showing each as its own collapsible layer just duplicated
+ * the same subjects one level deeper for no reason — Subject is the level
+ * a student actually picks from, so it's promoted to be the top of this
+ * list. Sorted by (TOS sort_order, Subject sort_order) so it reads in the
+ * same order as the official Table of Specifications; a topic without a
+ * subject_id yet falls into "Other Topics", always last.
+ */
+function buildSubjectGroups(topics: PracticeTopic[]): SubjectGroup[] {
+  const bySubject = new Map<string, { name: string; sortKey: number; topics: PracticeTopic[] }>();
   for (const t of topics) {
-    if (!t.examAreaId) continue;
-    const entry = byExamArea.get(t.examAreaId) ?? { name: t.examAreaName ?? "Unknown TOS", topics: [] };
+    const key = t.subjectId ?? "other";
+    const entry = bySubject.get(key) ?? {
+      name: t.subjectName ?? "Other Topics",
+      sortKey: t.examAreaSortOrder * 1000 + t.subjectSortOrder,
+      topics: [],
+    };
     entry.topics.push(t);
-    byExamArea.set(t.examAreaId, entry);
+    bySubject.set(key, entry);
   }
 
-  return [...byExamArea.entries()].map(([examAreaId, { name, topics: tosTopics }]) => {
-    const bySubject = new Map<string, { name: string; topics: PracticeTopic[] }>();
-    for (const t of tosTopics) {
-      const key = t.subjectId ?? "other";
-      const entry = bySubject.get(key) ?? { name: t.subjectName ?? "Other Topics", topics: [] };
-      entry.topics.push(t);
-      bySubject.set(key, entry);
-    }
-    const subjects = [...bySubject.entries()].map(([subjectId, { name: subjectName, topics: subjectTopics }]) => ({
-      id: subjectId,
-      name: subjectName,
-      topics: subjectTopics,
-    }));
-    // "other" was keyed last only by luck of Map insertion order (whichever
-    // topic without a subject_id happened to appear first in the query) —
-    // pin it to the end explicitly instead.
-    subjects.sort((a, b) => (a.id === "other" ? 1 : 0) - (b.id === "other" ? 1 : 0));
-
-    return { id: examAreaId, name, subjects };
+  const groups = [...bySubject.entries()].map(([id, { name, sortKey, topics: subjectTopics }]) => ({
+    id,
+    name,
+    sortKey,
+    topics: subjectTopics,
+  }));
+  groups.sort((a, b) => {
+    if (a.id === "other" || b.id === "other") return (a.id === "other" ? 1 : 0) - (b.id === "other" ? 1 : 0);
+    return a.sortKey - b.sortKey;
   });
+
+  return groups.map(({ id, name, topics: subjectTopics }) => ({ id, name, topics: subjectTopics }));
 }
 
 function TopicCard({ topic }: { topic: PracticeTopic }) {
@@ -88,7 +96,7 @@ function TopicCard({ topic }: { topic: PracticeTopic }) {
   );
 }
 
-function TosAccordion({ groups }: { groups: TosGroup[] }) {
+function SubjectAccordion({ groups }: { groups: SubjectGroup[] }) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set());
 
   function toggle(id: string) {
@@ -107,45 +115,31 @@ function TosAccordion({ groups }: { groups: TosGroup[] }) {
   return (
     <div className="space-y-2">
       {groups.map((group) => {
-        const tosOpen = openIds.has(`t:${group.id}`);
+        const isOpen = openIds.has(group.id);
+        const canPractice = group.id !== "other";
         return (
           <div key={group.id} className="rounded-lg border border-border/60">
             <div className="flex items-center justify-between gap-2 px-3 py-2.5">
-              <Collapsible open={tosOpen} onOpenChange={() => toggle(`t:${group.id}`)} className="min-w-0 flex-1">
+              <Collapsible open={isOpen} onOpenChange={() => toggle(group.id)} className="min-w-0 flex-1">
                 <CollapsibleTrigger className="flex w-full min-w-0 items-center gap-2 text-left">
                   <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
                   <span className="min-w-0 flex-1 text-sm font-semibold break-words">{group.name}</span>
                 </CollapsibleTrigger>
               </Collapsible>
-              <form action={startTosPracticeAttempt.bind(null, group.id, SESSION_SIZE)}>
-                <Button type="submit" size="sm" variant="outline">
-                  Practice →
-                </Button>
-              </form>
+              {canPractice && (
+                <form action={startSubjectPracticeAttempt.bind(null, group.id, SESSION_SIZE)}>
+                  <Button type="submit" size="sm" variant="outline">
+                    Practice →
+                  </Button>
+                </form>
+              )}
             </div>
-            <Collapsible open={tosOpen}>
-              <CollapsibleContent open={tosOpen}>
+            <Collapsible open={isOpen}>
+              <CollapsibleContent open={isOpen}>
                 <div className="space-y-2 px-3 pb-3 pl-6">
-                  {group.subjects.map((subject) => {
-                    const subjectOpen = openIds.has(`s:${subject.id}`);
-                    return (
-                      <div key={subject.id} className="rounded-md border border-border/50">
-                        <Collapsible open={subjectOpen} onOpenChange={() => toggle(`s:${subject.id}`)}>
-                          <CollapsibleTrigger className="flex w-full items-center gap-2 px-2.5 py-1.5 text-left">
-                            <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
-                            <span className="min-w-0 flex-1 text-sm font-medium break-words">{subject.name}</span>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent open={subjectOpen}>
-                            <div className="space-y-2 px-2.5 pb-2.5 pl-5">
-                              {subject.topics.map((topic) => (
-                                <TopicCard key={topic.id} topic={topic} />
-                              ))}
-                            </div>
-                          </CollapsibleContent>
-                        </Collapsible>
-                      </div>
-                    );
-                  })}
+                  {group.topics.map((topic) => (
+                    <TopicCard key={topic.id} topic={topic} />
+                  ))}
                 </div>
               </CollapsibleContent>
             </Collapsible>
@@ -176,12 +170,12 @@ export function PracticeAreaTabs({ topics }: { topics: PracticeTopic[] }) {
 
       {AREA_ORDER.map((area) => {
         const areaTopics = byArea.get(area) ?? [];
-        const tosGroups = buildTosGroups(areaTopics);
+        const subjectGroups = buildSubjectGroups(areaTopics);
 
         return (
           <TabsContent key={area} value={area}>
             <div className="mt-3">
-              <TosAccordion groups={tosGroups} />
+              <SubjectAccordion groups={subjectGroups} />
             </div>
           </TabsContent>
         );

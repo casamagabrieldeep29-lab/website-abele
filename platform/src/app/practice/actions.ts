@@ -126,52 +126,6 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
 }
 
 /**
- * Same adaptive weighting again, pooled across every topic under one whole
- * TOS (exam_area_id) — every subject and topic underneath it — for
- * students who just want to drill the general area without picking a
- * specific subject or topic first.
- */
-export async function startTosPracticeAttempt(examAreaId: string, count: number) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
-  const { data: topicsInArea } = await supabase.from("topics").select("id").eq("exam_area_id", examAreaId);
-  const topicIds = (topicsInArea ?? []).map((t) => t.id);
-  if (topicIds.length === 0) {
-    throw new Error("No topics assigned to this area yet.");
-  }
-
-  const { data: candidates } = await supabase
-    .from("student_questions")
-    .select("id, series_key, series_position")
-    .in("topic_id", topicIds);
-  if (!candidates || candidates.length === 0) {
-    throw new Error("No published questions in this area yet.");
-  }
-
-  const selected = await weighAndSampleCandidates(supabase, candidates, count);
-
-  const { data: attempt, error } = await supabase
-    .from("attempts")
-    .insert({
-      user_id: user.id,
-      mode: "practice",
-      exam_area_id: examAreaId,
-      total_questions: selected.length,
-      config: { question_ids: selected, kind: "tos" },
-    })
-    .select("id")
-    .single();
-
-  if (error || !attempt) {
-    throw new Error(error?.message ?? "Failed to start TOS practice session");
-  }
-
-  redirect(`/practice/${attempt.id}`);
-}
-
-/**
  * Narrows a candidate pool to one of the four Study Preferences practice
  * modes, using only real, already-existing data sources (get_topic_mastery
  * for "weak areas", get_mistake_bank for "mistakes", attempt_answers for
