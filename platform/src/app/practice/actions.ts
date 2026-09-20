@@ -259,6 +259,7 @@ export async function startQuickPractice(count: number, mode?: PracticeMode) {
 type CustomQuizFilters = {
   topicIds: string[];
   difficulties: string[];
+  category: "all" | "term" | "solving";
   source: "all" | "incorrect" | "unanswered";
   count: number;
 };
@@ -278,6 +279,7 @@ export async function startCustomQuiz(formData: FormData) {
   const filters: CustomQuizFilters = {
     topicIds: formData.getAll("topicIds").map(String).filter(Boolean),
     difficulties: formData.getAll("difficulties").map(String).filter(Boolean),
+    category: (formData.get("category") as CustomQuizFilters["category"]) ?? "all",
     source: (formData.get("source") as CustomQuizFilters["source"]) ?? "all",
     count: Number(formData.get("count") ?? 20),
   };
@@ -285,6 +287,7 @@ export async function startCustomQuiz(formData: FormData) {
   let query = supabase.from("student_questions").select("id, topic_id, difficulty, series_key, series_position");
   if (filters.topicIds.length > 0) query = query.in("topic_id", filters.topicIds);
   if (filters.difficulties.length > 0) query = query.in("difficulty", filters.difficulties);
+  if (filters.category !== "all") query = query.eq("category", filters.category);
 
   const { data: candidatesData } = await query;
   let candidates = candidatesData ?? [];

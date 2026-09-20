@@ -39,7 +39,7 @@ export default async function AdminTopicContentPage({
 
   const { data: allQuestions } = await supabase
     .from("questions")
-    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, choices(id, choice_text, is_correct, sort_order)")
+    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, choices(id, choice_text, is_correct, sort_order)")
     .eq("topic_id", topicId)
     .order("created_at");
 
@@ -102,6 +102,11 @@ export default async function AdminTopicContentPage({
                       {q.series_key && (
                         <Badge variant="outline" className="border-primary/40 text-primary">
                           {q.series_key} #{q.series_position ?? "?"}
+                        </Badge>
+                      )}
+                      {q.category && (
+                        <Badge variant="outline" className="border-gold/40 text-gold">
+                          {q.category === "term" ? "Term" : "Solving"}
                         </Badge>
                       )}
                       <Badge variant="outline">{q.difficulty}</Badge>
@@ -175,6 +180,20 @@ export default async function AdminTopicContentPage({
                             <option value="easy">Easy</option>
                             <option value="medium">Medium</option>
                             <option value="hard">Hard</option>
+                          </select>
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-xs font-medium text-muted-foreground">
+                            Category (for the Custom Quiz Builder&apos;s terms/solving filter)
+                          </label>
+                          <select
+                            name="category"
+                            defaultValue={q.category ?? ""}
+                            className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                          >
+                            <option value="">Not set</option>
+                            <option value="term">Term (definition/concept)</option>
+                            <option value="solving">Solving (computation)</option>
                           </select>
                         </div>
                       </div>
@@ -313,17 +332,31 @@ export default async function AdminTopicContentPage({
                   </div>
                 ))}
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-medium text-muted-foreground">Difficulty</label>
-                <select
-                  name="difficulty"
-                  defaultValue="medium"
-                  className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
-                >
-                  <option value="easy">Easy</option>
-                  <option value="medium">Medium</option>
-                  <option value="hard">Hard</option>
-                </select>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">Difficulty</label>
+                  <select
+                    name="difficulty"
+                    defaultValue="medium"
+                    className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                  >
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">Category</label>
+                  <select
+                    name="category"
+                    defaultValue=""
+                    className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                  >
+                    <option value="">Not set</option>
+                    <option value="term">Term (definition/concept)</option>
+                    <option value="solving">Solving (computation)</option>
+                  </select>
+                </div>
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-medium text-muted-foreground">Explanation</label>
