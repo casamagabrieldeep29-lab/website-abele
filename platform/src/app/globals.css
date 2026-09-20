@@ -265,6 +265,16 @@
   background-attachment: fixed;
 }
 
+/* The authenticated app shell's <main> (SidebarInset) has an opaque
+   bg-background fill covering the whole content area — without this, it
+   paints directly over the body photo above and nothing would ever show
+   through. The sidebar itself (bg-sidebar) stays solid on purpose, as a
+   fixed nav rail rather than part of the photo background. */
+.theme-ocean [data-slot="sidebar-inset"],
+.theme-forest [data-slot="sidebar-inset"] {
+  background-color: transparent;
+}
+
 /* The dashboard greeting banner becomes a glass panel like everything else
    below, rather than carrying its own separate photo crop — the photo is
    already the page background now. */
