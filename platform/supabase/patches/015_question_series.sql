@@ -13,12 +13,17 @@ alter table public.questions add column if not exists series_position int;
 
 create index if not exists questions_series_key_idx on public.questions (series_key) where series_key is not null;
 
+-- CREATE OR REPLACE VIEW only allows appending new columns at the very end
+-- of the column list — inserting them in the middle shifts every column
+-- after them and Postgres reads that as renaming an existing column
+-- (error 42P16). series_key/series_position must go last, after every
+-- column the original view already had, in the original order.
 create or replace view public.student_questions as
   select
     q.id, q.topic_id, q.subtopic_id, q.question_text, q.question_type, q.difficulty, q.source,
-    q.series_key, q.series_position,
     t.mock_area as topic_mock_area,
-    q.additional_mock_areas
+    q.additional_mock_areas,
+    q.series_key, q.series_position
   from public.questions q
   join public.topics t on t.id = q.topic_id
   where q.status = 'published';
