@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
+import { weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
 
 export async function startPracticeAttempt(topicId: string) {
   const supabase = await createClient();
@@ -34,67 +35,13 @@ export async function startPracticeAttempt(topicId: string) {
   redirect(`/practice/${attempt.id}`);
 }
 
-type Weighted = { id: string; weight: number };
-
-/**
- * Weighted random sample without replacement. Used to build adaptive
- * sessions that prioritize previously-missed questions over
- * previously-correct ones, while still surfacing never-seen questions.
- */
-function weightedSample(candidates: Weighted[], count: number): string[] {
-  const pool = [...candidates];
-  const selected: string[] = [];
-  while (selected.length < Math.min(count, pool.length)) {
-    const totalWeight = pool.reduce((sum, c) => sum + c.weight, 0);
-    let r = Math.random() * totalWeight;
-    let pickIndex = pool.length - 1;
-    for (let i = 0; i < pool.length; i++) {
-      r -= pool[i].weight;
-      if (r <= 0) {
-        pickIndex = i;
-        break;
-      }
-    }
-    selected.push(pool[pickIndex].id);
-    pool.splice(pickIndex, 1);
-  }
-  return selected;
-}
-
-/**
- * Weighs a set of candidate question ids for THIS user: previously-missed
- * (by their most recent answer) = 3x, never-attempted = 1.5x,
- * previously-correct = 1x. Shared by every adaptive session type — topic
- * practice, Quick Practice, and the Custom Quiz Builder's "prioritize
- * weaknesses" option.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function weighCandidates(supabase: SupabaseClient<any>, candidateIds: string[]): Promise<Weighted[]> {
-  if (candidateIds.length === 0) return [];
-
-  const { data: pastAnswers } = await supabase
-    .from("attempt_answers")
-    .select("question_id, is_correct, answered_at")
-    .in("question_id", candidateIds)
-    .order("answered_at", { ascending: false });
-
-  const latestOutcome = new Map<string, boolean>();
-  for (const a of pastAnswers ?? []) {
-    if (!latestOutcome.has(a.question_id)) latestOutcome.set(a.question_id, a.is_correct);
-  }
-
-  return candidateIds.map((id) => {
-    const outcome = latestOutcome.get(id);
-    const weight = outcome === undefined ? 1.5 : outcome === false ? 3 : 1;
-    return { id, weight };
-  });
-}
-
 /**
  * Starts an adaptive practice session for one topic: previously-missed
  * questions are weighted 3x, never-attempted 1.5x, previously-correct 1x
  * (see 25_DECISION_LOG.md for why). Unlike startPracticeAttempt, this caps
  * the session at `count` questions rather than serving the whole topic.
+ * Connected multi-part questions (same series_key) are never split apart
+ * or reordered — see src/lib/series.ts.
  */
 export async function startAdaptivePracticeAttempt(topicId: string, count: number) {
   const supabase = await createClient();
@@ -103,16 +50,14 @@ export async function startAdaptivePracticeAttempt(topicId: string, count: numbe
 
   const { data: candidates } = await supabase
     .from("student_questions")
-    .select("id")
+    .select("id, series_key, series_position")
     .eq("topic_id", topicId);
 
-  const candidateIds = (candidates ?? []).map((c) => c.id);
-  if (candidateIds.length === 0) {
+  if (!candidates || candidates.length === 0) {
     throw new Error("No published questions in this topic yet.");
   }
 
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -152,14 +97,15 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
     throw new Error("No topics assigned to this subject yet.");
   }
 
-  const { data: candidates } = await supabase.from("student_questions").select("id").in("topic_id", topicIds);
-  const candidateIds = (candidates ?? []).map((c) => c.id);
-  if (candidateIds.length === 0) {
+  const { data: candidates } = await supabase
+    .from("student_questions")
+    .select("id, series_key, series_position")
+    .in("topic_id", topicIds);
+  if (!candidates || candidates.length === 0) {
     throw new Error("No published questions in this subject yet.");
   }
 
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -196,14 +142,15 @@ export async function startTosPracticeAttempt(examAreaId: string, count: number)
     throw new Error("No topics assigned to this area yet.");
   }
 
-  const { data: candidates } = await supabase.from("student_questions").select("id").in("topic_id", topicIds);
-  const candidateIds = (candidates ?? []).map((c) => c.id);
-  if (candidateIds.length === 0) {
+  const { data: candidates } = await supabase
+    .from("student_questions")
+    .select("id, series_key, series_position")
+    .in("topic_id", topicIds);
+  if (!candidates || candidates.length === 0) {
     throw new Error("No published questions in this area yet.");
   }
 
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -235,11 +182,10 @@ export async function startTosPracticeAttempt(examAreaId: string, count: number)
 async function scopeToPracticeMode(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: SupabaseClient<any>,
-  candidates: { id: string; topic_id: string }[],
+  candidates: (SeriesCandidate & { topic_id: string })[],
   mode: PracticeMode,
-): Promise<string[]> {
-  const allIds = candidates.map((c) => c.id);
-  if (mode === "mixed") return allIds;
+): Promise<(SeriesCandidate & { topic_id: string })[]> {
+  if (mode === "mixed") return candidates;
 
   if (mode === "weak_areas") {
     const { data: masteryRows } = await supabase.rpc("get_topic_mastery");
@@ -248,25 +194,25 @@ async function scopeToPracticeMode(
         .filter((m: { status: string }) => m.status === "developing" || m.status === "needs_review")
         .map((m: { topic_id: string }) => m.topic_id),
     );
-    const scoped = candidates.filter((c) => weakTopicIds.has(c.topic_id)).map((c) => c.id);
-    return scoped.length > 0 ? scoped : allIds;
+    const scoped = candidates.filter((c) => weakTopicIds.has(c.topic_id));
+    return scoped.length > 0 ? scoped : candidates;
   }
 
   if (mode === "mistakes") {
     const { data: mistakes } = await supabase.rpc("get_mistake_bank");
     const mistakeIds = new Set((mistakes ?? []).map((m: { question_id: string }) => m.question_id));
-    const scoped = allIds.filter((id) => mistakeIds.has(id));
-    return scoped.length > 0 ? scoped : allIds;
+    const scoped = candidates.filter((c) => mistakeIds.has(c.id));
+    return scoped.length > 0 ? scoped : candidates;
   }
 
   // unanswered
   const { data: answered } = await supabase
     .from("attempt_answers")
     .select("question_id")
-    .in("question_id", allIds);
+    .in("question_id", candidates.map((c) => c.id));
   const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
-  const scoped = allIds.filter((id) => !answeredIds.has(id));
-  return scoped.length > 0 ? scoped : allIds;
+  const scoped = candidates.filter((c) => !answeredIds.has(c.id));
+  return scoped.length > 0 ? scoped : candidates;
 }
 
 /**
@@ -284,14 +230,13 @@ export async function startQuickPractice(count: number, mode?: PracticeMode) {
 
   const resolvedMode = mode ?? (await getUserSettings(supabase, user.id)).defaultPracticeMode;
 
-  const { data: candidates } = await supabase.from("student_questions").select("id, topic_id");
+  const { data: candidates } = await supabase.from("student_questions").select("id, topic_id, series_key, series_position");
   if (!candidates || candidates.length === 0) {
     throw new Error("No published questions yet.");
   }
 
-  const candidateIds = await scopeToPracticeMode(supabase, candidates, resolvedMode);
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, count);
+  const scoped = await scopeToPracticeMode(supabase, candidates, resolvedMode);
+  const selected = await weighAndSampleCandidates(supabase, scoped, count);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -337,32 +282,31 @@ export async function startCustomQuiz(formData: FormData) {
     count: Number(formData.get("count") ?? 20),
   };
 
-  let query = supabase.from("student_questions").select("id, topic_id, difficulty");
+  let query = supabase.from("student_questions").select("id, topic_id, difficulty, series_key, series_position");
   if (filters.topicIds.length > 0) query = query.in("topic_id", filters.topicIds);
   if (filters.difficulties.length > 0) query = query.in("difficulty", filters.difficulties);
 
-  const { data: candidates } = await query;
-  let candidateIds = (candidates ?? []).map((c) => c.id);
+  const { data: candidatesData } = await query;
+  let candidates = candidatesData ?? [];
 
   if (filters.source === "incorrect") {
     const { data: mistakes } = await supabase.rpc("get_mistake_bank");
     const mistakeIds = new Set((mistakes ?? []).map((m: { question_id: string }) => m.question_id));
-    candidateIds = candidateIds.filter((id) => mistakeIds.has(id));
+    candidates = candidates.filter((c) => mistakeIds.has(c.id));
   } else if (filters.source === "unanswered") {
     const { data: answered } = await supabase
       .from("attempt_answers")
       .select("question_id")
-      .in("question_id", candidateIds.length ? candidateIds : ["00000000-0000-0000-0000-000000000000"]);
+      .in("question_id", candidates.length ? candidates.map((c) => c.id) : ["00000000-0000-0000-0000-000000000000"]);
     const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
-    candidateIds = candidateIds.filter((id) => !answeredIds.has(id));
+    candidates = candidates.filter((c) => !answeredIds.has(c.id));
   }
 
-  if (candidateIds.length === 0) {
+  if (candidates.length === 0) {
     redirect("/quiz-builder?error=no-match");
   }
 
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, filters.count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, filters.count);
   const adjustedFrom = selected.length < filters.count ? filters.count : null;
 
   const { data: attempt, error } = await supabase
@@ -449,16 +393,14 @@ export async function startSubtopicPracticeAttempt(subtopicId: string, count: nu
 
   const { data: candidates } = await supabase
     .from("student_questions")
-    .select("id, topic_id")
+    .select("id, topic_id, series_key, series_position")
     .eq("subtopic_id", subtopicId);
 
-  const candidateIds = (candidates ?? []).map((c) => c.id);
-  if (candidateIds.length === 0) {
+  if (!candidates || candidates.length === 0) {
     throw new Error("No published questions in this concept yet.");
   }
 
-  const weighted = await weighCandidates(supabase, candidateIds);
-  const selected = weightedSample(weighted, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count);
 
   const { data: attempt, error } = await supabase
     .from("attempts")

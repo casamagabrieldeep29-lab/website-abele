@@ -39,7 +39,7 @@ export default async function AdminTopicContentPage({
 
   const { data: allQuestions } = await supabase
     .from("questions")
-    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, choices(id, choice_text, is_correct, sort_order)")
+    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, choices(id, choice_text, is_correct, sort_order)")
     .eq("topic_id", topicId)
     .order("created_at");
 
@@ -99,6 +99,11 @@ export default async function AdminTopicContentPage({
                   <div className="flex items-center justify-between gap-2">
                     <CardTitle className="text-base font-medium">{q.question_text}</CardTitle>
                     <div className="flex shrink-0 gap-2">
+                      {q.series_key && (
+                        <Badge variant="outline" className="border-primary/40 text-primary">
+                          {q.series_key} #{q.series_position ?? "?"}
+                        </Badge>
+                      )}
                       <Badge variant="outline">{q.difficulty}</Badge>
                       <Badge variant={q.status === "published" ? "default" : "secondary"}>
                         {q.status}
@@ -181,6 +186,34 @@ export default async function AdminTopicContentPage({
                           rows={2}
                           className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                         />
+                      </div>
+                      <div className="grid grid-cols-[1fr_auto] gap-3">
+                        <div className="space-y-1">
+                          <label className="text-xs font-medium text-muted-foreground">
+                            Series label (leave blank if standalone)
+                          </label>
+                          <input
+                            name="seriesKey"
+                            defaultValue={q.series_key ?? ""}
+                            placeholder="e.g. Cylinder Displacement Problem"
+                            className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                          />
+                          <p className="text-[11px] text-muted-foreground">
+                            Questions sharing the exact same label are treated as one connected series — never
+                            split apart or reordered when a session shuffles questions.
+                          </p>
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-xs font-medium text-muted-foreground">Step #</label>
+                          <input
+                            name="seriesPosition"
+                            type="number"
+                            min={1}
+                            defaultValue={q.series_position ?? ""}
+                            placeholder="1"
+                            className="w-20 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                          />
+                        </div>
                       </div>
                       <Button type="submit" size="sm">
                         Save changes
@@ -299,6 +332,28 @@ export default async function AdminTopicContentPage({
                   rows={2}
                   className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                 />
+              </div>
+              <div className="grid grid-cols-[1fr_auto] gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">
+                    Series label (leave blank if standalone)
+                  </label>
+                  <input
+                    name="seriesKey"
+                    placeholder="e.g. Cylinder Displacement Problem"
+                    className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-medium text-muted-foreground">Step #</label>
+                  <input
+                    name="seriesPosition"
+                    type="number"
+                    min={1}
+                    placeholder="1"
+                    className="w-20 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                  />
+                </div>
               </div>
               <Button type="submit" size="sm">
                 Add question (as draft)

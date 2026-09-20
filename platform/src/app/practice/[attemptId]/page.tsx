@@ -52,10 +52,15 @@ export default async function PracticeAttemptPage({
     const byId = new Map((data ?? []).map((q) => [q.id, q]));
     questions = config.question_ids!.map((id) => byId.get(id)).filter((q): q is { id: string; question_text: string } => Boolean(q));
   } else {
+    // Ordered so a connected series (same series_key) always stays
+    // contiguous and in its intended step order, rather than the
+    // effectively-random order plain id ordering would give it.
     const { data } = await supabase
       .from("student_questions")
       .select("id, question_text")
       .eq("topic_id", attempt.topic_id)
+      .order("series_key", { nullsFirst: true })
+      .order("series_position")
       .order("id");
     questions = data;
   }

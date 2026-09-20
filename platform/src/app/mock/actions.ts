@@ -2,15 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-
-function shuffle<T>(arr: T[]): T[] {
-  const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
+import { fillUnitsToTarget, groupIntoUnits } from "@/lib/series";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -36,11 +28,14 @@ export async function startAreaMockExam(formData: FormData) {
 
   const { data: candidates, error: qErr } = await supabase
     .from("student_questions")
-    .select("id")
+    .select("id, series_key, series_position")
     .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`);
   if (qErr) throw new Error(qErr.message);
 
-  const selected = shuffle(candidates ?? []).slice(0, MOCK_EXAM_ITEM_COUNT);
+  // Connected multi-part questions (same series_key) are never split across
+  // the 100-item cap — see src/lib/series.ts. May land slightly under 100 in
+  // rare cases rather than ever breaking a series apart.
+  const selected = fillUnitsToTarget(groupIntoUnits(candidates ?? []), MOCK_EXAM_ITEM_COUNT);
   if (selected.length === 0) {
     throw new Error("No published questions in this area yet.");
   }
