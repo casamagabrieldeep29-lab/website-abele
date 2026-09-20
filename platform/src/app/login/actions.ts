@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { clearAuthFlowCookies, createClient } from "@/lib/supabase/server";
 
 export type SendMagicLinkResult = { ok: true; email: string } | { ok: false; message: string };
 
@@ -59,5 +59,6 @@ export async function verifyOtpCode(
     return { ok: false, message: "That code didn't work — it may be wrong or expired. Try sending a new one." };
   }
 
+  await clearAuthFlowCookies();
   redirect("/dashboard");
 }
