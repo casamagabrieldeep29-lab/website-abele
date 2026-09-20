@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { createFlashcard, deleteFlashcard, publishFlashcard, unpublishFlashcard, updateFlashcard } from "./actions";
+import { createFlashcard, deleteFlashcard, publishAllDraftFlashcards, publishFlashcard, unpublishFlashcard, updateFlashcard } from "./actions";
 
 type Topic = { id: string; name: string };
 type Subtopic = { id: string; name: string; topic_id: string };
@@ -54,6 +54,15 @@ export default async function AdminFlashcardsPage() {
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);
 
+  const topicNameById = new Map((topics ?? []).map((t) => [t.id, t.name]));
+  const cardsByTopic = new Map<string, typeof cards>();
+  for (const c of cards ?? []) {
+    const list = cardsByTopic.get(c.topic_id) ?? [];
+    list.push(c);
+    cardsByTopic.set(c.topic_id, list);
+  }
+  const totalDraftCount = (cards ?? []).filter((c) => c.status === "draft").length;
+
   return (
     <main className="min-h-screen bg-background">
       <header className="flex items-center justify-between border-b px-6 py-4">
@@ -64,55 +73,86 @@ export default async function AdminFlashcardsPage() {
       </header>
 
       <div className="mx-auto max-w-3xl px-6 py-10 space-y-4">
-        <p className="text-sm text-muted-foreground">
-          Front/back study cards for active recall. Never invent content — only enter verified terms/definitions.
-        </p>
+        <div className="flex items-center justify-between gap-3">
+          <p className="text-sm text-muted-foreground">
+            Front/back study cards for active recall. Never invent content — only enter verified terms/definitions.
+          </p>
+          {totalDraftCount > 0 && (
+            <form action={publishAllDraftFlashcards.bind(null, undefined)}>
+              <Button type="submit" size="sm">
+                Publish all drafts ({totalDraftCount})
+              </Button>
+            </form>
+          )}
+        </div>
 
-        {(cards ?? []).map((c) => (
-          <Card key={c.id}>
-            <CardContent className="py-3">
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-sm font-medium">{c.front}</p>
-                <Badge variant={c.status === "published" ? "default" : "secondary"}>{c.status}</Badge>
+        {[...cardsByTopic.entries()]
+          .sort(([topicIdA], [topicIdB]) => (topicNameById.get(topicIdA) ?? "").localeCompare(topicNameById.get(topicIdB) ?? ""))
+          .map(([topicId, topicCards]) => {
+            const draftCount = (topicCards ?? []).filter((c) => c.status === "draft").length;
+            return (
+              <div key={topicId} className="space-y-3">
+                <div className="flex items-center justify-between gap-3 border-b pb-1">
+                  <h2 className="text-sm font-semibold text-muted-foreground">
+                    {topicNameById.get(topicId) ?? "(unknown topic)"} — {(topicCards ?? []).length} card{(topicCards ?? []).length === 1 ? "" : "s"}
+                  </h2>
+                  {draftCount > 0 && (
+                    <form action={publishAllDraftFlashcards.bind(null, topicId)}>
+                      <Button type="submit" size="sm" variant="outline">
+                        Publish all drafts in this topic ({draftCount})
+                      </Button>
+                    </form>
+                  )}
+                </div>
+
+                {(topicCards ?? []).map((c) => (
+                  <Card key={c.id}>
+                    <CardContent className="py-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="text-sm font-medium">{c.front}</p>
+                        <Badge variant={c.status === "published" ? "default" : "secondary"}>{c.status}</Badge>
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">{c.back}</p>
+
+                      <details className="mt-2 border-t pt-2">
+                        <summary className="cursor-pointer text-xs font-medium text-primary">Edit</summary>
+                        <form action={updateFlashcard.bind(null, c.id)} className="mt-3 space-y-2">
+                          <textarea name="front" defaultValue={c.front} placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
+                          <textarea name="back" defaultValue={c.back} placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
+                          <TopicSubtopicFields topics={topics ?? []} subtopics={subtopics ?? []} defaultTopicId={c.topic_id} defaultSubtopicId={c.subtopic_id} />
+                          <input name="source" defaultValue={c.source ?? ""} placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
+                          <Button type="submit" size="sm">
+                            Save changes
+                          </Button>
+                        </form>
+                      </details>
+
+                      <div className="mt-3 flex gap-2">
+                        {c.status === "draft" ? (
+                          <form action={publishFlashcard.bind(null, c.id)}>
+                            <Button type="submit" size="sm">
+                              Publish
+                            </Button>
+                          </form>
+                        ) : (
+                          <form action={unpublishFlashcard.bind(null, c.id)}>
+                            <Button type="submit" size="sm" variant="outline">
+                              Unpublish
+                            </Button>
+                          </form>
+                        )}
+                        <form action={deleteFlashcard.bind(null, c.id)}>
+                          <Button type="submit" size="sm" variant="ghost" className="text-destructive">
+                            Delete
+                          </Button>
+                        </form>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">{c.back}</p>
-
-              <details className="mt-2 border-t pt-2">
-                <summary className="cursor-pointer text-xs font-medium text-primary">Edit</summary>
-                <form action={updateFlashcard.bind(null, c.id)} className="mt-3 space-y-2">
-                  <textarea name="front" defaultValue={c.front} placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <textarea name="back" defaultValue={c.back} placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <TopicSubtopicFields topics={topics ?? []} subtopics={subtopics ?? []} defaultTopicId={c.topic_id} defaultSubtopicId={c.subtopic_id} />
-                  <input name="source" defaultValue={c.source ?? ""} placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <Button type="submit" size="sm">
-                    Save changes
-                  </Button>
-                </form>
-              </details>
-
-              <div className="mt-3 flex gap-2">
-                {c.status === "draft" ? (
-                  <form action={publishFlashcard.bind(null, c.id)}>
-                    <Button type="submit" size="sm">
-                      Publish
-                    </Button>
-                  </form>
-                ) : (
-                  <form action={unpublishFlashcard.bind(null, c.id)}>
-                    <Button type="submit" size="sm" variant="outline">
-                      Unpublish
-                    </Button>
-                  </form>
-                )}
-                <form action={deleteFlashcard.bind(null, c.id)}>
-                  <Button type="submit" size="sm" variant="ghost" className="text-destructive">
-                    Delete
-                  </Button>
-                </form>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+            );
+          })}
         {(cards ?? []).length === 0 && <p className="text-sm text-muted-foreground">No flashcards yet.</p>}
 
         <Card>
