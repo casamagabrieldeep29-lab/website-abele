@@ -80,20 +80,43 @@ function extractFormulaHeading(promptText: string): string | null {
   return null;
 }
 
-/** Renders "X_Y" as X with a subscript Y, for the rare card that uses that notation; otherwise renders the text as-is. */
+// Content has no underscore-delimited subscript notation (formulas are
+// written as flat acronyms, e.g. "IWR = CWR - ER"), so subscripting follows
+// one mechanical, unambiguous rule instead of guessing per formula: any
+// multi-letter ALL-CAPS symbol is split after its first letter (IWR -> I
+// with subscript WR), same as an explicit "X_Y" would render. Single
+// letters and mixed-case tokens (Q, n, As, Cv) are left alone.
+const SYMBOL_PATTERN = /([A-Za-z]+_[A-Za-z0-9]+|\b[A-Z][A-Z0-9]+\b)/g;
+
 function withSubscripts(text: string) {
-  const parts = text.split(/([A-Za-z]+_[A-Za-z0-9]+)/g);
+  const parts = text.split(SYMBOL_PATTERN);
   if (parts.length === 1) return text;
   return parts.map((part, i) => {
-    const sub = part.match(/^([A-Za-z]+)_([A-Za-z0-9]+)$/);
-    if (!sub) return <span key={i}>{part}</span>;
-    return (
-      <span key={i}>
-        {sub[1]}
-        <sub>{sub[2]}</sub>
-      </span>
-    );
+    const underscored = part.match(/^([A-Za-z]+)_([A-Za-z0-9]+)$/);
+    if (underscored) {
+      return (
+        <span key={i}>
+          {underscored[1]}
+          <sub>{underscored[2]}</sub>
+        </span>
+      );
+    }
+    const acronym = part.match(/^([A-Z])([A-Z0-9]+)$/);
+    if (acronym) {
+      return (
+        <span key={i}>
+          {acronym[1]}
+          <sub>{acronym[2]}</sub>
+        </span>
+      );
+    }
+    return <span key={i}>{part}</span>;
   });
+}
+
+/** Formula lines only: swap a subtraction hyphen ("A - B") for the proper minus sign, never touching hyphens inside a symbol itself (e.g. "S^-0.385") or prose. */
+function withMinusSign(text: string) {
+  return text.replace(/(\S) - (\S)/g, "$1 − $2");
 }
 
 export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
@@ -201,7 +224,7 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
             <>
               {formulaHeading && <p className="text-sm font-medium text-muted-foreground">{formulaHeading}</p>}
               <p className="mt-2 break-words text-center font-mono text-xl font-semibold leading-snug sm:text-2xl">
-                {withSubscripts(parsedFormula.formula)}
+                {withSubscripts(withMinusSign(parsedFormula.formula))}
               </p>
 
               {parsedFormula.legend.length > 0 ? (
