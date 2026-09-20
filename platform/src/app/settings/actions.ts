@@ -69,7 +69,7 @@ export async function sendResetProgressCode(
   return { ok: true, email: user.email };
 }
 
-export type ResetProgressResult = { ok: true } | { ok: false; message: string };
+export type ResetProgressResult = { ok: true; summary: string } | { ok: false; message: string };
 
 /**
  * Second step: verifies the emailed code, then wipes computed study
@@ -120,23 +120,43 @@ export async function confirmResetProgress(
   }
   const attemptIds = (ownAttempts ?? []).map((a) => a.id);
 
+  let answersDeleted = 0;
   if (attemptIds.length > 0) {
-    const { error: answersErr } = await admin.from("attempt_answers").delete().in("attempt_id", attemptIds);
+    const { error: answersErr, count } = await admin
+      .from("attempt_answers")
+      .delete({ count: "exact" })
+      .in("attempt_id", attemptIds);
     if (answersErr) return { ok: false, message: answersErr.message };
+    answersDeleted = count ?? 0;
   }
 
-  const [{ error: attemptsErr }, { error: flashErr }, { error: achErr }] = await Promise.all([
-    admin.from("attempts").delete().eq("user_id", user.id),
-    admin.from("flashcard_progress").delete().eq("user_id", user.id),
-    admin.from("user_achievements").delete().eq("user_id", user.id),
+  const [
+    { error: attemptsErr, count: attemptsDeleted },
+    { error: flashErr, count: flashDeleted },
+    { error: achErr, count: achDeleted },
+  ] = await Promise.all([
+    admin.from("attempts").delete({ count: "exact" }).eq("user_id", user.id),
+    admin.from("flashcard_progress").delete({ count: "exact" }).eq("user_id", user.id),
+    admin.from("user_achievements").delete({ count: "exact" }).eq("user_id", user.id),
   ]);
   const firstError = attemptsErr ?? flashErr ?? achErr;
   if (firstError) {
     return { ok: false, message: firstError.message };
   }
 
+  // Re-select rather than trust the delete counts alone — proves the rows
+  // are actually gone (and surfaces it plainly if something upstream, like
+  // a stale deploy, means this code isn't the one that actually ran).
+  const { count: remainingAttempts } = await admin
+    .from("attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
   revalidatePath("/", "layout");
-  return { ok: true };
+  return {
+    ok: true,
+    summary: `Cleared ${attemptsDeleted ?? 0} attempts, ${answersDeleted} answers, ${flashDeleted ?? 0} flashcard records, ${achDeleted ?? 0} achievements. Remaining attempts: ${remainingAttempts ?? 0}.`,
+  };
 }
 
 /**

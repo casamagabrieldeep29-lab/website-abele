@@ -19,9 +19,10 @@ function CodeForm({ email, onCancel }: { email: string; onCancel: () => void }) 
 
   if (result?.ok) {
     return (
-      <p className="rounded-md border border-success/30 bg-success/5 px-3 py-2 text-sm text-success">
-        Your progress has been reset. Your account and saved notes/bookmarks are untouched.
-      </p>
+      <div className="space-y-1 rounded-md border border-success/30 bg-success/5 px-3 py-2 text-sm text-success">
+        <p>Your progress has been reset. Your account and saved notes/bookmarks are untouched.</p>
+        <p className="text-xs opacity-80">{result.summary}</p>
+      </div>
     );
   }
 
