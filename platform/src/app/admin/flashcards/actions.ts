@@ -58,6 +58,16 @@ export async function unpublishFlashcard(flashcardId: string) {
   revalidatePath("/admin/flashcards");
 }
 
+export async function publishAllDraftFlashcards(topicId?: string) {
+  await requireAdmin();
+  const supabase = await createClient();
+  let query = supabase.from("flashcards").update({ status: "published" }).eq("status", "draft");
+  if (topicId) query = query.eq("topic_id", topicId);
+  const { error } = await query;
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/flashcards");
+}
+
 export async function deleteFlashcard(flashcardId: string) {
   await requireAdmin();
   const supabase = await createClient();
