@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { renderInline } from "@/lib/render-inline";
+import { renderBlockMath, renderInline } from "@/lib/render-inline";
 
 const SUGGESTIONS = ["Why am I weak in my lowest-mastery area?", "What should I review next?", "How am I doing overall?"];
 
@@ -84,7 +84,17 @@ export function StudyAssistant() {
         {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
         {!loading && text && (
           <div className="mt-3 text-sm text-foreground">
-            {text.split("\n").map((line, i) => (line.trim() ? <p key={i} className="mt-1">{renderInline(line)}</p> : null))}
+            {text.split("\n").map((line, i) => {
+              const trimmed = line.trim();
+              if (!trimmed) return null;
+              const blockMath = trimmed.match(/^\$\$(.+)\$\$$/);
+              if (blockMath) return <div key={i}>{renderBlockMath(blockMath[1])}</div>;
+              return (
+                <p key={i} className="mt-1">
+                  {renderInline(line)}
+                </p>
+              );
+            })}
           </div>
         )}
       </CardContent>

@@ -3,13 +3,18 @@
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { renderInline } from "@/lib/render-inline";
+import { renderBlockMath, renderInline } from "@/lib/render-inline";
 
 const FOLLOW_UPS = ["Explain simpler", "Give an example", "Quiz me on this concept"];
 
 function renderText(text: string) {
   return text.split("\n").map((line, i) => {
     const trimmed = line.trim();
+    if (!trimmed) return null;
+    const blockMath = trimmed.match(/^\$\$(.+)\$\$$/);
+    if (blockMath) {
+      return <div key={i}>{renderBlockMath(blockMath[1])}</div>;
+    }
     if (trimmed.startsWith("### ")) {
       return (
         <p key={i} className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary first:mt-0">
@@ -17,7 +22,6 @@ function renderText(text: string) {
         </p>
       );
     }
-    if (!trimmed) return null;
     if (trimmed.startsWith("* ") || trimmed.startsWith("- ")) {
       return (
         <li key={i} className="mt-1 ml-4 list-disc text-sm text-foreground">
