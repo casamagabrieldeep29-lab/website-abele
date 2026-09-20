@@ -48,7 +48,7 @@ export async function verifyOtpCode(
   const token = String(formData.get("token") ?? "").trim();
 
   if (!token) {
-    return { ok: false, message: "Enter the 6-digit code from your email." };
+    return { ok: false, message: "Enter the code from your email." };
   }
 
   const supabase = await createClient();

@@ -43,7 +43,7 @@ export async function updateStudyPreferences(formData: FormData): Promise<SaveRe
 export type SendCodeResult = { ok: true; email: string } | { ok: false; message: string };
 
 /**
- * First step of Reset Progress: sends a 6-digit email OTP to the caller's
+ * First step of Reset Progress: sends an email OTP code to the caller's
  * OWN address (from their session, never a client-submitted email — so
  * this can't be used to send a code anywhere else). Same
  * signInWithOtp/verifyOtp mechanism already used for login (see
@@ -73,15 +73,22 @@ export type ResetProgressResult = { ok: true } | { ok: false; message: string };
 
 /**
  * Second step: verifies the emailed code, then wipes computed study
- * progress only — attempts (attempt_answers cascades from it),
- * flashcard_progress, and user_achievements. Never the account itself,
- * never user-authored content (notes, bookmarks) or preferences
- * (user_settings) — this is "start my stats over," not account deletion.
- * user_achievements only has a SELECT policy for regular users (it's
- * normally written by a SECURITY DEFINER RPC), so that one delete goes
- * through the service-role client, explicitly scoped to this verified
- * user's own id — same pattern deleteAccount below already uses for its
- * own destructive operation.
+ * progress only — attempt_answers, attempts, flashcard_progress, and
+ * user_achievements. Never the account itself, never user-authored content
+ * (notes, bookmarks) or preferences (user_settings) — this is "start my
+ * stats over," not account deletion.
+ *
+ * Runs entirely through the service-role client rather than relying on
+ * attempt_answers' `on delete cascade` from attempts: attempt_answers only
+ * has a SELECT policy for regular users (writes go through
+ * submit_attempt_answer(), a SECURITY DEFINER RPC), and user_achievements
+ * is the same (writes go through award logic), so a plain RLS-scoped
+ * client can't touch either directly. Using the admin client for all four
+ * tables, explicitly scoped to this verified user's own id, removes any
+ * dependency on cascade behavior and matches the pattern deleteAccount
+ * below already uses for its own destructive operation. attempt_answers is
+ * deleted before attempts (rather than left to cascade) so this stays
+ * correct even if a future migration changes that FK's cascade rule.
  */
 export async function confirmResetProgress(
   _prev: ResetProgressResult | null,
@@ -93,7 +100,7 @@ export async function confirmResetProgress(
 
   const token = String(formData.get("token") ?? "").trim();
   if (!token) {
-    return { ok: false, message: "Enter the 6-digit code from your email." };
+    return { ok: false, message: "Enter the code from your email." };
   }
 
   const { error: otpError } = await supabase.auth.verifyOtp({ email: user.email, token, type: "email" });
@@ -103,9 +110,24 @@ export async function confirmResetProgress(
   }
 
   const admin = createAdminClient();
+
+  const { data: ownAttempts, error: attemptsSelectErr } = await admin
+    .from("attempts")
+    .select("id")
+    .eq("user_id", user.id);
+  if (attemptsSelectErr) {
+    return { ok: false, message: attemptsSelectErr.message };
+  }
+  const attemptIds = (ownAttempts ?? []).map((a) => a.id);
+
+  if (attemptIds.length > 0) {
+    const { error: answersErr } = await admin.from("attempt_answers").delete().in("attempt_id", attemptIds);
+    if (answersErr) return { ok: false, message: answersErr.message };
+  }
+
   const [{ error: attemptsErr }, { error: flashErr }, { error: achErr }] = await Promise.all([
-    supabase.from("attempts").delete().eq("user_id", user.id),
-    supabase.from("flashcard_progress").delete().eq("user_id", user.id),
+    admin.from("attempts").delete().eq("user_id", user.id),
+    admin.from("flashcard_progress").delete().eq("user_id", user.id),
     admin.from("user_achievements").delete().eq("user_id", user.id),
   ]);
   const firstError = attemptsErr ?? flashErr ?? achErr;
@@ -113,10 +135,7 @@ export async function confirmResetProgress(
     return { ok: false, message: firstError.message };
   }
 
-  revalidatePath("/dashboard");
-  revalidatePath("/progress");
-  revalidatePath("/profile");
-  revalidatePath("/settings");
+  revalidatePath("/", "layout");
   return { ok: true };
 }
 
