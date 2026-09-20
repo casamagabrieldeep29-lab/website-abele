@@ -12,9 +12,10 @@ export default async function PracticePage() {
 
   // PostgREST can't embed through a view via a topics(...) join, so fetch
   // topics and published-question counts separately and merge in JS.
-  const [{ data: topics }, { data: publishedQuestions }] = await Promise.all([
-    supabase.from("topics").select("id, name, mock_area, exam_areas(name)").order("name"),
+  const [{ data: topics }, { data: publishedQuestions }, { data: subjects }] = await Promise.all([
+    supabase.from("topics").select("id, name, mock_area, exam_area_id, subject_id, exam_areas(name)").order("name"),
     supabase.from("student_questions").select("id, topic_id"),
+    supabase.from("subjects").select("id, name"),
   ]);
 
   const countByTopic = new Map<string, number>();
@@ -22,11 +23,16 @@ export default async function PracticePage() {
     countByTopic.set(q.topic_id, (countByTopic.get(q.topic_id) ?? 0) + 1);
   }
 
+  const subjectNameById = new Map((subjects ?? []).map((s) => [s.id, s.name]));
+
   const practiceTopics: PracticeTopic[] = (topics ?? []).map((topic) => ({
     id: topic.id,
     name: topic.name,
     mockArea: topic.mock_area as MockArea,
+    examAreaId: topic.exam_area_id,
     examAreaName: (topic.exam_areas as unknown as { name: string } | null)?.name ?? null,
+    subjectId: topic.subject_id,
+    subjectName: topic.subject_id ? (subjectNameById.get(topic.subject_id) ?? null) : null,
     questionCount: countByTopic.get(topic.id) ?? 0,
   }));
 
