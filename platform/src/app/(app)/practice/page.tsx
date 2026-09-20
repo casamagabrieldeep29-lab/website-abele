@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { SlidersHorizontal } from "lucide-react";
 import { getAuthContext } from "@/lib/auth/session";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import { PracticeAreaTabs, type PracticeTopic } from "./practice-area-tabs";
 import type { MockArea } from "@/app/mock/actions";
 
@@ -41,6 +44,12 @@ export default async function PracticePage() {
       <PageHeader
         title="Practice"
         description="Pick a topic. Questions are answered one at a time with immediate feedback."
+        action={
+          <Button render={<Link href="/quiz-builder" />} nativeButton={false} variant="outline" size="sm">
+            <SlidersHorizontal className="size-4" />
+            Customize a session
+          </Button>
+        }
       />
 
       <div className="mt-6">
