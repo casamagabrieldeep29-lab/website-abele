@@ -322,14 +322,15 @@ export async function startMistakeRetryAttempt(questionIds: string[]) {
 
 export async function completePracticeAttempt(attemptId: string) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const [{ data: { user } }, { count: correctCount }] = await Promise.all([
+    supabase.auth.getUser(),
+    supabase
+      .from("attempt_answers")
+      .select("id", { count: "exact", head: true })
+      .eq("attempt_id", attemptId)
+      .eq("is_correct", true),
+  ]);
   if (!user) redirect("/login");
-
-  const { count: correctCount } = await supabase
-    .from("attempt_answers")
-    .select("id", { count: "exact", head: true })
-    .eq("attempt_id", attemptId)
-    .eq("is_correct", true);
 
   const { error } = await supabase
     .from("attempts")

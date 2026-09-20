@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BookOpen, Calendar, Flame, GalleryVerticalEnd, Target, TrendingUp } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthContext } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { startAdaptivePracticeAttempt, startDailyQuestion } from "@/app/practice/actions";
@@ -87,8 +87,7 @@ function statusLabel(status: TopicMastery["status"]) {
 }
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { supabase, user, profile } = await getAuthContext();
   if (!user) redirect("/login");
 
   const [
@@ -99,7 +98,6 @@ export default async function DashboardPage() {
     { data: recentAttempts },
     { data: todaysDailyAttempt },
     { data: earnedAchievements },
-    { data: profile },
   ] = await Promise.all([
     supabase.rpc("get_topic_mastery"),
     supabase.from("student_questions").select("id, topic_id").order("id"),
@@ -119,7 +117,6 @@ export default async function DashboardPage() {
       .gte("started_at", todayStartIso())
       .maybeSingle(),
     supabase.from("user_achievements").select("achievement_code").eq("user_id", user.id),
-    supabase.from("profiles").select("display_name").eq("id", user.id).single(),
   ]);
 
   const mastery = (masteryRows ?? []) as TopicMastery[];

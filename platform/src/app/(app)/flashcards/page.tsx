@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
-import { checkIsAdmin } from "@/lib/auth/is-admin";
+import { getAuthContext } from "@/lib/auth/session";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
@@ -18,11 +17,10 @@ export default async function FlashcardsPage({
   searchParams: Promise<{ empty?: string; area?: string }>;
 }) {
   const { empty, area: areaTopicId } = await searchParams;
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const { supabase, user, profile } = await getAuthContext();
   if (!user) redirect("/login");
 
-  const isAdmin = await checkIsAdmin(supabase, user.id);
+  const isAdmin = profile?.role === "admin";
 
   const { data: areaTopics } = await supabase
     .from("topics")
