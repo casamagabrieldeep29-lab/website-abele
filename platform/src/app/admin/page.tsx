@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { InviteForm } from "./invite-form";
 
 export default async function AdminPage() {
   await requireAdmin();
@@ -106,22 +105,19 @@ export default async function AdminPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Invite a reviewee</CardTitle>
+              <CardTitle>Users</CardTitle>
               <CardDescription>
-                Access is invite-only. Inviting an email address lets that
-                person sign in with a magic link. They won&apos;t be able to
-                request one until you&apos;ve invited them.
+                Invite reviewees, see everyone with access (name, email, date joined), and remove an
+                account when needed.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <InviteForm />
+              <Link href="/admin/users" className="text-sm font-medium text-primary hover:underline">
+                Go to users →
+              </Link>
             </CardContent>
           </Card>
         </div>
-
-        <p className="text-xs text-muted-foreground">
-          PLACEHOLDER: a full user list (beyond invites) is not built yet.
-        </p>
       </div>
     </main>
   );
