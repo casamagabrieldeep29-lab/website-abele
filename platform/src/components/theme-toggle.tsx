@@ -13,7 +13,7 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex items-center gap-1 rounded-md border border-border bg-muted/40 p-1">
+    <div className="glass-panel flex items-center gap-1 rounded-md border border-border bg-muted/40 p-1">
       {OPTIONS.map((opt) => (
         <button
           key={opt.value}
