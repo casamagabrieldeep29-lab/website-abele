@@ -2,13 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { startCustomQuiz } from "../practice/actions";
+import { QuestionCountPicker } from "./question-count-picker";
 
 type TopicOption = { id: string; name: string; examAreaName: string };
 
 const DIFFICULTIES = [
   { value: "easy", label: "Easy" },
-  { value: "medium", label: "Medium" },
+  { value: "medium", label: "Moderate" },
   { value: "hard", label: "Hard" },
+];
+
+const CATEGORIES = [
+  { value: "all", label: "Both" },
+  { value: "term", label: "Terms only" },
+  { value: "solving", label: "Solving only" },
 ];
 
 const SOURCES = [
@@ -44,6 +51,21 @@ export function QuizBuilderForm({
 
           <fieldset className="space-y-2">
             <legend className="text-sm font-medium">
+              Question type
+              <span className="text-muted-foreground"> (untagged questions only show up under &ldquo;Both&rdquo;)</span>
+            </legend>
+            <div className="flex gap-4">
+              {CATEGORIES.map((c, i) => (
+                <label key={c.value} className="flex items-center gap-2 text-sm">
+                  <input type="radio" name="category" value={c.value} defaultChecked={i === 0} className="h-4 w-4" />
+                  {c.label}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset className="space-y-2">
+            <legend className="text-sm font-medium">
               Difficulty <span className="text-muted-foreground">(leave all unchecked for any)</span>
             </legend>
             <div className="flex gap-4">
@@ -69,16 +91,8 @@ export function QuizBuilderForm({
           </fieldset>
 
           <div className="space-y-2">
-            <Label htmlFor="count">Number of questions</Label>
-            <input
-              id="count"
-              name="count"
-              type="number"
-              min={1}
-              max={100}
-              defaultValue={20}
-              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
-            />
+            <Label>Number of questions</Label>
+            <QuestionCountPicker defaultValue={20} />
           </div>
 
           {showNoMatchError && (

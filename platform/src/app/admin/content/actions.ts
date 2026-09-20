@@ -67,6 +67,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
   const seriesKey = String(formData.get("seriesKey") ?? "").trim() || null;
   const seriesPositionRaw = String(formData.get("seriesPosition") ?? "").trim();
   const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
+  const categoryRaw = String(formData.get("category") ?? "");
+  const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { error: qErr } = await supabase
@@ -77,6 +79,7 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
       explanation,
       series_key: seriesKey,
       series_position: seriesPosition,
+      category,
       updated_at: new Date().toISOString(),
     })
     .eq("id", questionId);
@@ -124,6 +127,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
   const seriesKey = String(formData.get("seriesKey") ?? "").trim() || null;
   const seriesPositionRaw = String(formData.get("seriesPosition") ?? "").trim();
   const seriesPosition = seriesKey && seriesPositionRaw ? Number(seriesPositionRaw) : null;
+  const categoryRaw = String(formData.get("category") ?? "");
+  const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { data: newQuestion, error: qErr } = await supabase
@@ -135,6 +140,7 @@ export async function createQuestion(topicId: string, formData: FormData) {
       explanation,
       series_key: seriesKey,
       series_position: seriesPosition,
+      category,
       status: "draft",
       created_by: user?.id,
     })
