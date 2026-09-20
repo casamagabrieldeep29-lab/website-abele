@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewersBrowser, type ReviewerEntry } from "./reviewers-browser";
 import { PageHeader } from "@/components/page-header";
+import { RequestTranscription } from "@/components/request-transcription";
 
 export default async function ReviewersPage({
   searchParams,
@@ -56,6 +57,7 @@ export default async function ReviewersPage({
       <PageHeader
         title="Reviewers"
         description="Quick-reference tables, formulas, and constants — filterable by area and topic."
+        action={<RequestTranscription />}
       />
 
       <ReviewersBrowser entries={rows} initialSearch={q ?? ""} />
