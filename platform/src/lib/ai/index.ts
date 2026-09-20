@@ -2,7 +2,7 @@ import "server-only";
 import { GeminiProvider } from "./gemini";
 import { AIProvider } from "./types";
 
-export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 15);
+export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 500);
 
 let cached: AIProvider | null = null;
 
