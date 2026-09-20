@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
 import {
   BarChart3,
   BookMarked,
@@ -53,6 +54,10 @@ const MAIN_NAV_ITEMS = [
   { href: "/progress", label: "Progress", icon: BarChart3 },
 ];
 
+const SECRET_UNLOCK_STORAGE_KEY = "abeliever-secret-unlocked";
+const SECRET_UNLOCK_CLICKS = 7;
+const SECRET_UNLOCK_WINDOW_MS = 1200;
+
 const STUDY_TOOLS_NAV_ITEMS = [
   { href: "/mistakes", label: "Mistake Bank", icon: XCircle },
   { href: "/flashcards", label: "Flashcards", icon: GalleryVerticalEnd },
@@ -79,13 +84,38 @@ export function AppSidebar({
   const initial = name.charAt(0).toUpperCase();
   const accent = getHarmonizedAccent(userEmail);
 
+  const clickCountRef = useRef(0);
+  const lastClickAtRef = useRef(0);
+  const [justUnlocked, setJustUnlocked] = useState(false);
+
+  function handleLogoClick() {
+    const now = Date.now();
+    clickCountRef.current = now - lastClickAtRef.current <= SECRET_UNLOCK_WINDOW_MS ? clickCountRef.current + 1 : 1;
+    lastClickAtRef.current = now;
+
+    if (clickCountRef.current >= SECRET_UNLOCK_CLICKS) {
+      clickCountRef.current = 0;
+      try {
+        localStorage.setItem(SECRET_UNLOCK_STORAGE_KEY, "true");
+      } catch {
+        // Ignore — the extra themes just won't stay revealed this session.
+      }
+      setJustUnlocked(true);
+      window.setTimeout(() => setJustUnlocked(false), 700);
+    }
+  }
+
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex items-center gap-2 px-2 py-1.5">
-          <Sprout className="size-5 text-primary" />
+        <button
+          type="button"
+          onClick={handleLogoClick}
+          className="flex items-center gap-2 px-2 py-1.5 text-left"
+        >
+          <Sprout className={`size-5 text-primary transition-transform duration-300 ${justUnlocked ? "scale-125" : ""}`} />
           <span className="text-base font-bold tracking-tight text-primary">ABELIEVER</span>
-        </div>
+        </button>
       </SidebarHeader>
 
       <SidebarContent>

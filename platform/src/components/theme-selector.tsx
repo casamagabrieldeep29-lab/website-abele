@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useLayoutEffect, useState, type FormEvent } from "react";
 import { Check, Lock } from "lucide-react";
 import { useTheme, type ColorTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,7 @@ type ThemeDef = {
 // ask for the PIN every time they're selected, so they feel like a little
 // secret reserved for one person rather than an ordinary theme option.
 const LOCKED_THEME_PIN = "04042003";
+const SECRET_UNLOCK_STORAGE_KEY = "abeliever-secret-unlocked";
 
 const THEME_DEFS: ThemeDef[] = [
   {
@@ -112,6 +113,26 @@ export function ThemeSelector() {
   const [pendingUnlock, setPendingUnlock] = useState<ColorTheme | null>(null);
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
+  const [secretRevealed, setSecretRevealed] = useState(false);
+
+  // Locked themes stay out of this list entirely (not just PIN-gated) until
+  // the sidebar logo's click sequence reveals them — checked on mount (and
+  // re-checked on cross-tab storage changes) since it's per-device local
+  // state, not something the server can know.
+  useLayoutEffect(() => {
+    const sync = () => {
+      try {
+        setSecretRevealed(localStorage.getItem(SECRET_UNLOCK_STORAGE_KEY) === "true");
+      } catch {
+        // Ignore — stays hidden this session.
+      }
+    };
+    sync();
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
+  }, []);
+
+  const visibleDefs = THEME_DEFS.filter((def) => !def.locked || secretRevealed || colorTheme === def.id);
 
   function closePinPrompt() {
     setPendingUnlock(null);
@@ -144,7 +165,7 @@ export function ThemeSelector() {
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {THEME_DEFS.map((def) => {
+      {visibleDefs.map((def) => {
         const isSelected = colorTheme === def.id;
         const isPending = pendingUnlock === def.id;
         return (
