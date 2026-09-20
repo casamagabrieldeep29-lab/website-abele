@@ -39,7 +39,7 @@ export default async function AdminTopicContentPage({
 
   const { data: allQuestions } = await supabase
     .from("questions")
-    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, choices(id, choice_text, is_correct, sort_order)")
+    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, is_recalled, recalled_batch, choices(id, choice_text, is_correct, sort_order)")
     .eq("topic_id", topicId)
     .order("created_at");
 
@@ -99,6 +99,11 @@ export default async function AdminTopicContentPage({
                   <div className="flex items-center justify-between gap-2">
                     <CardTitle className="text-base font-medium">{q.question_text}</CardTitle>
                     <div className="flex shrink-0 gap-2">
+                      {q.is_recalled && (
+                        <Badge variant="outline" className="border-success/40 text-success">
+                          Recalled{q.recalled_batch ? ` · ${q.recalled_batch}` : ""}
+                        </Badge>
+                      )}
                       {q.series_key && (
                         <Badge variant="outline" className="border-primary/40 text-primary">
                           {q.series_key} #{q.series_position ?? "?"}
@@ -233,6 +238,23 @@ export default async function AdminTopicContentPage({
                             className="w-20 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                           />
                         </div>
+                      </div>
+                      <div className="space-y-1.5 rounded-md border border-border bg-muted/30 p-2">
+                        <label className="flex items-center gap-2 text-xs font-medium">
+                          <input
+                            type="checkbox"
+                            name="isRecalled"
+                            defaultChecked={q.is_recalled}
+                            className="h-3.5 w-3.5 rounded border-border"
+                          />
+                          Recalled question (from an actual past board exam, not a review-center book)
+                        </label>
+                        <input
+                          name="recalledBatch"
+                          defaultValue={q.recalled_batch ?? ""}
+                          placeholder="Which exam sitting, e.g. September 2025 ABE Board Exam"
+                          className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                        />
                       </div>
                       <Button type="submit" size="sm">
                         Save changes
@@ -387,6 +409,17 @@ export default async function AdminTopicContentPage({
                     className="w-20 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                   />
                 </div>
+              </div>
+              <div className="space-y-1.5 rounded-md border border-border bg-muted/30 p-2">
+                <label className="flex items-center gap-2 text-xs font-medium">
+                  <input type="checkbox" name="isRecalled" className="h-3.5 w-3.5 rounded border-border" />
+                  Recalled question (from an actual past board exam, not a review-center book)
+                </label>
+                <input
+                  name="recalledBatch"
+                  placeholder="Which exam sitting, e.g. September 2025 ABE Board Exam"
+                  className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                />
               </div>
               <Button type="submit" size="sm">
                 Add question (as draft)

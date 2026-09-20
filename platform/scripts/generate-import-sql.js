@@ -14,13 +14,13 @@ const fs = require("fs");
 const DIFFICULTY_MAP = { easy: "easy", moderate: "medium", difficult: "hard" };
 
 // Real PRC board exam Area 1/2/3 split (distinct from the 8 TOS exam_areas
-// weighting categories) — mapping decided with Gabriel, see
-// supabase/patches/007_mock_exam_areas.sql and 25_DECISION_LOG.md
-// (2026-09-19, "Mock Exam rebuilt to match the real PRC ABE board exam").
+// weighting categories) — corrected per the official 2025 ABE Table of
+// Specifications (Annex "A"), see supabase/patches/020_correct_area_mapping_
+// from_official_tos.sql and 25_DECISION_LOG.md (2026-09-21 entry).
 // `topics.mock_area` is NOT NULL with no default on the live schema.
 function mockAreaFor(examAreaCode) {
-  if (["POWER_ENERGY_MACHINERY", "LAWS_ETHICS"].includes(examAreaCode)) return "area_1";
-  if (examAreaCode === "LAND_WATER") return "area_2";
+  if (["POWER_ENERGY_MACHINERY", "LAWS_ETHICS", "PROJECT_MGMT_RDE"].includes(examAreaCode)) return "area_1";
+  if (["LAND_WATER", "FUNDAMENTALS_SCIENCES", "MATH_BASIC_ENGG"].includes(examAreaCode)) return "area_2";
   return "area_3";
 }
 
@@ -91,13 +91,15 @@ function main() {
       const flagNote = q.flag ? ` [FLAGGED FOR REVIEW: ${q.flag}]` : "";
       const explanationRaw = q.explanation || q.flag ? `${q.explanation || ""}${flagNote}`.trim() : null;
       const difficulty = DIFFICULTY_MAP[q.diff] || q.diff || null;
+      const isRecalled = Boolean(q.recalled_batch);
+      const recalledBatch = q.recalled_batch || null;
 
       out.push("");
       out.push(`  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = ${sqlStr(q.q)};`);
       out.push(`  IF v_question_id IS NULL THEN`);
-      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)`);
+      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch)`);
       out.push(
-        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, ${sqlStr(author)}, ${sqlStr(sourceRef)}, 'draft')`
+        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, ${sqlStr(author)}, ${sqlStr(sourceRef)}, 'draft', ${isRecalled}, ${sqlStr(recalledBatch)})`
       );
       out.push(`    RETURNING id INTO v_question_id;`);
       out.push("");
