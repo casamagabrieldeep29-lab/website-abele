@@ -69,8 +69,10 @@ export async function startWeakAreaFlashcards(areaTopicId: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: areaTopic } = await supabase.from("topics").select("mock_area").eq("id", areaTopicId).single();
-  const { data: mastery } = await supabase.rpc("get_topic_mastery");
+  const [{ data: areaTopic }, { data: mastery }] = await Promise.all([
+    supabase.from("topics").select("mock_area").eq("id", areaTopicId).single(),
+    supabase.rpc("get_topic_mastery"),
+  ]);
   const weakTopicIds = (mastery ?? [])
     .filter((m: { status: string }) => m.status === "needs_review" || m.status === "developing")
     .map((m: { topic_id: string }) => m.topic_id);
@@ -91,8 +93,10 @@ export async function startMistakeFlashcards(areaTopicId: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: areaTopic } = await supabase.from("topics").select("mock_area").eq("id", areaTopicId).single();
-  const { data: mistakes } = await supabase.rpc("get_mistake_bank");
+  const [{ data: areaTopic }, { data: mistakes }] = await Promise.all([
+    supabase.from("topics").select("mock_area").eq("id", areaTopicId).single(),
+    supabase.rpc("get_mistake_bank"),
+  ]);
   const mistakeTopicIds = [...new Set((mistakes ?? []).map((m: { topic_id: string }) => m.topic_id))];
 
   if (!areaTopic || mistakeTopicIds.length === 0) await redirectToSession([]);

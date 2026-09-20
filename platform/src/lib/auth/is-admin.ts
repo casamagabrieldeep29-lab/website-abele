@@ -1,20 +1,14 @@
 import "server-only";
-import type { createClient } from "@/lib/supabase/server";
+import { getAuthContext } from "@/lib/auth/session";
 
 /**
  * Non-redirecting admin check for student-facing pages that need to
  * conditionally reveal admin-only details (e.g. raw question counts)
- * without gating the whole page behind requireAdmin().
+ * without gating the whole page behind requireAdmin(). Reads from the
+ * same request-scoped cache the (app) layout and requireAdmin() use, so
+ * this never re-fetches the profile row on its own.
  */
-export async function checkIsAdmin(
-  supabase: Awaited<ReturnType<typeof createClient>>,
-  userId: string,
-): Promise<boolean> {
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", userId)
-    .single();
-
+export async function checkIsAdmin(): Promise<boolean> {
+  const { profile } = await getAuthContext();
   return profile?.role === "admin";
 }
