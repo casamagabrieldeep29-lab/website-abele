@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { checkIsAdmin } from "@/lib/auth/is-admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +16,8 @@ export default async function QuestionBankPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const isAdmin = await checkIsAdmin(supabase, user.id);
 
   const [{ data: examAreas }, { data: topics }, { data: subtopics }, { data: published }] = await Promise.all([
     supabase.from("exam_areas").select("id, name, sort_order").order("sort_order"),
@@ -72,7 +75,9 @@ export default async function QuestionBankPage() {
                       <div className="flex items-center justify-between gap-3">
                         <p className="text-sm font-medium">{topic.name}</p>
                         <div className="flex items-center gap-2">
-                          <Badge className={tCount > 0 ? accent.badge : undefined} variant={tCount > 0 ? undefined : "secondary"}>{tCount} questions</Badge>
+                          {isAdmin && (
+                            <Badge className={tCount > 0 ? accent.badge : undefined} variant={tCount > 0 ? undefined : "secondary"}>{tCount} questions</Badge>
+                          )}
                           <form action={startAdaptivePracticeAttempt.bind(null, topic.id, SESSION_SIZE)}>
                             <Button type="submit" size="sm" variant="outline" disabled={tCount === 0}>
                               Practice →
@@ -98,9 +103,11 @@ export default async function QuestionBankPage() {
                             <li key={s.id} className="flex items-center justify-between gap-3 pl-3 text-sm">
                               <span className="text-muted-foreground">{s.name}</span>
                               <div className="flex items-center gap-2">
-                                <span className="text-xs text-muted-foreground">
-                                  {subtopicCount.get(s.id)} questions
-                                </span>
+                                {isAdmin && (
+                                  <span className="text-xs text-muted-foreground">
+                                    {subtopicCount.get(s.id)} questions
+                                  </span>
+                                )}
                                 <form action={startSubtopicPracticeAttempt.bind(null, s.id, SESSION_SIZE)}>
                                   <Button type="submit" size="sm" variant="ghost">
                                     Practice →
