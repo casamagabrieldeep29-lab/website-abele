@@ -193,6 +193,8 @@
   --hero-image: url("/images/themes/ocean-hero.jpg");
   --gradient-accent: linear-gradient(90deg, #0283a1, #63b1c6);
   --glow-primary: 0 0 16px color-mix(in srgb, #0283a1 55%, transparent);
+  --glass-bg: rgba(5, 39, 54, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.12);
 }
 
 /*
@@ -240,37 +242,67 @@
   --hero-image: url("/images/themes/forest-hero.jpg");
   --gradient-accent: linear-gradient(90deg, #4f7a3e, #8fbf4d);
   --glow-primary: 0 0 16px color-mix(in srgb, #4f7a3e 55%, transparent);
+  --glass-bg: rgba(20, 43, 28, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.12);
 }
 
 /*
- * Dashboard hero banner — a plain text block with zero extra styling in
- * Default (same markup renders identically to before this existed). Only
- * under an active photo theme does the ancestor selector below give it the
- * background photo, dark-wash overlay, and padding, so no component ever
- * needs to know which theme is active or fork per theme.
+ * Whole-site background photo — Ocean/Forest only. Applied to <body> in the
+ * root layout, so it's mounted once and persists across every client-side
+ * navigation between pages/tabs (Next.js never remounts the root layout on
+ * route changes) with zero extra work. `fixed` keeps it from scrolling with
+ * page content. A dark scrim is baked into the same background-image stack
+ * (on top of the photo, under nothing) so every page's text/cards stay
+ * readable against it regardless of which part of the photo shows through.
+ * Default keeps its plain flat background — this selector never matches it.
  */
-.theme-ocean .dashboard-hero,
-.theme-forest .dashboard-hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: var(--radius-2xl);
-  padding: 1.75rem;
-  min-height: 11rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-image: var(--hero-image);
+.theme-ocean body,
+.theme-forest body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6)), var(--hero-image);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
-.theme-ocean .dashboard-hero::before,
-.theme-forest .dashboard-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(115deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+
+/* The dashboard greeting banner becomes a glass panel like everything else
+   below, rather than carrying its own separate photo crop — the photo is
+   already the page background now. */
+.theme-ocean .dashboard-hero,
+.theme-forest .dashboard-hero {
+  border-radius: var(--radius-2xl);
+  padding: 1.75rem;
+}
+
+/*
+ * Subtle glassmorphism — restrained to genuine "surface" elements (cards,
+ * modals, dropdowns, selects) and only under Ocean/Forest; Default never
+ * matches these selectors, so it keeps its plain opaque bg-card/bg-popover
+ * exactly as before. The attribute+ancestor selector is specific enough to
+ * cleanly override each component's own ring/shadow utility classes without
+ * needing !important. Blur is a literal px value (not a var()) — this
+ * environment's browser has been unreliable resolving custom properties
+ * inside animatable/filter functions elsewhere in this file.
+ */
+.theme-ocean [data-slot="card"],
+.theme-ocean [data-slot="dialog-content"],
+.theme-ocean [data-slot="dropdown-menu-content"],
+.theme-ocean [data-slot="select-content"],
+.theme-ocean .glass-panel,
+.theme-ocean .dashboard-hero,
+.theme-forest [data-slot="card"],
+.theme-forest [data-slot="dialog-content"],
+.theme-forest [data-slot="dropdown-menu-content"],
+.theme-forest [data-slot="select-content"],
+.theme-forest .glass-panel,
+.theme-forest .dashboard-hero {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 0 1px var(--glass-border),
+    0 8px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* A subtle two-tone gradient fill for progress indicators, used in place of

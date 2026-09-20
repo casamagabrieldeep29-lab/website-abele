@@ -171,7 +171,7 @@ export function ThemeSelector() {
         return (
           <div
             key={def.id}
-            className={`relative flex flex-col gap-2.5 rounded-lg border p-3 transition-colors ${
+            className={`glass-panel relative flex flex-col gap-2.5 rounded-lg border bg-card p-3 transition-colors ${
               isSelected ? "border-primary ring-1 ring-primary" : "border-border hover:border-primary/50"
             }`}
           >
