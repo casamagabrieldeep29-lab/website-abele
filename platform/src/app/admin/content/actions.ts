@@ -3,6 +3,75 @@
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { getAIProvider } from "@/lib/ai";
+import { buildCategorizeQuestionsPrompt, buildCategorizeQuestionsSystemInstruction } from "@/lib/ai/prompts";
+
+const CATEGORIZE_BATCH_SIZE = 25;
+
+/**
+ * Classifies one batch of uncategorized questions (Term/Solving) via AI and
+ * returns how many were processed and how many remain — called repeatedly
+ * from the client (see auto-categorize-panel.tsx) rather than trying to
+ * process everything in one request, since a bulk run over hundreds of
+ * questions would exceed a serverless function's execution time budget.
+ * Admin-only bulk content management, not a student-facing feature, so it
+ * doesn't go through check_and_log_ai_usage (that's the per-student daily
+ * Teach-Me/Study-Assistant quota, unrelated to this).
+ */
+export async function autoCategorizeBatch(): Promise<{ processed: number; remaining: number; error?: string }> {
+  await requireAdmin();
+  const supabase = await createClient();
+
+  const provider = getAIProvider();
+  if (!provider) {
+    return { processed: 0, remaining: 0, error: "AI provider isn't configured (GEMINI_API_KEY missing)." };
+  }
+
+  const { data: batch } = await supabase
+    .from("questions")
+    .select("id, question_text")
+    .is("category", null)
+    .neq("status", "archived")
+    .order("created_at")
+    .limit(CATEGORIZE_BATCH_SIZE);
+
+  if (!batch || batch.length === 0) {
+    return { processed: 0, remaining: 0 };
+  }
+
+  const indexed = batch.map((q, i) => ({ index: i + 1, text: q.question_text }));
+
+  let classifications: { index: number; category: string }[];
+  try {
+    const raw = await provider.generate({
+      systemInstruction: buildCategorizeQuestionsSystemInstruction(),
+      prompt: buildCategorizeQuestionsPrompt(indexed),
+    });
+    const cleaned = raw.trim().replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
+    classifications = JSON.parse(cleaned);
+  } catch {
+    return { processed: 0, remaining: batch.length, error: "AI classification failed for this batch — try again." };
+  }
+
+  let processed = 0;
+  for (const item of classifications) {
+    const question = batch[item.index - 1];
+    if (!question) continue;
+    const category = item.category === "term" || item.category === "solving" ? item.category : null;
+    if (!category) continue;
+    const { error } = await supabase.from("questions").update({ category }).eq("id", question.id);
+    if (!error) processed++;
+  }
+
+  const { count: remaining } = await supabase
+    .from("questions")
+    .select("id", { count: "exact", head: true })
+    .is("category", null)
+    .neq("status", "archived");
+
+  revalidatePath("/admin/content");
+  return { processed, remaining: remaining ?? 0 };
+}
 
 export async function publishQuestion(questionId: string) {
   await requireAdmin();

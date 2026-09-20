@@ -99,3 +99,25 @@ Student's question: "${question}"
 
 Answer using only the verified performance data above.`;
 }
+
+/**
+ * Bulk admin content-management classification, not a student-facing
+ * feature — no anti-hallucination framing needed since it's a categorical
+ * judgment call, not a factual claim. Batches multiple questions per call
+ * (rather than one call per question) to stay well within a serverless
+ * function's execution time budget for a bulk operation.
+ */
+export function buildCategorizeQuestionsSystemInstruction(): string {
+  return `You are classifying multiple-choice questions for ABELIEVER, a review platform for the Philippine Agricultural and Biosystems Engineering (ABE) Licensure Examination.
+
+Classify each question into EXACTLY one category:
+- "term": the question tests recall or recognition of a definition, classification, standard, law, or concept. The correct answer does not require computing a numeric value from given data — even if the question mentions numbers (e.g. classifying something by a given ratio or range against named categories), if the student is matching a described situation to a named term/category rather than calculating a result, it is "term".
+- "solving": the question requires computing or deriving a numeric result from given values, a formula, or stated data (energy, power, flow rate, cost, dimensions, etc.), even though the final answer is presented as multiple choice.
+
+Respond with ONLY a JSON array, no other text, no markdown code fences, no explanation: [{"index": 1, "category": "term"}, {"index": 2, "category": "solving"}] — exactly one entry per question given, in the same order, using the exact 1-based index given.`;
+}
+
+export function buildCategorizeQuestionsPrompt(questions: { index: number; text: string }[]): string {
+  const lines = questions.map((q) => `${q.index}. ${q.text}`).join("\n\n");
+  return `Classify each of these ${questions.length} questions:\n\n${lines}`;
+}
