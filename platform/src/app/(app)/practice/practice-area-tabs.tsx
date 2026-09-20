@@ -7,9 +7,11 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { startPracticeAttempt } from "@/app/practice/actions";
+import { startPracticeAttempt, startTosPracticeAttempt } from "@/app/practice/actions";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import type { MockArea } from "@/app/mock/actions";
+
+const SESSION_SIZE = 20;
 
 export type PracticeTopic = {
   id: string;
@@ -114,11 +116,20 @@ function TosAccordion({ groups, showCounts }: { groups: TosGroup[]; showCounts: 
         const tosOpen = openIds.has(`t:${group.id}`);
         return (
           <div key={group.id} className="rounded-lg border border-border/60">
-            <Collapsible open={tosOpen} onOpenChange={() => toggle(`t:${group.id}`)}>
-              <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2.5 text-left">
-                <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
-                <span className="min-w-0 flex-1 text-sm font-semibold break-words">{group.name}</span>
-              </CollapsibleTrigger>
+            <div className="flex items-center justify-between gap-2 px-3 py-2.5">
+              <Collapsible open={tosOpen} onOpenChange={() => toggle(`t:${group.id}`)} className="min-w-0 flex-1">
+                <CollapsibleTrigger className="flex w-full min-w-0 items-center gap-2 text-left">
+                  <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
+                  <span className="min-w-0 flex-1 text-sm font-semibold break-words">{group.name}</span>
+                </CollapsibleTrigger>
+              </Collapsible>
+              <form action={startTosPracticeAttempt.bind(null, group.id, SESSION_SIZE)}>
+                <Button type="submit" size="sm" variant="outline">
+                  Practice →
+                </Button>
+              </form>
+            </div>
+            <Collapsible open={tosOpen}>
               <CollapsibleContent open={tosOpen}>
                 <div className="space-y-2 px-3 pb-3 pl-6">
                   {group.subjects.map((subject) => {

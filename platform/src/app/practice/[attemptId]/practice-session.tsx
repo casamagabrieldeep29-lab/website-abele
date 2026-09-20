@@ -289,15 +289,20 @@ export function PracticeSession({
               )}
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 flex gap-2">
               {feedback ? (
                 <Button onClick={handleNext} disabled={isPending}>
                   {isLast ? "Finish" : "Next question"}
                 </Button>
               ) : (
-                <Button onClick={handleSubmit} disabled={!selectedChoiceId}>
-                  Submit answer
-                </Button>
+                <>
+                  <Button onClick={handleSubmit} disabled={!selectedChoiceId}>
+                    Submit answer
+                  </Button>
+                  <Button variant="outline" onClick={handleNext} disabled={isPending}>
+                    Skip
+                  </Button>
+                </>
               )}
             </div>
           </CardContent>
