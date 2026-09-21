@@ -1,0 +1,2934 @@
+{
+  "_meta": {
+    "author": "Iligan Review Center (ABELE 2025 Compiled Recalled Questions)"
+  },
+  "topics": [
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Rural Electrification",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Type of motor where the loop winding is parallel with the armature.",
+          "choices": [
+            "Series-wound motor",
+            "Compound-wound motor",
+            "Shunt-wound motor",
+            "Single-wound motor"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2014"
+        },
+        {
+          "q": "An electric pump has a total resistance of 9.5 ohms. If its power source is from a 220-volt outlet, what should be the amperage of its safety fuse? Assume 27% surge current.",
+          "choices": [
+            "45 amp",
+            "30 amp",
+            "40 amp",
+            "50 amp"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2015",
+          "explanation": "I = 1.27(V/R) = 1.27(220/9.5) = 1.27(23.16 amp) = 29.4 amp, use 30 amp."
+        },
+        {
+          "q": "What is the peak solar power generation per charging channel of a solar battery charging station equipped with 12 units of 75 watt-peak, 12-volt solar modules? The system is divided into 3 charging channels, each channel has 4 modules connected in parallel. Assume 80% overall efficiency.",
+          "choices": [
+            "2.4 kWp",
+            "260 Wp",
+            "240 Wp",
+            "300 Wp"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2015",
+          "explanation": "P = (No. of modules/channel) x module power rating x efficiency = (4)(75 Wp)(0.8) = 240 Wp."
+        },
+        {
+          "q": "An industrial heater has 8 pieces of heating plates of 6 ohms each. The plates are arranged in series. If the heater power source is from a 220-volt outlet, how much current will flow?",
+          "choices": [
+            "3.5 A",
+            "4.6 A",
+            "5.2 A",
+            "6.4 A"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2015",
+          "explanation": "R = 8(6 ohms) = 48 ohms; I = V/R = 220/48 = 4.58 amp, approximately 4.6 A."
+        },
+        {
+          "q": "What is the system voltage of a solar pumping system equipped with 2 units of 75 watt-peak solar modules? Each solar module has 4.16 amperes maximum, 21 volts maximum open circuit voltage, and 12 volts nominal voltage. Modules are connected in series.",
+          "choices": [
+            "48",
+            "36",
+            "24",
+            "12"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2015",
+          "explanation": "V = No. of modules x module nominal voltage = (2)(12 volts) = 24 volts."
+        },
+        {
+          "q": "What should be the tilt angle from the horizontal of the glass solar collector of a hybrid biomass-solar dryer located somewhere in Surigao, Philippines, having a longitude of 125 degrees and latitude of 9 degrees? Since the Philippines is in the northern hemisphere, the solar collector faces south.",
+          "choices": [
+            "10 degrees",
+            "12 degrees",
+            "9 degrees",
+            "11 degrees"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2015"
+        },
+        {
+          "q": "What device converts DC to AC?",
+          "choices": [
+            "Converter",
+            "Inverter",
+            "Transformer",
+            "Generator"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What causes fluctuations in voltage?",
+          "choices": [
+            "Dynamo",
+            "Rotor",
+            "Armature"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "In an aerogenerator exceeding 100 kW capacity, which part is responsible for converting rotational movement to electricity?",
+          "choices": [
+            "Rotor",
+            "Turbine",
+            "Alternator",
+            "Governor"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the peak amperage of a solar battery charging station equipped with 16 units of 75 watt-peak, 4.16-ampere solar modules? The system is divided into 4 charging channels, each channel has 4 modules connected in parallel.",
+          "choices": [
+            "32.2 A",
+            "25.4 A",
+            "16.6 A",
+            "NOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "How many outlets are allowed for a 15 A overcurrent device?",
+          "choices": [
+            "10 - 12 outlets",
+            "8 - 10 outlets",
+            "14 - 15 outlets",
+            "6 - 8 outlets"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "How much energy is needed for a 5-volt source to move 4 coulombs of charge?",
+          "choices": [
+            "20 joules",
+            "1.25 joules",
+            "0.8 joules",
+            "80 joules"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Calculate the current rating needed for a 120V heater rated at 4800 watts.",
+          "choices": [
+            "40 A",
+            "35 A",
+            "15 A",
+            "20 A"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "A F40 fluorescent lamp produces 3,200 lumens of light in a room of 10ft x 10ft. If the lamp is 120cm high, what is the lighting intensity on the floor?",
+          "choices": [
+            "9.29",
+            "22",
+            "12",
+            "32"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "ELECTRIFICATION: Which type of wiring is normally drawn with hard dashed lines?",
+          "choices": [
+            "Factory wiring",
+            "Field wiring",
+            "Ground wiring",
+            "Magnetic Fields"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: Laminations in transformers are provided to reduce what?",
+          "choices": [
+            "Eddy currents",
+            "Hysteresis",
+            "Magnetic Field",
+            "Eddy currents and Hysteresis"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: A thermal spot in a wire is due to what?",
+          "choices": [
+            "No surge current protection",
+            "High current flowing - Overloading",
+            "Low resistance",
+            "High voltage flowing"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ILLUMINATION: Equal intensity of light producing no shadows is called what?",
+          "choices": [
+            "Perfect diffusion",
+            "Brightness",
+            "Diffusion",
+            "Contrast"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ILLUMINATION: A 1m x 100m poultry handling area is to be lighted at an average maintained footcandle of 50 fc. How many 2-lamp fixtures of 120cm long F40 T12 WW (3,200 Lumens) rapid start fluorescent lamps are required, assuming the CU is 0.35 and the LLF is 0.75?",
+          "choices": [
+            "3 fixtures",
+            "6 fixtures",
+            "2 fixtures",
+            "4 fixtures"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "Number of Fixtures = (Illumination x Area) / (Lamp per fixture x Lumens x CU x MF)"
+        },
+        {
+          "q": "ILLUMINATION: Lighting computation in a warehouse with a 4x4 grid lighting layout with a mounting height ratio of 1.0. What is the spacing?",
+          "choices": [
+            "4 m",
+            "16 m",
+            "2 m",
+            "8 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "MHR = Spacing of Light Fixture / Mounting Height; 1 = S/4 = 4m"
+        },
+        {
+          "q": "ELECTRIFICATION: Convenience outlet (C.O.) and lighting outlets have how many amperes?",
+          "choices": [
+            "1.0 Ampere",
+            "1.5 Amperes",
+            "2.0 Amperes",
+            "1.25 Amperes"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: Which of the following is not considered an electrical device?",
+          "choices": [
+            "Switch",
+            "Lamp",
+            "Junction Box",
+            "Receptacle"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: What is the peak solar power generation per charging channel of a solar battery charging station equipped with 12 units of 75 watt-peak, 12-volt solar modules? The system is divided into 3 charging channels, each channel has 4 modules connected in parallel. Assume 80% overall efficiency.",
+          "choices": [
+            "300 Wp",
+            "240 Wp",
+            "380 Wp",
+            "255 Wp"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ILLUMINATION: The ______ of a surface is measured by the luminous flux received by a unit area of the surface.",
+          "choices": [
+            "Flux density",
+            "Luminance",
+            "Illumination",
+            "Brightness"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: Which metal has the highest conductivity and lowest resistivity?",
+          "choices": [
+            "Ag",
+            "Cu",
+            "Al",
+            "Au"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: A material with high resistance is called what?",
+          "choices": [
+            "Conductor",
+            "Insulator",
+            "Semi-conductor",
+            "Ferrous materials"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ELECTRIFICATION: When the voltage is the same throughout all the parts of the circuit, the circuit line is called what?",
+          "choices": [
+            "Parallel",
+            "Series",
+            "Delta",
+            "Wye"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "This is the process of converting energy into another form.",
+          "choices": [
+            "Transforming",
+            "Converting",
+            "Inverting",
+            "Transducing"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is a device that converts one type of energy into another type of energy.",
+          "choices": [
+            "Transducer",
+            "Transformer",
+            "Power Converter",
+            "AOTA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is the condition of equal intensity of light producing no shadow.",
+          "choices": [
+            "Diffusion",
+            "Deflection",
+            "Perfect Diffusion",
+            "Perfect Deflection"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the unit used for a solar battery?",
+          "choices": [
+            "Volt",
+            "Watts",
+            "Ampere-hour",
+            "Watt-hour"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the maximum current that a conductor can carry continuously without overload called?",
+          "choices": [
+            "Ampacity",
+            "Conductivity",
+            "Capacity",
+            "Maximum Capacity"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The amount of solar energy received by or projected onto a surface, expressed in W/m2; the sum of all Flux Density and Reflectivity flux density.",
+          "choices": [
+            "Radiation",
+            "Radiosity",
+            "Albedo",
+            "Reflectivity"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "ILLUMINATION: A 1m x 100m poultry handling area is to be lighted at an average maintained footcandle of 50 fc. How many 2-lamp fixtures of 120cm long F40 T12 WW (3,200 Lumens) rapid start fluorescent lamps are required, assuming the CU is 0.35 and the LLF is 0.75? (Not exact values, but same concept)",
+          "choices": [
+            "3 fixtures",
+            "6 fixtures",
+            "2 fixtures",
+            "4 fixtures"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "ELECTRIFICATION: Which of the following is not considered an electrical device?",
+          "choices": [
+            "Switch",
+            "Lamp",
+            "Junction Box",
+            "Receptacle"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Which of the following is a good insulator?",
+          "choices": [
+            "Brass",
+            "Tin",
+            "Mica",
+            "Platinum"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "An armature winding which is typically constructed of a laminated steel core containing current-carrying copper wires is called what?",
+          "choices": [
+            "Rotor",
+            "Stator",
+            "Armature"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The field of poles of an electric motor consisting of copper windings which is placed on a laminated iron core is called what?",
+          "choices": [
+            "Rotor",
+            "Stator",
+            "Armature"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the unit for lumen per square meter?",
+          "choices": [
+            "Lux",
+            "Luminous flux",
+            "Lambert",
+            "Foot candle"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "What is the ability of a material to oppose current called?",
+          "choices": [
+            "Resistance",
+            "Conductance",
+            "Impedance",
+            "Resistivity"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which material in greenhouse construction is less expensive, resists rainfall, and uses less reinforcement?",
+          "choices": [
+            "Screen",
+            "Polyethylene",
+            "Glass",
+            "Fiberglass"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2014"
+        },
+        {
+          "q": "What is the lighting intensity requirement for a goat and sheep house? (PAES)",
+          "choices": [
+            "200 lux",
+            "250 lux",
+            "300 lux",
+            "500 lux"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the space requirement for a buck/ram with slatted floor? (PAES)",
+          "choices": [
+            "2.0 m2",
+            "3.0 m2",
+            "2.5 m2",
+            "5.0 m2"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is used to hold purlins and rafters in place?",
+          "choices": [
+            "Purlin",
+            "Rafter",
+            "Cleats"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the alley width for vehicles in a cattle feedlot?",
+          "choices": [
+            "2 m",
+            "2.5 m",
+            "3 m",
+            "3.5 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the length between trusses called?",
+          "choices": [
+            "Bay length",
+            "Truss length",
+            "Clear span",
+            "Normal span"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the minimum distance between a slaughterhouse and commercial buildings, roads, etc.? (PAES)",
+          "choices": [
+            "At least 200 m",
+            "At least 50 m",
+            "At least 100 m",
+            "At least 500 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the part of an old farmstead where vehicles park called?",
+          "choices": [
+            "Alley",
+            "Walkways"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the temperature requirement for a weaner? (PAES)",
+          "choices": [
+            "30 C",
+            "32 C",
+            "35 C",
+            "36 C"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "PAES 421:2009 Farm to Market Road. It is the layer of aggregate, soil-treated aggregate, treated soil, or soil aggregate that rests upon the Subbase or, if no Subbase, upon the sub-grade. Treatment may include application of chemical-based soil additives such as soil-stabilizers and/or any approved method.",
+          "choices": [
+            "Aggregate Base Course",
+            "Base Course",
+            "Subbase Course",
+            "Aggregate Subbase Course"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A beam needs 4 pcs of 20 mm RSB. If there is no available 20 mm RSB, how many 16 mm RSB can substitute for the 20 mm bars?",
+          "choices": [
+            "4 pcs",
+            "5 pcs",
+            "6 pcs",
+            "7 pcs"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which is the popular non-destructive testing device for concrete with a steel probe?",
+          "choices": [
+            "Pulse Velocity",
+            "Penetrate Resistance",
+            "Coring",
+            "Rebound hammer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "What is the space requirement for a carabao feedlot? (PAES)",
+          "choices": [
+            "2",
+            "4",
+            "6",
+            "3"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "This will promote rapid runoff of surface water and maximize the amount of water that infiltrates into the roadway. What is the minimum slope from the centerline towards the ditch for earth roads? (PAES FMR)",
+          "choices": [
+            "1%",
+            "4%",
+            "2%",
+            "3%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "What is the third layer of bituminous material in the FMR? (PAES FMR)",
+          "choices": [
+            "Subbase aggregate",
+            "Aggregate subbase",
+            "Base coarse"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "What are the floor dimensions for a warehouse of 10,000 cavans capacity? (PAES)",
+          "choices": [
+            "10x30 m",
+            "10x40 m",
+            "10x50 m",
+            "10x60 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "STRUCTURES: A siding or partition wall is referred to as what?",
+          "choices": [
+            "Girder",
+            "Divider",
+            "Stud",
+            "Joist"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRENGTH OF MATERIALS: Slenderness ratio is defined as what?",
+          "choices": [
+            "Unsupported length over minimum radius of gyration",
+            "Unsupported length over maximum radius of gyration",
+            "Supported length over minimum radius of gyration",
+            "Supported length over maximum radius of gyration"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRUCTURES: What is the buck and ram space requirement in slotted flooring?",
+          "choices": [
+            "3.0 m2 - Solid Flooring",
+            "2.5 m2",
+            "2.0 m2",
+            "3.5 m2"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRUCTURES: The warehouse floor should be ______ above the ground to permit easy loading or unloading into trucks at the sides.",
+          "choices": [
+            "600 mm",
+            "1000 mm",
+            "1500 mm",
+            "800 mm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "FARM-TO-MARKET ROADS: Culverts and storm drains have an ideal slope of 2-4%. What is the absolute minimum slope for culverts and storm drains?",
+          "choices": [
+            "1.5%",
+            "1.0%",
+            "0.5%",
+            "2.0%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "FARM-TO-MARKET ROADS: The maximum slope of the road shoulder shall be ______ from the edge of the road carriageway.",
+          "choices": [
+            "1.5% - for concrete, from the center line towards the ditch",
+            "4.0%",
+            "3.0% - for earth, gravel and bituminous roads",
+            "2.0% - for asphalt pavement"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "FARM-TO-MARKET ROADS: This shall consist of the removal and disposal of deposits of saturated or unsaturated mixtures of soils and organic matter not suitable for foundation material regardless of the moisture content. (PAES 421:2009)",
+          "choices": [
+            "Rock Excavation",
+            "Muck Excavation",
+            "Unclassified Excavation",
+            "Common Excavation"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "FARM-TO-MARKET ROADS: In FMR Control of Mixing Time, the control of the timing shall be flexible and capable of being set at intervals of 5 seconds or less throughout a total cycle of up to what maximum? (PAES 421:2009)",
+          "choices": [
+            "3 minutes",
+            "5 minutes",
+            "4 minutes",
+            "2 minutes"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRUCTURES: The slaughterhouse shall be located far from any building used for human habitation, and from any factory, public road, or public place ______ and should be free from dust, odor, smoke, and other contaminants.",
+          "choices": [
+            "At least 100 meters",
+            "At least 150 meters",
+            "At least 200 meters",
+            "At least 300 meters"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "NATIONAL BUILDING CODE: What is the elevator live load assumption?",
+          "choices": [
+            "70%",
+            "50%",
+            "100%",
+            "30%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRUCTURES: What is the recommended dimension for a warehouse with 10,000 cavans capacity?",
+          "choices": [
+            "10 m x 25 m",
+            "10 m x 30 m",
+            "15 m x 25 m",
+            "15 m x 30 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "STRUCTURES: In this concrete construction method, concrete is poured first, then tendons are tensioned.",
+          "choices": [
+            "Post-tensioned Concrete",
+            "Pre-tensioned Concrete",
+            "Post Prestressed Concrete",
+            "Pre Poststressed Concrete"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "In pre-tensioning, the steel tendons are tensioned before the concrete is cast."
+        },
+        {
+          "q": "This is also called subsurface clearing, removal, and disposal of trees below the ground surface. (PAES 421)",
+          "choices": [
+            "Clearing",
+            "Grubbing",
+            "Excavation",
+            "Earthwork"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Under mechanical ventilating systems of a greenhouse, the fans should be spaced not more than ______ m apart for uniform ventilation. (PAES 415)",
+          "choices": [
+            "3.5",
+            "4.5",
+            "6.5",
+            "7.5"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Suppose you are going to build a machinery shed. What will be the height of the machinery shed if the machinery is 3.2 m high? (PAES 420)",
+          "choices": [
+            "3.5",
+            "3.6",
+            "3.7",
+            "3.8"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Warehouse window height from the ground shall be ______ m.",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the gutter height (m) of a multi-span house in a greenhouse? (PAES 415)",
+          "choices": [
+            "2.5-2.7",
+            "2.3-2.5",
+            "2.8-3.0",
+            "2.0-2.2"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Part of the roadway next to the travelled way or auxiliary lanes that provide lateral support of base and surface courses, and is an emergency stopping area for vehicles. (PAES 421)",
+          "choices": [
+            "Road Carriageway",
+            "Road Shoulder",
+            "Roadbed",
+            "Roadway embankment"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Preparation of the sub-grade, in line and elevation, for application of pavement materials including base and surfacing materials. (PAES 421)",
+          "choices": [
+            "Gradient",
+            "Grade",
+            "Grading",
+            "Gradation"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A community nest consists of ______ layers.",
+          "choices": [
+            "1-3",
+            "3-6",
+            "2-5",
+            "3-5"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "If roofing is made of indigenous materials, the minimum roof slope shall be ______. (PAES 400 series)",
+          "choices": [
+            "25%",
+            "38%",
+            "58%",
+            "20%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the maximum length of a greenhouse floor? (PAES 415)",
+          "choices": [
+            "30 m",
+            "50 m",
+            "40 m",
+            "60 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the space requirement for birds 4 weeks old and below? (PAES 402)",
+          "choices": [
+            "5.5 sq. m/100 birds",
+            "6.5 sq. m/100 birds",
+            "6.25 sq. m/100 birds",
+            "12.5 sq. m/100 birds"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the step width for goats, staircase type, and elevated type?",
+          "choices": [
+            "300 mm",
+            "500 mm",
+            "800 mm",
+            "600 mm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the maximum moment at the center span of a simply supported beam with the load at mid-span?",
+          "choices": [
+            "PL/16",
+            "PL/48",
+            "PL/12",
+            "PL/4"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This describes a beam that bends downwards.",
+          "choices": [
+            "Buckling",
+            "Hogging",
+            "Sagging",
+            "Deflection"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What happens to friction when the road is wet?",
+          "choices": [
+            "Increases",
+            "Decreases",
+            "Stays the same",
+            "NOTA"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "STRUCTURES: The warehouse floor should be ______ above the ground to permit easy loading or unloading into trucks at the sides.",
+          "choices": [
+            "600 mm",
+            "1000 mm",
+            "1500 mm",
+            "800 mm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "FARM-TO-MARKET ROADS: The maximum slope of the road shoulder shall be ______ from the edge of the road carriageway.",
+          "choices": [
+            "1.5% - for concrete, the maximum slope shall be 1.5% from the center line towards the ditch",
+            "4.0%",
+            "3.0% - for earth, gravel and bituminous roads, the minimum slope shall be 3% from the center line towards the ditch",
+            "2.0% - the asphalt pavement represented by the cores shall not be accepted if the deficiency in density is more than 2%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "STRUCTURES: The slaughterhouse shall be located far from any building used for human habitation, and from any factory, public road, or public place ______ and should be free from dust, odor, smoke, and other contaminants.",
+          "choices": [
+            "At least 100 meters",
+            "At least 200 meters",
+            "At least 150 meters",
+            "At least 300 meters"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "STRUCTURES: What is the recommended dimension for a warehouse with 10,000 cavans capacity?",
+          "choices": [
+            "10 m x 25 m",
+            "10 m x 30 m",
+            "15 m x 25 m",
+            "15 m x 30 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "PAES 401 (Housing for Swine Production): What is the space requirement per animal (m2/animal) for adult pigs in groups?",
+          "choices": [
+            "2.0",
+            "2.5",
+            "1.0",
+            "1.5"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "PAES 401 (Housing for Swine Production): It shall be constructed to allow manure and urine to pass through.",
+          "choices": [
+            "Alley",
+            "Slotted floor"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "PAES 401 (Housing for Swine Production): What is the recommended lighting intensity for swine housing inspection areas?",
+          "choices": [
+            "50 lux",
+            "100 lux",
+            "150 lux",
+            "200 lux"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the percent allowance of a greenhouse in westward orientation?",
+          "choices": [
+            "7%",
+            "5%",
+            "3%",
+            "10%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "flag": "Source material flagged uncertainty about this exact question wording and value - verify before publishing."
+        },
+        {
+          "q": "A rural road, 6.00 meters wide, requires concreting of one kilometer long. Find the number of bags of cement required, using class 'A' concrete, if the slab is 6 inches thick. (Not exact values, but same concept, luckily 3-4 times the values are the same in the exam, but a slightly different value is given.)",
+          "choices": [
+            "5168",
+            "6891",
+            "7189",
+            "8178"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "Volume = 6m x (6in/12) x 1000m = 915 m3, Class A: 1:2:4. Fuller's formula bags of cement = 7189 bags"
+        },
+        {
+          "q": "A side lapping width covering 70 cm for corrugated G.I. sheet is what?",
+          "choices": [
+            "1.0 inches",
+            "1.5 inches",
+            "2.5 inches",
+            "3.0 inches"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Farmstead zoning: what zone is in Zone 2?",
+          "choices": [
+            "Storage",
+            "Family",
+            "Machinery shed",
+            "Livestock"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "FMR: What is the slope from the middle of the road to the shoulder? (PAES 2019)",
+          "choices": [
+            "4",
+            "5",
+            "2",
+            "3"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "The lairage for small and large animals shall be located at least ______ away from the slaughterhouse.",
+          "choices": [
+            "20 m",
+            "50 m",
+            "10 m",
+            "30 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Agricultural and Bioprocess Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "With a perforated cylinder (PAES), what type of rice whitener is this?",
+          "choices": [
+            "Abrasive whitener",
+            "Friction type whitener"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "In a milled corn kernel sampling method, what is the percent purity?",
+          "choices": [
+            "97%",
+            "98%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is used to prevent overheating between devices?",
+          "choices": [
+            "Refrigerant",
+            "Lubricant",
+            "Coolant"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which thermodynamic property is defined as constant enthalpy?",
+          "choices": [
+            "Isochoric",
+            "Isothermal",
+            "Isentropic",
+            "Isenthalpic"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which type of rice contains less than or equal to 20% longitudinal streaks? (PAES)",
+          "choices": [
+            "Well-milled rice",
+            "Regular milled rice",
+            "Overmilled rice",
+            "Undermilled rice"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the moisture gradient of corn and rice in a mechanical dryer? (PAES)",
+          "choices": [
+            "0.5%",
+            "1%",
+            "2.5%",
+            "2%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What test involves filling a biogas chamber with water and letting it saturate overnight? (PAES)",
+          "choices": [
+            "Visual test",
+            "Water tightness test",
+            "Airtight test"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the amount of heat added or removed measured by a change in temperature without changing state called?",
+          "choices": [
+            "Latent Heat",
+            "Sensible Heat",
+            "Heat Transfer",
+            "Specific Heat"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A 2.4-tonne capacity Jatropha oil expeller was loaded full with dried Jatropha seeds in 4 minutes. It produced 600 kg of crude oil in 2 hours. What is its crude oil production rate?",
+          "choices": [
+            "300 kg/h",
+            "200 kg/min",
+            "600 kg/h",
+            "600 kg/min"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the minimum methane content of biogas in order to operate biogas-fueled generators?",
+          "choices": [
+            "50%",
+            "65%",
+            "85%",
+            "90%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What type of biogas plant has aerobic conditions in the upper layers and anaerobic processes occurring in the bottom layers, especially in the settled solids?",
+          "choices": [
+            "Aerobic Biogas",
+            "Anaerobic Biogas",
+            "Facultative Biogas",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "PAES 414-2:2002 Waste Management Structures - Waste Management Structures Part 2: Agricultural Solid Waste. It involves the arrangement of compost mix in long, narrow piles or windrows that are periodically turned to maintain aerobic conditions.",
+          "choices": [
+            "Aerated static pile",
+            "In vessel system",
+            "Windrow composting",
+            "NOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What testing method is done in a biogas system where the tank is filled with water leveling the inlet and outlet pipe and letting it stand for 24 hours to determine if there were leaks and cracks? (PAES Biogas)",
+          "choices": [
+            "Digester Security Check",
+            "Water tightness test",
+            "Air tightness test"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "What is the body or substance that acts as a cooling effect by absorbing heat from another body or substance?",
+          "choices": [
+            "Desiccant",
+            "Coolant",
+            "Refrigerant",
+            "Lubricant"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "This is a type of refrigerant which is popular but is quite not used as of today because of its harmful effect on food storage.",
+          "choices": [
+            "R-134a",
+            "R-11",
+            "Ammonia",
+            "R-22"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "This is the Law of Thermodynamics which simply says that heat moves from a warm to a cooler place.",
+          "choices": [
+            "Zeroth law",
+            "1st law of Thermodynamics",
+            "2nd law of thermodynamics",
+            "3rd law of thermodynamics"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "PROCESSING: Cornmill grits with a particle size of 0.86 mm to 1.09 mm length are classified as what?",
+          "choices": [
+            "Grit #16",
+            "Grit #18",
+            "Grit #10",
+            "Grit #14"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "REFRIGERATION: What is the line from the evaporator to the compressor called?",
+          "choices": [
+            "Suction Line",
+            "Compression Line",
+            "Liquid Line",
+            "Discharge Line"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "AIR CONDITIONING: The ______ is the mass of the water vapor divided by the mass of the air parcel without the mass of the water vapor included.",
+          "choices": [
+            "Relative Humidity",
+            "Specific Humidity",
+            "Mixing ratio",
+            "Absolute Humidity"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "HEAT TRANSFER: What law governs the convection process?",
+          "choices": [
+            "Newton's Law of Cooling",
+            "Stefan-Boltzmann Law",
+            "Fourier's Law",
+            "Fourier - Biot's Law"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "THERMODYNAMICS: A gas behaves more like an ideal gas at what condition?",
+          "choices": [
+            "Higher temperature and lower pressure",
+            "Higher temperature and higher pressure",
+            "Lower temperature and lower pressure",
+            "Low Relative Humidity"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "Systems with either very low pressures or high temperatures enable real gases to be estimated as 'ideal.' The low pressure of a system allows the gas particles to experience less intermolecular forces with other gas particles."
+        },
+        {
+          "q": "REFRIGERATION: A refrigerant must have what kind of critical pressure and critical temperature?",
+          "choices": [
+            "Low critical pressure and low critical temperature",
+            "High critical pressure and low critical temperature",
+            "High critical pressure and high critical temperature",
+            "Low critical pressure and high critical temperature"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "The critical temperature of the refrigerant should be as high as possible above the condensing temperature in order to have a greater heat transfer at a constant temperature."
+        },
+        {
+          "q": "AIR CONDITIONING: In a psychrometric chart, lines represented at diagonals are what?",
+          "choices": [
+            "Dry Bulb Temperature",
+            "Wet Bulb Temperature",
+            "Specific Enthalpy",
+            "Specific Volume"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "REFRIGERATION: An adiabatic compressor is characterized as what?",
+          "choices": [
+            "Increases enthalpy with work input",
+            "Decreases enthalpy with work input",
+            "Constant enthalpy with work input",
+            "Zero enthalpy with work input"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "THERMODYNAMICS: Reversible work is always ______ than the irreversible work.",
+          "choices": [
+            "Greater",
+            "Lesser",
+            "Equal",
+            "Less than or equal"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "REFRIGERATION: Which is an environmentally-friendly refrigerant?",
+          "choices": [
+            "CFC",
+            "HFC",
+            "HCFC",
+            "FC"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "HFC = Hydrofluorocarbon"
+        },
+        {
+          "q": "REFRIGERATION: Which refrigerant is known for destroying ozone?",
+          "choices": [
+            "HCFC",
+            "FC",
+            "CFC - Chlorofluorocarbon",
+            "HFC"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "PROCESSING: Movement from a higher concentration to a lower concentration is called what?",
+          "choices": [
+            "Mass Transfer",
+            "Diffusion",
+            "Dilution",
+            "Hydrolysis"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "In an outlet tank, the height of the floor of the chamber from the filling line should be at least ______ m from the filling line plus 15% freeboard. (PAES 413)",
+          "choices": [
+            "0.2",
+            "0.25",
+            "0.3",
+            "0.35"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is a type of milk reconstituted with vegetable oil.",
+          "choices": [
+            "Skimmed Milk",
+            "Pasteurized Milk",
+            "Filled Milk",
+            "Evaporated Milk"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is the process applied to milk at a temperature of at least 145°F for not less than 30 minutes.",
+          "choices": [
+            "Pasteurization",
+            "Sterilization",
+            "Homogenization",
+            "Skimming"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the most important step in milk processing considering HACCP?",
+          "choices": [
+            "Filtration",
+            "Sterilization",
+            "Pasteurization",
+            "Standardization"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This provides the heat transfer surface through which heat passes from the hot refrigerant vapor.",
+          "choices": [
+            "Compressor",
+            "Condenser",
+            "Evaporator",
+            "Suction line"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Suppose you are working in a food processing plant. A contamination had spread in the plant. What must be the first thing you should do? (HACCP)",
+          "choices": [
+            "Stop the processing",
+            "Find the source of contamination",
+            "Conduct clearing in the plant",
+            "Monitor the critical control points"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the heating system efficiency for a rice hull (biomass) direct-fired mechanical grain dryer? (PAES 201)",
+          "choices": [
+            "65%",
+            "95%",
+            "75%",
+            "90%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The burning efficiency of a biomass furnace shall be at least what? (PAES 242)",
+          "choices": [
+            "65%",
+            "95%",
+            "75%",
+            "90%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This process, applied in food, kills bacteria by breaking down bacterial DNA, inhibiting bacterial division.",
+          "choices": [
+            "Alpha radiation",
+            "Beta radiation",
+            "Gamma radiation",
+            "Infrared"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "It is simply known as written sanitation standards (a process or step implemented to prevent adulteration and contamination of products).",
+          "choices": [
+            "HACCP",
+            "SSOP",
+            "GMP",
+            "HAZOP"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "An example of a biochemical conversion of biomass is what?",
+          "choices": [
+            "Gasification",
+            "Pyrolysis",
+            "Combustion",
+            "Digestion"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "States that if two bodies are in equilibrium with some third body, then they are also in equilibrium with each other.",
+          "choices": [
+            "Zeroth law",
+            "First law",
+            "Second Law",
+            "Third Law"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "States that the entropy of a perfect crystal at a temperature of zero Kelvin (absolute zero) is equal to zero.",
+          "choices": [
+            "Zeroth law",
+            "First law",
+            "Second Law",
+            "Third Law"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A continuous-flow dryer in which the product being dried moves in the same direction as the drying air.",
+          "choices": [
+            "Cross-flow type dryer",
+            "Counter-flow type dryer",
+            "Concurrent-flow dryer",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "REFRIGERATION: What is the line from the evaporator to the compressor called?",
+          "choices": [
+            "Suction Line",
+            "Refrigerant",
+            "Liquid Line",
+            "Discharge Line"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the stacking density of corn?",
+          "choices": [
+            "15",
+            "10",
+            "12",
+            "8"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Where does hot air discharge to the environment in a refrigeration cycle?",
+          "choices": [
+            "Condenser",
+            "Compressor",
+            "Evaporator",
+            "Expansion valve"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the burning efficiency of a rice hull furnace?",
+          "choices": [
+            "75%",
+            "80%",
+            "85%",
+            "90% (ranges from 90 and less than 100%)"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the thermal efficiency of a rice hull furnace?",
+          "choices": [
+            "20-30%",
+            "30-40%",
+            "40-60%",
+            "40-70%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Which gas is produced during anaerobic fermentation of agricultural wastes?",
+          "choices": [
+            "Biogas",
+            "Methane",
+            "Producer gas",
+            "LPG"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "It is a ratio of total heat utilized by the fuel to the heat supplied to the burner.",
+          "choices": [
+            "Heating System efficiency",
+            "Combustion Efficiency",
+            "Drying Efficiency",
+            "Drying System Efficiency"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The percentage equivalent of the ratio of the weight of water (WW) to the total weight of the material (Wt).",
+          "choices": [
+            "Moisture content",
+            "Moisture content wet basis",
+            "Moisture content dry basis",
+            "Equilibrium moisture content"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The ratio of the amount of moisture in the food to the amount of dry matter.",
+          "choices": [
+            "Moisture content",
+            "Moisture content wet basis",
+            "Moisture content dry basis",
+            "Equilibrium moisture content"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "This refers to the weight of the water contained in a certain object or material.",
+          "choices": [
+            "Moisture content",
+            "Moisture content wet basis",
+            "Moisture content dry basis",
+            "Equilibrium moisture content"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the maximum moisture content for corn testing?",
+          "choices": [
+            "14%",
+            "16%",
+            "18%",
+            "24%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A system based on a preventive methodology, with the aim of avoiding potential risks that can cause harm to consumers, by eliminating or reducing hazards, in order to ensure that unsafe foods are not placed at the disposal of the consumer.",
+          "choices": [
+            "HAZOP",
+            "HAZOD",
+            "HACCP (The Hazard Analysis and Critical Control Point)",
+            "GMP"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A system for ensuring that products are consistently produced and controlled according to quality standards.",
+          "choices": [
+            "Safety",
+            "SSOP",
+            "HACCP",
+            "GMP (Good Manufacturing Practice)"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A set of written instructions that describes the step-by-step process that must be taken to properly perform a routine activity.",
+          "choices": [
+            "Safety",
+            "SOP",
+            "HACCP",
+            "GMP"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Moisture content of air remains constant so specific humidity is constant, temperature increases as it flows over a heating coil.",
+          "choices": [
+            "Sensible cooling",
+            "Latent heat",
+            "Sensible heat",
+            "Relative Humidity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Moisture content of air remains constant so specific humidity is constant, but its temperature decreases as it flows over a cooling coil.",
+          "choices": [
+            "Sensible cooling",
+            "Latent heat",
+            "Sensible heat",
+            "Relative Humidity"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "An energy absorbed or released by a substance during a change in its physical state (phase) that occurs without changing its temperature.",
+          "choices": [
+            "Sensible cooling",
+            "Latent heat",
+            "Sensible heat",
+            "Relative Humidity"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Two cubic meters per hour of water are cooled from 30°C to 4°C. What is the rate of heat transfer in kilowatts?",
+          "choices": [
+            "0.06",
+            "14.4",
+            "60.5",
+            "144.4"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = mCp(deltaT) = (v/vCp)(deltaT) = v.rho.Cp(deltaT); rho=1000 kg/m3, Cp=4.19 kJ/kg-K; q = 2(1000)(4.19)(26)/3600 = 60.5 kW"
+        },
+        {
+          "q": "The flow rate of 0.06 kg/s of water enters a boiler at 90°C, at which temperature the enthalpy is 379.9 kJ/kg. The water leaves as steam at 100°C (2676 kJ/kg). What is the rate of heat transfer added to this boiler?",
+          "choices": [
+            "22.6 kW",
+            "137.8 kW",
+            "1379.5 kW",
+            "2299.1 kW"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = m(he - hi) = 0.06(2676-379.9) = 137.766 kW"
+        },
+        {
+          "q": "Air flowing at the rate of 2.5 kg/s is heated in a heat exchanger from -10°C to 30°C. What is the rate of heat transfer?",
+          "choices": [
+            "50 kW",
+            "100 kJ",
+            "100 kW",
+            "2.5 kg"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "qw = mCp(To-Ti) = 2.5(1.0035)[30-(-10)] = 100 kW"
+        },
+        {
+          "q": "The specific heat of a material is given in a strange unit to be 3.60 kJ/kg-°F. What is the specific heat of this material in SI units of kJ/kg-°C?",
+          "choices": [
+            "2.00",
+            "4.80",
+            "3.20",
+            "6.48"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "(3.6 kJ/kg-F)x(F/(9/5K)) = 2 kJ/kg-K = 2 kJ/kg-C"
+        },
+        {
+          "q": "An ordinary egg with a mass of 0.1 kg and specific heat of 3.32 kJ/kg-°C is dropped into boiling water at 95°C. If the initial temperature of the egg is 5°C, what is the maximum amount of heat transfer to the egg?",
+          "choices": [
+            "12 kJ",
+            "30 kJ",
+            "24 kJ",
+            "18 kJ"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = mCv(T2-T1) = 0.1(3.32)(95-5) = 29.88 kJ, approximately 30 kJ"
+        },
+        {
+          "q": "Heat is transferred steadily through a 0.2-m thick, 9m x 4m wall, at a rate of 1.8 kW. The inner and outer surface temperatures of the wall are measured to be 15°C to 5°C. What is the average thermal conductivity of the wall?",
+          "choices": [
+            "0.001 W/m-°C",
+            "0.5 W/m-°C",
+            "2.0 W/m°C",
+            "5.0 W/m-°C"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = kA(deltaT)/deltax = 1.8 = k(36)(10)/0.2; k = 1.8(0.2)/((36)(10)) = 0.001 W/m-C"
+        },
+        {
+          "q": "Two infinite black planes at 800°C and 300°C exchange heat by radiation. What is the heat transfer rate per unit area (kW/m2)?",
+          "choices": [
+            "2.85 x 10-5",
+            "12.1",
+            "121",
+            "69"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "qnet/A = sigma.Fe.FA(T2^4 - T1^4) = 5.669x10^-8(1)(1)[(800+273.15)^4-(300+273.15)^4] = 69.07 kW/m2"
+        },
+        {
+          "q": "A wall of 25-cm thickness and 10 m2 surface area is to be constructed from a material which has an average thermal conductivity of 0.5 W/m-K. The average inner and outer fluid temperatures are 20°C and -20°C, and the corresponding heat transfer coefficients are 8 W/m2-K and 23 W/m2-K, respectively. What is the rate of heat loss through the wall?",
+          "choices": [
+            "12.1 W",
+            "59.8 W",
+            "598.4 W",
+            "1,316 W"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = A(Ti-To)/(1/ho + x/k + 1/hi) = 10(40)/(1/23 + 0.25/0.5 + 1/8) = 598.374 W"
+        },
+        {
+          "q": "The wall of a furnace consists of a 9-inch thick layer of firebrick (k=0.8 Btu/h.ft.F), a 1/2-inch steel frame (k=25 Btu/h.ft.F), and an outer 2-inch thick layer of insulation (k=0.05 Btu/h.ft.F). The outer surface of the insulation is exposed to air at 100°F and heat transfer coefficient is estimated to be 1.0 Btu/h.ft2.F. If the temperature of the steel must not exceed about 500°F, what is the maximum temperature that the inner surface of the firebrick can be allowed to reach?",
+          "choices": [
+            "500°F",
+            "875°F",
+            "587°F",
+            "937°F"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Water at a mean temperature of 150°F flows through a steel pipe having an inside diameter of 1 inch and outer diameter of 1.25 inches. The outer surface of the pipe is exposed to air at 75°F. The heat transfer coefficients on the water and air sides are 100 Btu/h.ft2.F and 1.0 Btu/h.ft2.F, respectively. Find the heat transfer per foot length of the pipe.",
+          "choices": [
+            "4.1 Btu/h.ft",
+            "25.9 Btu/h.ft",
+            "48.6 Btu/h.ft",
+            "49.2 Btu/h.ft"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Heat is being transferred across a flat wall with thermal conductivity k=0.5 W/m.K and thickness L=0.15 m. The convection coefficient on the left side of the wall is hL=5 W/m2.K. The convection coefficient on the right side of the wall is hR=25 W/m2.K. What is the overall heat transfer coefficient U?",
+          "choices": [
+            "1.85 W/m2.K",
+            "2.64 W/m2.K",
+            "3.91 W/m2.K",
+            "4.17 W/m2.K"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "U = 1/(1/hL + L/k + 1/hR) = 1/(1/5 + 0.15/0.5 + 1/25) = 1.85185 W/m2.K"
+        },
+        {
+          "q": "The ability of a heat engine to convert the supplied heat to work is referred to as what?",
+          "choices": [
+            "Thermal efficiency",
+            "Coefficient of performance",
+            "Efficiency",
+            "Coefficient of efficiency"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "In an 'ideal' situation, what is the COP of a refrigerating cycle that is operating between minus 40°C and 40°C?",
+          "choices": [
+            "1.0",
+            "0",
+            "3.0",
+            "2.0"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "COP = Tl/(Th-Tl) = (-40+273.15)/[40-(-40)] approximately 2.9, closest to 3.0"
+        },
+        {
+          "q": "100 kg of lean beef is to be cooled from 18°C to 4°C. Specific heat of beef before freezing is 3.23 kJ/kg-K, after freezing is 1.68 kJ/kg-K. The latent heat of fusion is 233 kJ/kg. Determine the product load in kJ.",
+          "choices": [
+            "4,522",
+            "5,814",
+            "23,300",
+            "29,114"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = mb[Cv(deltaTb)] = 100[3.23(14)] = 4,522 kJ"
+        },
+        {
+          "q": "Water at the rate of 68 kg/min is heated from 35°C to 75°C by an oil having a specific heat of 1.9 kJ/kg-°C. The fluids are used in a counterflow double-pipe heat exchanger, and the refrigerant enters the heat exchanger at 110°C and leaves at 75°C. The overall heat-transfer coefficient is 320 W/m2-°C. The total heat transfer, in kW, from the energy absorbed by the water is what?",
+          "choices": [
+            "11.4",
+            "64.7",
+            "189.5",
+            "2720"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2023",
+          "explanation": "q = mCp(deltaT) = (68/60)(4.19)(75-35) = 189.947 kW"
+        },
+        {
+          "q": "What is the minimum temperature when composting agricultural waste?",
+          "choices": [
+            "45",
+            "55",
+            "60",
+            "75"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "What is the 7th step of HACCP?",
+          "choices": [
+            "Determine the HACCP",
+            "Identify the critical control point",
+            "Track records"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "What is the equilibrium moisture content of rice?",
+          "choices": [
+            "12",
+            "16",
+            "18",
+            "14"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        },
+        {
+          "q": "100 kg of syrup with 20% sugar is to be made into a 60% sugar content. How many kilos of syrup should I add?",
+          "choices": [
+            "100",
+            "120",
+            "80",
+            "60"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the standard thickness of a concrete trapezoidal ditch with riprap? (PAES)",
+          "choices": [
+            "0.25 m",
+            "0.15 m",
+            "0.30 m",
+            "0.20 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the standard thickness of a rectangular ditch? (PAES)",
+          "choices": [
+            "0.25 m",
+            "0.15 m",
+            "0.30 m",
+            "0.20 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the proper mix class for a solid concrete open channel bed and walls?",
+          "choices": [
+            "Class AA",
+            "Class A",
+            "Class B",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "In a lateral and sub-lateral canal where the available roadway width is 3 meters, the carriageway width shall be 2 meters and the shoulder width shall be 0.5 meters. If the available roadway width is 4 meters, the shoulder shall expand to 1 meter. What is this called?",
+          "choices": [
+            "Road bed lateral canal",
+            "Roadway on main irrigation canals",
+            "Roadway on lateral and sub-lateral irrigation canals",
+            "Turn-out section canal"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A Solar Powered Irrigation System photovoltaic array should be facing what direction, based on efficiency and performance? (PNS/BAFS 324:2021)",
+          "choices": [
+            "East",
+            "West",
+            "North",
+            "South"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "If an open channel will not become polluted, eave gutters can be omitted, and roof cover can fall to a surface channel with a minimum freeboard of ______%. (PAES 414-1)",
+          "choices": [
+            "0.3",
+            "0.4",
+            "0.5",
+            "0.2"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery, Power Units, and Workshop Management",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What type of cutterhead has knives parallel to the axis of rotation? (PAES)",
+          "choices": [
+            "Flywheel cutterhead",
+            "Cylinder cutterhead"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What tail type of a multi-bladed windpump is more effective for windy areas?",
+          "choices": [
+            "Hinged side vane",
+            "Ecliptic",
+            "Manual folding",
+            "No tail"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Environmental Engineering and Science",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The heating of the earth due to human activities is called what?",
+          "choices": [
+            "Global warming",
+            "Greenhouse effect"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What term refers to a production system used in agriculture where things are sustained?",
+          "choices": [
+            "Sustainable agriculture",
+            "Organic agriculture"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What practice increases product efficiency and decreases hazard?",
+          "choices": [
+            "Environmental management",
+            "Pollution control",
+            "Wastewater management"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the wastewater, either treated or untreated, discharged from a reservoir, basin, or treatment plant called?",
+          "choices": [
+            "Effluent",
+            "Influent",
+            "Turbid Water",
+            "NOTA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "It is the production of food, fiber, or other plant or animal products using farming techniques that protect the environment, public health, human communities, and animal welfare.",
+          "choices": [
+            "Organic Agriculture",
+            "Sustainable Agriculture",
+            "Traditional Agriculture",
+            "Conventional Agriculture"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "WASTE MANAGEMENT: What are sometimes adopted to supplement coarse screening and serve to reduce the size of large particles so that they will be removed in the form of a sludge in subsequent treatment processes?",
+          "choices": [
+            "Comminutors",
+            "Sieves",
+            "Grit Chamber",
+            "Skimming"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "WASTE MANAGEMENT: Dissolved oxygen concentrations will be the lowest within a waterbody at what time?",
+          "choices": [
+            "Afternoon",
+            "Sunrise",
+            "Sunset",
+            "Noon"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "According to the 2017 World Risk Report, the Philippines is ranked what as the most vulnerable country to climate change?",
+          "choices": [
+            "1st",
+            "2nd",
+            "3rd",
+            "4th"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What percent of clay content is needed in order for wastes to not penetrate beyond the soil? (PAES 414-1)",
+          "choices": [
+            "10%",
+            "15%",
+            "20%",
+            "5%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "CPES: What is the maximum weight rating for Environmental, Safety and Health criteria during construction?",
+          "choices": [
+            "0.40",
+            "0.15",
+            "0.07",
+            "0.30"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the amount paid to project owners from the CDM fund for carbon emission reduction projects called?",
+          "choices": [
+            "Carbon credit value",
+            "Emission value",
+            "Carbon trading value",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "PERT/CPM: It is a hypothetical activity which takes no resource or time to complete. It is represented by a broken arrowed line and is used for either distinguishing activities having common starting and finishing events, or to identify and maintain proper precedence relationship between activities that are not connected by events.",
+          "choices": [
+            "Free Float",
+            "Slack Activity",
+            "Dummy activity",
+            "Zero Slack"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "How many years of experience in the actual implementation of a project is needed to be an evaluator in CPES?",
+          "choices": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the defect liability period in CPES?",
+          "choices": [
+            "1 year",
+            "2 years",
+            "3 years",
+            "4 years"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This allows a country with an emission-reduction or emission-limitation commitment under the Kyoto Protocol to implement an emission-reduction project in developing countries.",
+          "choices": [
+            "Carbon Credit",
+            "Clean Development Mechanism",
+            "Carbon Development",
+            "GHG Mechanism"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "PAES 2008:2000 Power-Operated Corn Sheller Specifications: What is the ratio of the weight of corn kernels that fell out from the machine during shelling operation to the weight of the total corn kernel input of the sheller, expressed in percent?",
+          "choices": [
+            "Scattering Loss",
+            "Cylinder Loss",
+            "Separation Loss",
+            "Blower Loss"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A rice thresher that is fed with panicles at one end and discharges threshed product at the other end is called what?",
+          "choices": [
+            "Radial type thresher",
+            "Hold-on type thresher",
+            "Axial-flow thresher",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "PROCESSING: A centrifugal fan was producing air at what condition?",
+          "choices": [
+            "High pressure and low air flow",
+            "High pressure and high air flow",
+            "Low pressure and high air flow",
+            "Low pressure and low air flow"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "explanation": "The airflow created by centrifugal fans is directed through a system of ducts or tubes, creating a higher-pressure but lower flow-rate airflow than axial fans."
+        },
+        {
+          "q": "PROCESSING: A peanut sheller air velocity meter ranges from what?",
+          "choices": [
+            "5-30 mps",
+            "0-30 mps",
+            "10-30 mps",
+            "15-30 mps"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "PROCESSING: This measures the ability of the machine to remove hulls with minimum breakage.",
+          "choices": [
+            "Coefficient of wholeness",
+            "Hulling Coefficient",
+            "Hulling Efficiency",
+            "Fineness Modulus"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Type of thresher wherein the panicles of the cut plants are fed into the threshing chamber while the stalks are mechanically or manually held during the threshing operation. (PAES 204)",
+          "choices": [
+            "Axial Flow Thresher",
+            "Hold-on Thresher",
+            "Throw-in Thresher",
+            "Through flow Thresher"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the duration of a continuous test for a thresher? (PAES 205)",
+          "choices": [
+            "30 minutes",
+            "15 minutes",
+            "1 hour",
+            "45 minutes"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the interval of testing trials for a thresher? (PAES 205)",
+          "choices": [
+            "30 minutes",
+            "15 minutes",
+            "1 hour",
+            "45 minutes"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is the part of a thresher where the grains are removed from the panicle. (PAES 204)",
+          "choices": [
+            "Concave",
+            "Teeth",
+            "Drum",
+            "Feeding table"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "PROCESSING: What is the mechanical rice thresher test duration?",
+          "choices": [
+            "1 hour",
+            "2 hours",
+            "15 minutes - interval",
+            "30 minutes"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Philippine National Standards on After-Sales Service and Methods of Sampling",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "PAES 203: Moisture Content Determination for Rice and Corn. What is the minimum frequency of quantity sampling for moisture content determination during test?",
+          "choices": [
+            "8 samples - 10 samples",
+            "10 samples",
+            "12 samples",
+            "NOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "PAES 221:2004 Peanut Sheller - Methods of Test. What is the percent moisture content of the test material for the peanut sheller?",
+          "choices": [
+            "8% - 10%, wet basis",
+            "12%-14%, wet basis",
+            "8% - 10%, dry basis",
+            "12%-14%, dry basis"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "PROCESSING: Testing of a thresher with straw length sample is done at what length? (PAES 205-2015)",
+          "choices": [
+            "45-55 cm",
+            "40-50 cm",
+            "45-50 cm",
+            "40-55 cm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "FUNDAMENTALS_SCIENCES",
+      "topic_name": "Fundamentals of Agricultural, Fishery, Ecological and Environmental Sciences",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "It is a positively charged particle made up of two protons and two neutrons and released by a radioactive nucleus.",
+          "choices": [
+            "Alpha radiation",
+            "Beta radiation",
+            "Ultraviolet radiation",
+            "Gamma radiation"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "It is a positively charged particle made up of two protons and two neutrons and released by a radioactive nucleus. (2017 Board Exam)",
+          "choices": [
+            "Alpha radiation",
+            "Beta radiation",
+            "Ultraviolet radiation",
+            "Gamma radiation"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "FLUID MECHANICS: This measures velocity by the change of source light or sound frequency from the frequency of reflections from moving particles.",
+          "choices": [
+            "Optical Strobe",
+            "Doppler",
+            "Bellow",
+            "Platometer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What is the primary component of cell walls?",
+          "choices": [
+            "Cellulose",
+            "Lignin",
+            "Hemicellulose",
+            "Xylan"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A soil pH which is below 7.0 is called what?",
+          "choices": [
+            "Acidity",
+            "Alkaline"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What compound is involved in ice?",
+          "choices": [
+            "Carbon",
+            "Oxygen",
+            "Carbon monoxide",
+            "H2O"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "MATH_BASIC_ENGG",
+      "topic_name": "Mathematics and Basic Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "How many pieces of umbrella nails are there if there are 10 kilograms of umbrella nails?",
+          "choices": [
+            "10,000 pcs",
+            "11,000 pcs",
+            "12,000 pcs",
+            "12,500 pcs"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A wooden pole (SG=0.65), 9 cm by 9 cm by 5 m long, hangs vertically from a string in such a way that 3 m is submerged in water and 2 m is above the surface. What is the tension in the string?",
+          "choices": [
+            "19.87 N",
+            "17.89 N",
+            "18.96 N",
+            "16.97 N"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the gravitational force of 20,000 kg?",
+          "choices": [
+            "192.6 kN",
+            "162.9 kN",
+            "196.2 kN",
+            "169 kN"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2018"
+        },
+        {
+          "q": "ENGINEERING DRAWING: A perpendicular projection situated to the horizontal plane is called what?",
+          "choices": [
+            "Vertical plane",
+            "Front view",
+            "Horizontal plane",
+            "Rear view"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ENGINEERING DRAWING: A view of a structure as though it had been sliced in half or cut along an imaginary plane is called what?",
+          "choices": [
+            "Exploded view",
+            "Auxiliary view",
+            "Isometric view",
+            "Section view"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ENGINEERING DRAWING: In projecting a circle cut by an inclined plane, the circle projection at Top and Front will be what?",
+          "choices": [
+            "Top (Ellipse) and Front (Ellipse)",
+            "Top (Circle) and Front (Circle)",
+            "Top (Oval) and Front (Ellipse)",
+            "Top (Circle) and Front (Ellipse)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ENGINEERING DRAWING: In Dimensioning Rules, what should be added before the decimal point when dimensioning figures with a value less than one?",
+          "choices": [
+            "None",
+            "One",
+            "Significant Value",
+            "Zero"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ENGINEERING DRAWING: In Dimensioning Rules, dimensioning must be at which side only?",
+          "choices": [
+            "Right",
+            "Left",
+            "Bottom",
+            "Top"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2019",
+          "flag": "Source material noted conflicting references on this rule (some sources say dimensions should be placed on the view pleasing to the observer's eye) - verify before publishing."
+        },
+        {
+          "q": "ENGINEERING DRAWING: A line that is parallel to the vertical plane at all its points, having the same distance to the vertical plane, is called what?",
+          "choices": [
+            "Horizontal line",
+            "Frontal line",
+            "Vertical line",
+            "Rear line"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "ENGINEERING DRAWING: The ______ are used to show surfaces that are not directly visible.",
+          "choices": [
+            "Dotted lines",
+            "Dashed lines",
+            "Broken lines",
+            "Hidden lines"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "In AutoCAD, this command is used to restrict cursor movement to specific directions, allowing the cursor movement only in the vertical and horizontal directions.",
+          "choices": [
+            "Auto Snap",
+            "Ortho",
+            "Isoplane",
+            "Grid Snap"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This command is used to control and manage the drawings in AutoCAD for different purposes.",
+          "choices": [
+            "Isoplane",
+            "Dynamic UCS",
+            "Grid Display",
+            "Layer"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This command is used to look for a specified value by searching vertically across the sheet.",
+          "choices": [
+            "V lookup",
+            "Index",
+            "Search",
+            "Match mode"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "It is a reading taken on a position of known coordinates.",
+          "choices": [
+            "Benchmark",
+            "Backsight",
+            "Foresight",
+            "Turning Point"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the angle of the plane to the horizontal when a body placed on the plane will just start to slide?",
+          "choices": [
+            "Angle of repose",
+            "Angle of friction"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "WASTE MANAGEMENT: ABE's part in the RA 9003 (Ecological Solid Waste Management Act) is what?",
+          "choices": [
+            "Reducing Solid Waste Pollution",
+            "Managing Agricultural Solid Waste",
+            "Composting Agricultural Solid Waste",
+            "Designing of Solid Waste Disposal Sites"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What law is the Organic Agriculture Act?",
+          "choices": [
+            "RA 10068",
+            "RA 8749",
+            "RA 9003",
+            "RA 9275"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the main DA agency/bureau/office responsible for organic agriculture in the Philippines?",
+          "choices": [
+            "BSWE",
+            "BAFS",
+            "LGU",
+            "ATI"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Soil and Water Conservation Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Quarried stone specially selected, graded, and placed to prevent erosion and thereby preserve the shape of a surface, slope, or underlying structure.",
+          "choices": [
+            "Gabion",
+            "Net",
+            "Stone wall",
+            "Riprap"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Design of Biomass Gasifier as Power Source of Various Farm Machinery and Equipment",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the most efficient gasifier type?",
+          "choices": [
+            "Updraft",
+            "Downdraft",
+            "Crossdraft"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "recalled_batch": "2024"
+        }
+      ]
+    }
+  ]
+}
