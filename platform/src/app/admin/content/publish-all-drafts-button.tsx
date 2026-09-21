@@ -31,8 +31,9 @@ export function PublishAllDraftsButton({ draftCount }: { draftCount: number }) {
     <div className="space-y-2 rounded-md border border-border bg-muted/30 p-3">
       <p className="text-sm">
         This publishes all <strong>{draftCount}</strong> draft questions across every topic — not just
-        one topic. Students will immediately see them in Practice, Mock Exams, Quiz Builder, and Recalled
-        Questions. You can unpublish individual questions afterward if needed.
+        one topic. Flagged questions are excluded and won&apos;t be touched; review those separately from
+        the Flagged Questions link above. Students will immediately see the rest in Practice, Mock Exams,
+        Quiz Builder, and Recalled Questions. You can unpublish individual questions afterward if needed.
       </p>
       <div className="flex gap-2">
         <Button

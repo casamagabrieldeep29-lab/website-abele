@@ -10,15 +10,27 @@ export default async function AdminContentPage() {
   await requireAdmin();
   const supabase = await createClient();
 
-  const [{ data: topics }, { count: uncategorizedCount }, { count: totalDraftCount }] = await Promise.all([
-    supabase.from("topics").select("id, name, exam_areas(name), questions(status)").order("name"),
-    supabase
-      .from("questions")
-      .select("id", { count: "exact", head: true })
-      .is("category", null)
-      .neq("status", "archived"),
-    supabase.from("questions").select("id", { count: "exact", head: true }).eq("status", "draft"),
-  ]);
+  const [{ data: topics }, { count: uncategorizedCount }, { count: totalDraftCount }, { count: flaggedCount }] =
+    await Promise.all([
+      supabase.from("topics").select("id, name, exam_areas(name), questions(status)").order("name"),
+      supabase
+        .from("questions")
+        .select("id", { count: "exact", head: true })
+        .is("category", null)
+        .neq("status", "archived"),
+      // Matches publishAllDrafts' own exclusion — the count shown next to the
+      // button should equal what clicking it will actually publish.
+      supabase
+        .from("questions")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "draft")
+        .or("explanation.is.null,explanation.not.ilike.%FLAGGED FOR REVIEW%"),
+      supabase
+        .from("questions")
+        .select("id", { count: "exact", head: true })
+        .ilike("explanation", "%FLAGGED FOR REVIEW%")
+        .neq("status", "archived"),
+    ]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -40,8 +52,16 @@ export default async function AdminContentPage() {
           <AutoCategorizePanel initialUncategorized={uncategorizedCount ?? 0} />
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center gap-3">
           <PublishAllDraftsButton draftCount={totalDraftCount ?? 0} />
+          {(flaggedCount ?? 0) > 0 && (
+            <Link
+              href="/admin/content/flagged"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-destructive hover:underline"
+            >
+              ⚑ {flaggedCount} flagged question{flaggedCount === 1 ? "" : "s"} need review →
+            </Link>
+          )}
         </div>
 
         <div className="mt-6 space-y-3">
