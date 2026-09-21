@@ -95,6 +95,15 @@ export async function unpublishQuestion(questionId: string) {
   revalidatePath("/admin/content");
 }
 
+// Excludes flagged questions (explanation containing "FLAGGED FOR REVIEW",
+// see Flagged Questions page) from both bulk-publish actions below — a
+// flagged question needs a human look before it goes live, never a sweep.
+// NULL explanations must be included via `.or()`, not just `.not(...ilike)`
+// alone: `NOT (NULL ILIKE ...)` evaluates to NULL, which a WHERE clause
+// treats as non-matching and would silently exclude every question that
+// has no explanation at all.
+const NOT_FLAGGED_FILTER = "explanation.is.null,explanation.not.ilike.%FLAGGED FOR REVIEW%";
+
 export async function publishAllInTopic(topicId: string) {
   await requireAdmin();
   const supabase = await createClient();
@@ -102,7 +111,8 @@ export async function publishAllInTopic(topicId: string) {
     .from("questions")
     .update({ status: "published" })
     .eq("topic_id", topicId)
-    .eq("status", "draft");
+    .eq("status", "draft")
+    .or(NOT_FLAGGED_FILTER);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/content");
 }
@@ -122,6 +132,7 @@ export async function publishAllDrafts(): Promise<{ published: number }> {
     .from("questions")
     .update({ status: "published" })
     .eq("status", "draft")
+    .or(NOT_FLAGGED_FILTER)
     .select("id");
   if (error) throw new Error(error.message);
   revalidatePath("/admin/content");
