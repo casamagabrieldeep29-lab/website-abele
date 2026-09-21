@@ -4,18 +4,20 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AutoCategorizePanel } from "./auto-categorize-panel";
+import { PublishAllDraftsButton } from "./publish-all-drafts-button";
 
 export default async function AdminContentPage() {
   await requireAdmin();
   const supabase = await createClient();
 
-  const [{ data: topics }, { count: uncategorizedCount }] = await Promise.all([
+  const [{ data: topics }, { count: uncategorizedCount }, { count: totalDraftCount }] = await Promise.all([
     supabase.from("topics").select("id, name, exam_areas(name), questions(status)").order("name"),
     supabase
       .from("questions")
       .select("id", { count: "exact", head: true })
       .is("category", null)
       .neq("status", "archived"),
+    supabase.from("questions").select("id", { count: "exact", head: true }).eq("status", "draft"),
   ]);
 
   return (
@@ -36,6 +38,10 @@ export default async function AdminContentPage() {
 
         <div className="mt-6">
           <AutoCategorizePanel initialUncategorized={uncategorizedCount ?? 0} />
+        </div>
+
+        <div className="mt-4">
+          <PublishAllDraftsButton draftCount={totalDraftCount ?? 0} />
         </div>
 
         <div className="mt-6 space-y-3">
