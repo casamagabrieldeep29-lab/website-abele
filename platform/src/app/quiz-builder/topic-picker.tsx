@@ -97,6 +97,17 @@ export function TopicPicker({ areas }: { areas: TopicPickerArea[] }) {
 
   return (
     <div className="space-y-2">
+      {/* Base UI's Collapsible.Panel doesn't mount its children until opened
+          at least once (keepMounted defaults to false), so a topic checkbox
+          inside a subject the student never expanded — e.g. checked only via
+          that subject's "select all" box — would never make it into the
+          form's data. These hidden inputs carry the real `topicIds` values
+          straight from React state instead, independent of what's currently
+          expanded; the visible per-topic checkboxes below are UI-state only. */}
+      {[...selected].map((id) => (
+        <input key={id} type="hidden" name="topicIds" value={id} />
+      ))}
+
       <div className="flex justify-end gap-2">
         <Button type="button" size="sm" variant="outline" onClick={() => setOpenIds(new Set(allIds))}>
           Expand All
@@ -181,8 +192,6 @@ export function TopicPicker({ areas }: { areas: TopicPickerArea[] }) {
                                   <label key={topic.id} className="flex items-center gap-2 text-sm">
                                     <input
                                       type="checkbox"
-                                      name="topicIds"
-                                      value={topic.id}
                                       className="h-4 w-4 rounded border-border"
                                       checked={selected.has(topic.id)}
                                       onChange={() => toggleTopic(topic.id)}
