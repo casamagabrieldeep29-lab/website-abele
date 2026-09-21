@@ -108,6 +108,27 @@ export async function publishAllInTopic(topicId: string) {
 }
 
 /**
+ * Publishes every draft question across every topic in one action, rather
+ * than going topic-by-topic — useful right after a bulk import (e.g. the
+ * Recalled Questions batch). Reversible per-question via unpublishQuestion,
+ * so this doesn't need the type-to-confirm treatment used for genuinely
+ * irreversible actions (account/user removal, data reset) — just a plain
+ * confirm step in the UI.
+ */
+export async function publishAllDrafts(): Promise<{ published: number }> {
+  await requireAdmin();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("questions")
+    .update({ status: "published" })
+    .eq("status", "draft")
+    .select("id");
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/content");
+  return { published: data?.length ?? 0 };
+}
+
+/**
  * Manual admin judgment call: tag a question into an ADDITIONAL real
  * board-exam area beyond its topic's default `mock_area`, when the
  * question's content is topically relevant there too (e.g. an Engineering
