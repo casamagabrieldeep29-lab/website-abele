@@ -1,0 +1,2860 @@
+{
+  "_meta": {
+    "author": "Iligan Review Center (ABELE 2025 Compiled Recalled Questions)"
+  },
+  "topics": [
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Internal Combustion Engine",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the act of analyzing, testing, and measuring an engine to determine and remedy the cause of its trouble called?",
+          "choices": [
+            "Servicing",
+            "Tune-up",
+            "Trouble shooting",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "In the four-stroke internal combustion engine cycle, during which event does the air-fuel mixture enter the cylinder through the open intake port?",
+          "choices": [
+            "Induction",
+            "Compression",
+            "Power",
+            "Exhaust"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the four-stroke cycle, during which event is the air-fuel mixture that entered during intake trapped into a small combustion chamber?",
+          "choices": [
+            "Induction",
+            "Compression",
+            "Power",
+            "Exhaust"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the four-stroke cycle, during which event is the air-fuel mixture ignited, resulting in rapid expansion of the burning mixture?",
+          "choices": [
+            "Induction",
+            "Compression",
+            "Power",
+            "Exhaust"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the four-stroke cycle, during which event are the burned gases removed from the combustion chamber?",
+          "choices": [
+            "Induction",
+            "Compression",
+            "Power",
+            "Exhaust"
+          ],
+          "answer": 3,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "What is the country of origin of the ROBIN engine?",
+          "choices": [
+            "Indonesia",
+            "America",
+            "Japan",
+            "Korea"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the equipment used for the addition of fuel for increased engine power?",
+          "choices": [
+            "Turbocharger",
+            "Supercharger",
+            "Fastcharger",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the firing order of an 8-cylinder V-type engine?",
+          "choices": [
+            "1-3-4-2-5-6-8-7",
+            "1-5-3-6-2-4-7-8",
+            "1-8-7-3-6-5-4-2",
+            "1-3-4-2"
+          ],
+          "answer": 2,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the normal operational speed of a tractor engine?",
+          "choices": [
+            "1000-1500 rpm",
+            "1500-2000 rpm",
+            "2000-2100 rpm",
+            "2000-2400 rpm"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the condition where the piston is at the top dead center called?",
+          "choices": [
+            "Clearance volume",
+            "Piston displacement volume",
+            "Total volume",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Diesel fuel rating is measured/expressed in terms of:",
+          "choices": [
+            "ethane",
+            "butane",
+            "octane",
+            "cetane"
+          ],
+          "answer": 3,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A knocking sound produced due to incomplete combustion of fuel inside the combustion chamber of an engine is called:",
+          "choices": [
+            "Ignition",
+            "Carburetion",
+            "Detonation",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A power rating that means the maximum brake power output (horsepower and kilowatt) of an engine as specified by the engine manufacturer is called:",
+          "choices": [
+            "Rated hp",
+            "Indicated hp",
+            "Brake hp",
+            "Drawbar hp"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Fuels and Lubricants",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What system of numbers indicates the ignition quality of diesel fuel?",
+          "choices": [
+            "Octane rating",
+            "Cetane rating",
+            "Fuel index",
+            "Flash point"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What is the API Service Classification for gasoline engine oils called?",
+          "choices": [
+            "G-series (GF, passenger car)",
+            "C-series (diesel engine)",
+            "S-series",
+            "F-series (diesel engine)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "The main cause of an engine's oil leak is:",
+          "choices": [
+            "Low oil pressure",
+            "High oil pressure",
+            "Both A and B",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Crude oil is mainly composed of:",
+          "choices": [
+            "Carbon",
+            "Hydrogen",
+            "Hydrocarbon",
+            "Nitrogen"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "API stands for:",
+          "choices": [
+            "American Petroleum Industry",
+            "American Petrochemical Industry",
+            "American Petrochemical Institute",
+            "American Petroleum Institute"
+          ],
+          "answer": 3,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Design of Biomass Gasifier as Power Source of Various Farm Machinery and Equipment",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which type of gas producer has the ability to gasify wet fuel?",
+          "choices": [
+            "Updraft",
+            "Downdraft",
+            "Crossdraft",
+            "Fluidized bed"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The rice hull gasifier efficiency normally ranges from:",
+          "choices": [
+            "50-70%",
+            "70-80%",
+            "80-90%",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The burning efficiency of rice hull furnaces is between:",
+          "choices": [
+            "70-80%",
+            "80-90%",
+            "90% and less than 100%",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The thermal efficiency of rice hull furnaces is between:",
+          "choices": [
+            "40-70%",
+            "70-90%",
+            "10-40%",
+            "All of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the bulk density of rice husk?",
+          "choices": [
+            "50-80 kg/m3",
+            "100-120 kg/m3",
+            "140-160 kg/m3",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the primary gas produced during gasification?",
+          "choices": [
+            "Methane",
+            "Carbon dioxide",
+            "Carbon monoxide",
+            "Nitrogen oxide"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "The air requirement for gasification of agricultural waste ranges from:",
+          "choices": [
+            "10-20% of stoichiometric air",
+            "20-30% of stoichiometric air",
+            "30-40% of stoichiometric air",
+            "40-50% of stoichiometric air"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "The air requirement for gasification of agricultural waste ranges from:",
+          "choices": [
+            "10-20% of stoichiometric air",
+            "20-30% of stoichiometric air",
+            "30-40% of stoichiometric air",
+            "40-50% of stoichiometric air"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the main product of gasification?",
+          "choices": [
+            "Carbon Monoxide",
+            "Hydrocarbon",
+            "Carbon Dioxide",
+            "Methane"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the primary gas produced during gasification?",
+          "choices": [
+            "Carbon monoxide (CO)",
+            "Ammonia (NH3)",
+            "Producer gas",
+            "Nitric oxide (NO)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The stoichiometric air requirement for pyrolysis is:",
+          "choices": [
+            "20-30% of stoichiometric air",
+            "10-20% of stoichiometric air",
+            "30-40% of stoichiometric air",
+            "10-30% of stoichiometric air"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The C/N ratio of agricultural waste is approximately:",
+          "choices": [
+            "20:30",
+            "30:40",
+            "25:40",
+            "20:40"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The burning efficiency of a rice hull furnace is about:",
+          "choices": [
+            "75%",
+            "80%",
+            "85%",
+            "95%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Which of the following is NOT produced from gasification?",
+          "choices": [
+            "Oil",
+            "Char",
+            "Vinegar",
+            "Tar"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "The reviewer marked this as their own recalled answer rather than a confirmed source.",
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Power and Tractor Operation",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the standard length of stroke of the hydraulic remote control cylinder for a trailing-type agricultural implement?",
+          "choices": [
+            "6 to 12 inches",
+            "10 to 20 inches",
+            "8 to 16 inches",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What device is used to facilitate gear shifting without stalling the engine?",
+          "choices": [
+            "Gears",
+            "Synchronizing gears",
+            "Bearing",
+            "Universal joints"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What is the power rating classification for a four-wheel standard light tractor?",
+          "choices": [
+            "Above 32 hp",
+            "Below 49 hp",
+            "32 to 49 hp",
+            "Above 90 hp"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What term is defined as the power required in pulling an implement?",
+          "choices": [
+            "Power take-off",
+            "Draft",
+            "Drawbar",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What power-driven component can be found at the rear of a tractor to propel a power-driven implement?",
+          "choices": [
+            "Draft",
+            "Power take-off",
+            "Drawbar",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What are the three main sources of power for mechanization?",
+          "choices": [
+            "Human, animal, and mechanical",
+            "Human, electrical, and mechanical",
+            "Animal, electrical, and mechanical",
+            "Human, animal, and electrical"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A 1.2-m wide floating tiller is used for rotary tilling/puddling a 24-m by 42-m wetland paddy field. The average speed of travel is 3 kph, and turning at the headlands takes 10 seconds. What is the field efficiency if the field is worked along its length?",
+          "choices": [
+            "71%",
+            "74%",
+            "79%",
+            "84%"
+          ],
+          "answer": 3,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A 4-ha field was plowed using a three-bottom, 12-inch tractor-mounted moldboard plow. It took 11 hours to complete the operation at a tractor speed of 5 kph. Find the theoretical field capacity.",
+          "choices": [
+            "0.46 ha/hr",
+            "1.45 ha/hr",
+            "1.13 ha/hr",
+            "1.8 ha/hr"
+          ],
+          "answer": 0,
+          "diff": "difficult",
+          "explanation": "Theoretical field capacity = (width x speed)/10 = (0.9144 m x 5 kph)/10 ≈ 0.46 ha/hr.",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The draft of a plow is dependent on which of the following?",
+          "choices": [
+            "Size of the plow",
+            "Plowing depth",
+            "Type of soil",
+            "All of the above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What type of implement is directly attached to the tractor, with its power lift dependent on the tractor engine for its general operation?",
+          "choices": [
+            "Trailing type",
+            "Integral-mounted type",
+            "Semi-mounted type",
+            "Three-point hitch type"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "The ACME Tractor was made from which country?",
+          "choices": [
+            "Japan",
+            "USA",
+            "Mexico",
+            "Italy"
+          ],
+          "answer": 3,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "The first gear of a tractor must have what combination of speed and torque?",
+          "choices": [
+            "High speed and High torque",
+            "Low speed and High torque",
+            "Low speed and Low torque",
+            "High speed and Low torque"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "This refers to a vehicle condition in which it moves with no load.",
+          "choices": [
+            "Optimum running condition",
+            "Low running condition",
+            "Idle condition",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A tractor is at 1st gear while being pushed by farmers to start it. What pedal should be pressed and then released abruptly to start the engine?",
+          "choices": [
+            "Brake",
+            "Accelerator",
+            "Clutch",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "How many times greater is the power of a carabao compared to a man?",
+          "choices": [
+            "0.1",
+            "1.0",
+            "10",
+            "100"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "A carabao's power output is about how many times that of a human?",
+          "choices": [
+            "0.1",
+            "10",
+            "1",
+            "0.01"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What causes quick battery drain?",
+          "choices": [
+            "Faulty alternator",
+            "Faulty converter",
+            "Low battery",
+            "Damaged battery"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "When should transmission oil typically be changed?",
+          "choices": [
+            "Every 4 months or 22,000 km",
+            "Every 6 months or 24,000 km",
+            "Every 6 months or 22,000 km",
+            "Every 4 months or 24,000 km"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What device converts animal power to mechanical power?",
+          "choices": [
+            "Motor",
+            "Harness",
+            "Rotor",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Moldboard plow depth of cut typically ranges from:",
+          "choices": [
+            "3-6 inches",
+            "6-12 inches",
+            "3-12 inches",
+            "6-18 inches"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "An open trench left between adjacent strips of land after finishing the plowing operation is called a:",
+          "choices": [
+            "back furrow",
+            "dead furrow",
+            "furrow wall",
+            "headland"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "A field measuring 45 m x 90 m is to be prepared using a 1-m wide upland power tiller at a speed of 3 kph. Assuming a 10% overlap between passes and a 9-second turnaround time at the end of each pass, what is the actual field capacity when tilling is done along the longer field direction? (Illustrative values, not necessarily the exact exam values.)",
+          "choices": [
+            "0.23 ha/hr",
+            "0.25 ha/hr",
+            "0.27 ha/hr",
+            "0.29 ha/hr"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "A field measuring 45 m x 90 m is to be prepared using a 1-m wide upland power tiller at a speed of 3 kph. Assuming a 10% overlap between passes and a 9-second turnaround time at the end of each pass, what is the actual field capacity when tilling is done along the longer field direction?",
+          "choices": [
+            "0.75 ha/hr",
+            "0.25 ha/hr",
+            "1.0 ha/hr",
+            "1.5 ha/hr"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": "Area = 45 m x 90 m = 4,090 m2 (0.405 ha, accounting for 1 m width overlap); theoretical and effective time per pass give an actual field capacity of about 0.25 ha/hr.",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A 1.2-m wide floating tiller is used for rotary tilling/puddling a 1,008 m2 wetland paddy field. The average travel speed is 3 kph, and turning at the headlands takes 10 seconds. What is the field efficiency if the field is worked along its length?",
+          "choices": [
+            "77%",
+            "79%",
+            "76%",
+            "84%"
+          ],
+          "answer": 3,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A tractor pulling a three-bottom 12-inch mounted moldboard plow plowed a 4-hectare field in 11 hours at a tractor speed of 5 kph. Approximately how many tractors of this type would be needed to complete a similar operation? (Illustrative values, same underlying concept as the exam.)",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 0,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "For the same plowing scenario (a 4-hectare field plowed with a three-bottom 12-inch mounted plow in 11 hours at 5 kph), what is the actual field capacity of the plow?",
+          "choices": [
+            "0.09 ha/hr",
+            "0.36 ha/hr",
+            "0.5 ha/hr",
+            "1.5 ha/hr"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "About how many operating hours is the typical service life of a tractor?",
+          "choices": [
+            "30,000 hrs",
+            "15,000 hrs",
+            "20,000 hrs",
+            "18,000 hrs"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery, Power Units, and Workshop Management",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which part of the moldboard plow receives the furrow slice and turns it to break, crush, and pulverize the soil?",
+          "choices": [
+            "Share",
+            "Shin",
+            "Moldboard",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which part of the moldboard plow is used to cut the soil?",
+          "choices": [
+            "Share",
+            "Shin",
+            "Moldboard",
+            "All of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which part of the plow bottom helps counteract the side pressure exerted by the furrow slice?",
+          "choices": [
+            "Shin",
+            "Landside",
+            "Share",
+            "All of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What machine cuts rice stalks and places them on a windrow so they can be gathered and bound into sheaves for hauling to a thresher?",
+          "choices": [
+            "Scythe",
+            "Stripper harvester",
+            "Reaper",
+            "Combine"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which type of thresher allows cut plants to move in a helical manner around the threshing cylinder, with a net effect of moving material axially between the feeding and discharge outlets?",
+          "choices": [
+            "Axial flow thresher",
+            "Through flow thresher",
+            "Hold-on thresher",
+            "Mixed flow thresher"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "In which type of mechanical rice thresher are the panicles of the cut plants fed into the threshing chamber while the stalks are mechanically or manually held during the threshing operation?",
+          "choices": [
+            "Axial flow thresher",
+            "Through flow thresher",
+            "Hold-on thresher",
+            "Throw-in thresher"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which type of mechanical rice thresher detaches and separates the grains from the panicles by feeding the cut plants entirely into the machine?",
+          "choices": [
+            "Axial flow thresher",
+            "Through flow thresher",
+            "Hold-on thresher",
+            "Throw-in thresher"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "In testing agricultural machines as prescribed in the PAES standard of test, the machine should be operated by whom?",
+          "choices": [
+            "Farmers",
+            "Traders/Cooperative",
+            "Manufacturer's representative",
+            "Accredited Testing Organization"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What is the minimum area required for testing a power-operated seeder?",
+          "choices": [
+            "Not less than 100 m2",
+            "Not less than 1000 m2",
+            "Not less than 500 m2",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What is the ratio of the weight of the cleaned threshed grain to the grain input called?",
+          "choices": [
+            "Threshing efficiency",
+            "Threshing output",
+            "Threshing recovery",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What term describes the center-to-center distance between overlapping broadcast applications?",
+          "choices": [
+            "Effective width",
+            "Swath",
+            "Broadcasting width",
+            "All of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which part of a planter is always present regardless of type and cropping system?",
+          "choices": [
+            "Furrow opener",
+            "Metering device",
+            "Seed tube",
+            "Furrow closer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which of the following is NOT measured in calibrating a sprayer?",
+          "choices": [
+            "Nozzle discharge",
+            "Effective working width",
+            "Walking speed",
+            "Application rate"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which agricultural machinery is usually sold in the Philippines?",
+          "choices": [
+            "Thresher",
+            "Reaper",
+            "Power tiller",
+            "Milling machine"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which part of a rice thresher encloses the threshing cylinder and allows the separation of grains from the panicle?",
+          "choices": [
+            "Concave",
+            "Drum",
+            "Threshing drum",
+            "Threshing cylinder"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the rice thresher recovery according to PAES 101?",
+          "choices": [
+            "80%",
+            "67%",
+            "97%",
+            "98%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What term is defined as the ratio, in percent, of the weight of grains that fell out from the machine during the threshing operation to the weight of the total grain input of the thresher?",
+          "choices": [
+            "Blower loss",
+            "Scattering loss",
+            "Separation loss",
+            "Unthreshed loss"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which of the following is NOT a parameter required in determining the field capacity of a planter?",
+          "choices": [
+            "Width of planter",
+            "Forward speed of planter",
+            "No. of seeds per hill",
+            "Efficiency of planter"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "In optimizing the capacity of a machine, what is recommended?",
+          "choices": [
+            "Have one small machine",
+            "Have one big machine",
+            "Have two or more small machines",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the most recently developed system of harvesting and threshing rice?",
+          "choices": [
+            "Mechanical harvesting and threshing",
+            "Combining",
+            "Stripping",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which of the following is NOT measured in calibrating a sprayer?",
+          "choices": [
+            "Nozzle discharge",
+            "Effective working width",
+            "Walking speed",
+            "Application rate"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The bend downward of the point of the share, made to help the plow penetrate the soil to the proper depth, is called:",
+          "choices": [
+            "Tilt angle",
+            "Disc angle",
+            "Horizontal suction",
+            "Vertical clearance"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is a planter designed to place seedlings in rows and in hills called?",
+          "choices": [
+            "Row-crop drill planter",
+            "Hill-drop planter",
+            "Solid drill planter",
+            "Transplanter"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What machine cuts a standing crop, conveys the cut crop to one side, and lays it down in an orderly manner?",
+          "choices": [
+            "Sickle",
+            "Reaper-windrower",
+            "Reaper-binder",
+            "Stripper"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The groundwheel of a planter is normally related to the operation of which part?",
+          "choices": [
+            "Furrow opener",
+            "Metering device",
+            "Seed tube",
+            "Double-disc closer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Using the specifications of the transmission system of the metering device (horizontal seed plate) of a two-row corn planter, determine the expected hill spacing. Row spacing = 75 cm, groundwheel diameter = 60 cm, number of cells of seedplate = 20, T1 = 6t, T2 = 18t, T3 = 10t, T4 = 25t.",
+          "choices": [
+            "0.62 m",
+            "0.81 m",
+            "0.71 m",
+            "0.92 m"
+          ],
+          "answer": 3,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Soil that is cut, lifted, inverted, and thrown to one side of the plow bottom is termed:",
+          "choices": [
+            "Furrow",
+            "Back furrow",
+            "Furrow slice",
+            "Dead furrow"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "According to Barger, what is the recommended rpm of the shaft?",
+          "choices": [
+            "1500 rpm",
+            "1000 rpm",
+            "500 rpm",
+            "2000 rpm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which of the following is NOT measured in calibrating a sprayer?",
+          "choices": [
+            "Application rate",
+            "Number of hills",
+            "Forward speed",
+            "Spray particle size"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which machine element transmits torque and power?",
+          "choices": [
+            "Key",
+            "Shaft",
+            "Bearing",
+            "Spline"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "A key fastens a shaft, pulley, and gear hubs together; a bearing reduces friction for smoother rotation; a spline is a series of axial keys machined into a shaft and the mating bore.",
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What machine parameter primarily affects the efficiency of agricultural machinery operations?",
+          "choices": [
+            "width",
+            "efficiency",
+            "draft",
+            "speed"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2020"
+        },
+        {
+          "q": "Which item can be fabricated in the Philippines?",
+          "choices": [
+            "bearing",
+            "chains",
+            "engine",
+            "motor"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Which item is fabricated locally in the Philippines?",
+          "choices": [
+            "Bearing",
+            "Chain",
+            "engine",
+            "motor"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "The reviewer expressed uncertainty about this answer in the source (annotated with a skeptical note).",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "How many persons are required to operate a rice combine harvester?",
+          "choices": [
+            "2-3",
+            "3-5",
+            "1-2",
+            "4-6"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What tool is used to punch holes?",
+          "choices": [
+            "Drilling tool",
+            "Treading tool",
+            "Holing tool",
+            "Boring tool"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This is a process of heat treating metal and then subjecting it to slow, controlled cooling.",
+          "choices": [
+            "Galvanizing",
+            "Alloying",
+            "Annealing",
+            "Cooling"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A machine's service life is most affected by:",
+          "choices": [
+            "Weather",
+            "Usage",
+            "Quality of materials",
+            "All of the above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What is the least-used type of machinery in the Philippines?",
+          "choices": [
+            "Harvester",
+            "Thresher",
+            "Stripper",
+            "Planter"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What machines are mostly produced (manufactured) locally in the Philippines?",
+          "choices": [
+            "Harvester",
+            "Tractor",
+            "dryer",
+            "power tiller"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Farm Machinery and Mechanization, Economics, Management, and Marketing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which two consecutive farm operations, when done mechanically, can increase cropping intensity?",
+          "choices": [
+            "Planting – spraying",
+            "Irrigation – weeding",
+            "Harvesting – plowing",
+            "Harvesting – threshing"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "In the Philippines, which of the following products can be imported?",
+          "choices": [
+            "Electric motor",
+            "Rice mill",
+            "Peanut sheller",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Agricultural machinery manufacturing companies such as AMMDA members are of what type of proprietorship?",
+          "choices": [
+            "Sole proprietorship",
+            "Cooperative",
+            "Corporation",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "A powerful businessman owns a large company that distributes and supplies agricultural products to different areas, competing against an agri-supply center in Area 1, a cooperative in Area 2, and a small businessman in Area 3. What role does this powerful businessman play in the market?",
+          "choices": [
+            "Merchant",
+            "Dealer",
+            "Intermediaries",
+            "Value-added seller"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "Scenario reconstructed from the reviewer's paraphrase of the recalled exam item; exact wording may differ from the original.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the same market scenario, an agri-supply center in Area 1 distributes agricultural products directly to consumers. What role does this competitor play?",
+          "choices": [
+            "Merchant",
+            "Dealer",
+            "Intermediaries",
+            "Value-added seller"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "Scenario reconstructed from the reviewer's paraphrase of the recalled exam item; exact wording may differ from the original.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the same market scenario, a cooperative in Area 2 lends agricultural products to its member farmers. What role does this competitor play?",
+          "choices": [
+            "Merchant",
+            "Dealer",
+            "Intermediaries",
+            "Value-added seller"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "Scenario reconstructed from the reviewer's paraphrase of the recalled exam item; exact wording may differ from the original.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "In the same market scenario, a small businessman in Area 3 buys agricultural products directly from farmers and resells them to consumers with an added markup. What role does this competitor play?",
+          "choices": [
+            "Merchant",
+            "Dealer",
+            "Intermediaries",
+            "Value-added seller"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "flag": "Scenario reconstructed from the reviewer's paraphrase of the recalled exam item; exact wording may differ from the original.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "Select the two consecutive farm operations which, when done mechanically, can increase cropping intensity.",
+          "choices": [
+            "Planting – spraying",
+            "Irrigation – weeding",
+            "Harvesting – plowing",
+            "Harvesting – threshing"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What term describes the situation where a change in price does not lead to a change in demand?",
+          "choices": [
+            "Inelastic",
+            "Perfectly inelastic",
+            "Elastic",
+            "Perfectly elastic"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Twelve man-days is equivalent to:",
+          "choices": [
+            "One man working for 12 hours",
+            "Three men working for three days",
+            "Six men working for 2 hours",
+            "Four men working for 3 days"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which of the following can NOT be manufactured in the Philippines?",
+          "choices": [
+            "Chain and sprocket",
+            "Engine",
+            "Bearing",
+            "Stainless steel"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which crop is the most mechanized in the Philippines?",
+          "choices": [
+            "Corn",
+            "Rice",
+            "Sugarcane",
+            "Coconut"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What does the acronym CIF mean in shipping and trade?",
+          "choices": [
+            "Cost-in-Freight",
+            "Cost, Insurance, and Freight",
+            "Capital, Insurance, and Freight",
+            "Cost, Interest, and Freight"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What was the first mechanized crop in the Philippines?",
+          "choices": [
+            "corn",
+            "rice",
+            "sugarcane",
+            "tobacco"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "Efficiency on a farm is increased by:",
+          "choices": [
+            "increased input - decreased output",
+            "increased input - same output",
+            "same input - decreased output",
+            "decreased input - increased output"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2020"
+        },
+        {
+          "q": "A market structure where many sellers are independently selling different types of products and/or services is called:",
+          "choices": [
+            "oligopoly",
+            "monopoly",
+            "perfect competition",
+            "perfect monopoly"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "In promoting efficiency, which of the following scenarios is acceptable? I. Same input, more output. II. Less input, same output. III. Less input, more output.",
+          "choices": [
+            "I only",
+            "I and II only",
+            "III only",
+            "I, II, and III"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "In optimizing the capacity of a machine, it is recommended to have:",
+          "choices": [
+            "one small machine",
+            "one big machine",
+            "two or more small machines",
+            "one small machine and one big machine"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "A market structure characterized by a small number of producers/sellers is called:",
+          "choices": [
+            "Monopoly",
+            "Oligopoly",
+            "Oligopsony",
+            "Pure Competition"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This refers to a person or company that sells goods in large quantities (to retailers).",
+          "choices": [
+            "Wholesaler",
+            "Retailer",
+            "Reseller",
+            "All of the above"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "This refers to the decrease in price of goods, products, or services.",
+          "choices": [
+            "Inflation",
+            "Deflation",
+            "Oversupply",
+            "Undersupply"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Price elasticity of demand where a change in price does not lead to a change in demand describes:",
+          "choices": [
+            "Inelastic demand",
+            "Perfectly inelastic demand",
+            "Elastic demand",
+            "Perfectly elastic demand"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A term used in international trade for when a country or company exports a product at a price lower than in its own domestic market is called:",
+          "choices": [
+            "Tariff",
+            "Dumping",
+            "Import",
+            "Market Segmentation"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Operator's Manual for AB Power and Machinery",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "How often should the transmission oil of a tractor be changed?",
+          "choices": [
+            "Every 3 months or 12,000 km",
+            "Every 6 months or 24,000 km",
+            "Every 9 months or 36,000 km",
+            "Every 12 months or 48,000 km"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "What is the expected service life of a tractor, in hours?",
+          "choices": [
+            "30,000 hrs",
+            "15,000 hrs",
+            "20,000 hrs",
+            "18,000 hrs"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is a widely used method for welding aluminum to copper?",
+          "choices": [
+            "TIG Welding",
+            "MIG Welding",
+            "TIG and MIG Welding",
+            "SMAW"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which welding process uses CO2 as a shielding gas?",
+          "choices": [
+            "TIG Welding",
+            "MIG Welding",
+            "TIG and MIG Welding",
+            "SMAW"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which welding process uses Argon as a shielding gas?",
+          "choices": [
+            "TIG Welding",
+            "MIG Welding",
+            "TIG and MIG Welding",
+            "SMAW"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which welding process does not use any shielding gas?",
+          "choices": [
+            "TIG Welding",
+            "MIG Welding",
+            "TIG and MIG Welding",
+            "SMAW"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Per PAES 112, what is the weight of a LOKS filled with water?",
+          "choices": [
+            "16 kg",
+            "12 kg",
+            "10 kg",
+            "22 kg"
+          ],
+          "answer": 3,
+          "diff": "difficult",
+          "explanation": "Per Philippine Agricultural Engineering Standard PAES 112.",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Per PAES 206, rubber rollers used in a rice huller are characterized in terms of speed and direction as:",
+          "choices": [
+            "Different speed and direction",
+            "Same speed and direction",
+            "Different direction; one roller runs 25% faster than the other",
+            "Same direction; one roller runs 25% faster than the other"
+          ],
+          "answer": 2,
+          "diff": "difficult",
+          "explanation": "Per PAES 206.",
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The grain-to-straw ratio requirement for testing a rice thresher ranges from:",
+          "choices": [
+            "0.35 to 0.45",
+            "0.45 to 0.50",
+            "0.50 to 0.65",
+            "0.55 to 0.65"
+          ],
+          "answer": 2,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "Using the specifications of the transmission system of the metering device (horizontal seed plate) of a two-row corn planter, determine the expected hill spacing. Row spacing = 75 cm, groundwheel diameter = 60 cm, number of cells of seedplate = 20, T1 = 6 teeth, T2 = 18 teeth, T3 = 10 teeth, T4 = 25 teeth. (Illustrative values; same underlying concept as the exam.)",
+          "choices": [
+            "0.61 m",
+            "0.71 m",
+            "0.81 m",
+            "0.91 m"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "flag": "The reviewer noted the exact question wording/values may differ from the actual exam, though the underlying concept is the same.",
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "Using the specifications of the transmission system of the metering device (horizontal seed plate) of a two-row corn planter, determine the expected hill spacing. Row spacing = 75 cm, groundwheel diameter = 60 cm, number of cells of seedplate = 20, T1 = 6 teeth, T2 = 18 teeth, T3 = 10 teeth, T4 = 25 teeth. (Illustrative values; same underlying concept as the exam.)",
+          "choices": [
+            "0.61 m",
+            "0.71 m",
+            "0.81 m",
+            "0.91 m"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "flag": "The reviewer noted the exact question wording/values may differ from the actual exam, though the underlying concept is the same.",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The calibration of a 9-row x 7-inch row-spacing grain drill is shown below (discharge, in grams, per 10 revolutions of the groundwheel): 1/4 open = 140 g, 1/2 open = 460 g, 3/4 open = 740 g, Full open = 1,100 g. Row spacing is to be adjusted to 14 inches and the groundwheel diameter is 1.22 m. What is the seeding rate at the 1/4-open adjustment?",
+          "choices": [
+            "12 kg/ha",
+            "10 kg/ha",
+            "15 kg/ha",
+            "11 kg/ha"
+          ],
+          "answer": 3,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Per PAES 205, what is the duration of the test for a thresher?",
+          "choices": [
+            "30 minutes",
+            "15 minutes",
+            "1 hour",
+            "45 minutes"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Per PAES 205.",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Per PAES 204, what type of thresher is one in which the panicles of the cut plants are fed into the threshing chamber while the stalks are mechanically or manually held during the threshing operation?",
+          "choices": [
+            "Axial Flow Thresher",
+            "Hold-on Thresher",
+            "Throw-in Thresher",
+            "Through-Flow Thresher"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Per PAES 204.",
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Which part of a planter is always present in all planters, regardless of type and cropping system?",
+          "choices": [
+            "Furrow opener",
+            "Metering device",
+            "Seed tube",
+            "Double-disc closer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "The groundwheel of a planter is normally related to the operation of the:",
+          "choices": [
+            "Furrow opener",
+            "Metering device",
+            "Seed tube",
+            "Double-disc closer"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "What implement is used to plant seed in a furrow?",
+          "choices": [
+            "Broadcaster",
+            "Hill drop planter",
+            "Transplanter",
+            "seeder"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "In the CPES (machinery Certificate of Product Evaluation System), what percentage completion applies to 'horizontal' testing/evaluation?",
+          "choices": [
+            "50%",
+            "60%",
+            "70%",
+            "80%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Philippine National Standards on After-Sales Service and Methods of Sampling",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Under PAES standards, warranty for the construction and durability of a mechanical rice thresher shall be valid within how long after the machine's purchase?",
+          "choices": [
+            "6 months",
+            "18 months",
+            "12 months",
+            "24 months"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Under the PAE Standard, the warranty of parts and services for a heated-air mechanical grain dryer shall be within how long after acceptance of the machine?",
+          "choices": [
+            "6 months",
+            "12 months",
+            "18 months",
+            "24 months"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Under PAES, what is the warranty period for agricultural machine parts from the purchase of the machine?",
+          "choices": [
+            "4 months",
+            "6 months",
+            "12 months",
+            "All of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Engineering Metrology and Equipment",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the process of hardening metal by rapid cooling called?",
+          "choices": [
+            "Annealing heat treatment",
+            "Quenching",
+            "Annealing and galvanizing",
+            "Annealing and quenching"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "Which engineering materials are considered dangerous components in a machine?",
+          "choices": [
+            "Pulley, coupling, and clutch",
+            "Pulley only",
+            "Pulley and clutch",
+            "Coupling and clutch"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In a feasibility study, what should the Benefit-Cost Ratio (BCR) be for a project to be considered viable?",
+          "choices": [
+            "Less than 1",
+            "Equal to zero",
+            "Greater than 1",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What is the capitalized cost of a structure that costs P1,500,000 and requires an annual maintenance cost of P150,000, at an interest rate of 15%?",
+          "choices": [
+            "P2,500,000",
+            "P2,150,000",
+            "P1,150,000",
+            "P1,750,000"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Capitalized cost = First cost + (Annual maintenance / interest rate) = 1,500,000 + (150,000 / 0.15) = P2,500,000.",
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "A company's cost breakdown includes P200,000 for buying production materials, P300,000 for paying the company's taxes and insurance, P500,000 for training employees, and P400,000 for the salary, incentives, and other additional expenses of employees. What type of cost is the P200,000 for buying production materials?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Incremental cost",
+            "Overhead cost"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Variable costs vary with the volume of production, such as the cost of materials used.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "Using the same cost breakdown, what type of cost is the P300,000 for paying the company's taxes and insurance?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Incremental cost",
+            "Overhead cost"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Fixed costs do not change regardless of production volume, e.g., insurance and taxes on facilities.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "Using the same cost breakdown, what type of cost is the P500,000 for training the employees?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Incremental cost",
+            "Overhead cost"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Incremental (marginal) cost refers to the additional cost resulting from increasing output by one or more units.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "Using the same cost breakdown, what type of cost is the P400,000 for the salary, incentives, and other additional expenses of employees?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Incremental cost",
+            "Overhead cost"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "Overhead cost refers to expenditures that are not direct costs of production.",
+          "recalled_batch": "2013"
+        },
+        {
+          "q": "What is the term used for money that is used for future profit?",
+          "choices": [
+            "savings",
+            "deposit",
+            "investment",
+            "capital"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "What is another term for delayed payment?",
+          "choices": [
+            "Annuity",
+            "Debt",
+            "Deferred Annuity",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The proportionate saving in costs gained by an increased level of production is called:",
+          "choices": [
+            "Scale of economy",
+            "Economy of scale",
+            "Economy Balance",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "A certain cooperative is selling agricultural machineries imported from Japan. Which of the following costs are handled by the cooperative? I. CIF II. Tariff III. Duty",
+          "choices": [
+            "II and III only",
+            "II only",
+            "I, II and III",
+            "I only"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "A certain cooperative is selling agricultural machineries imported from Japan. Which of the following costs are handled by the cooperative? I. Tariff II. CIF III. Duty",
+          "choices": [
+            "II and III only",
+            "I only",
+            "II only",
+            "I, II, and III only"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "A type of proprietorship where there is an arrangement between two or more people to oversee business operations and share its profits and liabilities is called:",
+          "choices": [
+            "sole proprietorship",
+            "partnership",
+            "cooperative",
+            "corporation"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2021"
+        },
+        {
+          "q": "Tax imposed on products that are imported/exported is called:",
+          "choices": [
+            "Capital gains tax",
+            "Value-added tax",
+            "Tariff tax",
+            "Sales tax"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The projection of cash inflow and outflow of a farm, used to estimate the incremental net benefit over the life of a project, is known as:",
+          "choices": [
+            "Cash flow",
+            "Depreciation",
+            "Profit",
+            "Breakeven"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "An agricultural engineer created a business plan with the following data: total investment of P5,000,000.00 as initial capital (not indicated whether borrowed or not); 10% yearly tax on the business and interest of the borrowed money; P200,000.00 allotted for training of employees; and P400,000.00 allotted for salary and other additional expenses of the company. What type of cost is the P5,000,000.00 initial investment?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Overhead cost",
+            "Incremental cost"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "For the same business plan (total investment P5,000,000.00; 10% yearly tax and interest on borrowed money; P200,000.00 for employee training; P400,000.00 for salary and other expenses), what type of cost is the 10% yearly tax and interest on the borrowed money?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Overhead cost",
+            "Incremental cost"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "For the same business plan, what type of cost is the P200,000.00 allotted for training of employees?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Overhead cost",
+            "Incremental cost"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "For the same business plan, what type of cost is the P400,000.00 allotted for salary and other additional expenses of the company?",
+          "choices": [
+            "Fixed cost",
+            "Variable cost",
+            "Overhead cost",
+            "Incremental cost"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Agricultural Project Planning and Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the process in which a farmer looks ahead and contemplates future alternative courses of action for the farm called?",
+          "choices": [
+            "Farm Management",
+            "Organizing",
+            "Management",
+            "Farm planning"
+          ],
+          "answer": 3,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which agency is responsible for organizing and serving as secretariat in the Agricultural and Fisheries Mechanization RDE Network?",
+          "choices": [
+            "DOST",
+            "DA",
+            "PHILMECH",
+            "PCARRD"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Per the Philippine Rice Industry Roadmap 2030, what is the average farm production cost of rice?",
+          "choices": [
+            "P8/kg",
+            "P10/kg",
+            "P12/kg",
+            "P6/kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "The difference between a country's exports and imports, and the largest component of its balance of payments, is known as:",
+          "choices": [
+            "GDP",
+            "Balance of Trade",
+            "GNI",
+            "GNP"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "A farmer is poor. What kind of aid does he need?",
+          "choices": [
+            "post-harvest facilities",
+            "credit assistance",
+            "farm-to-market road",
+            "All of the Above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Crop harvests deteriorate easily. What needs to be done to address the problem?",
+          "choices": [
+            "post-harvest facilities",
+            "credit assistance",
+            "farm-to-market road",
+            "All of the Above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which law deals with the mechanization of agriculture and fisheries?",
+          "choices": [
+            "RA No. 10601",
+            "RA No. 8435",
+            "RA No. 8550",
+            "RA No. 8559"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "DILG Memorandum Circular No. 2008-167 covers the institutionalization of what in the local government units?",
+          "choices": [
+            "Agricultural Engineering position",
+            "Agricultural Engineering profession",
+            "Agricultural Engineering item",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which of the following laws is NOT associated with the ABE Law (RA 10915)?",
+          "choices": [
+            "RA 10068",
+            "RA 9367",
+            "RA 8435",
+            "RA 8749"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "The definition of Agricultural and Biosystems Engineering (ABE) under RA 10915 EXCLUDES:",
+          "choices": [
+            "Safe food",
+            "Feed",
+            "Fiber",
+            "Raw materials"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Under RA 11203 IRR provisions on the Professional Identification Card (PIC), a PIC bearing the registration number, validity, and expiry dates, duly signed by the Chairperson of the Commission, shall be issued to every registrant who has paid the prescribed fees and submitted proof of good standing with the AIPO and completion of CRD requirements. The card shall be renewed every:",
+          "choices": [
+            "1 year",
+            "2 years",
+            "3 years",
+            "4 years"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Which of the following is NOT signed and sealed by an Agricultural and Biosystems Engineer?",
+          "choices": [
+            "Slaughterhouse",
+            "Communal Irrigation",
+            "Farm Roads",
+            "Barangay roads"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Subject to compliance with the rest of the requirements imposed by law, at least how many engineers are required among the Provincial/City/Municipal Engineer, Agriculturist, Building Official, Environment and Natural Resources Officer, and Planning and Development Officer of the LGU?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Under Section 40 of RA 10915, what is required of every Agricultural and Biosystems Engineer registered with the Commission, and made mandatory for the practice of the profession?",
+          "choices": [
+            "CPD",
+            "Teaching",
+            "oath",
+            "seminars/training"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "Under Section 17 of RA 10601, all agricultural and fisheries machinery assemblers, manufacturers, importers, suppliers, distributors, and dealers are required to provide after-sales service and warranty to their respective clients, which shall be monitored by the agriculture offices of the:",
+          "choices": [
+            "LGU",
+            "BAFE",
+            "LGUs and the BAFE",
+            "DA and LGU"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        },
+        {
+          "q": "What is the main DA agency/bureau/office for organic agriculture in the Philippines?",
+          "choices": [
+            "BSWE",
+            "BAFS",
+            "LGU",
+            "ATI"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2023"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Hydrology",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "If the specific yield of a particular well is 3 gpm/ft of drawdown and the discharge rate of the pump is 30 gpm, what is the total drawdown?",
+          "choices": [
+            "1 ft",
+            "3 ft",
+            "10 ft",
+            "30 ft"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Drawdown = discharge rate / specific yield = 30 gpm / 3 gpm/ft = 10 ft.",
+          "recalled_batch": "2017"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "For a 4-inch by 4-inch centrifugal pump with a discharge of 250 gpm, determine the size of the diesel engine needed. The efficiency of the pump is 65%, the belt transmission is 95%, and the air-cooled system is 80%. Total head is 30 ft.",
+          "choices": [
+            "2.9 hp",
+            "3.1 hp",
+            "3.8 hp",
+            "2.5 hp"
+          ],
+          "answer": 2,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "A diesel engine that operates at 2500 rpm will be used to drive an irrigation pump, which should turn at 1000 rpm. The pulley diameter for the pump is 4 inches. What is the recommended pulley diameter for the engine?",
+          "choices": [
+            "2 in",
+            "4 in",
+            "10 in",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "An engine at 2000 rpm is to drive a pump running at 1000 rpm. The engine's drive pulley is 15 cm in diameter, and there is a 10% belt slippage. What should be the diameter of the pulley on the pump?",
+          "choices": [
+            "23 cm",
+            "27 cm",
+            "24 cm",
+            "26 cm"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Soil and Water Conservation Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which tillage operation is traditionally performed in preparing a seedbed for a given crop grown in a given geographical area?",
+          "choices": [
+            "Conventional tillage",
+            "Conservation tillage",
+            "Strip tillage",
+            "Minimum tillage"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "What term describes the soil tool reaction in which soil slides over the surface of the tillage tool without significant adhesion?",
+          "choices": [
+            "Sliding",
+            "Soil cutting",
+            "Scouring",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "When soil is thrown away from the plants during cultivation, what is the operation called?",
+          "choices": [
+            "Hilling-up",
+            "Barring-off",
+            "Sweeping",
+            "Listing"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2011"
+        },
+        {
+          "q": "Which type of tillage is traditionally performed using conventional implements?",
+          "choices": [
+            "Conservation tillage",
+            "Mulch tillage",
+            "Minimum tillage",
+            "Conventional tillage"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the mechanical manipulation of soil for any purpose called?",
+          "choices": [
+            "Land grading",
+            "Tillage",
+            "Earth moving",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the mechanical manipulation of soil for any purpose called?",
+          "choices": [
+            "Tillage",
+            "Land Preparation",
+            "Harrowing",
+            "Plowing"
+          ],
+          "answer": 0,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2019"
+        },
+        {
+          "q": "A granular spread method of fertilizer application is called:",
+          "choices": [
+            "Granulation",
+            "Fertigation",
+            "Broadcasting",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "FUNDAMENTALS_SCIENCES",
+      "topic_name": "Fundamentals of Agricultural, Fishery, Ecological and Environmental Sciences",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What term describes seed produced from Registered Seed by accredited seed producers and distributed to farmers for commercial production?",
+          "choices": [
+            "Certified Seeds",
+            "Registered Seeds",
+            "Foundation Seeds",
+            "Breeder Seeds"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "In what year was Agricultural Engineering introduced to the world as a formal profession?",
+          "choices": [
+            "1907",
+            "1903",
+            "1892",
+            "1957"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "What are the most abundant microorganisms in the soil?",
+          "choices": [
+            "Fungi",
+            "Bacteria",
+            "Nematodes",
+            "All of the Above"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Rural Electrification",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Wind flows on a 2-m-diameter rotor at a rate of 2 m/s. If the wind speed suddenly increases to 4 m/s, by what factor would the power output of the windmill change?",
+          "choices": [
+            "4 times",
+            "6 times",
+            "8 times",
+            "No change"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Wind power is proportional to the cube of wind speed; doubling the speed increases power by 2^3 = 8 times.",
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "The greater the number of blades of a wind machine, ___ the torque.",
+          "choices": [
+            "the higher",
+            "the lower",
+            "the same",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "What is the wind power of a windpump having a 5-meter diameter rotor at a wind speed of 4 m/sec?",
+          "choices": [
+            "733.6 watts",
+            "753.6 watts",
+            "713.6 watts",
+            "783.6 watts"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Which renewable energy source is characterized by an efficiency of about 30% only? (Options: Biomass, Biofuel, Geothermal, Solar, Hydro, Ocean Thermal, Wind)",
+          "choices": [
+            "Hydro",
+            "Wind",
+            "Geothermal",
+            "Biomass and Biofuel"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2020"
+        },
+        {
+          "q": "Which renewable energy source is characterized as producing greenhouse gases (GHG)? (Options: Biomass, Biofuel, Geothermal, Solar, Hydro, Ocean Thermal, Wind)",
+          "choices": [
+            "Hydro",
+            "Wind",
+            "Geothermal",
+            "Biomass and Biofuel"
+          ],
+          "answer": 2,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2020"
+        },
+        {
+          "q": "Which renewable energy source has facilities located in Ilocos Norte and Iloilo? (Options: Biomass, Biofuel, Geothermal, Solar, Hydro, Ocean Thermal, Wind)",
+          "choices": [
+            "Hydro",
+            "Wind",
+            "Geothermal",
+            "Biomass and Biofuel"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Refers to wind farms such as the Bangui Wind Farm in Ilocos Norte and the wind farm in Iloilo.",
+          "recalled_batch": "2020"
+        },
+        {
+          "q": "This device converts electrical energy to mechanical energy.",
+          "choices": [
+            "Rotor",
+            "Motor",
+            "Engine",
+            "All of the Above"
+          ],
+          "answer": 1,
+          "diff": "easy",
+          "explanation": null,
+          "recalled_batch": "2022"
+        },
+        {
+          "q": "Which type of motor has a parallel connection of the armature to the windings? (Per PAES 129.)",
+          "choices": [
+            "Series wound",
+            "Shunt wound",
+            "Compound wound",
+            "Synchronous"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What term describes a grain or fraction of a grain with a length equal to or greater than eight-tenths of the average length of the whole grain?",
+          "choices": [
+            "Head rice",
+            "Broken rice",
+            "Well-milled rice",
+            "Brown rice"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "Which component of a rice mill removes the bran layer from the brown rice?",
+          "choices": [
+            "Polisher",
+            "Huller",
+            "Whitener",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2016"
+        },
+        {
+          "q": "What is the ratio of the heat released by the fuel of a heated-air mechanical dryer to the theoretical heat available from the fuel called?",
+          "choices": [
+            "Burner efficiency",
+            "Furnace efficiency",
+            "Combustion efficiency",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2017"
+        },
+        {
+          "q": "Two kilograms of rice is to be prepared for cooking. Estimate the time required to cook it.",
+          "choices": [
+            "12.0 min",
+            "11.92 min",
+            "21.02 min",
+            "19.0 min"
+          ],
+          "answer": 1,
+          "diff": "difficult",
+          "explanation": null,
+          "recalled_batch": "2021"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Agricultural and Bioprocess Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the recommended C-N ratio for the anaerobic digestion of agricultural waste?",
+          "choices": [
+            "30:1 to 40:1",
+            "25:1 to 35:1",
+            "20:1 to 30:1",
+            "35:1 to 45:1"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2019"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In the National Building Code of the Philippines, which group does 'Agricultural Structures' belong to?",
+          "choices": [
+            "D",
+            "C",
+            "A",
+            "J"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2022"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Design and Management of AB Processing System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the minimum number of trials required for testing a Heated-Air Mechanical Grain Dryer?",
+          "choices": [
+            "1 trial",
+            "2 trials",
+            "3 trials",
+            "4 trials"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null,
+          "recalled_batch": "2021"
+        }
+      ]
+    }
+  ]
+}
