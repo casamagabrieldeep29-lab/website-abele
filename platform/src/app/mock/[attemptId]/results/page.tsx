@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TeachMeThis } from "@/components/teach-me-this";
-import { AIMarkdown } from "@/components/ai-markdown";
+import { ExplanationDisplay } from "@/components/explanation-display";
 import { studentFacingExplanation } from "@/lib/explanation";
 
 type ReviewRow = {
@@ -119,7 +119,7 @@ export default async function MockExamResultsPage({
                 </ul>
                 {studentFacingExplanation(row.explanation) && (
                   <div className="mt-3">
-                    <AIMarkdown text={studentFacingExplanation(row.explanation)!} />
+                    <ExplanationDisplay text={studentFacingExplanation(row.explanation)!} />
                   </div>
                 )}
                 <TeachMeThis attemptId={attemptId} questionId={row.question_id} />
