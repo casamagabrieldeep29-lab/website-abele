@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getSiteUrl } from "@/lib/site-url";
 
 export type InviteResult = { ok: true; email: string } | { ok: false; message: string };
 
@@ -60,7 +61,7 @@ export async function inviteUser(
     return { ok: false, message: "Enter a valid email address." };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = await getSiteUrl();
   const admin = createAdminClient();
 
   const { error } = await admin.auth.admin.inviteUserByEmail(email, {
