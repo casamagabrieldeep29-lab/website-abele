@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "source": "Private ABE review compilation notes (2025), TRANSES collection",
+    "extraction_method": "Manually transcribed by reading rendered page images against the source PDF, page by page, formulas only — not tables/constants (separate future pass).",
+    "extracted_date": "2026-09-23",
+    "status": "draft — not yet spot-checked by a second human reviewer; ready for DB import as status=draft, promote to published after review",
+    "topic_mapping_notes": [
+      "AICS Transes.pdf formulas split across two existing topics: remote-sensing/GIS formulas (Incident Energy, NDVI) went to 'Geographic Information System' (LAND_WATER); generic engineering-math formulas (resistivity, polar/Cartesian coordinate conversion) went to 'Mathematics and Basic Engineering' (MATH_BASIC_ENGG) since they are foundational and not GIS-specific.",
+      "Bioprocessing Transes.pdf (rice/corn post-harvest processing) formulas mapped to the existing 'Elements of Food Processing and Process Design' (BIOPROCESS).",
+      "Groundwater Transes.pdf aquifer/Darcy's-law/well-discharge formulas mapped to the existing 'Hydrology' (LAND_WATER) topic per guidance that groundwater is a hydrology subject; its two pump-sizing formulas (metric-unit Brake Horsepower variant, Required Pump Discharge) mapped instead to the existing 'Pumps' (LAND_WATER) topic created in the prior extraction pass.",
+      "Environmental Eng Transes.pdf, Forest Eng Transes.pdf, and GMP HACCP Transes.pdf contained no clearly-delimited formulas in scope for this pass — only prose definitions, classification tables, and lists (e.g. GWP table, wood-defect definitions, HACCP principles) — so no entries were extracted from these three files."
+    ],
+    "privacy_note": "Source material's own attribution/branding (page footers reading area/year/reviewer initials) intentionally NOT carried into any field, per explicit instruction — source is recorded generically only."
+  },
+  "topics": [
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Geographic Information System",
+      "entries": [
+        {"kind": "formula", "title": "Incident Energy (Remote Sensing)", "formula": "E_I = E_R + E_A + E_T", "variables": "E_I = incident energy, E_R = reflected energy, E_A = absorbed energy, E_T = transmitted energy", "description": "Energy balance for electromagnetic radiation striking a surface in remote sensing."},
+        {"kind": "formula", "title": "Normalized Difference Vegetation Index (NDVI)", "formula": "NDVI = (NIR − Red)/(NIR + Red)", "variables": "NIR = near-infrared reflectance, Red = red-band reflectance", "description": "Vegetation health index computed from a multispectral sensor's red and near-infrared bands."}
+      ]
+    },
+    {
+      "exam_area_code": "MATH_BASIC_ENGG",
+      "topic_name": "Mathematics and Basic Engineering",
+      "entries": [
+        {"kind": "formula", "title": "Resistor Resistance (Resistivity)", "formula": "R = ρL/A", "variables": "ρ = resistivity, L = length, A = cross-sectional area", "description": "Resistance of a conductor as a function of its material resistivity, length, and cross-sectional area."},
+        {"kind": "formula", "title": "Polar–Cartesian Coordinate Conversion", "formula": "Polar to Cartesian: x = r cos(θ), y = r sin(θ)      Cartesian to Polar: r = √(x²+y²), θ = tan⁻¹(y/x)", "variables": "r = radius, θ = angle, x, y = Cartesian coordinates", "description": "Converts between polar and Cartesian coordinate representations of a point, used in CAD drafting."}
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "entries": [
+        {"kind": "formula", "title": "Moisture Content, Wet Basis", "formula": "%MC_wb = 100 × Ww/(Ww + Wd)", "variables": "Ww = weight of water in product, Wd = weight of dry matter", "description": "Percentage moisture content of a grain/crop expressed relative to the total (wet) weight of the material."},
+        {"kind": "formula", "title": "Moisture Content, Dry Basis", "formula": "%MC_db = 100 × Ww/Wd", "variables": "Ww = weight of water in product, Wd = weight of dry matter", "description": "Percentage moisture content of a grain/crop expressed relative to the weight of dry matter only."},
+        {"kind": "formula", "title": "Moisture Content Conversion — Wet Basis to Dry Basis", "formula": "%MC_db = [MC_wb/(100 − MC_wb)] × 100", "variables": "MC_wb = moisture content, wet basis (%)", "description": "Converts a wet-basis moisture content reading to its dry-basis equivalent."},
+        {"kind": "formula", "title": "Moisture Content Conversion — Dry Basis to Wet Basis", "formula": "%MC_wb = [MC_db/(100 + MC_db)] × 100", "variables": "MC_db = moisture content, dry basis (%)", "description": "Converts a dry-basis moisture content reading to its wet-basis equivalent."},
+        {"kind": "formula", "title": "Heat Utilization Factor (HUF)", "formula": "HUF = (T1 − T3)/(T2 − T1)", "variables": "T1 = original dry-bulb air temperature, T2 = temperature of air after heating, T3 = dry-bulb temperature of air exhausted from dryer", "description": "Ratio of temperature decrease due to evaporative cooling during drying to the temperature increase from heating — measures crop-drying efficiency."}
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Hydrology",
+      "entries": [
+        {"kind": "formula", "title": "Capillary Rise (Capillary Fringe)", "formula": "h_c = (2τ/rγ) cos θ", "variables": "τ = surface tension, r = capillary tube (pore) radius, γ = specific weight of water, θ = contact angle", "description": "Height to which water rises above the water table by capillary action, forming the capillary fringe."},
+        {"kind": "formula", "title": "Porosity (n)", "formula": "n = Vv/VT = (ρm − ρd)/ρm = 1 − (ρd/ρm) = [e/(1+e)] × 100 ;  n = Sy + Sr", "variables": "Vv = volume of voids, VT = total volume, ρm = mineral (particle) density, ρd = bulk (dry) density, e = void ratio, Sy = specific yield, Sr = specific retention", "description": "Amount of pore space per unit volume of an aquifer, expressed several equivalent ways."},
+        {"kind": "formula", "title": "Specific Yield (Sy)", "formula": "Sy = Wy/VT", "variables": "Wy = volume of water drained by gravity, VT = total volume of aquifer sample", "description": "Effective porosity — the actual volume of water that can be extracted from a unit volume of aquifer by gravity drainage."},
+        {"kind": "formula", "title": "Void Ratio (e)", "formula": "e = (Vt − Vs)/Vs", "variables": "Vt = total volume of sample, Vs = volume of solids", "description": "Ratio of void space volume to solid volume in an aquifer sample."},
+        {"kind": "formula", "title": "Specific Retention (Sr)", "formula": "Sr = Wr/VT", "variables": "Wr = volume of water retained against gravity, VT = total volume of aquifer sample", "description": "Fraction of water held back in an aquifer against gravity drainage (soil moisture at field capacity)."},
+        {"kind": "formula", "title": "Specific Capacity (Sc)", "formula": "Sc = Q/Sw", "variables": "Q = well discharge, Sw = drawdown in the well", "description": "Discharge of a well per unit of drawdown — an indicator of well performance."},
+        {"kind": "formula", "title": "Storage Coefficient / Storativity (S)", "formula": "S = γw·n·b·(1/Kw + 1/nEw) ;  ΔGWS = A_aq × ΔGWT × Sy (unconfined) ;  ΔGWS = A_aq × ps × S (confined)", "variables": "γw = specific weight of water, n = porosity, b = aquifer thickness, Kw = bulk modulus of elasticity of water, Ew = modulus of compressibility (elasticity) of the soil grains, A_aq = aquifer area, ΔGWT = change in water table elevation, ps = change in piezometric head", "description": "Volume of water released from or taken into storage per unit area of aquifer per unit decline (or rise) in head."},
+        {"kind": "formula", "title": "Transmissibility / Transmissivity (T)", "formula": "T = Kb (confined aquifer) ;  T = KH (unconfined aquifer)", "variables": "K = hydraulic conductivity, b = confined aquifer thickness, H = saturated thickness of unconfined aquifer", "description": "Flow capacity of an aquifer per unit width under a unit hydraulic gradient — permeability times thickness."},
+        {"kind": "formula", "title": "Darcy's Equation (Discharge)", "formula": "Q = −KA (dh/dl)", "variables": "K = hydraulic conductivity, A = cross-sectional area of flow, dh/dl = hydraulic gradient", "description": "Basic form of Darcy's Law giving the volumetric discharge through a porous medium."},
+        {"kind": "formula", "title": "Hydraulic Gradient (i)", "formula": "i = Δh/L", "variables": "Δh = change in head (or head lost), L = length or distance of flow path", "description": "Slope of the water level/piezometric surface — change in head per unit distance along the flow path."},
+        {"kind": "formula", "title": "Darcy (Discharge) Velocity and Actual Seepage Velocity", "formula": "V = Ki = Q/A = −K(dh/dl) ;  V_act = V/n", "variables": "K = coefficient of permeability, i = hydraulic gradient (= −dh/dl), Q = discharge, A = cross-sectional area, n = porosity", "description": "Darcy (apparent) velocity of groundwater flow through a porous medium, and its conversion to the actual (seepage) velocity through pore spaces."},
+        {"kind": "formula", "title": "Reynolds Number (Validity of Darcy's Law)", "formula": "Re = ρVd/μ", "variables": "ρ = fluid density, V = velocity, d = characteristic grain/pore diameter, μ = dynamic viscosity", "description": "Used to confirm laminar-flow conditions (Re ≤ 1) required for Darcy's Law to be valid in a porous medium."},
+        {"kind": "formula", "title": "Well Discharge, Unconfined Aquifer (Thiem Equation)", "formula": "Q = πk(h2² − h1²)/ln(r2/r1)", "variables": "Q = well discharge, k = hydraulic conductivity, h1, h2 = piezometric head at radial distances r1, r2 from the well", "description": "Steady-state discharge to a well in an unconfined aquifer, computed from drawdown observed in two observation wells."},
+        {"kind": "formula", "title": "Well Discharge, Confined Aquifer (Thiem Equation)", "formula": "Q = 2πkb(h2 − h1)/ln(r2/r1)  =  2πT(h2 − h1)/ln(r2/r1)", "variables": "Q = well discharge, k = hydraulic conductivity, b = confined aquifer thickness, T = transmissivity (= kb), h1, h2 = piezometric head at radial distances r1, r2 from the well", "description": "Steady-state discharge to a well in a confined aquifer, computed from drawdown observed in two observation wells."},
+        {"kind": "formula", "title": "Well Discharge from Drawdown in a Single Well", "formula": "Confined aquifer: Q = 2πKb(H − hw)/ln(R/rw)      Unconfined aquifer: Q = 2πKH(H − hw)/ln(R/rw)", "variables": "K = hydraulic conductivity, b = confined aquifer thickness, H = original piezometric/water-table head, hw = head at the well, R = radius of influence, rw = well radius", "description": "Well discharge computed from the drawdown measured in the pumped well itself, for confined and unconfined aquifers."},
+        {"kind": "formula", "title": "Hooghoudt Equation (Drain Spacing)", "formula": "L² = 4K(H² − D²)/R    or    q = R = 4K(H² − D²)/L²", "variables": "L = drain spacing, K = hydraulic conductivity of the soil, H = elevation of the water table midway between drains, D = elevation of the water level in the drain, q/R = drain discharge (steady-state recharge rate)", "description": "Determines subsurface drain spacing (or discharge) for steady-state flow to parallel field drains, for a homogeneous or two-layered soil profile."},
+        {"kind": "formula", "title": "Total Dynamic Head (TDH)", "formula": "TDH = SWL + Hf + DD + Hsf", "variables": "SWL = static water level, Hf = friction losses in the pipes, DD = maximum drawdown when pumping at the design discharge, Hsf = other head losses (assume 0.6 m / 2 ft)", "description": "Total head a well pump must overcome, used for sizing shallow tube well pumps."}
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Pumps",
+      "entries": [
+        {"kind": "formula", "title": "Pump Brake Horsepower (BHP) — SI Metric (Lps) Form", "formula": "BHP = TDH × Qd/(102 × Ep)", "variables": "TDH = total dynamic head (m), Qd = design pump discharge (Lps), Ep = pump efficiency (assume 55%)", "description": "Metric-unit form of pump brake horsepower for sizing a shallow tube well pump, given design discharge in liters per second."},
+        {"kind": "formula", "title": "Required Pump Discharge (Shallow Tube Well)", "formula": "Qr = (IWR/h) × 24", "variables": "Qr = required pump discharge (Lps), IWR = irrigation water requirement (Lps), h = number of hours of pump operation per day", "description": "Pump discharge needed to meet a crop's daily irrigation water requirement within the available pumping hours."}
+      ]
+    }
+  ]
+}

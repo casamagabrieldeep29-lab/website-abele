@@ -68,6 +68,19 @@ export async function unpublishReviewerEntry(entryId: string) {
   revalidatePath("/admin/reviewers");
 }
 
+export async function publishAllReviewerDrafts(): Promise<{ published: number }> {
+  await requireAdmin();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("reviewer_entries")
+    .update({ status: "published" })
+    .eq("status", "draft")
+    .select("id");
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/reviewers");
+  return { published: data?.length ?? 0 };
+}
+
 export async function deleteReviewerEntry(entryId: string) {
   await requireAdmin();
   const supabase = await createClient();

@@ -11,6 +11,7 @@ import {
   unpublishReviewerEntry,
   updateReviewerEntry,
 } from "./actions";
+import { PublishAllReviewerDraftsButton } from "./publish-all-drafts-button";
 
 const KIND_LABELS: Record<string, string> = { formula: "Formula", table: "Table", constant: "Constant" };
 
@@ -76,6 +77,10 @@ export default async function AdminReviewersPage() {
           Tables, formulas, and constants for the student-facing Reviewers section. Never invent values — only
           enter verified content, with a source where available.
         </p>
+
+        <PublishAllReviewerDraftsButton
+          draftCount={(entries ?? []).filter((e) => e.status === "draft").length}
+        />
 
         {(entries ?? []).map((e) => (
           <Card key={e.id}>

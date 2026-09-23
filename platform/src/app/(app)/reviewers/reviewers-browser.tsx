@@ -72,7 +72,6 @@ function EntryCard({ entry }: { entry: ReviewerEntry }) {
 
         {entry.description && <p className="mt-2 text-sm text-muted-foreground">{entry.description}</p>}
         {entry.notes && <p className="mt-1 text-xs text-gold">⚠ {entry.notes}</p>}
-        {entry.source && <p className="mt-1 text-xs text-muted-foreground">Source: {entry.source}</p>}
       </CardContent>
     </Card>
   );

@@ -1,0 +1,82 @@
+{
+  "_meta": {
+    "source": "Private ABE review compilation notes (2025), TRANSES collection",
+    "extraction_method": "Manually transcribed by reading rendered page images against the source PDF, page by page, formulas only — not tables/constants (separate future pass).",
+    "extracted_date": "2026-09-23",
+    "status": "draft — not yet spot-checked by a second human reviewer; ready for DB import as status=draft, promote to published after review",
+    "topic_mapping_notes": [
+      "\"Pumps\" has no existing topic match — created new under LAND_WATER (pumps are core to irrigation/water-resources engineering, and the source itself headers this content 'AREA 2').",
+      "\"Fluid Mechanics\" has no existing topic match — created new under MATH_BASIC_ENGG as foundational engineering science distinct from the applied Hydrology/Irrigation topics that already exist under LAND_WATER."
+    ],
+    "privacy_note": "Source material's own attribution/branding intentionally NOT carried into any field, per explicit instruction — source is recorded generically only."
+  },
+  "topics": [
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Pumps",
+      "entries": [
+        {
+          "kind": "formula",
+          "title": "Pump Brake Horsepower (BHP)",
+          "formula": "BHP = ρgQH / Eff  =  (Q × TDH) / (3960 × Eff)",
+          "variables": "ρ = fluid density, g = gravity, Q = flow rate (gpm in the second form), H/TDH = total dynamic head (ft), Eff = pump efficiency",
+          "description": "Shaft power a pump must be supplied to deliver a given flow against a given head."
+        },
+        {
+          "kind": "formula",
+          "title": "Pump Efficiency",
+          "formula": "Eff = WHP / BHP",
+          "variables": "WHP = water (hydraulic) horsepower, BHP = brake horsepower",
+          "description": "Ratio of hydraulic output power to shaft input power."
+        },
+        {
+          "kind": "formula",
+          "title": "Pump Affinity Laws — Speed Change",
+          "formula": "Q1/Q2 = N1/N2   H1/H2 = (N1/N2)²   BHP1/BHP2 = (N1/N2)³",
+          "variables": "Q = flow rate, H = head, BHP = brake horsepower, N = pump/impeller rotational speed",
+          "description": "How a centrifugal pump's flow, head, and power scale when its rotational speed changes (impeller diameter held constant)."
+        },
+        {
+          "kind": "formula",
+          "title": "Pump Affinity Laws — Impeller Diameter Change",
+          "formula": "Q1/Q2 = D1/D2   H1/H2 = (D1/D2)²   BHP1/BHP2 = (D1/D2)³",
+          "variables": "Q = flow rate, H = head, BHP = brake horsepower, D = impeller diameter",
+          "description": "How a centrifugal pump's flow, head, and power scale when its impeller diameter changes (speed held constant)."
+        }
+      ]
+    },
+    {
+      "exam_area_code": "MATH_BASIC_ENGG",
+      "topic_name": "Fluid Mechanics",
+      "entries": [
+        {"kind": "formula", "title": "Weight", "formula": "W = mg", "variables": "m = mass (kg), g = gravitational acceleration", "description": "Earth's gravitational pull on a body."},
+        {"kind": "formula", "title": "Specific (Unit) Weight", "formula": "γ = W/∀ = (m × g)/∀ = ρg", "variables": "∀ = volume, ρ = density", "description": "Weight of fluid contained in a unit volume."},
+        {"kind": "formula", "title": "Density", "formula": "ρ = m/∀ = W/(∀·g) = γ/g", "variables": "m = mass, ∀ = volume, γ = specific weight", "description": "Mass of fluid contained in a unit volume."},
+        {"kind": "formula", "title": "Specific Volume", "formula": "v = ∀/m = 1/ρ", "variables": "∀ = volume, m = mass, ρ = density", "description": "Volume per unit mass of fluid — the inverse of density."},
+        {"kind": "formula", "title": "Specific Gravity (Fluid)", "formula": "SG = ρ_fluid/ρ_standard = γ_fluid/γ_standard", "variables": "Standard substance is water at reference conditions", "description": "Dimensionless ratio of a fluid's density (or specific weight) to that of a standard substance."},
+        {"kind": "formula", "title": "Compressibility and Bulk Modulus of Elasticity", "formula": "β = -(d∀/∀)/dp = 1/E_B      E_B = stress/strain = -dp/(d∀/∀)", "variables": "β = compressibility, E_B = bulk modulus of elasticity, p = pressure, ∀ = volume", "description": "Fractional change in fluid volume per unit change in pressure at constant temperature, and its reciprocal."},
+        {"kind": "formula", "title": "Dynamic (Absolute) Viscosity", "formula": "μ = τ / (dU/dy)", "variables": "τ = shear stress, dU/dy = velocity gradient", "description": "Measure of a fluid's resistance to shear (Pa·s or Poise; 1 poise = 0.1 Pa·s)."},
+        {"kind": "formula", "title": "Kinematic Viscosity", "formula": "ν = μ/ρ", "variables": "μ = dynamic viscosity, ρ = density", "description": "Ratio of absolute viscosity to density (m²/s or Stoke; 1 Stoke = 0.0001 m²/s)."},
+        {"kind": "formula", "title": "Pressure (Pascal's Law)", "formula": "P = F/A", "variables": "F = force acting normal to surface, A = area", "description": "Pascal's Law: pressure on a fluid is transmitted equally in all directions within a closed container."},
+        {"kind": "formula", "title": "Absolute Pressure", "formula": "P_abs = P_atm + P_gage", "variables": "P_atm ≈ 101.325 kPa = 14.7 psi = 760 mmHg at sea level", "description": "Sum of atmospheric and gage pressure."},
+        {"kind": "formula", "title": "Pressure Head", "formula": "h = P/γ", "variables": "P = pressure, γ = specific weight of fluid", "description": "Energy contained in a fluid expressed as an equivalent column height (head)."},
+        {"kind": "formula", "title": "Buoyant Force (Archimedes' Principle)", "formula": "F_B = γ × ∀_(fluid displaced)", "variables": "γ = unit weight of fluid, ∀ = volume of fluid displaced by the body", "description": "A body immersed in a fluid experiences an upward force equal to the weight of the fluid it displaces."},
+        {"kind": "formula", "title": "Flow Rate (Discharge)", "formula": "Mass flow rate: M = ρQ = ρAV      Weight flow rate: W = γQ = ρgAV      Volume flow rate: Q = AV", "variables": "A = cross-sectional area, V = velocity, ρ = density, γ = specific weight", "description": "Amount of fluid passing a section per unit time, in mass, weight, or volume terms."},
+        {"kind": "formula", "title": "Continuity Equation", "formula": "Incompressible: Q = A1v1 = A2v2 = A3v3 = constant      Compressible: ρ1A1v1 = ρ2A2v2 = ρ3A3v3 = constant", "variables": "A = cross-sectional area, v = velocity, ρ = density", "description": "Conservation of mass applied to fluid flow through a pipe or channel of varying section."},
+        {"kind": "formula", "title": "Velocity (Kinetic) Head", "formula": "v²/2g = H       KE = ½mv² = ½(W/g)v²", "variables": "v = velocity, g = gravitational acceleration", "description": "Kinetic energy of a flowing fluid expressed per unit weight."},
+        {"kind": "formula", "title": "Total Flow Energy (Bernoulli Head)", "formula": "E = v²/2g + p/γ + z", "variables": "v²/2g = velocity head, p/γ = pressure head, z = elevation head", "description": "Sum of kinetic, pressure, and elevation energy per unit weight of fluid."},
+        {"kind": "formula", "title": "Bernoulli's Energy Equation", "formula": "p1/γ + z1 + v1²/2g = p2/γ + z2 + v2²/2g", "variables": "Subscripts 1, 2 = two points along the same streamline", "description": "Conservation of energy for a steadily flowing, frictionless fluid — total head is constant along a streamline."},
+        {"kind": "formula", "title": "Fluid Power and Efficiency", "formula": "Power = QγE       η = (Output/Input) × 100%", "variables": "Q = flow rate, γ = specific weight, E = total head", "description": "Power delivered by/to a flowing fluid, and the resulting efficiency of a device."},
+        {"kind": "formula", "title": "Momentum Equation", "formula": "ΣF = ma        F_G + F_P − F_f = ρQΔV", "variables": "F_G, F_P, F_f = gravity, pressure, friction force components, ΔV = change in velocity", "description": "Newton's second law applied to a control volume of flowing fluid."},
+        {"kind": "formula", "title": "Reynolds Number", "formula": "Re = vDρ/μ = vD/ν", "variables": "v = velocity, D = pipe diameter, ρ = density, μ = dynamic viscosity, ν = kinematic viscosity", "description": "Ratio of inertial to viscous forces; Re < 2000 laminar, 2000–4000 transitional, > 4000 turbulent (pipe flow)."},
+        {"kind": "formula", "title": "Prandtl Number", "formula": "Pr = ν/α = μC_p/k", "variables": "ν = kinematic viscosity, α = thermal diffusivity, C_p = specific heat, k = thermal conductivity", "description": "Relates a fluid's momentum diffusivity to its thermal diffusivity."},
+        {"kind": "formula", "title": "Froude Number", "formula": "Fr = U/√(gd)", "variables": "U = flow velocity, g = gravity, d = characteristic depth", "description": "Ratio of inertial to gravitational forces; Fr = 1 critical flow, Fr > 1 supercritical, Fr < 1 subcritical (open-channel flow)."},
+        {"kind": "formula", "title": "Discharge Coefficients (Cd, Cv, Cc)", "formula": "C_d = Q/Q_t        C_v = v/v_t        C_c = a/A        C = C_c × C_v", "variables": "Q_t = theoretical discharge, v_t = theoretical velocity, a = contracted jet area, A = opening area", "description": "Correction factors relating actual to theoretical discharge/velocity/area for a flow-measuring device."},
+        {"kind": "formula", "title": "Orifice / Nozzle Discharge", "formula": "v_t = √(2gH)      v = C_v√(2gH)      Q_t = A√(2gH)      Q = CA√(2gH)", "variables": "H = head across the orifice/nozzle, A = opening area, C = coefficient of discharge", "description": "Theoretical and actual velocity/discharge through an orifice or nozzle under head H."},
+        {"kind": "formula", "title": "Weir Discharge Formulas", "formula": "Francis: Q = 1.84LH^1.5      Francis w/ contraction: Q = 1.84(L−0.2H)H^1.5      Cipoletti (trapezoidal): Q = 1.86LH^1.5      Triangular (90°): Q = 1.38H^2.5", "variables": "L = weir crest length, H = head over the weir", "description": "Standard discharge formulas for common weir shapes used to measure open-channel flow."},
+        {"kind": "formula", "title": "Darcy–Weisbach Head Loss (Pipe Friction)", "formula": "h_f = (fL/D)(v²/2g)        Circular pipe: h_f = (fL/D)(8Q²/π²gD⁴)", "variables": "f = friction factor, L = pipe length, D = pipe diameter, v = velocity, Q = flow rate", "description": "Head loss due to friction as fluid flows through a pipe."},
+        {"kind": "formula", "title": "Friction Factor (Laminar vs. Turbulent)", "formula": "Laminar (Re < 2000): f = 64/Re        Turbulent (Re > 4000), Blasius: f = 0.316Re^−0.25", "variables": "Re = Reynolds number", "description": "Darcy friction factor used in the Darcy–Weisbach head-loss equation, by flow regime."}
+      ]
+    }
+  ]
+}
