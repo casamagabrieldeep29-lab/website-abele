@@ -53,7 +53,7 @@ export default async function ReviewersPage({
   });
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-6xl">
       <PageHeader
         title="Reviewers"
         description="Quick-reference tables, formulas, and constants — filterable by area and topic."

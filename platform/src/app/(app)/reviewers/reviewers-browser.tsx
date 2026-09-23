@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 export type ReviewerEntry = {
@@ -35,45 +34,72 @@ const KIND_LABELS: Record<ReviewerEntry["kind"], string> = {
   constant: "Constants",
 };
 
+// Real formula strings here are plain text, not LaTeX — and many genuinely mix
+// in English annotations ("confined aquifer", "water delivered from source"),
+// which would render broken if the whole string were forced through KaTeX
+// math-mode (every word gets italicized and spaced like separate variables).
+// This targets only the actual subscript/superscript markers (`_x`, `^x`,
+// `_{multi}`, `^{multi}`) with real <sub>/<sup> tags — always renders
+// correctly regardless of what surrounds it, no data changes needed.
+const SUBSUP_RE = /([_^])(\{[^{}]+\}|\([^()]+\)|-?[A-Za-z0-9]+)/g;
+
+function renderFormula(text: string): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+
+  for (const match of text.matchAll(SUBSUP_RE)) {
+    const index = match.index ?? 0;
+    if (index > lastIndex) nodes.push(text.slice(lastIndex, index));
+    const marker = match[1];
+    const raw = match[2];
+    const content = raw.startsWith("{") || raw.startsWith("(") ? raw.slice(1, -1) : raw;
+    nodes.push(marker === "_" ? <sub key={key++}>{content}</sub> : <sup key={key++}>{content}</sup>);
+    lastIndex = index + match[0].length;
+  }
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
+}
+
 function EntryCard({ entry }: { entry: ReviewerEntry }) {
   return (
-    <Card>
-      <CardContent className="py-3">
-        <div className="flex items-start justify-between gap-3">
-          <p className="text-sm font-semibold">{entry.title}</p>
-          <span className="shrink-0 text-xs text-muted-foreground">
-            {entry.subject_name} · {entry.topic_name}
-            {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
-          </span>
+    <div className="rounded-lg border border-border bg-card p-3.5">
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-sm font-semibold leading-snug">{entry.title}</p>
+        <span className="shrink-0 text-right text-[11px] leading-snug text-muted-foreground">
+          {entry.topic_name}
+          {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
+        </span>
+      </div>
+
+      {entry.kind === "formula" && entry.formula && (
+        <p className="mt-1.5 overflow-x-auto font-mono text-base leading-snug font-medium whitespace-pre-wrap text-primary">
+          {renderFormula(entry.formula)}
+        </p>
+      )}
+
+      {entry.kind === "constant" && (
+        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          {entry.symbol && <span className="font-mono text-base font-medium text-primary">{renderFormula(entry.symbol)}</span>}
+          {entry.value && (
+            <span className="text-sm font-medium">
+              = {entry.value}
+              {entry.unit ? ` ${entry.unit}` : ""}
+            </span>
+          )}
         </div>
+      )}
 
-        {entry.kind === "formula" && (
-          <div className="mt-2 space-y-1">
-            {entry.formula && <p className="font-mono text-sm text-primary">{entry.formula}</p>}
-            {entry.variables && <p className="text-xs text-muted-foreground">where {entry.variables}</p>}
-          </div>
-        )}
+      {entry.kind === "table" && entry.table_content && (
+        <pre className="mt-1.5 overflow-x-auto rounded-md bg-muted p-2 text-xs whitespace-pre-wrap">{entry.table_content}</pre>
+      )}
 
-        {entry.kind === "constant" && (
-          <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            {entry.symbol && <span className="font-mono text-sm text-primary">{entry.symbol}</span>}
-            {entry.value && (
-              <span className="text-sm font-medium">
-                = {entry.value}
-                {entry.unit ? ` ${entry.unit}` : ""}
-              </span>
-            )}
-          </div>
-        )}
-
-        {entry.kind === "table" && entry.table_content && (
-          <pre className="mt-2 overflow-x-auto whitespace-pre-wrap rounded-md bg-muted p-2 text-xs">{entry.table_content}</pre>
-        )}
-
-        {entry.description && <p className="mt-2 text-sm text-muted-foreground">{entry.description}</p>}
-        {entry.notes && <p className="mt-1 text-xs text-gold">⚠ {entry.notes}</p>}
-      </CardContent>
-    </Card>
+      {entry.variables && (
+        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">where {renderFormula(entry.variables)}</p>
+      )}
+      {entry.description && <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{entry.description}</p>}
+      {entry.notes && <p className="mt-1 text-xs text-gold">⚠ {entry.notes}</p>}
+    </div>
   );
 }
 
@@ -114,10 +140,12 @@ function TosGroupedEntries({ entries, isSearching }: { entries: ReviewerEntry[];
               <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2 text-left">
                 <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
                 <span className="min-w-0 flex-1 text-sm font-medium break-words">{group.name}</span>
-                <span className="shrink-0 text-xs text-muted-foreground">{group.entries.length}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">
+                  {group.entries.length} {group.entries.length === 1 ? "entry" : "entries"}
+                </span>
               </CollapsibleTrigger>
               <CollapsibleContent open={open}>
-                <div className="space-y-2 px-3 pb-3">
+                <div className="grid grid-cols-1 gap-2.5 px-3 pb-3 sm:grid-cols-2">
                   {group.entries.map((entry) => (
                     <EntryCard key={entry.id} entry={entry} />
                   ))}
@@ -153,7 +181,7 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search by title, area, subject, topic…"
-        className="mb-4"
+        className="mb-4 max-w-md"
       />
 
       <Tabs defaultValue="formula">
