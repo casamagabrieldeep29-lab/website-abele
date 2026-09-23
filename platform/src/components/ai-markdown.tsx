@@ -28,6 +28,16 @@ const components: Components = {
   strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
   em: ({ children }) => <em>{children}</em>,
   code: ({ children }) => <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">{children}</code>,
+  // A fenced code block (```...```) is how a worked solution's calculation
+  // lines get set apart as a distinct boxed step — e.g. Formula Drop-style
+  // content authored with "Step 1: ..." headings and a ``` block for the
+  // actual arithmetic. `code`'s inline styling above still applies to the
+  // <code> this wraps, so only the extra box/border/padding lives here.
+  pre: ({ children }) => (
+    <pre className="mt-1.5 overflow-x-auto rounded-md border border-border bg-muted/40 p-2.5 font-mono text-xs leading-relaxed text-foreground first:mt-0 [&_code]:bg-transparent [&_code]:p-0">
+      {children}
+    </pre>
+  ),
   a: ({ children, href }) => (
     <a href={href} target="_blank" rel="noreferrer" className="text-primary underline underline-offset-2">
       {children}

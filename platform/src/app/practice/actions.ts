@@ -126,6 +126,46 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
 }
 
 /**
+ * PAES (Philippine Agricultural Engineering Standards) quiz: pools every
+ * question tagged is_paes=true, regardless of topic, into one scored
+ * practice attempt — the /paes section's "Take PAES Quiz" action. Mirrors
+ * startSubjectPracticeAttempt's shape exactly, just filtered by is_paes
+ * instead of subject_id.
+ */
+export async function startPaesQuizAttempt(count: number) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: candidates } = await supabase
+    .from("student_questions")
+    .select("id, series_key, series_position")
+    .eq("is_paes", true);
+  if (!candidates || candidates.length === 0) {
+    throw new Error("No published PAES questions yet.");
+  }
+
+  const selected = await weighAndSampleCandidates(supabase, candidates, count);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "paes" },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start PAES quiz");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
  * Narrows a candidate pool to one of the four Study Preferences practice
  * modes, using only real, already-existing data sources (get_topic_mastery
  * for "weak areas", get_mistake_bank for "mistakes", attempt_answers for

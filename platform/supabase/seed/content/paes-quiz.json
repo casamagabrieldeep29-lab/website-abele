@@ -1,0 +1,96 @@
+{
+  "_meta": { "author": "Green Gears (Engr. John Vincent Nate, M.Sc.) — Final Coaching, Area 3: PAES Structures and Post-Harvest Machineries" },
+  "topics": [
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "This gutter is recommended for collecting cattle manure.",
+          "choices": ["gravity drain gutter", "flush gutter", "scrape gutter", "step-dam gutter"],
+          "answer": 3,
+          "diff": "moderate",
+          "is_paes": true
+        },
+        {
+          "q": "In CPES rating, what is the equivalent score of very satisfactory?",
+          "choices": ["82% to 89%", "89% to 96%", "75% to 82%", "96% and above"],
+          "answer": 1,
+          "diff": "moderate",
+          "is_paes": true
+        },
+        {
+          "q": "All projects shall be subjected to a minimum of ___ evaluations to be performed by the CPE during construction. Except for those projects with a duration of 90 calendar days and below, which may be subjected to at least ___ visit.",
+          "choices": ["1, 2", "2, 1", "2, 3", "3, 2"],
+          "answer": 1,
+          "diff": "moderate",
+          "is_paes": true
+        },
+        {
+          "q": "When this type of curing is used, the pavement shall be cured initially with burlap or cotton mats, until after final set of the concrete or, in any case, for 12 hours after placing the concrete.",
+          "choices": ["white polyethylene sheet", "waterproof paper", "impervious membrane method", "straw"],
+          "answer": 3,
+          "diff": "moderate",
+          "is_paes": true
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Environmental Engineering and Science",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The introduction of substances not found in the natural composition of water that make the water less desirable or unfit for intended use.",
+          "choices": ["water pollution", "contamination", "impurification", "deterioration"],
+          "answer": 1,
+          "diff": "moderate",
+          "is_paes": true
+        },
+        {
+          "q": "Precipitate resulting from coagulation or sedimentation of liquid waste.",
+          "choices": ["Slurry", "Sludge", "Effluent", "suspended solid"],
+          "answer": 1,
+          "diff": "moderate",
+          "is_paes": true
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Agricultural and Bioprocess Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In PAES 204:2015, the minimum purity of the mechanical rice thresher without sifter and with fan is:",
+          "choices": ["50%", "65%", "80%", "95%"],
+          "answer": 3,
+          "diff": "moderate",
+          "paes_reference": "PAES 204:2015"
+        },
+        {
+          "q": "In PAES 201:2015, the minimum heating system efficiency for biomass fuel heated air mechanical grain dryer for indirect-fired operation.",
+          "choices": ["90%", "75%", "65%", "50%"],
+          "answer": 3,
+          "diff": "moderate",
+          "paes_reference": "PAES 201:2015"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Rural Electrification",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In PAES 129:2002, this indicates the maximum load that can be successfully carried by the motor if it is to operate continuously and remain within a safe temperature range.",
+          "choices": ["service factor", "breakdown torque", "duty rating", "locked-rotor current"],
+          "answer": 0,
+          "diff": "moderate",
+          "paes_reference": "PAES 129:2002"
+        }
+      ]
+    }
+  ]
+}
