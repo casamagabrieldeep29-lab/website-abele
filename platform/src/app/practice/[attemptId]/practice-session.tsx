@@ -335,7 +335,11 @@ export function PracticeSession({
                     <AIMarkdown text={feedback.explanation} />
                   </div>
                 )}
-                <TeachMeThis attemptId={attemptId} questionId={question.id} />
+                <TeachMeThis
+                  attemptId={attemptId}
+                  questionId={question.id}
+                  autoStart={!feedback.explanation}
+                />
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">Submit an answer to see the explanation here.</p>

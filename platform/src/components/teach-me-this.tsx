@@ -1,17 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AIMarkdown } from "@/components/ai-markdown";
 
 const FOLLOW_UPS = ["Explain simpler", "Give an example", "Quiz me on this concept"];
 
-export function TeachMeThis({ attemptId, questionId }: { attemptId: string; questionId: string }) {
-  const [open, setOpen] = useState(false);
+/**
+ * `autoStart`: skip the manual "Teach me this" click and fetch immediately
+ * — used when a question has no admin-authored explanation at all, so the
+ * Solution panel would otherwise show nothing. Only fires when there's
+ * genuinely no static explanation to fall back on (see practice-session.tsx),
+ * not on every question, since each fetch is a real AI call against the
+ * shared daily quota.
+ */
+export function TeachMeThis({
+  attemptId,
+  questionId,
+  autoStart = false,
+}: {
+  attemptId: string;
+  questionId: string;
+  autoStart?: boolean;
+}) {
+  const [open, setOpen] = useState(autoStart);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const autoStarted = useRef(false);
 
   async function ask(followUp?: string) {
     setLoading(true);
@@ -34,6 +51,14 @@ export function TeachMeThis({ attemptId, questionId }: { attemptId: string; ques
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    if (autoStart && !autoStarted.current) {
+      autoStarted.current = true;
+      void ask();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!open) {
     return (

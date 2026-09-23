@@ -19,9 +19,9 @@ const DOCUMENTS = [
     href: "/paes/paes-production-machinery-101-106.pdf",
   },
   {
-    title: "Green Gears — PAES Structures and Post-Harvest Machineries",
-    description: "Final coaching deck covering PAES standards for structures and post-harvest machinery.",
-    href: "/paes/green-gears-paes-structures-and-post-harvest.pdf",
+    title: "PAES Structures and Post-Harvest Machineries",
+    description: "Coaching deck covering PAES standards for structures and post-harvest machinery.",
+    href: "/paes/paes-structures-and-post-harvest-machineries.pdf",
   },
 ];
 
