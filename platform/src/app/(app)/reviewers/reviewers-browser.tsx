@@ -170,12 +170,12 @@ function parseVariables(text: string): VarPair[] | null {
 
 const SECTION_LABEL = "text-xs font-semibold uppercase tracking-wide";
 
-function CopyFormulaButton({ formula }: { formula: string }) {
+function CopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
     try {
-      await navigator.clipboard.writeText(formula);
+      await navigator.clipboard.writeText(value);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch {
@@ -194,23 +194,24 @@ function CopyFormulaButton({ formula }: { formula: string }) {
   );
 }
 
-function EntryCard({ entry }: { entry: ReviewerEntry }) {
+/** Formula-focused card: large mathematical notation is the visual focus. */
+function FormulaCard({ entry }: { entry: ReviewerEntry }) {
   const formulaLines = entry.formula ? splitFormulaLines(entry.formula) : [];
   const varPairs = entry.variables ? parseVariables(entry.variables) : null;
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4">
+    <div data-slot="card" className="rounded-lg border border-border bg-card p-4">
       <p className="text-base leading-snug font-semibold text-foreground">{entry.title}</p>
       <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground/80">
         {entry.topic_name}
         {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
       </p>
 
-      {entry.kind === "formula" && formulaLines.length > 0 && (
+      {formulaLines.length > 0 && (
         <div className="mt-2.5 rounded-md bg-primary/5 px-3 py-2.5">
           <div className="flex items-center justify-between gap-2">
             <p className={`${SECTION_LABEL} text-primary/70`}>Formula</p>
-            {entry.formula && <CopyFormulaButton formula={entry.formula} />}
+            {entry.formula && <CopyButton value={entry.formula} />}
           </div>
           <div className="mt-1 space-y-1">
             {formulaLines.map((line, i) => (
@@ -219,28 +220,6 @@ function EntryCard({ entry }: { entry: ReviewerEntry }) {
               </p>
             ))}
           </div>
-        </div>
-      )}
-
-      {entry.kind === "constant" && (entry.symbol || entry.value) && (
-        <div className="mt-2.5 rounded-md bg-primary/5 px-3 py-2.5">
-          <p className={`${SECTION_LABEL} text-primary/70`}>Value</p>
-          <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            {entry.symbol && <span className="font-mono text-[15px] font-medium text-foreground">{renderFormula(entry.symbol)}</span>}
-            {entry.value && (
-              <span className="font-mono text-[15px] font-medium text-foreground">
-                = {entry.value}
-                {entry.unit ? ` ${entry.unit}` : ""}
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-
-      {entry.kind === "table" && entry.table_content && (
-        <div className="mt-2.5">
-          <p className={`${SECTION_LABEL} text-primary/70`}>Table</p>
-          <pre className="mt-1 overflow-x-auto rounded-md bg-muted p-2 text-xs whitespace-pre-wrap">{entry.table_content}</pre>
         </div>
       )}
 
@@ -276,8 +255,139 @@ function EntryCard({ entry }: { entry: ReviewerEntry }) {
   );
 }
 
+/**
+ * Compact "quick reference" card: the value is the visual focus, everything
+ * else (name, symbol, context) is deliberately smaller so the number a
+ * student is scanning for jumps out first.
+ */
+function ConstantCard({ entry }: { entry: ReviewerEntry }) {
+  const copyValue = entry.value ? `${entry.value}${entry.unit ? ` ${entry.unit}` : ""}` : null;
+
+  return (
+    <div data-slot="card" className="flex flex-col rounded-lg border border-border bg-card p-3">
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[10px] leading-snug font-semibold text-muted-foreground uppercase tracking-wide">{entry.title}</p>
+        {copyValue && <CopyButton value={copyValue} />}
+      </div>
+
+      {entry.symbol && <p className="mt-1 font-mono text-sm text-primary/80">{renderFormula(entry.symbol)}</p>}
+
+      {entry.value && (
+        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5">
+          <span className="font-mono text-2xl leading-none font-bold text-foreground tabular-nums">
+            {renderFormula(entry.value)}
+          </span>
+          {entry.unit && <span className="text-xs text-muted-foreground">{entry.unit}</span>}
+        </div>
+      )}
+
+      {entry.description && <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{entry.description}</p>}
+      {entry.notes && <p className="mt-1.5 text-[11px] leading-snug text-gold">⚠ {entry.notes}</p>}
+
+      <p className="mt-auto pt-1.5 text-[10px] leading-snug text-muted-foreground/70">
+        {entry.topic_name}
+        {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
+      </p>
+    </div>
+  );
+}
+
+type ParsedTable = { headers: string[]; rows: string[][] };
+
+// table_content is meant to be authored as a markdown pipe table:
+//   | Property | Symbol | Value | Unit |
+//   |---|---|---|---|
+//   | Density | ρ | 998.2 | kg/m³ |
+// Any text that doesn't confidently match that shape (every non-blank line
+// containing "|", a valid "---" separator row, and every row the same
+// column count as the header) is left as null so the caller can fall back
+// to displaying the original text unchanged.
+function parseMarkdownTable(text: string): ParsedTable | null {
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  if (lines.length < 3 || !lines.every((l) => l.includes("|"))) return null;
+
+  function splitRow(line: string): string[] {
+    let s = line.trim();
+    if (s.startsWith("|")) s = s.slice(1);
+    if (s.endsWith("|")) s = s.slice(0, -1);
+    return s.split("|").map((c) => c.trim());
+  }
+
+  const headers = splitRow(lines[0]);
+  const separator = splitRow(lines[1]);
+  if (separator.length !== headers.length || !separator.every((c) => /^:?-{2,}:?$/.test(c))) return null;
+
+  const rows = lines.slice(2).map(splitRow);
+  if (rows.some((r) => r.length !== headers.length)) return null;
+
+  return { headers, rows };
+}
+
+/** Dense, full-width reference table optimized for scanning, not a card grid. */
+function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
+  const parsed = entry.table_content ? parseMarkdownTable(entry.table_content) : null;
+
+  return (
+    <div data-slot="card" className="rounded-lg border border-border bg-card p-4">
+      <p className="text-base leading-snug font-semibold text-foreground">{entry.title}</p>
+      <p className="mt-0.5 text-[11px] leading-snug text-muted-foreground/80">
+        {entry.topic_name}
+        {entry.subtopic_name ? ` · ${entry.subtopic_name}` : ""}
+      </p>
+      {entry.description && <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{entry.description}</p>}
+
+      {parsed ? (
+        <div className="mt-2.5 max-h-96 overflow-auto rounded-md border border-border/60">
+          <table className="w-full min-w-max border-collapse text-sm">
+            <thead className="sticky top-0 bg-muted">
+              <tr>
+                {parsed.headers.map((h, i) => (
+                  <th
+                    key={i}
+                    className="border-b border-border px-3 py-1.5 text-left text-xs font-semibold whitespace-nowrap text-muted-foreground uppercase tracking-wide"
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border/50">
+              {parsed.rows.map((row, ri) => (
+                <tr key={ri} className={ri % 2 === 1 ? "bg-muted/25" : ""}>
+                  {row.map((cell, ci) => (
+                    <td key={ci} className="px-3 py-1.5 whitespace-nowrap text-foreground">
+                      {renderFormula(cell)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        entry.table_content && (
+          <pre className="mt-2.5 overflow-x-auto rounded-md bg-muted p-2.5 text-xs whitespace-pre-wrap">{entry.table_content}</pre>
+        )
+      )}
+
+      {entry.notes && <p className="mt-2 text-xs text-gold">⚠ {entry.notes}</p>}
+    </div>
+  );
+}
+
 /** Groups one kind's filtered entries under their TOS, collapsed by default — a search match auto-expands only the TOS group(s) it's actually in. */
-function TosGroupedEntries({ entries, isSearching }: { entries: ReviewerEntry[]; isSearching: boolean }) {
+function TosGroupedEntries({
+  entries,
+  isSearching,
+  kind,
+}: {
+  entries: ReviewerEntry[];
+  isSearching: boolean;
+  kind: ReviewerEntry["kind"];
+}) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set());
 
   const groups = useMemo(() => {
@@ -318,11 +428,25 @@ function TosGroupedEntries({ entries, isSearching }: { entries: ReviewerEntry[];
                 </span>
               </CollapsibleTrigger>
               <CollapsibleContent open={open}>
-                <div className="grid grid-cols-1 items-start gap-2.5 px-3 pb-3 sm:grid-cols-2">
-                  {group.entries.map((entry) => (
-                    <EntryCard key={entry.id} entry={entry} />
-                  ))}
-                </div>
+                {kind === "table" ? (
+                  <div className="space-y-3 px-3 pb-3">
+                    {group.entries.map((entry) => (
+                      <TableEntryCard key={entry.id} entry={entry} />
+                    ))}
+                  </div>
+                ) : kind === "constant" ? (
+                  <div className="grid grid-cols-1 gap-2.5 px-3 pb-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                    {group.entries.map((entry) => (
+                      <ConstantCard key={entry.id} entry={entry} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 items-start gap-2.5 px-3 pb-3 sm:grid-cols-2">
+                    {group.entries.map((entry) => (
+                      <FormulaCard key={entry.id} entry={entry} />
+                    ))}
+                  </div>
+                )}
               </CollapsibleContent>
             </Collapsible>
           </div>
@@ -339,7 +463,7 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
     const q = search.trim().toLowerCase();
     if (!q) return entries;
     return entries.filter((e) =>
-      [e.title, e.description, e.topic_name, e.exam_area_name, e.subject_name, e.subtopic_name, e.symbol, e.formula]
+      [e.title, e.description, e.topic_name, e.exam_area_name, e.subject_name, e.subtopic_name, e.symbol, e.formula, e.value, e.unit]
         .filter(Boolean)
         .some((f) => f!.toLowerCase().includes(q)),
     );
@@ -353,7 +477,7 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
       <Input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by title, area, subject, topic…"
+        placeholder="Search by title, symbol, value, area, subject, topic…"
         className="mb-4 max-w-md"
       />
 
@@ -376,7 +500,7 @@ export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: Rev
                     : "No matches for your search."}
                 </p>
               ) : (
-                <TosGroupedEntries entries={byKind(kind)} isSearching={isSearching} />
+                <TosGroupedEntries entries={byKind(kind)} isSearching={isSearching} kind={kind} />
               )}
             </div>
           </TabsContent>
