@@ -172,6 +172,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
   const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
   const isRecalled = formData.get("isRecalled") === "on";
   const recalledBatch = isRecalled ? String(formData.get("recalledBatch") ?? "").trim() || null : null;
+  const isPaes = formData.get("isPaes") === "on";
+  const paesReference = isPaes ? String(formData.get("paesReference") ?? "").trim() || null : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { error: qErr } = await supabase
@@ -185,6 +187,8 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
       category,
       is_recalled: isRecalled,
       recalled_batch: recalledBatch,
+      is_paes: isPaes,
+      paes_reference: paesReference,
       updated_at: new Date().toISOString(),
     })
     .eq("id", questionId);
@@ -236,6 +240,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
   const category = categoryRaw === "term" || categoryRaw === "solving" ? categoryRaw : null;
   const isRecalled = formData.get("isRecalled") === "on";
   const recalledBatch = isRecalled ? String(formData.get("recalledBatch") ?? "").trim() || null : null;
+  const isPaes = formData.get("isPaes") === "on";
+  const paesReference = isPaes ? String(formData.get("paesReference") ?? "").trim() || null : null;
   if (!questionText) throw new Error("Question text is required.");
 
   const { data: newQuestion, error: qErr } = await supabase
@@ -250,6 +256,8 @@ export async function createQuestion(topicId: string, formData: FormData) {
       category,
       is_recalled: isRecalled,
       recalled_batch: recalledBatch,
+      is_paes: isPaes,
+      paes_reference: paesReference,
       status: "draft",
       created_by: user?.id,
     })

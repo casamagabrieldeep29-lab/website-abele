@@ -30,7 +30,7 @@ export default async function AdminTopicContentPage({
 
   const { data: allQuestions } = await supabase
     .from("questions")
-    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, is_recalled, recalled_batch, choices(id, choice_text, is_correct, sort_order)")
+    .select("id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, is_recalled, recalled_batch, is_paes, paes_reference, choices(id, choice_text, is_correct, sort_order)")
     .eq("topic_id", topicId)
     .order("created_at");
 
@@ -145,9 +145,14 @@ export default async function AdminTopicContentPage({
                 <label className="text-xs font-medium text-muted-foreground">Explanation</label>
                 <textarea
                   name="explanation"
-                  rows={2}
+                  rows={4}
+                  placeholder={"Renders as markdown. For a worked solution:\n### Step 1: ...\n```\nyield = 20,000 m2 × 0.60 kg/m2 = 12,000 kg\n```"}
                   className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                 />
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  Supports markdown: <code>### Step 1: ...</code> headings and a fenced <code>```</code> block
+                  render as a boxed calculation step, matching Teach Me This&apos;s formatting.
+                </p>
               </div>
               <div className="grid grid-cols-[1fr_auto] gap-3">
                 <div className="space-y-1">
@@ -179,6 +184,17 @@ export default async function AdminTopicContentPage({
                 <input
                   name="recalledBatch"
                   placeholder="Which exam sitting, e.g. September 2025 ABE Board Exam"
+                  className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+                />
+              </div>
+              <div className="space-y-1.5 rounded-md border border-border bg-muted/30 p-2">
+                <label className="flex items-center gap-2 text-xs font-medium">
+                  <input type="checkbox" name="isPaes" className="h-3.5 w-3.5 rounded border-border" />
+                  PAES question (specifically tests a Philippine Agricultural Engineering Standard)
+                </label>
+                <input
+                  name="paesReference"
+                  placeholder="Which standard, e.g. PAES 204:2015"
                   className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                 />
               </div>

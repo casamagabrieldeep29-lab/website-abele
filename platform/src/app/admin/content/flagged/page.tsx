@@ -20,7 +20,7 @@ export default async function FlaggedQuestionsPage() {
   const { data: questions } = await supabase
     .from("questions")
     .select(
-      "id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, is_recalled, recalled_batch, topic_id, topics(name, mock_area), choices(id, choice_text, is_correct, sort_order)"
+      "id, question_text, difficulty, status, explanation, additional_mock_areas, series_key, series_position, category, is_recalled, recalled_batch, is_paes, paes_reference, topic_id, topics(name, mock_area), choices(id, choice_text, is_correct, sort_order)"
     )
     .ilike("explanation", "%FLAGGED FOR REVIEW%")
     .neq("status", "archived")

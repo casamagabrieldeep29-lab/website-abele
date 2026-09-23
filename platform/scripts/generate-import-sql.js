@@ -93,13 +93,15 @@ function main() {
       const difficulty = DIFFICULTY_MAP[q.diff] || q.diff || null;
       const isRecalled = Boolean(q.recalled_batch);
       const recalledBatch = q.recalled_batch || null;
+      const isPaes = Boolean(q.is_paes || q.paes_reference);
+      const paesReference = q.paes_reference || null;
 
       out.push("");
       out.push(`  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = ${sqlStr(q.q)};`);
       out.push(`  IF v_question_id IS NULL THEN`);
-      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch)`);
+      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)`);
       out.push(
-        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, ${sqlStr(author)}, ${sqlStr(sourceRef)}, 'draft', ${isRecalled}, ${sqlStr(recalledBatch)})`
+        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, ${sqlStr(author)}, ${sqlStr(sourceRef)}, 'draft', ${isRecalled}, ${sqlStr(recalledBatch)}, ${isPaes}, ${sqlStr(paesReference)})`
       );
       out.push(`    RETURNING id INTO v_question_id;`);
       out.push("");
