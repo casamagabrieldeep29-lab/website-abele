@@ -206,8 +206,13 @@ export function PracticeSession({
         </p>
       )}
 
-      {/* Two columns on desktop/tablet (question left, solution right); stacked on mobile. */}
-      <div className="mt-4 grid grid-cols-1 items-start gap-4 lg:grid-cols-2">
+      {/* Two columns on wide desktop only (question left, solution right); stacked on
+          mobile AND tablet. Deliberately xl: (1280px), not lg: (1024px) — 1024px is
+          exactly iPad landscape width, and a sticky side-by-side panel at that width
+          has caused unresponsive answer buttons on older iPadOS Safari (position:
+          sticky rendering glitch overlapping the choice buttons). Stacking avoids
+          sticky positioning entirely on any tablet, not just the reported device. */}
+      <div className="mt-4 grid grid-cols-1 items-start gap-4 xl:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
@@ -311,7 +316,7 @@ export function PracticeSession({
 
         {/* Solution panel — independently scrollable/sticky on large screens so it
             stays visible alongside a long question without pushing the page down. */}
-        <Card className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+        <Card className="xl:sticky xl:top-4 xl:max-h-[calc(100vh-2rem)] xl:overflow-y-auto">
           <CardHeader>
             <CardTitle className="text-sm text-muted-foreground">Solution</CardTitle>
           </CardHeader>
