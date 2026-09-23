@@ -11,7 +11,7 @@ import { completePracticeAttempt } from "../actions";
 import { saveNote } from "../notes-actions";
 import { setBookmark } from "../bookmarks-actions";
 import { TeachMeThis } from "@/components/teach-me-this";
-import { AIMarkdown } from "@/components/ai-markdown";
+import { ExplanationDisplay } from "@/components/explanation-display";
 import { studentFacingExplanation } from "@/lib/explanation";
 
 export type PracticeChoice = { id: string; text: string };
@@ -332,7 +332,7 @@ export function PracticeSession({
                 </p>
                 {feedback.explanation && (
                   <div className="mt-2">
-                    <AIMarkdown text={feedback.explanation} />
+                    <ExplanationDisplay text={feedback.explanation} />
                   </div>
                 )}
                 <TeachMeThis
