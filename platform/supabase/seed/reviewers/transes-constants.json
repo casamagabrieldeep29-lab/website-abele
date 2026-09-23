@@ -1,0 +1,117 @@
+{
+  "_meta": {
+    "source": "Private ABE review compilation notes (2025), TRANSES collection",
+    "extraction_method": "Manually transcribed by reading rendered page images against the source PDFs, page by page, constants only.",
+    "extracted_date": "2026-09-23",
+    "status": "draft — not yet spot-checked by a second human reviewer; ready for DB import as status=draft, promote to published after review",
+    "privacy_note": "Source material's own attribution/branding intentionally NOT carried into any field, per explicit instruction — source is recorded generically only."
+  },
+  "topics": [
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "entries": [
+        { "kind": "constant", "title": "Bulk Density of Paddy", "symbol": null, "value": "576", "unit": "kg/m³", "description": "Standard bulk density value used in paddy storage and bin/silo design calculations." },
+        { "kind": "constant", "title": "Void (Air Space) of Paddy", "symbol": null, "value": "48", "unit": "%", "description": "Standard percentage of air space within a bulk volume of paddy, used in storage capacity and aeration calculations." },
+        { "kind": "constant", "title": "Kernel Specific Gravity of Paddy", "symbol": null, "value": "1.11", "unit": "dimensionless", "description": "Standard specific gravity of an individual paddy kernel, used in grain separation and handling calculations." },
+        { "kind": "constant", "title": "Angle of Repose of Paddy", "symbol": null, "value": "36", "unit": "degrees", "description": "Standard angle of repose used when designing storage bins, hoppers, and conveying systems for paddy." },
+        { "kind": "constant", "title": "Husk Density, Well-Packed", "symbol": null, "value": "128", "unit": "kg/m³", "description": "Standard density of rice husk when well-packed, used in storage volume calculations." },
+        { "kind": "constant", "title": "Husk Density, Loosely Packed", "symbol": null, "value": "117", "unit": "kg/m³", "description": "Standard density of rice husk when loosely packed, used in storage volume calculations." },
+        { "kind": "constant", "title": "Free Load Density of Rice Husk", "symbol": null, "value": "125", "unit": "kg/m³", "description": "Approximate free-load (loose, unpacked) density of rice husk used in bulk handling calculations." },
+        { "kind": "constant", "title": "Bushel to Cubic Feet Conversion", "symbol": "1 bu", "value": "1.25", "unit": "ft³", "description": "Standard volumetric equivalence used to convert bushels to cubic feet in grain measurement." },
+        { "kind": "constant", "title": "Standard Bushel Weight of Shelled Corn", "symbol": null, "value": "56", "unit": "lb/bu", "description": "Government grain-standard weight defining one bushel of shelled corn at 15.5% moisture content, wet basis, used as a standard trading unit." },
+        { "kind": "constant", "title": "Standard Height of a Stacked Paddy Bag", "symbol": null, "value": "0.27", "unit": "m", "description": "Standard height of a gunny bag of paddy used in bag-storage stacking calculations." }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Hydrology",
+      "entries": [
+        { "kind": "constant", "title": "Standard Atmospheric Pressure", "symbol": null, "value": "101.325", "unit": "kPa", "description": "Standard atmospheric pressure at sea level, also equal to 101.325 millibar; used as a reference value in barometric pressure and evapotranspiration calculations." },
+        { "kind": "constant", "title": "Manning Equation Unit Conversion Factor (SI Units)", "symbol": "k", "value": "1", "unit": "dimensionless", "description": "Constant used in the Manning slope-area equation for streamflow measurement when working in SI (metric) units." },
+        { "kind": "constant", "title": "Manning Equation Unit Conversion Factor (English Units)", "symbol": "k", "value": "1.486", "unit": "dimensionless", "description": "Constant used in the Manning slope-area equation for streamflow measurement when working in English (imperial) units." },
+        { "kind": "constant", "title": "Assumed Pump Efficiency for Brake Horsepower Calculation", "symbol": "Ep", "value": "55", "unit": "%", "description": "Typical assumed pump efficiency value used in brake horsepower calculations for well pumps when an actual efficiency is not specified." },
+        { "kind": "constant", "title": "Standard Allowance for Other Head Losses in Total Dynamic Head", "symbol": "Hsf", "value": "0.6", "unit": "m", "description": "Standard assumed allowance, equivalent to 2 ft, added to total dynamic head calculations to account for other head losses in well pump design when a specific value is not available." },
+        { "kind": "constant", "title": "Standard Gravitational Acceleration", "symbol": "g", "value": "9.81", "unit": "m/s²", "description": "Standard value used for gravity in open channel flow computations such as the Froude number and critical flow equations; equivalent to 32.2 ft/s²." }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "entries": [
+        { "kind": "constant", "title": "Standard Density of Water", "symbol": "ρw", "value": "1000", "unit": "kg/m³", "description": "Standard density of water used in soil-water volume and moisture content relationships, equivalent to 1 g/cm³, unless a location-specific value is given." },
+        { "kind": "constant", "title": "Average Particle Density of Soil Solids", "symbol": "ρP", "value": "2.65", "unit": "g/cc", "description": "Typical average value for the particle (mineral) density of soil solids, used in porosity and specific gravity calculations when a measured value is not provided." },
+        { "kind": "constant", "title": "Standard Atmospheric Pressure", "symbol": null, "value": "14.7", "unit": "psi", "description": "Standard atmospheric pressure, equivalent to a column of 76.9 cm of mercury or 34.01 ft (10.34 m) of water; used as a reference in soil moisture tension discussions." },
+        { "kind": "constant", "title": "Soil Moisture Tension at Permanent Wilting Point", "symbol": null, "value": "15", "unit": "atm", "description": "Standard soil moisture tension value at which plants can no longer extract water and permanently wilt; defines the permanent wilting point." },
+        { "kind": "constant", "title": "Readily Available Moisture Fraction", "symbol": null, "value": "75", "unit": "%", "description": "Standard fraction of the available moisture, between field capacity and permanent wilting point, considered readily extractable by plant roots; used to compute readily available moisture (RAM)." }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Pumps",
+      "entries": [
+        { "kind": "constant", "title": "Standard Atmospheric Pressure at Sea Level", "symbol": null, "value": "14.7", "unit": "psi", "description": "Atmospheric pressure exerted on a water surface at sea level; equivalent to 10,200 kgf/m² or 1 bar. Decreases above sea level and increases below it." },
+        { "kind": "constant", "title": "Specific Weight of Water", "symbol": "ρ", "value": "1000", "unit": "kg/m³", "description": "Standard specific weight of water used in pump suction lift and head calculations; equivalent to 0.0361 lb/in³." },
+        { "kind": "constant", "title": "Theoretical Maximum Suction Lift", "symbol": null, "value": "33", "unit": "ft", "description": "Theoretical upper limit on suction lift set by standard atmospheric pressure acting on water, used as a ceiling when computing Net Positive Suction Head." },
+        { "kind": "constant", "title": "Practical Suction Lift", "symbol": null, "value": "25", "unit": "ft", "description": "Practical allowable suction lift for pump installations after accounting for impurities and frictional losses; equivalent to 7.62 m. Lower than the theoretical maximum of 33 ft." },
+        { "kind": "constant", "title": "Pump Brake Horsepower Constant (US Units)", "symbol": null, "value": "3960", "unit": "gpm·ft/hp", "description": "Conversion constant used to compute pump brake horsepower directly from flow rate in gpm and total dynamic head in feet." }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Internal Combustion Engine",
+      "entries": [
+        { "kind": "constant", "title": "Horsepower-Hour to BTU Conversion", "symbol": null, "value": "2545", "unit": "BTU/hp-hr", "description": "Standard conversion factor between one horsepower-hour and British thermal units, used in engine energy and fuel consumption calculations." },
+        { "kind": "constant", "title": "Horsepower to Foot-Pounds per Minute Conversion", "symbol": null, "value": "33000", "unit": "ft-lb/min per hp", "description": "Standard conversion factor defining one horsepower in terms of work rate, used in engine power calculations." },
+        { "kind": "constant", "title": "Density of Gasoline", "symbol": null, "value": "6.13", "unit": "lb/gal", "description": "Standard reference density of gasoline used for fuel weight-volume conversions in engine fuel consumption problems." }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Renewable and Alternative Farm Power Sources",
+      "entries": [
+        { "kind": "constant", "title": "Solar Constant", "symbol": null, "value": "1353", "unit": "W/m²", "description": "Fixed amount of solar energy reaching the top of Earth's atmosphere per second on one square meter facing the sun; used as the baseline value for solar power calculations." },
+        { "kind": "constant", "title": "Typical Hydropower Plant Efficiency", "symbol": null, "value": "60", "unit": "%", "description": "Commonly used typical energy conversion efficiency value for small-scale hydropower plant calculations." },
+        { "kind": "constant", "title": "Total Human Power Output", "symbol": null, "value": "0.5", "unit": "hp", "description": "Total power a human can develop from the food energy consumed, used as a baseline for human-powered equipment calculations." },
+        { "kind": "constant", "title": "Human Power Available for Useful Work", "symbol": null, "value": "0.1", "unit": "hp", "description": "Portion of a human's total power output that is available for external useful work, with the remainder used for internal body functions." },
+        { "kind": "constant", "title": "Minimum Daily Human Energy Requirement", "symbol": null, "value": "2000", "unit": "cal/day", "description": "Baseline minimum caloric energy requirement per day used in human power capacity calculations." },
+        { "kind": "constant", "title": "Human Energy Conversion Efficiency", "symbol": null, "value": "25", "unit": "%", "description": "Typical efficiency at which a human converts consumed food energy into mechanical work output." }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Surveying",
+      "entries": [
+        { "kind": "constant", "title": "Mercury Barometer Altitude Conversion Factor", "symbol": null, "value": "108", "unit": "m per cm Hg", "description": "Approximate change in altitude corresponding to a 1 cm change in mercury column height, used as a rough estimate in barometric leveling." },
+        { "kind": "constant", "title": "Stadia Interval Factor", "symbol": "K", "value": "100", "unit": "dimensionless", "description": "Standard multiplying constant of a stadia-equipped telescope, used in the stadia distance formula D = Ks + C." },
+        { "kind": "constant", "title": "Standard Subtense Bar Length", "symbol": "s", "value": "2", "unit": "m", "description": "Standard length of the subtense bar used in the subtense bar method of measuring horizontal distances." },
+        { "kind": "constant", "title": "Coefficient of Linear Thermal Expansion of Steel (Tape Correction)", "symbol": "α", "value": "0.0000116", "unit": "per °C", "description": "Standard coefficient used to correct steel tape measurements for changes in temperature." },
+        { "kind": "constant", "title": "Unit Weight of Steel (Tape Correction)", "symbol": "γ", "value": "7.866 x 10^-3", "unit": "kg/cm³", "description": "Standard unit weight of steel used when computing sag and tension corrections for steel measuring tapes." },
+        { "kind": "constant", "title": "Modulus of Elasticity of Steel (Tape Correction)", "symbol": "E", "value": "2.00 x 10^6 to 2.10 x 10^6", "unit": "kg/cm²", "description": "Standard range of modulus of elasticity for steel used in tension-correction computations for steel measuring tapes." }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "entries": [
+        { "kind": "constant", "title": "Ordinary Year (Banker's Year)", "symbol": null, "value": "360", "unit": "days", "description": "Standard number of days per year (12 months of 30 days each) used when computing ordinary simple interest." },
+        { "kind": "constant", "title": "Exact Year", "symbol": null, "value": "365", "unit": "days", "description": "Actual number of days in a calendar year (366 in a leap year) used when computing exact simple interest." }
+      ]
+    },
+    {
+      "exam_area_code": "MATH_BASIC_ENGG",
+      "topic_name": "Fluid Mechanics",
+      "entries": [
+        { "kind": "constant", "title": "Standard Density of Water", "symbol": "ρ", "value": "1000", "unit": "kg/m³", "description": "Standard reference density of water at 4°C, commonly used as the baseline for specific gravity calculations." },
+        { "kind": "constant", "title": "Standard Density of Mercury", "symbol": "ρ", "value": "13600", "unit": "kg/m³", "description": "Standard density of mercury, commonly used in manometer and pressure-measurement calculations." },
+        { "kind": "constant", "title": "Standard Atmospheric Pressure at Sea Level", "symbol": "P_atm", "value": "101.325", "unit": "kPa", "description": "Standard reference atmospheric pressure at sea level, also commonly expressed as 14.7 psi, 760 mmHg, or 2116 lb/ft², used for converting between gauge and absolute pressure." },
+        { "kind": "constant", "title": "Poise to Pascal-Second Conversion", "symbol": null, "value": "0.1", "unit": "Pa·s per poise", "description": "Standard conversion factor between the poise and the SI unit of dynamic viscosity: 1 poise = 0.1 Pa·s." },
+        { "kind": "constant", "title": "Stoke to Square Meter per Second Conversion", "symbol": null, "value": "0.0001", "unit": "m²/s per stoke", "description": "Standard conversion factor between the stoke and the SI unit of kinematic viscosity: 1 stoke = 0.0001 m²/s." },
+        { "kind": "constant", "title": "Horsepower to Watts Conversion", "symbol": null, "value": "746", "unit": "W per hp", "description": "Standard conversion factor between horsepower and watts, used in pump and fluid power calculations." },
+        { "kind": "constant", "title": "Horsepower to Foot-Pounds per Second Conversion", "symbol": null, "value": "550", "unit": "ft·lb/s per hp", "description": "Standard conversion factor between horsepower and foot-pounds per second, used in fluid power calculations." },
+        { "kind": "constant", "title": "Reynolds Number Laminar Flow Threshold", "symbol": "Re", "value": "2000", "unit": "dimensionless", "description": "Standard upper limit of the Reynolds number below which pipe flow is considered laminar." },
+        { "kind": "constant", "title": "Reynolds Number Turbulent Flow Threshold", "symbol": "Re", "value": "4000", "unit": "dimensionless", "description": "Standard lower limit of the Reynolds number above which pipe flow is considered turbulent." }
+      ]
+    }
+  ]
+}
