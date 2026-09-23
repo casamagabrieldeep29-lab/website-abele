@@ -110,7 +110,13 @@ export default async function AdminReviewersPage() {
                     <input name="value" defaultValue={e.value ?? ""} placeholder="Value" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                     <input name="unit" defaultValue={e.unit ?? ""} placeholder="Unit" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                   </div>
-                  <textarea name="tableContent" defaultValue={e.table_content ?? ""} placeholder="Table content (plain text/markdown)" rows={3} className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs" />
+                  <textarea
+                    name="tableContent"
+                    defaultValue={e.table_content ?? ""}
+                    placeholder={"Renders as a table when formatted as markdown:\n| Property | Symbol | Value | Unit |\n|---|---|---|---|\n| Density | ρ | 998.2 | kg/m³ |"}
+                    rows={4}
+                    className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs"
+                  />
                   <textarea name="description" defaultValue={e.description ?? ""} placeholder="Description" rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                   <input name="notes" defaultValue={e.notes ?? ""} placeholder="Notes / important reminders" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                   <Button type="submit" size="sm">
@@ -164,7 +170,12 @@ export default async function AdminReviewersPage() {
                 <input name="value" placeholder="Value" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                 <input name="unit" placeholder="Unit" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               </div>
-              <textarea name="tableContent" placeholder="Table content (plain text/markdown)" rows={3} className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs" />
+              <textarea
+                name="tableContent"
+                placeholder={"Renders as a table when formatted as markdown:\n| Property | Symbol | Value | Unit |\n|---|---|---|---|\n| Density | ρ | 998.2 | kg/m³ |"}
+                rows={4}
+                className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs"
+              />
               <textarea name="description" placeholder="Description" rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <input name="notes" placeholder="Notes / important reminders" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <Button type="submit" size="sm">
