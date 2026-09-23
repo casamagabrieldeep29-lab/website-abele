@@ -61,6 +61,7 @@ export function PracticeSession({
   );
   const [selectedChoiceId, setSelectedChoiceId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [correctSoFar, setCorrectSoFar] = useState(
     initialAnswers.filter((a) => a.is_correct).length,
   );
@@ -71,18 +72,21 @@ export function PracticeSession({
   const question = questions[index];
   const isLast = index === questions.length - 1;
 
-  async function handleSubmit() {
-    if (!selectedChoiceId) return;
+  async function selectChoice(choiceId: string) {
+    if (feedback || submitting) return;
+    setSelectedChoiceId(choiceId);
+    setSubmitting(true);
     setError(null);
     const supabase = createClient();
     const { data, error: submitError } = await supabase.rpc("submit_attempt_answer", {
       p_attempt_id: attemptId,
       p_question_id: question.id,
-      p_selected_choice_ids: [selectedChoiceId],
+      p_selected_choice_ids: [choiceId],
     });
 
     if (submitError) {
       setError("Couldn't submit your answer. Check your connection and try again.");
+      setSubmitting(false);
       return;
     }
 
@@ -93,6 +97,7 @@ export function PracticeSession({
       explanation: studentFacingExplanation(result.explanation),
     });
     if (result.is_correct) setCorrectSoFar((n) => n + 1);
+    setSubmitting(false);
   }
 
   function handleNext() {
@@ -243,8 +248,8 @@ export function PracticeSession({
                   <button
                     key={choice.id}
                     type="button"
-                    disabled={showResult}
-                    onClick={() => setSelectedChoiceId(choice.id)}
+                    disabled={showResult || submitting}
+                    onClick={() => selectChoice(choice.id)}
                     className={`w-full rounded-lg border-2 px-4 py-3.5 text-left text-sm font-medium transition-colors ${
                       showResult
                         ? isCorrectChoice
@@ -301,14 +306,9 @@ export function PracticeSession({
                   {isLast ? "Finish" : "Next question"}
                 </Button>
               ) : (
-                <>
-                  <Button onClick={handleSubmit} disabled={!selectedChoiceId}>
-                    Submit answer
-                  </Button>
-                  <Button variant="outline" onClick={handleNext} disabled={isPending}>
-                    Skip
-                  </Button>
-                </>
+                <Button variant="outline" onClick={handleNext} disabled={isPending || submitting}>
+                  Skip
+                </Button>
               )}
             </div>
           </CardContent>
