@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
 import { weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
+import type { MockArea } from "@/app/mock/actions";
 
 export async function startPracticeAttempt(topicId: string) {
   const supabase = await createClient();
@@ -160,6 +161,67 @@ export async function startPaesQuizAttempt(count: number) {
 
   if (error || !attempt) {
     throw new Error(error?.message ?? "Failed to start PAES quiz");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
+ * Recalled Questions quiz: pools every published question tagged
+ * is_recalled=true within one exam area (Area 1/2/3, the same split the
+ * /recalled reference page already tabs by) into one scored practice
+ * attempt. Every matching question is included rather than a random
+ * subset — these are a finite, specific set of past board-exam recalls a
+ * serious reviewee wants to work through in full, not a sample. Reuses an
+ * existing in-progress recalled quiz for the same area instead of starting
+ * a duplicate, the same reuse pattern startDailyQuestion uses below.
+ */
+export async function startRecalledQuiz(area: MockArea) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  if (!["area_1", "area_2", "area_3"].includes(area)) {
+    throw new Error("Invalid area.");
+  }
+
+  const { data: existing } = await supabase
+    .from("attempts")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("status", "in_progress")
+    .contains("config", { kind: "recalled", area })
+    .maybeSingle();
+
+  if (existing) {
+    redirect(`/practice/${existing.id}`);
+  }
+
+  const { data: candidates, error } = await supabase
+    .from("student_questions")
+    .select("id, series_key, series_position")
+    .eq("is_recalled", true)
+    .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`);
+  if (error) throw new Error(error.message);
+  if (!candidates || candidates.length === 0) {
+    throw new Error("No recalled questions in this area yet.");
+  }
+
+  const selected = await weighAndSampleCandidates(supabase, candidates, candidates.length);
+
+  const { data: attempt, error: insErr } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: selected.length,
+      config: { question_ids: selected, kind: "recalled", area },
+    })
+    .select("id")
+    .single();
+
+  if (insErr || !attempt) {
+    throw new Error(insErr?.message ?? "Failed to start recalled questions quiz");
   }
 
   redirect(`/practice/${attempt.id}`);
