@@ -34,7 +34,7 @@ const components: Components = {
   // actual arithmetic. `code`'s inline styling above still applies to the
   // <code> this wraps, so only the extra box/border/padding lives here.
   pre: ({ children }) => (
-    <pre className="mt-1.5 overflow-x-auto rounded-md border border-border bg-muted/40 p-2.5 font-mono text-xs leading-relaxed text-foreground first:mt-0 [&_code]:bg-transparent [&_code]:p-0">
+    <pre className="mt-1.5 whitespace-pre-wrap break-words rounded-md border border-border bg-muted/40 p-2.5 font-mono text-xs leading-relaxed text-foreground first:mt-0 [&_code]:bg-transparent [&_code]:p-0">
       {children}
     </pre>
   ),

@@ -81,7 +81,7 @@ export function ExplanationDisplay({ text }: { text: string }) {
       {parsed.steps.map((step, i) => (
         <div key={i} className="mt-2 first:mt-1.5">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">Step {i + 1}</p>
-          <pre className="mt-1 overflow-x-auto rounded-md border border-border bg-muted/40 p-2.5 font-mono text-xs leading-relaxed text-foreground">
+          <pre className="mt-1 whitespace-pre-wrap break-words rounded-md border border-border bg-muted/40 p-2.5 font-mono text-xs leading-relaxed text-foreground">
             {step}
           </pre>
         </div>
