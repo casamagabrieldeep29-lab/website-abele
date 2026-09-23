@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { startAreaMockExam, type MockArea } from "@/app/mock/actions";
 import { PageHeader } from "@/components/page-header";
@@ -84,13 +84,13 @@ export default async function MockExamSetupPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-6xl">
       <PageHeader
         title="Mock Exam"
         description={`The real PRC ABE board exam, simulated as-is: three separate subject exams, ${ITEM_COUNT} items each, ${TIME_LIMIT_HOURS} hours each, taken one area at a time. No feedback until you submit.`}
       />
 
-      <div className="mt-6 space-y-4">
+      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {AREA_ORDER.map((area) => {
           const meta = AREA_META[area];
           const count = areaCount[area];
@@ -100,9 +100,6 @@ export default async function MockExamSetupPage() {
             <Card key={area} className={meta.accent}>
               <CardHeader>
                 <CardTitle>{meta.label}</CardTitle>
-                <CardDescription className="uppercase tracking-wide">
-                  {TIME_LIMIT_HOURS}-hour timed exam - {ITEM_COUNT} items
-                </CardDescription>
               </CardHeader>
               <CardContent>
                 <MockTosList subjects={subjectList} />
