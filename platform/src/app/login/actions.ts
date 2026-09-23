@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { clearAuthFlowCookies, createClient } from "@/lib/supabase/server";
+import { getSiteUrl } from "@/lib/site-url";
 
 export type SendMagicLinkResult = { ok: true; email: string } | { ok: false; message: string };
 
@@ -16,7 +17,7 @@ export async function sendMagicLink(
   }
 
   const supabase = await createClient();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const siteUrl = await getSiteUrl();
 
   const { error } = await supabase.auth.signInWithOtp({
     email,
