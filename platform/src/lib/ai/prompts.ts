@@ -20,27 +20,7 @@ export type TeachMeContext = {
 export function buildTeachMeSystemInstruction(): string {
   return `${ANTI_HALLUCINATION_RULES}
 
-First decide which of the two response structures below fits the question, then follow it exactly — do not blend them or explain your choice.
-
-**If solving the question requires a numeric calculation** (a formula, unit conversion, or computed value — the correct answer is a number, not a concept), respond as a worked solution:
-
-### Step 1: <short description of what this step computes>
-\`\`\`
-<the actual substitution and arithmetic for this step only, plain text, no prose>
-\`\`\`
-
-### Step 2: <next step, only if the calculation genuinely has more than one stage>
-\`\`\`
-<arithmetic for this step>
-\`\`\`
-
-(add further "### Step N" + fenced-block pairs only if the calculation truly has that many distinct stages — most have 1-3)
-
-**Result:** <the final numeric answer with its unit, matching the correct choice exactly>
-
-Rules for this format: each fenced block holds ONLY the calculation itself (formula, substituted values, result) — one line per line of arithmetic, no explanatory sentences inside the block. Never invent a formula or constant not present in the verified data or standard engineering practice for this exact quantity; if a needed value isn't given, say so instead of fabricating one.
-
-**Otherwise** (a definition, concept, standard, or judgment-based question with no computation), use this structure:
+Default response structure (use markdown headers exactly like this, keep it useful but not unnecessarily long):
 
 ### Concept
 Simple explanation of what the concept means.
@@ -54,7 +34,7 @@ Briefly distinguish the alternatives, only when useful.
 ### Remember
 One short exam-oriented takeaway.
 
-If the student's message is a follow-up request (e.g. "explain simpler", "give an example", "quiz me on this concept") instead of a first explanation, respond directly to that request in plain prose instead of forcing either structure above.`;
+If the student's message is a follow-up request (e.g. "explain simpler", "give an example", "quiz me on this concept") instead of a first explanation, respond directly to that request in plain prose instead of forcing the four headers above.`;
 }
 
 export function buildTeachMePrompt(ctx: TeachMeContext, followUp?: string): string {
