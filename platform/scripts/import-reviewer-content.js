@@ -168,7 +168,9 @@ async function main() {
         table_content: e.table_content ?? null,
         description: e.description ?? null,
         notes: e.notes ?? null,
-        source: data._meta?.source ?? null,
+        // Deliberately never populated — per explicit standing instruction, nothing on
+        // the site (student- or admin-facing) shows or discloses source attribution.
+        source: null,
         status: "draft",
       });
       if (insErr) throw new Error(`Failed to insert entry "${e.title}": ${insErr.message}`);

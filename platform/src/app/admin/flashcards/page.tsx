@@ -84,7 +84,6 @@ export default async function AdminFlashcardsPage() {
               <textarea name="front" placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <textarea name="back" placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <TopicSubtopicFields topics={areaTopics} subtopics={subtopics ?? []} />
-              <input name="source" placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <Button type="submit" size="sm">
                 Add flashcard (as draft)
               </Button>

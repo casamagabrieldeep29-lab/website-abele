@@ -126,7 +126,6 @@ export function FlashcardsAdminBrowser({
                       <textarea name="front" defaultValue={c.front} placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                       <textarea name="back" defaultValue={c.back} placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                       <TopicSubtopicFields topics={topics} subtopics={subtopics} defaultTopicId={c.topic_id} defaultSubtopicId={c.subtopic_id} />
-                      <input name="source" defaultValue={c.source ?? ""} placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                       <Button type="submit" size="sm">
                         Save changes
                       </Button>

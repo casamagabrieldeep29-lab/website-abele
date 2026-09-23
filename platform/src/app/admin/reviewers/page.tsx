@@ -75,7 +75,7 @@ export default async function AdminReviewersPage() {
       <div className="mx-auto max-w-3xl px-6 py-10 space-y-4">
         <p className="text-sm text-muted-foreground">
           Tables, formulas, and constants for the student-facing Reviewers section. Never invent values — only
-          enter verified content, with a source where available.
+          enter verified content.
         </p>
 
         <PublishAllReviewerDraftsButton
@@ -113,7 +113,6 @@ export default async function AdminReviewersPage() {
                   <textarea name="tableContent" defaultValue={e.table_content ?? ""} placeholder="Table content (plain text/markdown)" rows={3} className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs" />
                   <textarea name="description" defaultValue={e.description ?? ""} placeholder="Description" rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                   <input name="notes" defaultValue={e.notes ?? ""} placeholder="Notes / important reminders" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <input name="source" defaultValue={e.source ?? ""} placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
                   <Button type="submit" size="sm">
                     Save changes
                   </Button>
@@ -168,7 +167,6 @@ export default async function AdminReviewersPage() {
               <textarea name="tableContent" placeholder="Table content (plain text/markdown)" rows={3} className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs" />
               <textarea name="description" placeholder="Description" rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <input name="notes" placeholder="Notes / important reminders" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-              <input name="source" placeholder="Source / reference" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <Button type="submit" size="sm">
                 Add entry (as draft)
               </Button>
