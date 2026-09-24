@@ -1,0 +1,1281 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "According to PAES 331:2022, what spray quality size shall be used for most products?",
+          "choices": [
+            "Very Fine",
+            "Fine",
+            "Medium",
+            "Coarse"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What shall be the minimum capacity of a LOKS?",
+          "choices": [
+            "22 liters",
+            "22 kg",
+            "10 liters",
+            "18 liters"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to PAES 204:2015, what is the capacity of a standard thresher?",
+          "choices": [
+            "1 – 1.5 tons/hr",
+            "0.5 – 1.5 tons/hr",
+            "0.5 – 2.5 tons/hr",
+            "0.3 – 1.5 tons/hr"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "PAES 153:2010. Lift type hand pump shall lift the water from cistern or well to",
+          "choices": [
+            "6 meters",
+            "7 meters",
+            "At least 8 meters",
+            "At least 6 meters"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Planters designed to plant seeds continuously in rows with row spacing greater than 36 cm is called:",
+          "choices": [
+            "row-crop drill planter",
+            "hill-drop planter",
+            "solid drill planter",
+            "broadcaster"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Tilt angle is the angle that the disk is tilted backward from the vertical usually at an angle",
+          "choices": [
+            "18 to 20 degrees",
+            "42 to 45 degrees",
+            "15 to 25 degrees",
+            "20 to 38 degrees"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For measuring the width of cut of disc plow for WTAT with nonadjustable plow disc blades, the tilt angle shall be set at",
+          "choices": [
+            "18 to 20 degrees",
+            "42 to 45 degrees",
+            "15 to 25 degrees",
+            "20 to 38 degrees"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Sprayers are used primarily for the application of:",
+          "choices": [
+            "herbicides",
+            "insecticides",
+            "fungicides",
+            "pesticides"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "You are tasked to manufacture a disc plow. Your finish product must be compliant with the PAES 121:2001 standard. The disc plow is designed to have 6 discs and disc spacing of 250 mm. The diameter of each of the disc is 800 mm. What should be indicated as the total width of cut in the manufactured disc plow?",
+          "choices": [
+            "1.570 m",
+            "2.570 m",
+            "1.535 m",
+            "1.665 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The test site for a rice reaper shall be carried out in a rectangular field with an area of",
+          "choices": [
+            "Not less than 500 sqm",
+            "Not less than 750 sqm",
+            "Not less than 1000 sqm",
+            "AOTA"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "PAES 224:2015. What is the minimum field efficiency for rice combine harvester?",
+          "choices": [
+            "75%",
+            "80%",
+            "85%",
+            "90%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In performance testing of heated-air mechanical dryer, data measurements shall be measured at what interval?",
+          "choices": [
+            "15 minutes",
+            "20 minutes",
+            "30 minutes",
+            "1 hour"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery, Power Units, and Workshop Management",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The following are engines manufactured in Japan except ______.",
+          "choices": [
+            "Honda",
+            "Robin",
+            "Kubota",
+            "MAG"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the simplest and oldest form of metal working operation. It is one of the methods by which metal was first worked. The metal is first heated to red heat in the fire, and then is beaten into shape on a metal anvil with hammers.",
+          "choices": [
+            "forging",
+            "casting",
+            "tempering",
+            "hot working"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A machine tool used to reduce the diameter of a metal.",
+          "choices": [
+            "Router",
+            "Lathe",
+            "Power drill",
+            "Shaper"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Power and Tractor Operation",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "While operating a 4-wheel tractor in the field, the engine suddenly loses power whenever the plow enters the soil. The tractor emits black smoke under load. What is the most likely problem?",
+          "choices": [
+            "Clogged air filter",
+            "Low engine oil",
+            "Worn clutch plate",
+            "Broken thermostat"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A tractor engine becomes unusually hot after only 20 minutes of operation. The radiator is full, and coolant is present, but the temperature continues to climb rapidly. What is the most likely cause?",
+          "choices": [
+            "Faulty ignition timing",
+            "Damaged radiator cap",
+            "Stuck thermostat",
+            "Fuel filter partially blocked"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "While starting the tractor early in the morning, the operator notices the engine cranks slowly and the lights dim, but the battery was just recharged yesterday. What is the most likely issue?",
+          "choices": [
+            "Weak fuel pump",
+            "Loose or corroded battery terminals",
+            "Faulty glow plugs",
+            "Dirty injector nozzles"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The first four-wheel tractor were brought to the Philippines during the American occupation for",
+          "choices": [
+            "Wetland rice cultivation",
+            "Upland and Lowland rice cultivation",
+            "Large-scale corn production",
+            "Large-scale sugarcane production"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to Barger, what is the standard RPM for tractor Power-take-off (PTO) shaft?",
+          "choices": [
+            "1500 rpm",
+            "1000 rpm",
+            "500 rpm",
+            "2000 rpm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "To slow down the tractor running at first gear in a flat land, what should be foot-pressed?",
+          "choices": [
+            "Clutch",
+            "Accelerator",
+            "Brake",
+            "Clutch and brake"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Agricultural Project Planning and Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "According to the National Irrigation Administration (NIA), water requirement for rice production is:",
+          "choices": [
+            "5 mm/day",
+            "10 mm/day",
+            "15 mm/day",
+            "20 mm/day"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If the specific yield of a particular well is 3 gpm/ft drawdown and the discharge rate of the pump is 3lps, the total drawdown is:",
+          "choices": [
+            "1 ft",
+            "3 ft",
+            "16 ft",
+            "18 ft"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "DD = Q/SY"
+        },
+        {
+          "q": "A farmer cannot afford to buy seeds and fertilizers needed for planting, struggling financially because he is also sending his kids to school. What type of government intervention will best help him start production?",
+          "choices": [
+            "Credit assistance",
+            "Post-harvest facilities",
+            "Farm-to-Market Road",
+            "Irrigation system"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "PERT is determined using three points. Which among those three is the least amount of time it can take to complete a task?",
+          "choices": [
+            "Optimistic",
+            "Pessimistic",
+            "Most likely",
+            "NOTA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Given a simple interest rate of 15% per year, the exact simple interest on P 24,000 for the period Feb. 10 to Sept. 22, 2018 is",
+          "choices": [
+            "P 2,199.45",
+            "P 2,219.18",
+            "P 2,209.32",
+            "P 2,229.04"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A person bought a gaming computer worth P65,000. It has a useful life of 4 years. At the end of its useful life it will have a salvage value of P9,000. Using the Sum of the Years method in calculating depreciation, how much will it depreciate in 3rd year?",
+          "choices": [
+            "P5,600",
+            "P11,200",
+            "P16,800",
+            "P22,400"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A cellphone costs P45,000 with a salvage value of P5,000. It has a useful life of 5 years. Using the declining balance method, how much will it depreciate in 5th year?",
+          "choices": [
+            "P656",
+            "P734",
+            "P832",
+            "P915"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In evaluating FS, what is the acceptable value of NPV for financial analysis and economic analysis?",
+          "choices": [
+            "&gt;0",
+            "&gt;1",
+            "&lt;1",
+            "NOTA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Among the following, that which can be classified as overhead cost is",
+          "choices": [
+            "Cost of plastic cups in a milk tea shop",
+            "Cost of power used to run plant equipment",
+            "Cost of silk fabric for a company that manufactures women's clothing",
+            "Wages of an injection machine operator in a plastics factory"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The following are characteristics of an ordinary annuity except",
+          "choices": [
+            "Compound interest is paid on all amounts in the annuity.",
+            "The amounts of periodic payments are equal.",
+            "The payments are made at equal interval of time.",
+            "The payments are made at the beginning of each period."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A method of computing for depreciation charges wherein the annual charge is a fixed percentage of the book value at the beginning of the year to which the depreciation applies.",
+          "choices": [
+            "Declining balance method",
+            "Sinking fund method",
+            "Straight line method",
+            "Sum-of-years digit method"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In deciding whether one should replace old machine with a new one, the purchase cost of the old machine is treated as a/an",
+          "choices": [
+            "overhead cost",
+            "opportunity cost",
+            "burden cost",
+            "sunk cost"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "At age 25, you invest P 100,000 into a mutual fund. If the fund averages an 8% annual return, your investment is worth how much at age 60?",
+          "choices": [
+            "P 1,369,013",
+            "P 1,596,817",
+            "P 1,478,534",
+            "P 10,125,706"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Engineering Metrology and Equipment",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What government agency acts as the head of the national metrology of the Philippines?",
+          "choices": [
+            "Department of Health",
+            "Department of Trade and Industry",
+            "Department of Science and Technology",
+            "Department of Agriculture"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A mango puree manufacturing plant would like to apply metrology in automated detection of abnormalities in the skin of sweet potato tubers to ascertain top quality puree. What class of metrology equipment is best?",
+          "choices": [
+            "Coordinate-system measurements",
+            "CT Scanner",
+            "Blue-light 3D Scanners",
+            "Laser scanners"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A cattle ranch needs to measure the height of the tallest body part of each of 10,000 animals every morning. What class of metrology equipment is best to be used in automating measurement?",
+          "choices": [
+            "Coordinate-system measurements",
+            "CT Scanner",
+            "Blue-light 3D Scanners",
+            "Laser scanners"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Farm Machinery and Mechanization, Economics, Management, and Marketing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "How many hectares can a standard rice combine harvester in the Philippines cover for a day?",
+          "choices": [
+            "2 ha",
+            "3 ha",
+            "4 ha",
+            "2.5 ha"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Before the adoption of mechanized harvest and post-harvest technologies for corn, field losses were",
+          "choices": [
+            "10 – 37%",
+            "10 – 30%",
+            "10%",
+            "30%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the theoretical field capacity of a 3-m combine traveling at 100 meters in 50 seconds?",
+          "choices": [
+            "0.03 ha/hr",
+            "0.57 ha/hr",
+            "1.45 ha/hr",
+            "2.16 ha/hr"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A field area 45 x 90 m² is to be prepared using a 1-m upland power tiller at a speed of 3.2 kph. Assume a 10% overlap between passing and 10 seconds turnaround time at the end of each pass. Determine the field capacity in going the shorter field direction.",
+          "choices": [
+            "0.22 ha/hr",
+            "0.23 ha/hr",
+            "0.24 ha/hr",
+            "0.25 ha/hr"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Several rice farmers in Nueva Ecija sell exactly the same variety of rice. No single farmer can set the price because buyers can easily switch to another supplier.",
+          "choices": [
+            "Perfect Competition",
+            "Monopolistic Competition",
+            "Oligopoly",
+            "Monopoly"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Fast-food chains like Jollibee, McDonald's, and KFC compete by offering similar but differentiated products, promotions, and branding.",
+          "choices": [
+            "Perfect Competition",
+            "Monopolistic Competition",
+            "Oligopoly",
+            "Monopoly"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Fuels and Lubricants",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Temperature where fuel stops flowing.",
+          "choices": [
+            "Fire point",
+            "Volatility",
+            "Flash point",
+            "Pour point"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Geographic Information System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In geographic information system, what does the variable \"y\" denote/represent?",
+          "choices": [
+            "Horizontal",
+            "Vertical",
+            "Tangential",
+            "Spatial"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What data does geoprocessing processes?",
+          "choices": [
+            "Raster data",
+            "Spatial data",
+            "Raw data",
+            "Agricultural data"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the function of input data/camera subsystem in GIS?",
+          "choices": [
+            "Transform data",
+            "Data acquisition",
+            "Store Data",
+            "Retrieve Data"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is also known as precision agriculture, leveraged technology to optimize farming practices.",
+          "choices": [
+            "Agriculture 1.0",
+            "Agriculture 2.0",
+            "Agriculture 3.0",
+            "Agriculture 4.0"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Internal Combustion Engine",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which of the following components of the engine is considered as its prime mover?",
+          "choices": [
+            "Crank Shaft",
+            "Spark Plug",
+            "Fuel Injector",
+            "Piston"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "________ is used in measuring the level of lubricating oil in the engine.",
+          "choices": [
+            "Oil pan",
+            "Oil sump",
+            "Dipstick",
+            "Manifold"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What part of the engine converts the piston's reciprocating motion into rotational motion?",
+          "choices": [
+            "Connecting Rod",
+            "Engine Bearing",
+            "Flywheel",
+            "Governor"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "four stroke, four-cylinder diesel engine, in one-hour dynamometer test, yielded the following data:\n\nFuel used ---------------------------------- 40.91 kg\nRPM ---------------------------------- 1200 rpm\nDynamometer reading ---------------- 113.64 kg\nDynamometer arm --------------- 61 cm\nSpecific gravity of fuel -------------- 0.8\nEngine cylinder ----------- 15.24 cm bore x 20.32 cm stroke\nHeating value of fuel ---------------- 41.77 MJ/kg\nCompression ratio ---------------- 22\n\nEstimate the brake power",
+          "choices": [
+            "13.58 kW",
+            "85 kW",
+            "42.5 kW",
+            "1534 kW"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The diesel engine is characterized as:",
+          "choices": [
+            "low initial cost – high operating cost",
+            "low initial cost – low operating cost",
+            "high initial cost – high operating cost",
+            "high initial cost – low operating cost"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Part of engine that manages the flow of air, fuel, and exhaust.",
+          "choices": [
+            "Valve",
+            "Carburetor",
+            "Camshaft",
+            "Piston rings"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An engine shaft rotating at 2000 rpm delivers 10 kW to a load. Calculate the torque exerted.",
+          "choices": [
+            "4 nt-meter",
+            "48 nt-meter",
+            "0.78 nt-meter",
+            "60 nt-meter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An engine with bore of 80 mm and stroke of 80 mm rotates at 2,000 rpm. What is the maximum piston speed inside the cylinder?",
+          "choices": [
+            "105 m/min",
+            "105 cm/s",
+            "16.8 m/s",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Ideally, this engine event of the compression ignition engine occurs at constant pressure.",
+          "choices": [
+            "Intake event",
+            "compression event",
+            "power event",
+            "intake event"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Ideally, this engine event of the spark ignition engine occurs at constant volume.",
+          "choices": [
+            "Intake event",
+            "compression event",
+            "power event",
+            "intake event"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the piston displacement, in cubic inches, of a 4.5-in by 6-in cylinder engine?",
+          "choices": [
+            "95.43",
+            "381.7",
+            "1,145.1",
+            "190.8"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Pursuant to Section 33 of RA 10601, which body is responsible for approving the Agricultural and Fisheries Mechanization Plans formulated by the local ABE unit (Provincial, City, or Municipal)?",
+          "choices": [
+            "the Local Chief Executive",
+            "the PRBABE",
+            "the Provincial ABE",
+            "the Sanggunian"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the enactment year of the first Agricultural Engineering Law?",
+          "choices": [
+            "1964",
+            "1972",
+            "1997",
+            "1998"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A contract is a/an __________",
+          "choices": [
+            "Agreement",
+            "Piece of paper",
+            "Document Required",
+            "Promise between parties"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A foreign agricultural engineer who will consult on a government project must obtain:",
+          "choices": [
+            "Permanent license immediately",
+            "Temporary/Special Permit (TSP) and meet conditions",
+            "No permit if invited by a contractor",
+            "Reciprocity waiver only"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An ABE was tasked to prepare the design, plans, and specifications of a communal irrigation and drainage system. Under the implementing rules and regulations of RA 10915, which of the following is true?",
+          "choices": [
+            "Communal irrigation projects may be designed by an ABE be signed and sealed by a registered civil engineer.",
+            "An ABE may only engage in irrigation projects if he majored in Land and Water Resources Engineering.",
+            "An ABE's scope of practice includes irrigation systems; one must sign and affix their seal on all plans and specifications.",
+            "A registered civil engineer must design the project, and an ABE is only concerned with the valuation and appraisal of the project."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An ABE is managing an agricultural facility, what is the primary practice they need to employ to promote recycling, re-use of resources, and reductioction of waste for disposal, in accordance to RA 9003?",
+          "choices": [
+            "Resource Recovery",
+            "Material Recovery",
+            "Segregation at Source",
+            "Recycling and Reusing"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Municipal Solid Waste Management Board is planning to process the significant volume of biodegradable agricultural waste generated by local farms. If an ABE was tasked with designing the facility, which provision of RA 9003 and its IRR are you primarily addressing by employing a composting system?",
+          "choices": [
+            "Establishment of a Materials Recovery Facility (MRF) for biodegradable and recyclable wastes.",
+            "Establishment of a Sanitary Landfill (SLF) for all residual wastes.",
+            "Open dumping and incineration of solid waste.",
+            "Procurement of environmentally acceptable products by government agencies."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An Agrarian Reform Beneficiary is looking to modernize their farming operations to increase productivity, as encouraged by the CARL. What is the most appropriate action that an ABE should take to assist the farmers with this mechanization effort?",
+          "choices": [
+            "Provide direct financial loans for the acquisition of the machinery.",
+            "Conduct a technical and economic analysis to recommend appropriate-sized energy-efficient farm machinery.",
+            "Broker a deal with a private machinery supplier to get a discount for the cooperative.",
+            "Draft the legal documents for the land title conversion to reflect the installation of the machinery."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An ABE is hired to design and supervise the construction of a new commercial fishpond in a coastal area. Under the Philippine Fisheries Code (RA 8550/10654), which document must be secured for the fishpond development to comply with environmental and regulatory standards, particularly concerning the prevention of aquatic pollution?",
+          "choices": [
+            "EIS",
+            "EIA",
+            "COR",
+            "ECC"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An ABE wants to be considered for the appointment as an examiner in the PRBABE. For how at least many years does need not be affiliated with an HEI or a review center to be eligible?",
+          "choices": [
+            "10 years",
+            "5 years",
+            "3 years",
+            "6 years"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This memorandum institutionalize agricultural engineering position in the LGus.",
+          "choices": [
+            "Joint Memorandum Circular No. 2, s. 2020",
+            "Joint Memorandum Circular No. 3, s. 2021",
+            "Joint Memorandum Circular No. 4, s. 2022",
+            "Joint Memorandum Circular No. 5, s. 2023"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This Memorandum Circular outlines the 2022 Guidelines and Standards for the Establishment of Organizational Structures and Staffing Patterns in Local Government Units.",
+          "choices": [
+            "CSC MEMORANDUM CIRCULAR No. 12, series 2022",
+            "CSC MEMORANDUM CIRCULAR No. 22, series 2012",
+            "CSC MEMORANDUM CIRCULAR No. 20, series 2022",
+            "CSC MEMORANDUM CIRCULAR No. 22, series 2020"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is FALSE about the ABE Board Seal?",
+          "choices": [
+            "It is dodecagon in shape with 48 mm diameter.",
+            "The inner circle measures 32 mm in diameter.",
+            "The color of the annular space is white.",
+            "The words \"PROFESSIONAL REGULATORY BOARD OF AGRICULTURAL AND BIOSYSTEMS ENGINEERING\" appear in the upper annulus."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is TRUE regarding the Certificate of Registration (COR)?",
+          "choices": [
+            "It remains valid only for three years and must be renewed with CPD units.",
+            "It is issued only after passing the board exam and automatically expires with the PIC.",
+            "It bears the signatures of both the PRC Chairperson and the Board Chairperson and Members.",
+            "It can be used even if the registrant is not a member of the AIPO."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following statements correctly applies to the reissuance or replacement of a Certificate of Registration (COR), Professional ID Card (PIC), or Temporary/Special Permit (TSP)?",
+          "choices": [
+            "A revoked COR may be reinstated anytime upon the engineer's request, provided that the PIC has been renewed.",
+            "A duplicate copy of a lost COR, PIC, or TSP may be reissued without fees if the loss is reported within 30 days.",
+            "A revoked COR may be reinstated only after two years from the date it was surrendered, subject to Board approval and without requiring another licensure exam.",
+            "A lost PIC can only be replaced once, and succeeding replacements require re-taking the licensure exam."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which agency serves as the national technical and administrative secretariat of the NOAB?",
+          "choices": [
+            "Bureau of Soils and Water Management",
+            "Bureau of Plant Industry",
+            "Bureau of Agriculture and Fisheries Product Standards",
+            "Agricultural Training Institute"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which agency must work with DA, DAR, DOST, DepEd, SUCs, and private groups to unify organic agriculture RDE efforts?",
+          "choices": [
+            "BAFPS",
+            "NOAB",
+            "BAR",
+            "DILG"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A legally enforceable agreement that binds a person to perform or refrain from an act best describes—",
+          "choices": [
+            "Duty",
+            "Ethics",
+            "Obligation",
+            "Code"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The responsibilities a professional must perform because of his vocation, which often outweigh personal interest, are known as—",
+          "choices": [
+            "Ethics",
+            "Obligations",
+            "Duties",
+            "Code"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following correctly describes the leadership and secretariat arrangement of the Agricultural and Fisheries Mechanization RDE Network under RA 10601?",
+          "choices": [
+            "The Network is chaired by the Secretary of the Department of Agriculture, with BAFPS serving as secretariat.",
+            "The Network is chaired by the Director of PHilMech, which also serves as the secretariat.",
+            "The Network is co-chaired by DA and DOST, with PHilMech providing technical support only.",
+            "The Network is chaired by a representative from accredited manufacturers, with PHilMech acting as oversight body."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is NOT included under farm machinery grants?",
+          "choices": [
+            "Rice planters",
+            "Combine harvesters",
+            "Irrigation pumps",
+            "NOTA"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which agency receives the largest share under the extension services component of Rice Fund?",
+          "choices": [
+            "PHilMech",
+            "ATI",
+            "TESDA",
+            "PhilRice"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the main benchmark used by COCAFM to determine whether the Rice Fund will continue after six years?",
+          "choices": [
+            "Increase in rice imports",
+            "Decrease in farm input costs",
+            "Increase or decrease in farmers' incomes",
+            "Regional yield improvements"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Philippine National Standards on After-Sales Service and Methods of Sampling",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What document shall be the document/s issued by the BAFE which guarantees that the agricultural and fisheries machinery conforms with PNS/PAES or other relevant standards identified by BAFE?",
+          "choices": [
+            "Permit to Operate",
+            "Certificate of Compliance",
+            "Certificate of Conformity",
+            "AOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the is the categorization of agricultural and fisheries machinery assemblers, manufacturers, importers and suppliers, distributors and dealers into small, medium, and large based on their organizational strengths and track record, area of operation, marketing and distribution network, after-sales service and manufacturing capabilities.",
+          "choices": [
+            "AMMDA",
+            "MFADDIE",
+            "NAFMP",
+            "NAMDAC"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "MFADDIES stands for?",
+          "choices": [
+            "Machines, Fabricators, Assemblers, Distributors, Dealers, Importers, and Exporters",
+            "Machinery, Fabricators, Assemblers, Distributors, Dealers, Importers, and Exporters",
+            "Machinery Manufacturers, Fabricators, Assemblers, Dealers, Importers, and Exporters",
+            "Manufacturers, Fabricators, Assemblers, Distributors, Dealers, Importers, and Exporters"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Allowable cost of contract for Large A contractor.",
+          "choices": [
+            "Up to 1 Billion",
+            "Up to 250 Million",
+            "Up to 450 Million",
+            "Up to 500 Million"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "PCAB Rules and Regulations: A regular license shall be valid for?",
+          "choices": [
+            "1 fiscal year",
+            "3 fiscal years",
+            "5 fiscal years",
+            "Until project ends"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Philippine National Standards on Technical Means for Ensuring Safety",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "PNS/BAFS 347:2022. For safety, workmanship, and finish, use earmuffs when _____ is exceeded.",
+          "choices": [
+            "90 dB (A)",
+            "92 dB (A)",
+            "93 dB (A)",
+            "95 dB (A)"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Process Control in Agricultural Process Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "A water pump that turns on for a fixed time regardless of the actual water level represents what type of control?",
+          "choices": [
+            "Closed-loop",
+            "Feedforward",
+            "Open-loop",
+            "Proportional control"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In automation, an actuator is best defined as—",
+          "choices": [
+            "A device that senses physical variables",
+            "A device that executes the control action",
+            "A device that stores data",
+            "A device that processes control logic"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a feedback control system, the measured variable being monitored is called the—",
+          "choices": [
+            "Set point",
+            "Manipulated variable",
+            "Controlled variable",
+            "Error signal"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Renewable and Alternative Farm Power Sources",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "One hundred liters per second of water is falling at a head of 10 meters. The turbine efficiency is 80%. What is the hydraulic power of the hydro system.",
+          "choices": [
+            "8.7 kW",
+            "7.8 kW",
+            "87 kW",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A multi-sail type windmill for pumping water has a diameter of 6 ft and the wind velocity is 10 mph. Estimate the actual power of this windmill.",
+          "choices": [
+            "0.05 HP",
+            "0.08 HP",
+            "0.12 HP",
+            "0.15 HP"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the calculated theoretical maximum limit of the kinetic energy of air which a windrotor can convert into mechanical energy. It is often referred to as the :",
+          "choices": [
+            "Reynold's limit",
+            "Torque coefficient",
+            "Power coefficient",
+            "Betz coefficient"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Identify which gas is not a greenhouse gas among those in the list below.",
+          "choices": [
+            "Water vapor",
+            "carbon dioxide",
+            "methane",
+            "ozone",
+            "NOTA"
+          ],
+          "answer": 4,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the ratio of reflected radiation from the surface to incident radiation on it.",
+          "choices": [
+            "Radiative capacity",
+            "albedo",
+            "solar constant",
+            "radiation coefficient"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Selection of Tractor Size, Implements, and Other Specifications",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "How many tractors are needed to finish plowing a 5 ha field in two days, 8 hrs per day with three-bottom 33 cm disc plow. Tractor speed is 3 kph, while field efficiency is 80%.",
+          "choices": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}
