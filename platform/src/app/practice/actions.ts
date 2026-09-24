@@ -170,11 +170,20 @@ export async function startPaesQuizAttempt(count: number) {
  * Recalled Questions quiz: pools every published question tagged
  * is_recalled=true within one exam area (Area 1/2/3, the same split the
  * /recalled reference page already tabs by) into one scored practice
- * attempt. Every matching question is included rather than a random
- * subset — these are a finite, specific set of past board-exam recalls a
- * serious reviewee wants to work through in full, not a sample. Reuses an
- * existing in-progress recalled quiz for the same area instead of starting
- * a duplicate, the same reuse pattern startDailyQuestion uses below.
+ * attempt. Reuses an existing in-progress recalled quiz for the same area
+ * instead of starting a duplicate, the same reuse pattern startDailyQuestion
+ * uses below.
+ *
+ * Prioritizes questions this student has never answered before — the
+ * original version always pooled the ENTIRE area regardless of history, so
+ * a returning student clicking "Start Quiz" again just got handed the same
+ * ~200 questions from scratch every time (Gabriel's explicit report after
+ * a week of use: "questions are so much repeated... prioritize unanswered
+ * questions"). Same fallback shape as scopeToPracticeMode's "unanswered"
+ * mode below: use ONLY the unanswered ones while any remain, and only fall
+ * back to the full pool once every recalled question in the area has been
+ * answered at least once — so repetition is spread across many sessions
+ * instead of happening on the very next one.
  */
 export async function startRecalledQuiz(area: MockArea) {
   const supabase = await createClient();
@@ -207,7 +216,15 @@ export async function startRecalledQuiz(area: MockArea) {
     throw new Error("No recalled questions in this area yet.");
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, candidates.length);
+  const { data: answered } = await supabase
+    .from("attempt_answers")
+    .select("question_id")
+    .in("question_id", candidates.map((c) => c.id));
+  const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+  const unanswered = candidates.filter((c) => !answeredIds.has(c.id));
+  const scoped = unanswered.length > 0 ? unanswered : candidates;
+
+  const selected = await weighAndSampleCandidates(supabase, scoped, scoped.length);
 
   const { data: attempt, error: insErr } = await supabase
     .from("attempts")
@@ -222,6 +239,62 @@ export async function startRecalledQuiz(area: MockArea) {
 
   if (insErr || !attempt) {
     throw new Error(insErr?.message ?? "Failed to start recalled questions quiz");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
+ * "Review mistakes" for Recalled Questions specifically — the general
+ * Mistake Bank (get_mistake_bank/startMistakeRetryAttempt) already covers
+ * every question type, but there was no dedicated entry point for "just
+ * the recalled questions I've gotten wrong, for this area" from the
+ * Recalled Questions page itself. Intersects the caller's current mistake
+ * list with this area's recalled-question ids rather than adding a new
+ * RPC — get_mistake_bank is already self-correcting (a question drops off
+ * as soon as its most recent answer is correct), so this is automatically
+ * a "retake" list too, not just a static one.
+ */
+export async function startRecalledMistakeRetry(area: MockArea) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  if (!["area_1", "area_2", "area_3"].includes(area)) {
+    throw new Error("Invalid area.");
+  }
+
+  const [{ data: recalledIds }, { data: mistakes }] = await Promise.all([
+    supabase
+      .from("student_questions")
+      .select("id")
+      .eq("is_recalled", true)
+      .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`),
+    supabase.rpc("get_mistake_bank"),
+  ]);
+
+  const recalledIdSet = new Set((recalledIds ?? []).map((r) => r.id));
+  const questionIds = ((mistakes ?? []) as { question_id: string }[])
+    .map((m) => m.question_id)
+    .filter((id) => recalledIdSet.has(id));
+
+  if (questionIds.length === 0) {
+    throw new Error("No missed recalled questions in this area right now.");
+  }
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: questionIds.length,
+      config: { question_ids: questionIds, kind: "recalled_mistakes", area },
+    })
+    .select("id")
+    .single();
+
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start recalled mistakes retry");
   }
 
   redirect(`/practice/${attempt.id}`);
