@@ -159,9 +159,6 @@ export default async function DashboardPage() {
         recommendationPriority(m) > recommendationPriority(best) ? m : best,
       )
     : null;
-  const sessionCount = recommendation
-    ? Math.min(SESSION_SIZE, publishedCountByTopic.get(recommendation.topic_id) ?? SESSION_SIZE)
-    : 0;
 
   // --- Least Mastered Areas ---
   const leastMastered = scoredTopics
@@ -310,9 +307,10 @@ export default async function DashboardPage() {
                   {recommendation.last_answered_at ? `${daysSince(recommendation.last_answered_at)}d ago` : "never"}
                 </strong>
               </span>
-              <span>
-                {sessionCount} questions · ~{Math.round(sessionCount * 1.2)} min
-              </span>
+              {/* Estimated from SESSION_SIZE, not the pool-clamped actual
+                  count, so a topic with fewer than 20 published questions
+                  never has that discrepancy shown to the student. */}
+              <span>~{Math.round(SESSION_SIZE * 1.2)} min</span>
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)}>

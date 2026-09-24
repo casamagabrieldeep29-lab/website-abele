@@ -42,8 +42,11 @@ export default async function QuickPracticePage() {
         {PRACTICE_LENGTH_OPTIONS.map((n) => {
           const available = totalPublished ?? 0;
           const disabled = available === 0;
-          const actual = Math.min(n, available);
-          const minutes = Math.round(actual * MINUTES_PER_QUESTION);
+          // Always estimated from the chosen length (n), not the pool-
+          // clamped actual count — a smaller number here would otherwise
+          // quietly disclose that the question bank has fewer than n
+          // published questions available.
+          const minutes = Math.round(n * MINUTES_PER_QUESTION);
           const isDefault = settings.defaultPracticeLength === n;
           return (
             <Card key={n}>
@@ -52,11 +55,7 @@ export default async function QuickPracticePage() {
                   Quick {n}
                   {isDefault && <Badge variant="secondary">Your default</Badge>}
                 </CardTitle>
-                <CardDescription>
-                  {disabled
-                    ? "No published questions available yet"
-                    : `${actual} question${actual === 1 ? "" : "s"} — about ${minutes} min`}
-                </CardDescription>
+                <CardDescription>{disabled ? "No published questions available yet" : `About ${minutes} min`}</CardDescription>
               </CardHeader>
               <CardContent>
                 <form action={startQuickPractice.bind(null, n, settings.defaultPracticeMode)}>
