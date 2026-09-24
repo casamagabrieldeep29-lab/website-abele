@@ -281,3 +281,15 @@ This file was not updated across roughly 40 commits spanning several sessions/ac
 **Still open, not touched this round (flagged, not fixed):** spot-checking the live `questions` table during this audit surfaced that Recalled Questions rows still carry populated `source`/`source_reference` values (e.g. "Iligan Review Center (ABELE 2025 Compiled Recalled Questions)", "AREA 2_RECALLED 2011-2024.pdf...") — the same standing no-source-attribution issue already fixed for `reviewer_entries` and `flashcards` earlier this session (see the entry above), just not yet applied to this table. Out of scope for this audit pass; flagged to Gabriel rather than silently expanded into.
 
 **Testing performed:** no application code was touched this round — this was entirely direct database writes (service-role key) plus this changelog entry. All verification was done via live read-only queries against the production database (status-count reconciliation, marker-consistency checks, choice-count sanity check), not by trusting the write script's own success log.
+
+---
+
+## 2026-09-25 — `questions.source`/`source_reference` cleared, closing the last gap in the no-source-attribution rule
+
+Picked up the one open item flagged at the end of the previous entry: `questions.source`/`source_reference` still carried real attribution (e.g. a full name, `"Arthur It. Tambong, FPSAE"`, from the original Area 1 transcription, plus various PDF filenames) even though `reviewer_entries` and `flashcards` had already been cleared. Not displayed anywhere in the student or admin UI currently (no `admin/content` form exposes a `source` input), but stored data violates the letter of the standing `feedback_no_source_attribution` rule, so cleared it anyway rather than leaving it "safe because unused."
+
+**Database:** nulled `source` and `source_reference` on all 606 `questions` rows that had either populated. Verified zero remain afterward.
+
+**Code:** `platform/scripts/import-seed-content.js` and `platform/scripts/generate-import-sql.js` both used to write `source: data._meta.author` / `source_reference: <sourceRef arg>` on every inserted question — changed both to always write `null` (mirroring the fix already applied to `import-reviewer-content.js`), and removed the now-dead `author` variable from `generate-import-sql.js`. Any future re-run of either script will no longer reintroduce attribution.
+
+**Testing performed:** `npm run lint` clean (0 errors). No UI changes — this was a database cleanup plus two import-script edits, not a page/feature change.

@@ -136,8 +136,10 @@ async function main() {
           question_type: "single_choice",
           difficulty: DIFFICULTY_MAP[q.diff] || q.diff,
           explanation,
-          source: data._meta.author,
-          source_reference: sourceRef,
+          // Deliberately never populated — per standing instruction, nothing on the
+          // site (student- or admin-facing) shows or discloses source attribution.
+          source: null,
+          source_reference: null,
           status: "draft",
         })
         .select("id")

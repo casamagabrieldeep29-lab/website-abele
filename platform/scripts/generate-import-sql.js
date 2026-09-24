@@ -41,7 +41,6 @@ function main() {
   }
 
   const data = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-  const author = data._meta?.author || "Board Exam Pro";
   const out = [];
 
   out.push(`-- Auto-generated from ${jsonPath}`);
@@ -99,9 +98,11 @@ function main() {
       out.push("");
       out.push(`  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = ${sqlStr(q.q)};`);
       out.push(`  IF v_question_id IS NULL THEN`);
-      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)`);
+      out.push(`    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, status, is_recalled, recalled_batch, is_paes, paes_reference)`);
       out.push(
-        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, ${sqlStr(author)}, ${sqlStr(sourceRef)}, 'draft', ${isRecalled}, ${sqlStr(recalledBatch)}, ${isPaes}, ${sqlStr(paesReference)})`
+        // source/source_reference deliberately never populated — per standing
+        // instruction, nothing on the site shows or discloses source attribution.
+        `    VALUES (v_topic_id, ${subVar}, ${sqlStr(q.q)}, 'single_choice', ${sqlStr(difficulty)}, ${sqlStr(explanationRaw)}, 'draft', ${isRecalled}, ${sqlStr(recalledBatch)}, ${isPaes}, ${sqlStr(paesReference)})`
       );
       out.push(`    RETURNING id INTO v_question_id;`);
       out.push("");
