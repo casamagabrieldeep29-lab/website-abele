@@ -301,7 +301,7 @@ type ParsedTable = { headers: string[]; rows: string[][] };
 // Any text that doesn't confidently match that shape (every non-blank line
 // containing "|", a valid "---" separator row, and every row the same
 // column count as the header) is left as null so the caller can fall back
-// to displaying the original text unchanged.
+// to the next, looser parser below.
 function parseMarkdownTable(text: string): ParsedTable | null {
   const lines = text
     .split("\n")
@@ -326,9 +326,97 @@ function parseMarkdownTable(text: string): ParsedTable | null {
   return { headers, rows };
 }
 
+const GENERIC_HEADERS = ["Item", "Description", "Value", "Unit", "Notes"];
+
+// Most table_content in this dataset was authored as plain "A | B" lines with
+// NO header or "---" separator row at all (a glossary/classification list,
+// e.g. "Corncob | 30-36 deg"), which parseMarkdownTable correctly rejects.
+// This recovers those as real tables too: every non-blank line must contain
+// "|" and split into the SAME column count (>=2). Whether row 0 is itself a
+// genuine header (as opposed to just the first data row) is decided per
+// column: a real header cell reads as descriptive text ("Width of slat
+// (mm)"), while the data rows below it are numeric/measurement-shaped
+// ("18 - 25"). If row 0's numeric-ness differs from the rest of that column
+// for at least one column, it's treated as a header; otherwise there simply
+// is no header in the source and a safe, generic one is used instead
+// (accurate for a 2-column glossary shape, never a fabricated domain term).
+function looksNumericCell(cell: string): boolean {
+  return /\d/.test(cell);
+}
+
+function parseLooseTable(text: string): ParsedTable | null {
+  const lines = text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  if (lines.length < 1 || !lines.every((l) => l.includes("|"))) return null;
+
+  const allRows = lines.map((l) => l.split("|").map((c) => c.trim()));
+  const colCount = allRows[0].length;
+  if (colCount < 2 || allRows.some((r) => r.length !== colCount)) return null;
+
+  let firstRowIsHeader = false;
+  if (allRows.length > 1) {
+    const dataRows = allRows.slice(1);
+    for (let c = 0; c < colCount; c++) {
+      const firstIsNumeric = looksNumericCell(allRows[0][c]);
+      const dataMostlyNumeric =
+        dataRows.filter((r) => looksNumericCell(r[c])).length >= Math.ceil(dataRows.length / 2);
+      if (!firstIsNumeric && dataMostlyNumeric) {
+        firstRowIsHeader = true;
+        break;
+      }
+    }
+  }
+
+  const headers = firstRowIsHeader ? allRows[0] : GENERIC_HEADERS.slice(0, colCount);
+  const rows = firstRowIsHeader ? allRows.slice(1) : allRows;
+  if (rows.length === 0) return null;
+
+  return { headers, rows };
+}
+
+// A handful of table-kind entries actually hold formula reference sheets
+// (equations chained by "\n" and ";", no "|" anywhere) rather than tabular
+// data — e.g. "P(occur) = 1/T". Rendering these through <pre> buried them as
+// plain code text; this renders them with the same formula styling used
+// elsewhere instead, so a formula stays visually a formula.
+function looksLikeFormulaList(text: string): boolean {
+  return !text.includes("|") && /=/.test(text);
+}
+
+type FormulaGroup = { label: string | null; lines: string[] };
+
+function parseFormulaGroups(text: string): FormulaGroup[] {
+  return text
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const colonIdx = line.indexOf(":");
+      // Only treat a leading colon as a label when what precedes it is plain
+      // words (not itself part of a formula, e.g. "P(occur) = 1/T" has no
+      // colon at all, but something like "R = A/P = (1/4)[...]" might contain
+      // one incidentally — guard by requiring the label to hold no "=").
+      const label = colonIdx > 0 && !line.slice(0, colonIdx).includes("=") ? line.slice(0, colonIdx).trim() : null;
+      const rest = label ? line.slice(colonIdx + 1).trim() : line;
+      const lines = rest
+        .split(";")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      return { label, lines };
+    });
+}
+
 /** Dense, full-width reference table optimized for scanning, not a card grid. */
 function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
-  const parsed = entry.table_content ? parseMarkdownTable(entry.table_content) : null;
+  const parsed = entry.table_content
+    ? (parseMarkdownTable(entry.table_content) ?? parseLooseTable(entry.table_content))
+    : null;
+  const formulaGroups =
+    !parsed && entry.table_content && looksLikeFormulaList(entry.table_content)
+      ? parseFormulaGroups(entry.table_content)
+      : null;
 
   return (
     <div data-slot="card" className="rounded-lg border border-border bg-card p-4">
@@ -357,15 +445,39 @@ function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
             <tbody className="divide-y divide-border/50">
               {parsed.rows.map((row, ri) => (
                 <tr key={ri} className={ri % 2 === 1 ? "bg-muted/25" : ""}>
-                  {row.map((cell, ci) => (
-                    <td key={ci} className="px-3 py-1.5 whitespace-nowrap text-foreground">
-                      {renderFormula(cell)}
-                    </td>
-                  ))}
+                  {row.map((cell, ci) => {
+                    // Short value-like cells stay on one line; longer prose
+                    // (a glossary's "description" column) wraps instead of
+                    // forcing the whole table absurdly wide.
+                    const long = cell.length > 28;
+                    return (
+                      <td
+                        key={ci}
+                        className={`px-3 py-1.5 text-foreground ${long ? "min-w-[16rem] whitespace-normal" : "whitespace-nowrap"}`}
+                      >
+                        {renderFormula(cell)}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      ) : formulaGroups ? (
+        <div className="mt-2.5 space-y-2 rounded-md bg-primary/5 px-3 py-2.5">
+          {formulaGroups.map((group, gi) => (
+            <div key={gi}>
+              {group.label && <p className={`${SECTION_LABEL} text-primary/70`}>{group.label}</p>}
+              <div className={group.label ? "mt-1 space-y-0.5" : "space-y-0.5"}>
+                {group.lines.map((line, li) => (
+                  <p key={li} className="font-mono text-[13px] leading-relaxed font-medium text-foreground">
+                    {renderFormula(line)}
+                  </p>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         entry.table_content && (
