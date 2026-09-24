@@ -15,7 +15,11 @@
 -- alongside the existing left join choices would cross-multiply the two
 -- (N choices x M formulas rows before aggregation), duplicating both.
 
-create or replace function public.get_teach_me_context(p_attempt_id uuid, p_question_id uuid)
+-- Postgres can't change a function's return-row shape via CREATE OR REPLACE
+-- (adding relevant_formulas below is a new OUT column) — must drop first.
+drop function if exists public.get_teach_me_context(uuid, uuid);
+
+create function public.get_teach_me_context(p_attempt_id uuid, p_question_id uuid)
 returns table (
   question_text text,
   choices jsonb,
