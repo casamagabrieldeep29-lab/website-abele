@@ -7,13 +7,10 @@ const AREA_LABELS: Record<string, string> = { area_1: "Area 1", area_2: "Area 2"
 
 export default async function MockExamAttemptPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ attemptId: string }>;
-  searchParams: Promise<{ requested?: string }>;
 }) {
   const { attemptId } = await params;
-  const { requested } = await searchParams;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
@@ -66,13 +63,6 @@ export default async function MockExamAttemptPage({
           Mock Exam{config.area ? ` — ${AREA_LABELS[config.area] ?? config.area}` : ""}
         </span>
       </header>
-
-      {requested && (
-        <p className="mx-auto mt-4 max-w-2xl rounded-md bg-secondary px-3 py-2 text-xs text-secondary-foreground">
-          Only {mockQuestions.length} published questions are available for this area yet (the real exam has {requested}) —
-          no questions were repeated to make up the difference.
-        </p>
-      )}
 
       {mockQuestions.length === 0 ? (
         <p className="p-10 text-sm text-muted-foreground">
