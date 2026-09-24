@@ -50,21 +50,33 @@ function Heading({ children }: { children?: React.ReactNode }) {
 }
 
 // remark-math only recognizes the dollar-sign math syntax ($x$ inline,
-// $$x$$ display) — it does NOT recognize the \(...\)/\[...\] LaTeX-style
-// delimiters. Gemini consistently uses the dollar-sign form already, but a
-// fallback AI provider (see src/lib/ai/) defaulting to \(...\)/\[...\]
-// instead falls straight through to plain markdown, where CommonMark's own
-// backslash-escape rule silently eats the backslashes (`\;`, `\[`, `\]`
-// each just become a stray `;`, `[`, `]`) — the result is broken-looking
-// half-rendered LaTeX rather than a clean equation. Converting both
-// delimiter styles to the dollar-sign form before handing text to
-// react-markdown makes every AI surface (Teach Me This, Study Assistant,
-// and static explanations that fall back to this renderer) render
-// correctly no matter which underlying model produced the text.
+// $$x$$ display) — it does NOT recognize \(...\)/\[...\] LaTeX-style
+// delimiters, and some fallback providers (see src/lib/ai/) go a step
+// further and drop the backslash entirely, wrapping raw LaTeX commands in
+// completely bare (...)/[...]. Neither malformed form renders as math —
+// they fall straight through to plain markdown, where either CommonMark's
+// backslash-escape rule quietly eats the delimiter's own backslash, or (for
+// the bare form) the LaTeX commands just print as literal text like
+// "\frac{P \times t}{W}". Gemini itself already uses the dollar-sign form
+// correctly, so none of this touches its output — this exists entirely to
+// repair whatever a fallback provider gets wrong. Three passes, in order:
+// 1) properly-escaped \(...\)/\[...\], 2) bare [...]/(...) that contains an
+// actual LaTeX command (detected by a literal backslash-letter — never a
+// legitimate false-positive in ordinary English prose, so a plain
+// parenthetical like "(P) = power rating (kW)" is correctly left alone,
+// and a real markdown link "[text](url)" is protected by the negative
+// lookahead so its brackets are never mistaken for a math delimiter).
 function normalizeLatexDelimiters(text: string): string {
-  return text
+  let out = text
     .replace(/\\\[([\s\S]*?)\\\]/g, (_match, inner: string) => `$$${inner}$$`)
     .replace(/\\\(([\s\S]*?)\\\)/g, (_match, inner: string) => `$${inner}$`);
+
+  const looksLikeLatex = (s: string) => /\\[a-zA-Z]/.test(s);
+
+  out = out.replace(/\[([^[\]]*?)\](?!\()/g, (whole, inner: string) => (looksLikeLatex(inner) ? `$$${inner}$$` : whole));
+  out = out.replace(/\(([^()]*?)\)/g, (whole, inner: string) => (looksLikeLatex(inner) ? `$${inner}$` : whole));
+
+  return out;
 }
 
 /** Renders AI-generated markdown + LaTeX text (Teach Me This, Study Assistant) with a real parser instead of ad hoc regex, so any markdown/math combination Gemini produces renders correctly rather than needing to be individually special-cased. trust: false and strict: "ignore" keep unsafe/malformed LaTeX from breaking the render, appropriate since this is AI-generated, not directly user-typed, text. */
