@@ -59,12 +59,37 @@ function splitIntoSteps(text: string): { intro: string | null; steps: string[] }
   return { intro, steps };
 }
 
+/**
+ * Some explanations are a single continuous equation chain with no
+ * semicolon or sentence break at all — "Ec = PcTo / Wi = 30 kw (3 h) /
+ * 3,000 kg = 0.03 kwh/kg" — symbolic formula, substituted values, and
+ * final result, each joined by its own "=" rather than a sentence
+ * boundary. splitIntoSteps above finds nothing to split in that case (no
+ * semicolon, no capital-letter sentence break), so this is tried second:
+ * split directly on "=" instead. Requires at least two "=" signs (three
+ * segments) — a plain "x = y" is just one equation, not worth presenting
+ * as multiple steps — the first segment to be short (a symbol/label, not
+ * a sentence that happens to contain "="), and the final segment to
+ * contain a digit (confirming this really ends in a numeric result).
+ */
+function splitEqualsChain(text: string): { intro: string | null; steps: string[] } | null {
+  const parts = text
+    .split("=")
+    .map((s) => s.trim().replace(/\.$/, ""))
+    .filter(Boolean);
+  if (parts.length < 3) return null;
+  if (parts[0].length > 30 || !/\d/.test(parts[parts.length - 1])) return null;
+
+  const steps = [`${parts[0]} = ${parts[1]}`, ...parts.slice(2).map((p) => `= ${p}`)];
+  return { intro: null, steps };
+}
+
 export function ExplanationDisplay({ text }: { text: string }) {
   if (looksLikeMarkdown(text)) {
     return <AIMarkdown text={text} />;
   }
 
-  const parsed = splitIntoSteps(text);
+  const parsed = splitIntoSteps(text) ?? splitEqualsChain(text);
   if (!parsed) {
     return <AIMarkdown text={text} />;
   }

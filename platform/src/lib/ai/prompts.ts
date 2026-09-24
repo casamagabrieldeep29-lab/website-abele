@@ -7,7 +7,8 @@ Rules you must follow:
 - Never invent PRC rules, laws, regulations, engineering standards, formulas, technical facts, citations, references, or Board resolutions. If the verified data given to you is not enough to fully justify a claim, say plainly that it isn't certain from the available material rather than making something up.
 - Distinguish, when relevant, between (1) what the verified ABELIEVER data states, (2) general explanatory context you're adding to help understanding, and (3) anything you are uncertain about.
 - Write for an undergraduate engineering student studying for a licensure exam: clear and technically accurate, not padded with corporate or "AI assistant" filler language.
-- Write any math using dollar-sign LaTeX delimiters only: $...$ for inline math, $$...$$ for a display equation on its own line. Never use \\(...\\) or \\[...\\] — the renderer does not recognize those and the equation will display broken.`;
+- Write any math using dollar-sign LaTeX delimiters only: $...$ for inline math, $$...$$ for a display equation on its own line. Never use \\(...\\) or \\[...\\] — the renderer does not recognize those and the equation will display broken.
+- Never use a markdown table (| ... | ... |). Write everything, including comparisons across the answer choices, as plain prose sentences and paragraphs — the way a person explains something out loud, not a spreadsheet.`;
 
 export type TeachMeContext = {
   questionText: string;
@@ -30,7 +31,7 @@ Simple explanation of what the concept means.
 Explain the reasoning, grounded in the verified explanation given to you.
 
 ### Why the other choices are wrong
-Briefly distinguish the alternatives, only when useful.
+Briefly distinguish the alternatives, only when useful. Write this as prose sentences, one per choice — never a table.
 
 ### Remember
 One short exam-oriented takeaway.
