@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fillUnitsToTarget, groupIntoUnits } from "@/lib/series";
+import { sendMockExamReportEmail } from "@/lib/email/mock-exam-report";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -129,13 +130,14 @@ export async function startAreaMockExam(formData: FormData) {
 
 export async function completeMockExam(attemptId: string) {
   const supabase = await createClient();
-  const [{ data: { user } }, { count: correctCount }] = await Promise.all([
+  const [{ data: { user } }, { count: correctCount }, { data: attemptRow }] = await Promise.all([
     supabase.auth.getUser(),
     supabase
       .from("attempt_answers")
       .select("id", { count: "exact", head: true })
       .eq("attempt_id", attemptId)
       .eq("is_correct", true),
+    supabase.from("attempts").select("total_questions, config").eq("id", attemptId).single(),
   ]);
   if (!user) redirect("/login");
 
@@ -151,4 +153,23 @@ export async function completeMockExam(attemptId: string) {
 
   if (error) throw new Error(error.message);
   await supabase.rpc("check_and_award_achievements");
+
+  // Best-effort — a failed report email must never block exam completion.
+  try {
+    if (user.email) {
+      const { data: profile } = await supabase.from("profiles").select("display_name").eq("id", user.id).single();
+      const config = attemptRow?.config as { area?: string } | null;
+      await sendMockExamReportEmail({
+        supabase,
+        attemptId,
+        userEmail: user.email,
+        studentName: profile?.display_name || user.email,
+        area: config?.area,
+        correctCount: correctCount ?? 0,
+        totalQuestions: attemptRow?.total_questions ?? 0,
+      });
+    }
+  } catch (err) {
+    console.error("[mock] Failed to send exam report email:", err instanceof Error ? err.message : err);
+  }
 }
