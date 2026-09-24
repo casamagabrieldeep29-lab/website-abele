@@ -1,0 +1,1067 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the geometric shape of the official Board seal of the Professional Regulatory Board of Agricultural and Biosystems Engineering?",
+          "choices": [
+            "Circle",
+            "Hexagon",
+            "Dodecagon",
+            "Decagon"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the diameter of the inner circle in the Board seal?",
+          "choices": [
+            "24 mm",
+            "32 mm",
+            "40 mm",
+            "48 mm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What color is used in the upper part space of the dodecagon in the Board seal (PSABE)?",
+          "choices": [
+            "Green",
+            "Red",
+            "Blue",
+            "Gold"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What phrase is displayed there?",
+          "choices": [
+            "Philippine Society of Agricultural and Biosystems Engineers",
+            "Professional Regulatory Board of Agricultural and Biosystems Engineering",
+            "Professional Regulation Commission",
+            "1964"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What year is shown inside the light blue water droplet in the Board seal?",
+          "choices": [
+            "1950",
+            "1964",
+            "1994",
+            "1975"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What does it commemorate?",
+          "choices": [
+            "Founding of PSABE",
+            "Enactment of RA No. 3927",
+            "Start of Board Licensure Examination",
+            "First Board Meeting"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What do the earth, droplet of water, and plant leaves together represent on the Board seal?",
+          "choices": [
+            "Philippine history",
+            "Society values",
+            "Agricultural and Biosystems Engineering",
+            "Board Members"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is written on the upper and lower half of the gold dodecagon on the Board seal?",
+          "choices": [
+            "Philippine Society of Agricultural and Biosystems Engineers; Founding Year",
+            "Professional Regulatory Board of Agricultural and Biosystems Engineering; Professional Regulation Commission",
+            "Agricultural Engineering Board and Society; Republic of the Philippines",
+            "Professional Regulation Commission"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum limit for a Board Chairperson or Member to hold their position through reappointment, after the initial term?",
+          "choices": [
+            "Three terms or nine years, whichever is shorter",
+            "A single reappointment of three years duration",
+            "Not more than two terms or six years, whichever is longer",
+            "Indefinite reappointment, subject to the President's discretion"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to Section 24 of RA 10915, which government agencies and programs are mandated to employ agricultural and biosystems engineers, and for what specific purposes should they create various levels of engineer positions?",
+          "choices": [
+            "Only the Department of Agriculture and selected related agencies are mandated to employ agricultural and biosystems engineers primarily for projects involving crop production, pest management, and irrigation systems, focusing mainly on technical support for agriculture and mechanization programs in rural areas.",
+            "All concerned national government agencies, LGUs, and SUCs involved in research, development, training, extension, testing, evaluation, inspection, and environmental programs related to agriculture and biosystems. They should create various levels of engineer positions for these purposes.",
+            "Only the LGUs and private sectors are required to employ agricultural and biosystems engineers, specifically to implement and manage farm mechanization, post-harvest facilities, and agro-processing programs, with emphasis on operational efficiency, local development, and public-private partnerships in agricultural infrastructure.",
+            "All government agencies are expected to involve agricultural and biosystems engineers mainly for regulatory, inspection, and compliance activities related to environmental protection and conservation. However, this does not necessarily mandate the creation of new engineering positions but encourages collaboration with existing personnel."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which agency is primarily responsible for irrigation programs such as CIS, SWIP, and SSIP?",
+          "choices": [
+            "DENR",
+            "DA, NIA, LGUs",
+            "EMB, DOST",
+            "DPWH"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Agri-Fisheries Mechanization programs mainly fall under the jurisdiction of which groups?",
+          "choices": [
+            "DA and LGUs",
+            "DOST and HEIs",
+            "DENR and EMB",
+            "DPWH and NIA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What government offices are responsible for farm-to-market roads and other agricultural infrastructures?",
+          "choices": [
+            "DA, DPWH, LGUs",
+            "EMB, DA, DENR",
+            "DOST, LGUs, HEIs",
+            "DA, EMB, NIA"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What law is being violated if non-licensed ABEs perform ABE works in government offices such as EMB regional offices?",
+          "choices": [
+            "RA No. 9003",
+            "RA No. 10915",
+            "RA No. 9262",
+            "RA No. 8749"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is a legal consequence if a government office allows non-licensed ABEs to perform agricultural and biosystems engineering works?",
+          "choices": [
+            "The work is still valid if supervised by management",
+            "No penalty will be imposed",
+            "This constitutes illegal practice and may result in penalties under RA 10915",
+            "Only a warning will be issued"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which EMB Regional Offices are mentioned as not having ABEs, in violation of RA 10915?",
+          "choices": [
+            "Regions I-IV only",
+            "Regions CAR, IV-A, IV-B, VI, VII, VIII, IX, CARAGA",
+            "Only the National Capital Region (NCR) and Region III are identified as regions not employing ABEs, representing a scenario where only certain key central regions in Luzon are included but missing other affected regions",
+            "Regions II, V, and XI only"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What does the acronym \"EMB\" stand for?",
+          "choices": [
+            "Environmental Monitoring Board",
+            "Environmental Material Bank",
+            "Emergency Management Body",
+            "Environmental Management Bureau"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Based on the provided data \"Professionals involved in the implementation of Environmental Laws,\" what is the recorded number of Agricultural and Biosystems Engineers as of 2025?",
+          "choices": [
+            "13,363",
+            "14,660",
+            "16,358",
+            "14,195"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Declaration of Policy: The State policy declared under R.A. No. 10915 includes all of the following objectives, EXCEPT:",
+          "choices": [
+            "To promote, strengthen, and regulate the practice of the ABE profession.",
+            "To accelerate agricultural and fishery modernization.",
+            "To ensure food and water security, bio-energy development, and environmental protection.",
+            "To establish a mandatory ABE position in all private commercial banks."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the official title of the law whose Implementing Rules and Regulations (IRR) governs the practice of Agricultural and Biosystems Engineering?",
+          "choices": [
+            "Agricultural Engineering Law of 1998 (R.A. No. 8559)",
+            "Philippine Agricultural and Biosystems Engineering Act of 2016 (R.A. No. 10915)",
+            "Agricultural and Fisheries Modernization Act (AFMA) of 1997",
+            "Philippine Bio-Engineering and Resources Development Act"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "All of the following are considered within the scope of Agricultural and Biosystems Structures under the IRR, EXCEPT:",
+          "choices": [
+            "Livestock, poultry, and fishery structures.",
+            "Silos and their components.",
+            "Farm houses and machinery sheds.",
+            "National Highways and Bridges."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under the IRR, measures that control soil and water degradation and enhance farm productivity, such as small farm reservoirs, farm ponds, contour farming, and terracing, are covered by the term:",
+          "choices": [
+            "Irrigation and Drainage",
+            "Land Use Planning",
+            "Soil and Water Conservation",
+            "Land and Water Resources Management"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to the IRR, all contractors of irrigation, farm-to-market roads, and agricultural and biosystems structures and facilities are required to have at least one (1) registered and licensed Agricultural and Biosystems Engineer as part of their:",
+          "choices": [
+            "Project Consultants",
+            "Administrative Staff",
+            "Sustaining Technical Employees",
+            "Corporate Officers"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If the illegal practice is committed by a partner, president, director, or manager of a partnership or corporation, who is held liable for the offense?",
+          "choices": [
+            "Only the partner, president, director, or manager is liable.",
+            "The partner, president, director, or manager who has full knowledge of the act is liable.",
+            "The corporation or partnership is held liable.",
+            "The Accredited Integrated Professional Organization (AIPO) is liable."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which body has the power to hear and try administrative cases involving violations of the ABE Law, its IRR, and the Code of Ethics for ABEs?",
+          "choices": [
+            "The Professional Regulation Commission (PRC)",
+            "The Department of Justice (DOJ)",
+            "The Professional Regulatory Board of Agricultural and Biosystems Engineering (PRB-ABE)",
+            "The Accredited Integrated Professional Organization (AIPO)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Professional Regulatory Board of Agricultural and Biosystems Engineering (PRB-ABE) has the power to suspend or revoke Certificates of Registration and Professional Identification Cards for all of the following grounds, EXCEPT:",
+          "choices": [
+            "Conviction by a court of competent jurisdiction of a criminal offense involving moral turpitude.",
+            "Use of fraud, deceit, or misrepresentation in obtaining the Certificate of Registration.",
+            "Gross negligence, incompetence, or unprofessional conduct.",
+            "Failure to attend the annual AIPO convention once in three (3) years."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which government entity, along with Local Building Officials, is specifically tasked with implementing the provision regarding the requirement of ABEs in government positions for the issuance of building permits and certificate of occupancy under the National Building Code?",
+          "choices": [
+            "Department of Public Works and Highways (DPWH)",
+            "Department of Agriculture (DA)",
+            "Professional Regulation Commission (PRC)",
+            "Department of Environment and Natural Resources (DENR)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the legal consequence for a person who falsely uses or impersonates a Registered Agricultural and Biosystems Engineer or uses the official seal of the Board?",
+          "choices": [
+            "Administrative reprimand only.",
+            "Revocation of their existing professional license in a different field.",
+            "Subject to the penal provisions of the ABE Law (R.A. No. 10915).",
+            "Exclusion from all government contracts for a period of one (1) year"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If any part, section, or provision of the ABE Law (R.A. No. 10915) is declared invalid or unconstitutional, the remaining parts, sections, or provisions not affected shall:",
+          "choices": [
+            "Be subject to review by the Supreme Court.",
+            "Remain in full force and effect.",
+            "Be automatically repealed one year from the declaration.",
+            "Be amended by the Professional Regulatory Board."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The new Agricultural and Biosystems Engineering Act (R.A. No. 10915) expressly repealed the previous law regulating the practice of Agricultural Engineering, which was:",
+          "choices": [
+            "Republic Act No. 8559",
+            "Republic Act No. 8435",
+            "Presidential Decree No. 1386",
+            "Republic Act No. 10601"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under R. A. No. 11203, what does 'Tariffication' primarily refer to?",
+          "choices": [
+            "Non-tariff restrictions used to limit the amount of imported commodities.",
+            "The rate of tariff that provides comparable protection under existing quantitative import restrictions.",
+            "The imposition of the maximum bound rates committed under the Uruguay Round Final Act.",
+            "The lifting of all existing quantitative restrictions imposed on agricultural products and replacing these restrictions with tariffs."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In the context of rice importation, what is the 'Most Favoured Nation (MFN) Rate'?",
+          "choices": [
+            "The agreed maximum tariffs on products committed by the Philippines to the World Trade Organization (WTO).",
+            "The higher rate of customs duty levied on quantities imported in excess of the Minimum Access Volume (MAV).",
+            "Philippine tariff rates that are applicable to imports from all sources as prescribed in the CMTA.",
+            "Tariff rate commitments under the ASEAN Trade in Goods Agreement (ATIGA)."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The food safety regulatory function of the National Food Authority (NFA) under the Food Safety Act of 2013 was transferred to which government agency under Section 4 of R.A. No. 11203?",
+          "choices": [
+            "Department of Agriculture (DA).",
+            "National Economic Development Authority (NEDA).",
+            "Tariff Commission.",
+            "Bureau of Plant Industry (BPI)."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum out-quota tariff rate that shall apply to rice imports originating from non-ASEAN WTO member states?",
+          "choices": [
+            "One hundred eighty percent (180%) or the tariff equivalent, whichever is higher.",
+            "Thirty-five percent (35%) which is the In-Quota Tariff Rate.",
+            "One hundred percent (100%) as the maximum bound rate.",
+            "Fifty percent (50%) in accordance with the WTO Agreement on Agriculture."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Sanitary and Phytosanitary Import Clearance (SPSIC) from the Bureau of Plant Industry (BPI) for rice shall not provide for what type of restrictions?",
+          "choices": [
+            "Import volume and timing restrictions.",
+            "Export volume and timing restrictions.",
+            "Restrictions on rice quality and grade.",
+            "Tariff and customs duty restrictions."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which agency is solely responsible for maintaining the sufficient rice buffer stock, and what is the sole source for this stock?",
+          "choices": [
+            "The Department of Agriculture (DA), sourced from a mix of local and imported rice.",
+            "The Bureau of Plant Industry (BPI), sourced from imported rice only.",
+            "The Philippine Rice Research Institute (PhilRice), sourced solely from local farmers.",
+            "The National Food Authority (NFA), sourced solely from local farmers."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Rice Fund (10 billion annually) is allocated to four components. Which of the following is NOT one of the mandated components for the initial billion annual allocation?",
+          "choices": [
+            "Rice Farmer Financial Assistance.",
+            "Expanded Rice Credit Assistance.",
+            "Rice Extension Services.",
+            "Rice Farm Machineries and Equipment."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If the annual tariff revenues from rice importation exceeds billion, which of the following is not a mandated purpose for which the excess tariff revenues shall be earmarked?",
+          "choices": [
+            "Titling of Agricultural Rice Lands.",
+            "Crop Diversification Program.",
+            "Expanded Crop Insurance Program on Rice.",
+            "Rice Farm Machineries and Equipment."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum period given to the Department of Agriculture (DA) and other concerned agencies to formulate and adopt the rice roadmap upon the effectivity of the Act?",
+          "choices": [
+            "90 days.",
+            "45 days.",
+            "7 days.",
+            "180 days"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The National Building Code, Presidential Decree No. 1096, was adopted to revise and update which previous Republic Act?",
+          "choices": [
+            "A. No. 544",
+            "A. No. 6541",
+            "A. No. 7160",
+            "A. No. 9266"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The provisions of the National Building Code shall apply to all buildings and structures, except for which specific type of dwelling?",
+          "choices": [
+            "Public school buildings",
+            "Traditional indigenous family dwellings",
+            "Buildings constructed before the approval of the Code",
+            "Single-storey Group A Occupancies"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "As defined in the Code, what is the maximum total cost of construction for a \"traditional indigenous family dwelling\" to be exempt from payment of building permit fees?",
+          "choices": [
+            "Ten thousand pesos (P10,000)",
+            "Fifteen thousand pesos (P15,000)",
+            "Twenty-five thousand pesos (P25,000)",
+            "Fifty thousand pesos (P50,000)"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The administration and enforcement of the provisions of P.D. 1096 are primarily vested in which government official?",
+          "choices": [
+            "The Mayor of the City or Municipality",
+            "The Building Official",
+            "The Secretary of Public Works, Transportation and Communications",
+            "The President of the Philippine"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A building permit shall expire and become null and void if the work authorized therein is suspended or abandoned at any time after it has been commenced, for a period of:",
+          "choices": [
+            "60 days",
+            "90 days",
+            "120 days",
+            "180 days"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum floor area and least horizontal dimension for \"Rooms for Human Habitation\"?",
+          "choices": [
+            "6.00 square meters with a least dimension of 1.50 meters",
+            "6.00 square meters with a least dimension of 2.00 meters",
+            "4.00 square meters with a least dimension of 1.50 meters",
+            "3.00 square meters with a least dimension of 1.00 meter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under Section 701 of the Code, what does Group A Occupancy generally refers to?",
+          "choices": [
+            "Business and Mercantile",
+            "Residential Dwellings",
+            "Education and Recreation",
+            "Institutional"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which Republic Act is known as the Magna Carta for Small Farmers and was enacted in 1992, providing a comprehensive framework to support the development of small farmers?",
+          "choices": [
+            "RA 9700",
+            "RA 10659",
+            "RA 7607",
+            "RA 8178"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which two Republic Acts, enacted just a year apart (2020 and 2021), focus on modernizing and developing specific sectors of Philippine agriculture, namely sustainable farming practices and a major export crop?",
+          "choices": [
+            "RA 7607 and RA 8178",
+            "RA 9700 and RA 10659",
+            "RA 11511 and RA 11524",
+            "RA 8178 and RA 9700"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Comprehensive Agrarian Reform Program Extension with Reforms (CARPER) Act, enacted in 2009, which extended the acquisition and distribution of agricultural lands, is officially designated by which Republic Act number?",
+          "choices": [
+            "RA 10659",
+            "RA 7607",
+            "RA 8178",
+            "RA 9700"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which Republic Act is paired with the title Sugar Cane Industry Development Act of 2015?",
+          "choices": [
+            "RA 10559",
+            "RA 10637",
+            "RA 11511",
+            "RA 10659"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What Presidential Decree (PD) number corresponds to the \"Sanitation Code of the Philippines 1975\"?",
+          "choices": [
+            "PD 778",
+            "PD 856",
+            "PD 916",
+            "PD 603"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What does \"ABC\" stand for in government procurement?",
+          "choices": [
+            "Annual Budget Committee",
+            "Approved Budget for the Contract",
+            "Agency Budget Committee",
+            "Annual Budget for Contracts"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the threshold for direct acquisition of goods and services under RA 12009?",
+          "choices": [
+            "P100,000",
+            "P200,000",
+            "P500,000",
+            "P1,000,000"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is NOT a requirement for a bidder under RA 12009?",
+          "choices": [
+            "Legal Eligibility",
+            "Technical Eligibility",
+            "Political Affiliation",
+            "Financial Eligibility"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the penalty for a bidder who refuses to post the required performance security without justifiable cause?",
+          "choices": [
+            "Blacklisting",
+            "Suspension",
+            "Fine",
+            "Warning"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum period for a repeat order under RA 12009?",
+          "choices": [
+            "3 months",
+            "6 months",
+            "1 year",
+            "2 years"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the purpose of the \"Jury Duty\" provision in RA 12009?",
+          "choices": [
+            "To ensure that BAC members prioritize procurement assignments over other duties",
+            "To allow BAC members to serve in court cases",
+            "To provide legal immunity to BAC members",
+            "To require BAC members to attend court hearings"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is NOT a type of procurement under RA 12009?",
+          "choices": [
+            "Goods",
+            "Infrastructure Projects",
+            "Consulting Services",
+            "Personnel Services"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the main focus of the \"Lifecycle Cost Analysis\" in procurement?",
+          "choices": [
+            "To minimize the initial purchase price",
+            "To consider the total cost of ownership over the asset's life",
+            "To reduce the number of suppliers",
+            "To speed up the procurement process"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the penalty for a bidder who commits three or more acts that result in suspension?",
+          "choices": [
+            "Blacklisting",
+            "Suspension",
+            "Fine",
+            "Warning"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is a requirement for a bidder to participate in government procurement?",
+          "choices": [
+            "Disclosure of beneficial ownership",
+            "Political endorsement",
+            "Membership in a government agency",
+            "Family relationship with a government official"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In 12078, what is the aging period for rice before NFA disposal begins?",
+          "choices": [
+            "1 month",
+            "3 months",
+            "6 months",
+            "12 months"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which government officials can suspend or prohibit rice importation during extraordinary price drops?",
+          "choices": [
+            "Secretary of Agriculture",
+            "Department of Finance Secretary",
+            "President of the Philippines",
+            "Chairperson of the National Food Authority"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How is the NFA rice buffer stock disposed of after the aging period?",
+          "choices": [
+            "By donation to farmers",
+            "Distribution to local markets freely",
+            "Export to neighboring countries",
+            "Sale through public auction"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How long after publication does RA 12078 take effect?",
+          "choices": [
+            "Immediately",
+            "15 days",
+            "30 days",
+            "60 days"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What kind of rice seed development program is funded under the RCEF?",
+          "choices": [
+            "Imported hybrid seeds",
+            "GMO rice seeds",
+            "High-quality inbred rice seeds",
+            "Any commercially available seeds"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The State recognizes the importance of registered agriculturists in nation-building and development, and whose professionalism shall be fostered through the administration of transparent, credible, and relevant licensure examinations. This is stated in which article of the Act?",
+          "choices": [
+            "Article I, Section 1",
+            "Article I, Section 2",
+            "Article II, Section 5",
+            "Article IV, Section 14"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to RA 12215, how many foundation subjects are included in the scope of the written professional licensure examination for agriculturists?",
+          "choices": [
+            "Four (4)",
+            "Five (5)",
+            "Six (6)",
+            "Seven (7)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Professional Regulatory Board of Agriculture (Board) may reinstate or reissue a revoked Certificate of Registration (COR) after how many years from the date of revocation, upon petition and for reasons deemed proper and sufficient?",
+          "choices": [
+            "One (1) year",
+            "Two (2) years",
+            "Three (3) years",
+            "Five (5) years"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the primary reason stated for amending Republic Act No. 11524, according to the Explanatory Note?",
+          "choices": [
+            "To increase the total amount of the Coconut Farmers and Industry Trust Fund (CFITF).",
+            "To address institutional and procedural constraints that hinder the full and timely utilization of the Fund.",
+            "To change the composition of the Trust Fund Management Committee (TFMC).",
+            "To reduce the annual fixed percentage allocations of all implementing agencies."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which new objective is added to Section 4 of RA 11524 by House Bill No. 2260, focusing on productivity and expansion?",
+          "choices": [
+            "To privatize all non-cash coconut levy assets.",
+            "To mandate direct credit programs to farmers without collateral.",
+            "To provide full tax exemptions to coconut farmers.",
+            "To institutionalize and implement a nationwide coconut planting and replanting program."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which original objective of the Coconut Farmers and Industry Development Plan (CFIDP) is proposed to be amended to specifically include \"EMERGENCY SUPPORT\" for coconut farmers, farm workers, and their families?",
+          "choices": [
+            "Modernize and industrialize the coconut industry.",
+            "Ensure sustainable and equitable development of coconut-based enterprises.",
+            "Provide support to coconut farmers, farm workers, and their families.",
+            "Promote poverty alleviation, education, and social equity."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In R.A. 11524, who is responsible for promulgating the implementing rules and regulations (IRR) of the amended Act?",
+          "choices": [
+            "The Trust Fund Management Committee (TFMC).",
+            "The Department of Agriculture (DA).",
+            "The Philippine Coconut Authority (PCA).",
+            "The Department of Finance (DOF) as Chairperson of the TFMC."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the initial fixed percentage allocation from the Trust Fund for the planting and replanting of hybrid coconut seedlings by the PCA?",
+          "choices": [
+            "Ten percent (10%)",
+            "Five percent (5%)",
+            "Thirty percent (30%)",
+            "Fifteen percent (15%)"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the composition of the Trust Fund Management Committee (TFMC)?",
+          "choices": [
+            "Secretary of Agriculture (Chairperson), Secretary of Finance (Vice Chairperson), and Secretary of Budget and Management (Member).",
+            "Secretary of Finance (Chairperson), Secretary of Budget and Management (Vice Chairperson), and Secretary of Agriculture (Member).",
+            "Three representatives from the coconut farmer's sector.",
+            "The PCA Administrator and two Presidential appointees."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the stated national target for planting coconut trees by 2028, announced by the Philippine Coconut Authority?",
+          "choices": [
+            "Ten million trees.",
+            "Fifty million trees.",
+            "At least one hundred million coconut trees.",
+            "At least two hundred million coconut trees."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What percentage of the initial Trust Fund allocation is designated for scholarships for farmers and their families through the Commission on Higher Education (CHED)?",
+          "choices": [
+            "Five percent (5%)",
+            "Ten percent (10%)",
+            "Fifteen percent (15%)",
+            "Twenty percent (20%)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under the proposed new policy, fund utilization under the Act must be strategic, responsive to the needs of coconut farmers, and supportive of national goals for: (Select the most accurate set of goals from the bill).",
+          "choices": [
+            "Crop diversification, organic farming, and international aid.",
+            "Industry expansion, rural development, and agricultural export growth.",
+            "Tax reform, social equity, and infrastructure development only.",
+            "Debt payment, land acquisition, and farmer lobbying."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which initial percentage allocation from the Trust Fund is designated for credit programs through the Development Bank of the Philippines (DBP) and the Land Bank of the Philippines (LBP)?",
+          "choices": [
+            "Thirty percent (30%)",
+            "Fifteen percent (15%)",
+            "Ten percent (10%)",
+            "Five percent (5%)"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The bill states that the Trust Fund Management Committee shall approve disbursements from the Trust Fund only in accordance with what key document?",
+          "choices": [
+            "The Coconut Farmers Annual National Budget (CFANB).",
+            "The Coconut Farmers Registry (CFR).",
+            "The Coconut Farmers and Industry Development Plan (CFIDP).",
+            "The Philippine Coconut Farmers Development Plan (PCFDP)."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The IRR of RA No. 11321 was issued by which government agency?",
+          "choices": [
+            "Department of Trade and Industry (DTI)",
+            "Department of Finance (DOF)",
+            "Department of Agriculture (DA)",
+            "National Economic and Development Authority (NEDA)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under the IRR of the Sagip Saka Act, what term refers to the quantification of the commodity harvested or product output after domestic or home consumption that may be available for sale?",
+          "choices": [
+            "Marketable Surplus",
+            "Value Chain",
+            "Working Capital",
+            "Proponent Group"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In R.A. 11321, what does the IRR define as multi-year projects with an implementation of more than twelve (12) months?",
+          "choices": [
+            "Long-term Enterprise Plans",
+            "Long-gestating projects",
+            "Value Chain Initiatives",
+            "Vertical Clustering"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In R.A 11321, which of the following is not explicitly listed as a form of assistance to be provided under the Program?",
+          "choices": [
+            "Improvement of production and productivity, including provision of production inputs, equipment, facilities, and infrastructure.",
+            "Improvement of producers' and enterprises' access to financing in the form of credit, grants and crop insurance.",
+            "Provision of access to improved technologies through research and development.",
+            "Direct cash subsidies for farmers and fisherfolk not engaged in enterprises."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In R.A 11321, according to the asset categories for Micro, Small and Medium Enterprises (MSMEs) defined in the IRR, what is the asset ceiling for a Micro enterprise?",
+          "choices": [
+            "Not more than Php 3,000,000",
+            "Not more than Php 15,000,000",
+            "Not more than Php 100,000,000",
+            "Php 3,000,001 to Php 15,000,000"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Who is the designated Chair of the National Sagip Saka Program Steering Committee (SS-PSC)?",
+          "choices": [
+            "The DA Secretary",
+            "The DA Assistant Secretary for Agribusiness",
+            "The DA Undersecretary",
+            "The AMAS Director"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Who is the designated Chair of the Regional Sagip Saka Program Management Committee (SS-PMC)?",
+          "choices": [
+            "The Regional Executive Director (RED)",
+            "The Agribusiness and Marketing Assistance Division (AMAD) Chief",
+            "The Agricultural Training Institute (ATI) Director",
+            "The Provincial Agriculturist"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Who shall be the Chair of the Farmers and Fisherfolk Enterprise Development Council (FFEDC)?",
+          "choices": [
+            "The DA Undersecretary",
+            "The Secretary of the Department of Trade and Industry (DTI)",
+            "The Secretary of Agriculture or his duly authorized representative (at least an Undersecretary)",
+            "The Representative of the Department of Finance (DOF)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1210 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "FUNDAMENTALS_SCIENCES",
+      "topic_name": "Fundamentals of Agricultural, Fishery, Ecological and Environmental Sciences",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Minerals essential in very small dietary amounts—such as Cu, Zn, I, and Se—are known as—",
+          "choices": [
+            "Macro-minerals",
+            "Trace minerals",
+            "Ionic minerals",
+            "Structural minerals"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Trace minerals: Minerals required in very small amounts in the diet, e.g., Cu, Zn, I, Se. Macro-minerals: Required in larger amounts, e.g., Ca, P, K, Na. Ionic minerals: Minerals in ionic form (not a dietary classification). Structural minerals: Minerals contributing to body structure, e.g., Ca in bones."
+        },
+        {
+          "q": "The ozonosphere which absorbs much ultraviolet light from the solar spectrum is a layer within the:",
+          "choices": [
+            "troposphere",
+            "mesosphere",
+            "stratosphere",
+            "thermosphere"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Stratosphere: Contains the ozone layer that absorbs most ultraviolet (UV) radiation. Troposphere: Lowest layer; weather occurs here. Mesosphere: Middle layer; meteors burn here. Thermosphere: Upper layer; contains ionosphere and auroras."
+        },
+        {
+          "q": "A short, thickened underground stem used for storage is a—",
+          "choices": [
+            "Rhizome",
+            "Bulbil",
+            "Corm",
+            "Tuber"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Corm: Short, thickened underground stem used for storage. Rhizome: Horizontal underground stem that grows laterally. Bulbil: Small bulb-like structure that develops on a plant for vegetative propagation. Tuber: Enlarged, usually irregular underground stem or root storing starch, e.g., potato."
+        },
+        {
+          "q": "A soil type that is poor in organic matter and often contains excess CaCl2 or CaSO4 in low-rainfall areas is called—",
+          "choices": [
+            "Red soil",
+            "White soil",
+            "Alkali soil",
+            "Laterite soil"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A castrated male sheep is known as—",
+          "choices": [
+            "Wether",
+            "Ram",
+            "Billy",
+            "Tup"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Meat obtained from deer is called—",
+          "choices": [
+            "Chevon",
+            "Mutton",
+            "Venison",
+            "Antelope meat"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "MATH_BASIC_ENGG",
+      "topic_name": "Mathematics and Basic Engineering Sciences",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Solve: x² – 5x + 6 = 0",
+          "choices": [
+            "x = 1, 6",
+            "x = 2, 3",
+            "x = –2, –3",
+            "x = 3 only"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the discriminant of 2x² – 4x + 3 = 0?",
+          "choices": [
+            "–8",
+            "–4",
+            "4",
+            "8"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the 10th term of the arithmetic sequence 3, 7, 11, 15…?",
+          "choices": [
+            "35",
+            "39",
+            "43",
+            "47"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Find the area of an equilateral triangle with side 10 cm.",
+          "choices": [
+            "25√3",
+            "50√3",
+            "100√3",
+            "75√3"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A triangle has sides 7 cm, 9 cm, and 12 cm. Find the area.",
+          "choices": [
+            "28 cm²",
+            "30 cm²",
+            "31 cm²",
+            "32 cm²"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In triangle ABC, A = 30°, a = 10 cm, and B = 45°. Find side b.",
+          "choices": [
+            "11.4 cm",
+            "12.9 cm",
+            "14.1 cm",
+            "16.3 cm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A communication tower casts a shadow of 38 m. The angle of elevation of the sun is 53°. What is the height of the tower?",
+          "choices": [
+            "30 m",
+            "45 m",
+            "50 m",
+            "60 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Two hikers leave the same point. One walks 5 km north, the other walks 8 km at a bearing 40° east of north. How far apart are they?",
+          "choices": [
+            "5.27 km",
+            "6.1 km",
+            "7.2 km",
+            "9.1 km"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Evaluate: lim (x→0) [(1 − cos x) / sin x]",
+          "choices": [
+            "1",
+            "indeterminate",
+            "0",
+            "-1"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Evaluate: lim (n→∞) [(3x³ − 4x + 2) / (7x³ + 5)]",
+          "choices": [
+            "∞",
+            "3/7",
+            "2/7",
+            "Does not exist"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many different 3-letter codes can be formed from the letters A, B, C, D if repetition is NOT allowed?",
+          "choices": [
+            "12",
+            "20",
+            "24",
+            "36"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In how many ways can 6 people sit around a round table?",
+          "choices": [
+            "60",
+            "120",
+            "240",
+            "720"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "(n-1)!"
+        },
+        {
+          "q": "A box contains 5 red, 4 blue, and 3 green balls. How many ways can 3 balls be chosen?",
+          "choices": [
+            "84",
+            "120",
+            "220",
+            "320"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "12C3"
+        },
+        {
+          "q": "Write the equation of a line with slope m = 4 passing through point (2, -3).",
+          "choices": [
+            "y + 3 = 4(x − 2)",
+            "y − 3 = 4(x + 2)",
+            "y + 2 = 4(x + 3)",
+            "y − 2 = 4(x − 3)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "y - y1 = m(x - x1)"
+        },
+        {
+          "q": "Distance from (5,8) to line 4x − 3y + 6 = 0.",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "D = (Ax - By + C) / sqrt(a^2 + b^2)"
+        },
+        {
+          "q": "In the point (7, −3), what is the abscissa?",
+          "choices": [
+            "–3",
+            "0",
+            "7",
+            "3"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "X is the abscissa; Y is the ordinate"
+        },
+        {
+          "q": "Find the distance between points (3, 4) and (7, 1).",
+          "choices": [
+            "3",
+            "4",
+            "5",
+            "6"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Find the remainder when f(x) = x³ − 4x + 5 is divided by x − 2.",
+          "choices": [
+            "–1",
+            "1",
+            "3",
+            "5"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Find the standard deviation of: 10, 10, 10, 10.",
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The weights (kg) of 6 animals are: 30, 32, 35, 40, 45, 47. Compute the sample variance.",
+          "choices": [
+            "40.47",
+            "42.3",
+            "46.9",
+            "48.6"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An engineer wants to study the relationship between irrigation volume and corn height. What method applies?",
+          "choices": [
+            "Regression analysis",
+            "Chi-square test",
+            "Median test",
+            "ANOVA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Regression analysis: Studies the relationship between a dependent variable (corn height) and an independent variable (irrigation volume). Chi-square test: Tests association between categorical variables. Median test: Compares medians across groups. ANOVA: Compares means of three or more groups, not directly the relationship between two continuous variables."
+        },
+        {
+          "q": "The backsight (BS) on a benchmark is 1.245 m, and the foresight (FS) on a turning point is 1.885 m. If the benchmark elevation is 100.000 m, find the elevation of the turning point.",
+          "choices": [
+            "99.360 m",
+            "99.500 m",
+            "99.865 m",
+            "100.643 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A tank is filled with water to a depth of 5 m. What is the gauge pressure at the bottom?",
+          "choices": [
+            "19.6 kPa",
+            "29.4 kPa",
+            "39.2 kPa",
+            "49.1 kPa"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Water flows in a 0.15 m pipe at 2 m/s. It enters a smaller pipe of 0.10 m. Find the new velocity.",
+          "choices": [
+            "3.5 m/s",
+            "4.0 m/s",
+            "4.5 m/s",
+            "6.0 m/s"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "A1V1 = A2V2; A = pi(d)^2/4"
+        },
+        {
+          "q": "A hydraulic line in a sprayer shows an absolute pressure of 250 kPa. Atmospheric pressure is 100 kPa. Find the gauge pressure.",
+          "choices": [
+            "100 kPa",
+            "120 kPa",
+            "150 kPa",
+            "250 kPa"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Pabs = Pgage + 100"
+        },
+        {
+          "q": "What is the theoretical flow velocity in an orifice where the free water surface is 120 cm above the center of the orifice.",
+          "choices": [
+            "48.5 m/s",
+            "2.15 m/s",
+            "3.50 m/s",
+            "4.85 m/s"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Hydrology",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Rainfall generated by the movement of air from high-pressure to low-pressure regions is known as:",
+          "choices": [
+            "Cyclonic precipitation",
+            "Grid-point rainfall",
+            "Convective precipitation",
+            "Arithmetic mean rainfall"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Cyclonic precipitation: Rainfall caused by large-scale air movement from high-pressure to low-pressure. Grid-point rainfall: Computed rainfall value at a grid node. Convective precipitation: Caused by rising warm air due to heating. Arithmetic mean rainfall: Simple average of rainfall measurements."
+        },
+        {
+          "q": "Streamflow is the sum of",
+          "choices": [
+            "overland flow and interflow",
+            "overland flow and baseflow",
+            "interflow and baseflow",
+            "surface runoff and baseflow"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Volume of water that can be released from storage in a confined aquifer per unit horizontal area per unit decline in head is called",
+          "choices": [
+            "specific storage",
+            "specific yield",
+            "specific retention",
+            "storativity"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "Storativity (S): Volume of water released per unit area per unit decline in head in a confined aquifer. Specific storage (Ss): Volume of water released per unit volume of aquifer per unit decline in head. Specific yield (Sy): Volume of water that drains from unconfined aquifer per unit volume. Specific retention (Sr): Volume of water retained in soil after gravity drainage."
+        },
+        {
+          "q": "When the rainfall intensity is lower than the infiltration capacity, the actual rate of infiltration is equal to",
+          "choices": [
+            "infiltration capacity",
+            "saturated hydraulic conductivity",
+            "rainfall intensity",
+            "water holding capacity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following options correctly matches ALL terms with their definitions?",
+          "choices": [
+            "Overland flow – water flowing in the channel; Direct runoff – surface runoff only; Subsurface runoff – deep percolation; Baseflow – water that evaporates from soil",
+            "Overland flow – that part of surface runoff that flows over the surface; Direct runoff – surface runoff + interflow; Subsurface runoff – same as interflow; Baseflow – same as groundwater runoff",
+            "Overland flow – also called groundwater runoff; Direct runoff – only the rainfall reaching the stream; Subsurface runoff – infiltration capacity of soil; Baseflow – flow overland into the river",
+            "Overland flow – flow inside the stream only; Direct runoff – evapotranspiration volume; Subsurface runoff – precipitation excess; Baseflow – water flowing on paved surfaces"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Option C is wrong: Overland flow is surface flow, not groundwater; direct runoff includes multiple flow components, not just rainfall reaching a stream; infiltration capacity is a soil property, not runoff; baseflow comes from groundwater, not overland flow. Option D is wrong: surface runoff occurs before reaching the stream; direct runoff is water entering streams, not evapotranspiration; precipitation excess leads to various flows but is not specifically subsurface runoff; baseflow is groundwater flow, totally unrelated to paved surfaces."
+        },
+        {
+          "q": "A small agricultural watershed has: Length of flow, L = 600 m; Average slope, S = 0.015; Catchment area, A = 12 hectares; Runoff coefficient, C = 0.45; Intensity = 85 mm/hr. Compute the peak discharge.",
+          "choices": [
+            "1.05 m³/s",
+            "1.28 m³/s",
+            "1.70 m³/s",
+            "2.04 m³/s"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Graphical representation of instantaneous runoff against time",
+          "choices": [
+            "hydrograph",
+            "log-probability graph",
+            "monograph",
+            "hytograph"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In frequency analysis, most hydraulic processes, more or less, follow this process. This process is governed by chance and time dependent. What type of process is this?",
+          "choices": [
+            "Deterministic Process",
+            "Stochastic Process",
+            "Probabilistic Process",
+            "Hydrolistic Process"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Stochastic process: A random, time-dependent process often used in hydraulic frequency analysis. Deterministic process: Fully predictable with no randomness. Probabilistic process: Deals with probability but is broader; stochastic is a type of probabilistic process. Hydrolistic process: Not a standard term in hydraulics."
+        },
+        {
+          "q": "A technique used to check the consistency of rainfall records of a station:",
+          "choices": [
+            "normal ratio method",
+            "double mass analysis",
+            "arithmetic mean method",
+            "Thiessen method"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Double mass analysis: Technique to check consistency of rainfall records at a station. Normal ratio method: Estimates rainfall at a station using surrounding stations. Arithmetic mean method: Calculates average rainfall over an area. Thiessen method: Area-weighted average rainfall using polygonal regions."
+        },
+        {
+          "q": "Marikina watershed having a drainage area of 500 sq. km. has been characterized to have an average CN value of 65 in 1970 where it experienced a storm depth of 100 mm. After 30 years, the same storm magnitude was felt but this time, due primarily to a change in land use inside the watershed, the CN value now is 84. What is the percentage change in depth of runoff?",
+          "choices": [
+            "113%",
+            "123%",
+            "133%",
+            "143%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An artesian well is a",
+          "choices": [
+            "hand-pumped well",
+            "well-tapping a confined aquifer",
+            "free-flowing well",
+            "well tapping an unconfined water"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which well consists of connected pipes driven into unconsolidated formations with shallow water tables?",
+          "choices": [
+            "Jetted well",
+            "Bored/Augered well",
+            "Driven well",
+            "Dug well"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Driven well: Connected pipes driven into unconsolidated formations with shallow water tables. Jetted well: Uses high-pressure water to drive casing into soil. Bored/Augered well: Dug or drilled using augers, usually larger diameter. Dug well: Manually excavated, wide and shallow."
+        },
+        {
+          "q": "Which logging method uses sensing devices to determine formation characteristics, groundwater quantity, quality, movement, and borehole structure?",
+          "choices": [
+            "Temperature Logging",
+            "Resistivity Logging",
+            "Geophysical Logging",
+            "Radiation Logging"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Geophysical logging: Uses sensors in boreholes to measure formation properties, groundwater quantity, quality, movement, and structure. Temperature logging: Measures subsurface temperature. Resistivity logging: Measures electrical resistivity to infer water content or rock type. Radiation logging: Uses radioactive sources to study formation density or porosity."
+        },
+        {
+          "q": "Which of the following is Horton's equation?",
+          "choices": [
+            "ft = kfc + (f0-fc) e^-t",
+            "ft = (fc+f0) - (fc)e^-kt",
+            "ft = fc + (f0-fc) e^-kt",
+            "ft = (f0-fc) e^-kt"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The rational equation is applicable for a",
+          "choices": [
+            "flat and small watersheds",
+            "flat and large watersheds",
+            "sloping and small watersheds",
+            "sloping and large watersheds"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Two of the four major criteria for evaluating water quality for irrigation purposes are",
+          "choices": [
+            "pH and salinity",
+            "sodicity and Ph",
+            "turbidity and salinity",
+            "salinity and sodicity"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "salinity - amount of dissolve salts; sodicity - sodium hazard; toxicity - harmful concentrations; miscellaneous - turbidity, ph, etc."
+        },
+        {
+          "q": "A trapezoidal canal having a base width of 1.8 m and a top of 2.8 m is 1.2 m deep. If the normal flow is 17.857 m3/s at 1.2 m deep and a coefficient of roughness n = 0.016, compute the hydraulic slope.",
+          "choices": [
+            "0.01",
+            "0.02",
+            "0.03",
+            "0.04"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The irrigation period increases with",
+          "choices": [
+            "increasing available discharge",
+            "decreasing application efficiency",
+            "decreasing irrigated area",
+            "decreasing management allowable deficit"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Decreasing application efficiency increases irrigation period because more time is needed to deliver the required water when efficiency is low. Increasing discharge shortens irrigation period. Decreasing area shortens irrigation period. Decreasing MAD reduces the amount to be applied, so period becomes shorter."
+        },
+        {
+          "q": "A remedial measure that can be used to address high bicarbonate concentration in irrigation water is",
+          "choices": [
+            "leaching",
+            "over-irrigation",
+            "liming",
+            "eutrophication"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A structure built along the supplementary farm ditch at the head of the internal farm ditch is called",
+          "choices": [
+            "offtake",
+            "cross regulator",
+            "flow divisor",
+            "turnout"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The depth of water to be evacuated from the drainage area in one day is called",
+          "choices": [
+            "hydraulic conductivity",
+            "equivalent depth",
+            "drainage requirement",
+            "drainage coefficient"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The best hydraulic section of a canal is characterized by:",
+          "choices": [
+            "minimum area for a given discharge",
+            "applicable only to non-erodible channel",
+            "least wetted perimeter for a given area",
+            "all of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "R = A/P"
+        },
+        {
+          "q": "A type of drainage system where laterals meet the main line at only one side.",
+          "choices": [
+            "random",
+            "natural",
+            "gridiron",
+            "herringbone"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Random/Natural: Suited for small or isolated wet areas; no structured pattern. Herringbone: Used on concave or narrow areas; laterals enter main from both sides at staggered intervals."
+        },
+        {
+          "q": "An irrigation canal has the following data: bottom width = 60 cm, depth of flowing water = 50 cm, side slope = 1:1, channel slope = 0.02, Manning's n = 0.035. Compute the capacity of the channel.",
+          "choices": [
+            "0.851 m3/s",
+            "0.935 m3/s",
+            "1.123 m3/s",
+            "0.568 m3/s"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A subsurface drain system wherein laterals join the submain on both sides alternately.",
+          "choices": [
+            "gridiron",
+            "parallel drain system",
+            "herringbone",
+            "double main system"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Herringbone: Subsurface drainage system where laterals join the submain alternately on both sides. Gridiron: Laterals form a rectangular network. Parallel drain system: Laterals run parallel into a single main. Double main system: Two mains collect water from laterals."
+        },
+        {
+          "q": "Evapo-transpiration in an 8 ha farm is 7 mm/day and percolation losses is 2 mm/day. What is the design discharge of a canal to be able to deliver a 5-day requirement of the farm in 24 hours if irrigation efficiency is 75%?",
+          "choices": [
+            "150 m3/hr",
+            "200 m3/hr",
+            "175 m3/hr",
+            "140 m3/hr"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "One thousand and two hundred fifty cubic meters of water was delivered to a 10 ha farm for the month of June in which the consumptive use is estimated at 8 mm/day. The effective rainfall for the period was 150 mm. What is the irrigation efficiency?",
+          "choices": [
+            "32%",
+            "87%",
+            "72%",
+            "52%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The soil moisture tension at this point is normally between 1/10 to 1/3 atmosphere.",
+          "choices": [
+            "Field capacity",
+            "Permanent wilting point",
+            "Available moisture",
+            "Readily available moisture"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Permanent wilting point: Moisture where plants cannot recover; tension ~15 atm. Available moisture: Water between field capacity and wilting point. Readily available moisture: Upper ~75% of available moisture, easily used by plants."
+        },
+        {
+          "q": "Land Soaking Water Requirement (LSR) depends primarily on—",
+          "choices": [
+            "Crop variety and fertilizer applied",
+            "Initial soil moisture and soil physical properties",
+            "Solar radiation intensity",
+            "Water pH and salinity"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Initial soil moisture and soil physical properties: LSR depends mainly on how much water the soil can absorb and hold. Crop variety and fertilizer: Affect growth but not directly LSR. Solar radiation intensity: Influences evapotranspiration, not LSR. Water pH and salinity: Affect water quality, not absorption requirement."
+        },
+        {
+          "q": "The pan coefficient represents the ratio of—",
+          "choices": [
+            "Irrigation water to pan",
+            "ETo to pan evaporation",
+            "Percolation to pan",
+            "Water depth applied to water depth used"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the typical crop height used for defining the reference surface for ETo?",
+          "choices": [
+            "0.1 m",
+            "0.2 m",
+            "0.5 m",
+            "1.0 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If 120 mm of irrigation water was applied and only 90 mm was stored in the root zone, what is the application efficiency (Ea)?",
+          "choices": [
+            "65%",
+            "70%",
+            "75%",
+            "80%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which irrigation efficiency refers to the ratio between the water received at the inlet of a block of fields and the amount of water released at the project's headworks?",
+          "choices": [
+            "Application efficiency",
+            "Storage efficiency",
+            "Conveyance efficiency",
+            "Distribution efficiency"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Conveyance efficiency: Ratio of water delivered to a block of fields to the amount released at the project headworks. Application efficiency: Water effectively used by crops vs. water applied. Storage efficiency: Water stored vs. water supplied. Distribution efficiency: Uniformity of water application within fields."
+        },
+        {
+          "q": "The minimum gustiness and uplift that the PV modules shall be able to withstand.",
+          "choices": [
+            "130 kph",
+            "150 kph",
+            "180 kph",
+            "NOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In site selection for wastewater re-use for irrigation, soil depth shall be ____.",
+          "choices": [
+            "1 m",
+            "3 m",
+            "5 m",
+            "NOTA"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which type of weir has a crest shaped to match the underside of the nappe of a sharp-crested weir and has high discharge efficiency?",
+          "choices": [
+            "Glacis weir",
+            "Vertical drop weir",
+            "Ogee weir",
+            "Trapezoidal weir"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Ogee weir: Crest shaped to match the nappe of a sharp-crested weir, giving high discharge efficiency. Glacis weir: Sloped weir, less efficient. Vertical drop weir: Sudden drop, simpler design. Trapezoidal weir: Rectangular or trapezoidal notch, moderate efficiency."
+        },
+        {
+          "q": "A farmer wants to determine the permanent wilting point (PWP) of a soil to plan irrigation scheduling. Laboratory analysis shows the following data: (a) The field capacity (FC) of the soil is 30%. (b) The current moisture content (mc) is 22%. (c) The plant has retained 40% of the available moisture (AM). Calculate the Permanent Wilting Point (PWP) of the soil.",
+          "choices": [
+            "12.8%",
+            "14.2%",
+            "16.7%",
+            "18.1%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A stream of 135 lps was diverted from a canal and 100 litres/sec. were delivered to the field. An area of 1.6 ha was irrigated in 8 hours. The effective depth of root zone was 1.8 m. The runoff loss in the field was 432 m³. The depth of water penetration varied linearly from 1.8 m at the head end of the field to 1.2 m at the tail end. Available moisture holding capacity of the soil is 20 cm/m depth of soil. Irrigation was started at a moisture depletion level of 50 percent of the available moisture. Calculate water conveyance efficiency.",
+          "choices": [
+            "72.07%",
+            "73.07%",
+            "74.07%",
+            "75.07%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A stream of 135 lps was diverted from a canal and 100 litres/sec. were delivered to the field. An area of 1.6 ha was irrigated in 8 hours. The effective depth of root zone was 1.8 m. The runoff loss in the field was 432 m³. The depth of water penetration varied linearly from 1.8 m at the head end of the field to 1.2 m at the tail end. Available moisture holding capacity of the soil is 20 cm/m depth of soil. Irrigation was started at a moisture depletion level of 50 percent of the available moisture. Calculate water application efficiency.",
+          "choices": [
+            "80%",
+            "85%",
+            "90%",
+            "95%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For a 13m x 13m sprinkler spacing, what is the design sprinkler throw for a 45% overlap?",
+          "choices": [
+            "7.3 m",
+            "8.9 m",
+            "9.4 m",
+            "10.5 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Recommended slope for border irrigation method.",
+          "choices": [
+            "0.05% to 3.0%",
+            "2.0% to 5.0%",
+            "≤ 0.1%",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Choice A refers to furrow irrigation. Choice C refers to basin irrigation."
+        },
+        {
+          "q": "Compute the land soaking requirement for a soil (depth of root zone = 60 cm) with residual moisture content of 18% by weight, bulk density of 1,320 kg/m3 and porosity of 50%. Standing water for planting is 20 mm.",
+          "choices": [
+            "177.44 mm",
+            "157.44 mm",
+            "253.44 mm",
+            "273.44 mm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Add standing water only for LPWR"
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Soil and Water Conservation Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "On a 30% hill slope, it is proposed to construct bench terraces with 1:1 batter slope. If the vertical interval is 2.5 meters, what is the width of the terrace?",
+          "choices": [
+            "4 m",
+            "5 m",
+            "6 m",
+            "7 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The combined effect of raindrop impact and sheet flow is called—",
+          "choices": [
+            "Rill erosion",
+            "Interrill erosion",
+            "Splash erosion",
+            "Stream bank erosion"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Removal of soil by water from small but well defined channels when there is concentration of overland flow.",
+          "choices": [
+            "stream channel erosion",
+            "gully erosion",
+            "rill erosion",
+            "sheet erosion"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A soil conservation practice that stores runoff temporarily to reduce erosive energy is:",
+          "choices": [
+            "Farm pond",
+            "water impounding",
+            "Both a and b",
+            "NOTA"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which structure is placed along waterways or small streams to slow down flow and encourage sediment deposition?",
+          "choices": [
+            "Farm pond",
+            "Check dam",
+            "Contour line",
+            "Riprap"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Check dam: Small structure across a stream to slow water flow and promote sediment deposition. Farm pond: Stores water for irrigation or livestock. Contour line: Line along equal elevation to prevent soil erosion. Riprap: Rock placement to protect banks from erosion, not primarily for sediment deposition."
+        },
+        {
+          "q": "Landslides and slope failures caused by saturated soils on steep hills refer to—",
+          "choices": [
+            "Slip erosion",
+            "Rill erosion",
+            "Splash erosion",
+            "Sheet erosion"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Stones piled and arranged by hand on steep slopes to slow runoff and prevent erosion are called:",
+          "choices": [
+            "Stone wall",
+            "Gabion",
+            "Diversion line",
+            "Riprap"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the ratio of the weight of soil to the weight of water with volume equal to the total soil volume",
+          "choices": [
+            "Apparent Specific Gravity",
+            "Real Specific Gravity",
+            "True Specific Gravity",
+            "Specific Gravity of Soil Solids"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Apparent Specific Gravity: Ratio of soil weight to weight of water for the total soil volume (including pores). Real/True Specific Gravity: Ratio of soil solids weight to water weight, excluding pores. Specific Gravity of Soil Solids: Same as true specific gravity; only considers solid particles."
+        },
+        {
+          "q": "The _________ refers to the volume of water stored in a reservoir between the minimum water level and the normal water level.",
+          "choices": [
+            "Inactive storage",
+            "Dead storage",
+            "Active storage",
+            "Live load"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Active storage: Volume of water between minimum and normal reservoir levels, available for use. Inactive storage / Dead storage: Water below the minimum level, not usable. Live load: Not related to reservoir storage; term used in structural engineering."
+        },
+        {
+          "q": "A system built across a river to store runoff for multiple use, typically 15–35 m high.",
+          "choices": [
+            "Small farm reservoir",
+            "Small reservoir irrigation system",
+            "Corewall structure",
+            "Watershed impoundment"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A system with an earth dam (<5 m high) used to harvest rainfall and runoff with a pond area of about 1500 m².",
+          "choices": [
+            "Small farm reservoir",
+            "Small reservoir irrigation system",
+            "Ogee weir",
+            "Flood retarding basin"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Minimum dam crest width required for maintenance purposes in small water impounding systems.",
+          "choices": [
+            "2 meters",
+            "3 meters",
+            "4 meters",
+            "6 meters"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A soil sample is taken from a small test hole in a soil borrow pit. The volume of the test hole is determined to be 0.028 m3. The wet mass of the soil is 56 kg and the dry mass is 49 kg. The specific gravity of the soil solids is 2.72. What is the porosity?",
+          "choices": [
+            "0.289",
+            "0.357",
+            "0.412",
+            "0.504"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An earth embankment designed with sections of varying permeability to regulate seepage through a dam is called—",
+          "choices": [
+            "Corewall barrier",
+            "Zone embankment",
+            "Riprap embankment",
+            "Terraced bund"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Aquaculture Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "A rearing strategy where several species are cultured together in one pond is known as:",
+          "choices": [
+            "Sequential farming",
+            "Polyculture",
+            "Alternate stocking",
+            "Multi-batch stocking"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Polyculture: Rearing multiple species together in one pond. Sequential farming: Culturing species one after another in the same pond. Alternate stocking: Introducing different species at different times. Multi-batch stocking: Stocking the same species in multiple batches."
+        },
+        {
+          "q": "Aquaponics is best defined as integration of aquaculture with:",
+          "choices": [
+            "Soil fertilization",
+            "Wetland engineering",
+            "Hydroponics",
+            "Mangrove planting"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Hydroponics: Aquaponics integrates aquaculture with soilless plant cultivation (hydroponics). Soil fertilization: Not specific to aquaponics. Wetland engineering: Related to ecosystem management, not aquaponics. Mangrove planting: Not related to aquaponics."
+        },
+        {
+          "q": "A pond type normally built below ground level and often called \"borrow-pit pond\" is:",
+          "choices": [
+            "Embankment pond",
+            "Excavated pond",
+            "Watershed pond",
+            "Diversion pond"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The principal type of pond used in aquaculture, suitable across many topographies, is the:",
+          "choices": [
+            "Embankment pond",
+            "Watershed pond",
+            "Excavated pond",
+            "Raceway pond"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which structure allows selective release of surface or bottom water layers?",
+          "choices": [
+            "Pump gate",
+            "Overflow spillway",
+            "Monk sluice",
+            "Cylinder valve"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Monk sluice: Structure that allows selective withdrawal of surface or bottom water layers. Pump gate: Lifts water mechanically, not layer-selective. Overflow spillway: Releases excess water automatically at a set level. Cylinder valve: Controls flow but not specifically for selective layer release."
+        },
+        {
+          "q": "A production pond that is easiest to harvest by net is usually:",
+          "choices": [
+            "Large and circular",
+            "Small and rectangular",
+            "Long and triangular",
+            "Deep octagonal pond"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In enclosure culture, which statement is TRUE?",
+          "choices": [
+            "Cages have earth bottoms",
+            "Pens require synthetic nets at the floor",
+            "Cages rely entirely on artificial water circulation",
+            "Both allow free water exchange with environment"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which aeration system is best for deep ponds requiring oxygen transfer at depth?",
+          "choices": [
+            "Paddle wheel",
+            "Aspirating aerator",
+            "Diffused or bubble aeration",
+            "Vertical pump aerator"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Diffused or bubble aeration: Best for deep ponds, as it transfers oxygen throughout the water column. Paddle wheel: Surface aeration, limited to top layers. Aspirating aerator: Mixes air with water at the surface. Vertical pump aerator: Circulates water, limited depth penetration."
+        },
+        {
+          "q": "A fish species that can tolerate crowding, handling, and poor water quality is said to have high:",
+          "choices": [
+            "Meat recovery",
+            "Hardiness",
+            "Market value",
+            "Salinity preference"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1193 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "From the National Farm-to-Market Roads Network Plan 2023-2028, what is the total existing FMRs to be maintained within the country?",
+          "choices": [
+            "67, 360.65 km",
+            "64, 155.20 km",
+            "67, 255.46 km",
+            "64, 545.20 km"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum height of side posts and columns in greenhouses?",
+          "choices": [
+            "0.3 m",
+            "0.45 m",
+            "3 m",
+            "2.1 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In one lane roadway, a turn-out of about ___ meter wide and ____ meters long should be provided in critical sections especially on steep grades along mountainous areas.",
+          "choices": [
+            "2-4 meter wide and 20 meters",
+            "1-2 meter wide and 30 meters",
+            "2-4 meter wide and 30 meters",
+            "1-2 meter wide and 20 meters"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Visibility shall range from 40 meters for roadway with a speed not exceeding ___ kph and 320 meters for roadway having ___ kph speed limit.",
+          "choices": [
+            "23 kph; 69 kph",
+            "32 kph; 96 kph",
+            "32 kph; 69 kph",
+            "23 kph; 96 kph"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Quarried stone especially selected, graded and placed to prevent erosion and thereby preserve the shape of a surface, slope, or underlying structure.",
+          "choices": [
+            "gabion",
+            "riprap",
+            "roadbed",
+            "concrete"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Riprap: Quarried stone placed to prevent erosion and protect surfaces or slopes. Gabion: Wire mesh cage filled with stones for erosion control or retaining structures. Roadbed: Prepared foundation for a road or railway. Concrete: Cement-based material used for construction."
+        },
+        {
+          "q": "A structure is in static equilibrium when:",
+          "choices": [
+            "Only forces are balanced",
+            "Only moments are balanced",
+            "Acceleration is constant",
+            "Sum of forces and sum of moments are both zero"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Shear stress in a beam is maximum at:",
+          "choices": [
+            "The top fiber",
+            "The bottom fiber",
+            "The neutral axis",
+            "The supports only"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A roller support can resist which type of force?",
+          "choices": [
+            "Horizontal force only",
+            "Moment only",
+            "Vertical force only",
+            "Both vertical and moment"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "12 gallons of paint will be used for primary and secondary coating. What is the total area to be covered if only 5 gallons of paint are allocated for secondary coating?",
+          "choices": [
+            "265 m^2",
+            "245 m^2",
+            "225 m^2",
+            "200 m^2"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A round log measures 22 inches in diameter and 20 feet in length. Estimate the quantity of lumber, in board feet, that can be obtained from the log?",
+          "choices": [
+            "400 bd. ft",
+            "605 bd. Ft.",
+            "600 bd. Ft.",
+            "405 bd. ft"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What are the dimensions of individual gestating pens in a swine house?",
+          "choices": [
+            "0.6 m x 1.8 m",
+            "0.66 m x 1.8 m",
+            "0.68 m x 1.6 m",
+            "0.6 m x 1.6 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Growth room must have ceilings that shall be insulated with a minimum R-value of ___.",
+          "choices": [
+            "4.62 (R-25)",
+            "4.26 (R-20)",
+            "2.64 (R-15)",
+            "2.46 (R-10)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This refers to one of the implementing Boards of the CIAP which is tasked among others, to issue, deny, suspend, or revoke licenses of construction contractors by virtue of Republic Act 4566, as amended by PD 1746.",
+          "choices": [
+            "Philippine Contractors Accreditation Board (PCAB)",
+            "Philippine Contractors Accreditation Board (PCAB)",
+            "National Philippine Board of Construction (NPBC)",
+            "INFRACOM"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Philippine constructors accreditation board (PCAB)"
+        },
+        {
+          "q": "What is the total slotted floor space requirement for two hundred 210-day layers and eight hundred 1-quarter old layers?",
+          "choices": [
+            "84",
+            "66",
+            "164",
+            "90"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the recommended height between the eaves line and the floor of a warehouse.",
+          "choices": [
+            "5 m",
+            "6 m",
+            "7.5 m",
+            "7 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Using Fuller's rule, estimate the number of cement bags, cubic meter of sand, and cubic meter of gravel, needed to make a class AA 9 m3 concrete mixture.",
+          "choices": [
+            "71 bags, 3.96 m3 sand, 7.92 m3 gravel",
+            "90 bags, 3.78 m3 sand, 7.56 m3 gravel",
+            "90 bags, 3.87 m3 sand, 7.65 m3 gravel",
+            "70 bags, 3.69 m3 sand, 7.38 m3"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A hollow steel tube with an inside diameter of 80 mm must carry a tensile load of 300 kN. Determine the required outside diameter of the tube if the allowable stress is limited to 100 MPa (100 MN/m²).",
+          "choices": [
+            "95 mm",
+            "101 mm",
+            "112 mm",
+            "130 mm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Rural Electrification",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "A two-storey apartment has an outside dimension of 8 m by 10 m and has four appliance circuits. What is the approximate lighting load?",
+          "choices": [
+            "5,120 watts",
+            "2,560 watts",
+            "1,500 watts",
+            "6,000 watts"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What do you call to the complete lighting fixture or unit?",
+          "choices": [
+            "Ceiling",
+            "Luminaire",
+            "Light modules",
+            "Light arrays"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A transformer has 500 turns on the primary coil and 100 turns on the secondary coil. If the primary voltage is 250 V, what is the secondary voltage?",
+          "choices": [
+            "25 V",
+            "40 V",
+            "50 V",
+            "100 V"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A circuit has three resistors in parallel. The total current is 6 A when connected to a 12 V supply. What is the equivalent resistance?",
+          "choices": [
+            "4 Ω",
+            "2 Ω",
+            "6 Ω",
+            "12 Ω"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A 6 Ω resistor is connected to a source. The resistor dissipates 96 W. What is the supply voltage?",
+          "choices": [
+            "12 V",
+            "24 V",
+            "36 V",
+            "48 V"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Required for large or permanently connected appliances.",
+          "choices": [
+            "Special purpose",
+            "Branch circuit",
+            "Outlet",
+            "Circuit breaker"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What circuit is appropriate for 11 outlets?",
+          "choices": [
+            "10A",
+            "15A",
+            "20A",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "15 A - 8 to 10; 20 A - 10 to 12"
+        },
+        {
+          "q": "The amount of light emitted in a particular direction from a source.",
+          "choices": [
+            "luminous intensity",
+            "luminous flux",
+            "illuminance",
+            "luminance"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Luminous intensity – Light in a specific direction; candela. Luminous flux – Total light output; lumen (lm). Illuminance – Light falling on a surface; lux (lx). Luminance – Light leaving a surface (brightness); cd/m²."
+        },
+        {
+          "q": "123 Hz is equal to how many cycles per second?",
+          "choices": [
+            "123",
+            "61.5",
+            "246",
+            "369"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "1 hertz = 1 cycle/secs"
+        },
+        {
+          "q": "A type of transformer that produces secondary voltage less than its primary voltage.",
+          "choices": [
+            "Step-up transformer",
+            "Step-down transformer",
+            "Non-step transformer",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Step-up transformer – Secondary voltage greater than primary. Step-down transformer – Secondary voltage less than primary. Non-step transformer – Secondary voltage equal to primary."
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Environmental Engineering and Science",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In biogas, if the pH value drops below ________-, the medium will have a toxic effect on the methanogenic bacteria.",
+          "choices": [
+            "7",
+            "8.5",
+            "6.2",
+            "5.4"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A liquid waste facility must be constructed on soil containing at least what percentage of clay?",
+          "choices": [
+            "5%",
+            "10%",
+            "15%",
+            "25%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The minimum acceptable depth for anaerobic lagoons shall be 1.8 m.",
+          "choices": [
+            "1 m",
+            "1.3 m",
+            "1.5 m",
+            "1.8 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Philippine Clean Water Act of 2004.",
+          "choices": [
+            "RA 8550",
+            "RA 9275",
+            "RA 8749",
+            "RA 10690"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which greenhouse gas is most responsible for global warming?",
+          "choices": [
+            "Oxygen",
+            "Nitrogen",
+            "Carbon dioxide",
+            "Argon"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A carbon credit in the CDM typically represents:",
+          "choices": [
+            "1 kilogram of CO2 reduced",
+            "1 metric ton of methane",
+            "1 metric ton of CO2 equivalent reduced",
+            "100 liters of clean water"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Paris Agreement focuses on limiting global warming to:",
+          "choices": [
+            "5°C above pre-industrial levels",
+            "3°C above pre-industrial levels",
+            "1°C above current levels",
+            "Well below 2°C above pre-industrial levels"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the general height range of a compost mixture?",
+          "choices": [
+            "1.0 m – 2.0 m",
+            "2.4 m – 4.5 m",
+            "2.0 m – 3.5 m",
+            "1.8 m – 4.5 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "static pile"
+        },
+        {
+          "q": "The purpose of a buffer strip near streams is to:",
+          "choices": [
+            "Encourage wildlife hunting",
+            "Improve recreation",
+            "Protect water quality by filtering runoff",
+            "Reduce shade"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It involves the arrangement of compost mix in long, narrow piles or windrows that are periodically turned to maintain aerobic conditions.",
+          "choices": [
+            "windrow",
+            "aerial static pile",
+            "in-vessel",
+            "curing"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The National Integrated Protected Areas System (NIPAS) Act is officially known as:",
+          "choices": [
+            "RA 7161",
+            "RA 7586",
+            "RA 7942",
+            "PD 705"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "RA 7586: The National Integrated Protected Areas System (NIPAS) Act. RA 7161: Regulates forest charges. RA 7942: Philippine Mining Act. PD 705: Revised Forestry Code of the Philippines."
+        },
+        {
+          "q": "Which of the following situations works most like a greenhouse?",
+          "choices": [
+            "A refrigerator cooling food inside",
+            "An oven heating food with an open door",
+            "Heat trapped inside a parked car under the sun",
+            "Cold air entering a room through a window"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The Clean Development Mechanism (CDM) was established under which international agreement?",
+          "choices": [
+            "Paris Agreement",
+            "Montreal Protocol",
+            "Rio Declaration",
+            "Kyoto Protocol"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following statements is FALSE?",
+          "choices": [
+            "The composting mass must have adequate ventilation, with at least 5% oxygen.",
+            "Moisture content should be maintained between 50% and 60% to support microbial activity.",
+            "The recommended pH range for composting is 5.5 to 8.0.",
+            "The ideal C:N ratio for composting is between 20:1 and 45:1."
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "20:1 to 40:1"
+        },
+        {
+          "q": "PAES 413: What is the limiting concentration range for copper in biomethanization?",
+          "choices": [
+            "100-1000 mg/L",
+            "10-250 mg/L",
+            "200-2000 mg/L",
+            "350-1000 mg/L"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For anaerobic digestion of organic materials, a carbon/nitrogen ratio should be within the range of 1:20 – 1:30. The C/N ration should not be more than ________.",
+          "choices": [
+            "1:30",
+            "1:35",
+            "1:40",
+            "1:45"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Design and Management of AB Processing System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The peripheral velocity of the hulling disc as specified by the manufacturer.",
+          "choices": [
+            "13 m/s",
+            "14 m/s",
+            "15 m/s",
+            "16 m/s"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Estimate the total designed digester volume of a balloon-type biogas digester of a farm with 100 heads of feedlot cattle utilizing 1:2 slurry ratio and a retention period of 25 days.",
+          "choices": [
+            "105 m³",
+            "131.25 m³",
+            "123.15 m³",
+            "130 m³"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a biogas digester with a volume of 7000 to 140000 cubic meter.",
+          "choices": [
+            "household",
+            "small-scale",
+            "medium-scale",
+            "large-scale"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the daily volume of biogas that can be produced from 50 kg of pig manure daily, fed to a biogas digester and retained for 35 days.",
+          "choices": [
+            "3.3 m3",
+            "3.2 m3",
+            "3.5 m3",
+            "3.4 m3"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The coefficient of friction of rice to steel material is 0.51. What would be the minimum angle of the hopper required for the system?",
+          "choices": [
+            "22 degree",
+            "30 degree",
+            "50 degree",
+            "NOTA"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the daily volume of biogas that can be produced from 50 kg of pig manure daily, fed to a biogas digester and retained for 35 days.",
+          "choices": [
+            "3.3 m3",
+            "3.2 m3",
+            "3.5 m3",
+            "3.4 m3"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The CPE accreditation shall be valid for a period of ___ from the date of accreditation.",
+          "choices": [
+            "1 year",
+            "2 years",
+            "3 years",
+            "5 years"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Recommended clearance setting between stones of a disk huller.",
+          "choices": [
+            "¼ paddy length",
+            "½ paddy length",
+            "¾ paddy length",
+            "Whole paddy length"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The divisional layer between the dried and undried products in a drying system.",
+          "choices": [
+            "Drying layer",
+            "Drying zone",
+            "Drying front",
+            "Drying component"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Drying front: Layer separating dried and undried material in a drying system. Drying layer: General layer of material being dried. Drying zone: Area within the dryer where drying occurs. Drying component: Part of the drying system or equipment."
+        },
+        {
+          "q": "Precision-cut and semi-precision cut forage chopper shall be able to cut at least three different length settings with _____ maximum variation of cut",
+          "choices": [
+            "3%",
+            "5%",
+            "10%",
+            "15%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Grain moisture meter range:",
+          "choices": [
+            "10 % to 50 %",
+            "5 % to 50 %",
+            "4 % to 60 %",
+            "6 % to 40 %"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If a pile of palay is 8-m long, 6-m wide and 4-m high, how many bags of palay are safe to be piled?",
+          "choices": [
+            "2880",
+            "2304",
+            "1920",
+            "960"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "palay 10 bags, rice 15 bags, corn 12 bags"
+        },
+        {
+          "q": "What is the operational speed of the bucket elevator whose head pulley is 0.5 m and the projection is 0.3 m? Efficiency is 87%",
+          "choices": [
+            "41.95 rpm",
+            "41.13 rpm",
+            "41.65 rpm",
+            "41.86 rpm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which physical factor connected to the air's evaporative potential can cause a product to shrivel?",
+          "choices": [
+            "Infiltration rate",
+            "Moisture content",
+            "Water loss",
+            "Water holding capacity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the main objective of HACCP?",
+          "choices": [
+            "Production process monitoring",
+            "Preventive approach to food safety",
+            "Efficient resource allocation",
+            "Finished product inspection"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which program must be established before implementing HACCP?",
+          "choices": [
+            "Sales program",
+            "GMP and SSOP",
+            "Tax reporting program",
+            "HR training plan"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In order to minimized darkening of carcass of poultry meat, it is recommended that before cold storage poultry meat should be ________________.",
+          "choices": [
+            "Slowly be frozen and undergo scalding process",
+            "Undergo scalding process",
+            "Frozen rapidly",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Tenderness of poultry meat can be maintained during cold storage by ________________.",
+          "choices": [
+            "Storing it in aluminum foil",
+            "Storing it in unpacked",
+            "Storing it in plastic net",
+            "All of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Substances that alter surface tension in a mixed-phase system to help create a stable, uniform dispersion.",
+          "choices": [
+            "Emulsifier",
+            "Antioxidants",
+            "Additives",
+            "Diffuser"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Additives (Surfactants): Substances that reduce surface tension to stabilize dispersions. Antioxidants: Prevent oxidation of materials. Diffuser: Device that spreads or distributes a fluid or light."
+        },
+        {
+          "q": "The process of mixing two or more different products together, such as grains and supplements, to obtain desired food ratios, or the process of mixing different quantities of the same product with different size of kernels to obtain the desired quality grade is called",
+          "choices": [
+            "mixing",
+            "blending",
+            "tempering",
+            "grading"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Blending: Mixing different products or different fractions of the same product to achieve desired ratios or quality grade. Mixing: General combining of materials. Tempering: Adding moisture and resting grain to toughen bran before milling. Grading: Sorting based on size, quality, or characteristics."
+        },
+        {
+          "q": "The process of heating vegetables in steam or in boiling water to inactivate enzymes and to reduce microbial population thereby prolonging storage at sub-freezing temperature.",
+          "choices": [
+            "Blanching",
+            "Boiling",
+            "Conching",
+            "Tempering"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Blanching: Brief heating in steam or boiling water to inactivate enzymes and reduce microbes before freezing. Boiling: Cooking food in water at 100°C. Conching: Mixing/refining step in chocolate processing. Tempering: Controlled heating/cooling, often for grains or chocolate."
+        },
+        {
+          "q": "Which of the following is part of SSOP?",
+          "choices": [
+            "Hazard analysis",
+            "Cleaning and sanitation procedures for equipment",
+            "Decision tree analysis",
+            "Setting critical limits"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "other options part of HACCP"
+        },
+        {
+          "q": "Swabbing drains, walls, and equipment surfaces is part of which program?",
+          "choices": [
+            "Marketing plan",
+            "GMP",
+            "EMP",
+            "HACCP documentation"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "EMP (Environmental Monitoring Program): Includes swabbing drains, walls, and equipment surfaces. GMP: General practices ensuring hygiene and quality. HACCP documentation: Records for hazard analysis and control points. Marketing plan: Strategy for product promotion."
+        },
+        {
+          "q": "The ISO is an independent, non-governmental, internal standard development organization for quality management. What does ISO stand for?",
+          "choices": [
+            "International Standard Organization",
+            "Internal Organization for Standardization",
+            "International Standardization Organization",
+            "International Organization for Standards"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "International Organization for Standardization"
+        },
+        {
+          "q": "Most favorable cold storage temperature for eggs.",
+          "choices": [
+            "29-30°C",
+            "28°F",
+            "29-30°F",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the process of exposing freshly harvested product and carefully prepared food to subzero temperatures and holding them at 32 °F during storage period to maintain the quality of the products.",
+          "choices": [
+            "Pre-cooling",
+            "Sharp freezing",
+            "Quick freezing",
+            "All of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Food Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Air at a 4m by 4m by 4m room has a relative humidity of 80%. The pressure in the room is 120kPa and temperature of 35oC (Psat= 5.628kPa). What is the mass of vapor in air on the room? (Rv=0.4615kJ/kg K)",
+          "choices": [
+            "2.03kg",
+            "1.50kg",
+            "0.80kg",
+            "4.80kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Any region prescribed in space or finite quantity of matter enclosed by a boundary, where there is no exchange of heat, mass or work.",
+          "choices": [
+            "Isolated system",
+            "Adiabatic system",
+            "Isothermal system",
+            "Steady-state system"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": "Isolated system – No exchange of heat, mass, or work with surroundings. Adiabatic system – No heat exchange but work or mass may change. Isothermal system – Constant temperature system. Steady-state system – Properties stay constant with time."
+        },
+        {
+          "q": "The dimensionless number used in mass transfer that represents the ratio of convective mass transfer to diffusive mass transport.",
+          "choices": [
+            "Rayleigh number",
+            "Lewis number",
+            "Schmidt number",
+            "Sherwood number"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "Sherwood number (Sh): Convective mass transfer ÷ diffusive mass transport. Rayleigh number (Ra): Buoyancy-driven flow ÷ viscous & thermal effects. Lewis number (Le): Thermal diffusivity ÷ mass diffusivity. Schmidt number (Sc): Momentum diffusivity ÷ mass diffusivity."
+        },
+        {
+          "q": "A rigid container is heated by the sun. There is no shaft work associated with the container. From the first law of thermodynamics. You determine the heat added to be",
+          "choices": [
+            "equal to the work",
+            "equal to zero",
+            "equal to the change in internal energy",
+            "equal to unity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A 12-in thick furnace wall with a dimension of 5 m by 2 m has a temperature difference of 60 degrees Celsius. The wall has a thermal conductivity of 0.75 BTU/hr-ft-F. Calculate the heat transmitted across the wall.",
+          "choices": [
+            "2650.67 W",
+            "2553.78 W",
+            "2312.59 W",
+            "2189.98 W"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a thermometer with cloth cover to the bottom part.",
+          "choices": [
+            "Dry bulb temperature",
+            "Wet bulb temperature",
+            "Dew point temperature",
+            "Relative humidity"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": "Wet bulb temperature: Measured with a thermometer whose bulb is covered with a wet cloth. Dry bulb temperature: Air temperature measured by a regular thermometer. Dew point temperature: Temperature at which air becomes saturated and condensation occurs. Relative humidity: Ratio of actual to maximum water vapor in air."
+        },
+        {
+          "q": "Combustion occurs as the piston is at the top of cylinder thus the process is isometric, if the temperature increases from 127°C to 1327°C during the combustion process. Determine the final pressure in kPaa if the initial pressure is 200 kPaa.",
+          "choices": [
+            "2000",
+            "1600",
+            "800",
+            "1300"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Heat is supplied to 20 lbm of ice at 32oF at the rate of 160 BTU/s. If the heat of fusion is 144 BTU/lb, how long will it take to convert ice to water at 50oF (Cpw=1BTU/lb°R).",
+          "choices": [
+            "25.45s",
+            "20.25s",
+            "22.05s",
+            "25.20s"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "At 100% relative humidity, the wet bulb temperature is:",
+          "choices": [
+            "Lower than the dew point temperature",
+            "Higher than the dew point temperature",
+            "Equal to the dew point temperature",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "One surface of a thin plate receives a uniform heat flux of 500 W/m²; the other side radiates to an environment at −10°C. Assuming blackbody radiation, determine the plate temperature.",
+          "choices": [
+            "35.1°C",
+            "102.5°C",
+            "341.5 K",
+            "458.2 K"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A refrigerated room wall: 4 in. thick hollow block (k = 0.7 W/m·°C). Convection coefficients: inside h_i=9.3 W/m²·°C, outside h_o=30 W/m²·°C. Calculate overall heat transfer coefficient U (W/m²·°C).",
+          "choices": [
+            "0.14",
+            "0.29",
+            "3.50",
+            "6.89"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Food Process Evaluation and Modelling",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "A product expressed in dry basis has a percentage moisture content of 25%, what is the percentage moisture content of the product on a wet basis?",
+          "choices": [
+            "15%",
+            "20%",
+            "25%",
+            "30%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the percentage increase in the porosity of the harvested large-sized paddy with 21% moisture content wet basis if it is to be dried to 14% moisture content dry basis?",
+          "choices": [
+            "0.05%",
+            "0.08%",
+            "0.10%",
+            "0.12%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If a product has a percentage moisture content of 12% wet basis, the equivalent percentage moisture content dry basis is?",
+          "choices": [
+            "13.6%",
+            "14.1%",
+            "15.6%",
+            "16.9%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Grain or fraction of grain with its length equal to or greater than eight-tenth (8/10) of the average length of the whole grain.",
+          "choices": [
+            "Broken grains",
+            "Brown rice",
+            "Head rice",
+            "Milled rice"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": "Head rice: Grain pieces with length ≥ 8/10 of the average whole grain length. Broken grains: Smaller fractured pieces of rice. Brown rice: Husk removed but bran layer intact. Milled rice: Fully polished rice with bran mostly removed."
+        },
+        {
+          "q": "In a flour mill, wheat is to be adjusted to a 15% MCdb. If the whole grain received at the mill is found to contain 11.4% of water initially, how much water must the miller add per 100 kg of input grain as received, to produce the desired MC?",
+          "choices": [
+            "1.80 kg",
+            "1.90 kg",
+            "2.00 kg",
+            "1.65 kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A two-ton mechanical dryer dries a paddy from 24% to 14% in 8 hours. What is the drying capacity of the dryer?",
+          "choices": [
+            "1,764.44 kg/hr",
+            "1,012 kg/hr",
+            "564 kg/hr",
+            "250 kg/hr"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If 20kg of water is to be removed from 110kg of paddy, what is the percentage moisture content of paddy in wet basis?",
+          "choices": [
+            "16%",
+            "18%",
+            "20%",
+            "22%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Classification of milled rice containing broken rice of at most 10%",
+          "choices": [
+            "Premium",
+            "Grade No. 1",
+            "Grade No. 2",
+            "Grade No. 3"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The dimension of orayza sativa is found to be: Major Diameter (a) = 6.45 mm, Intermediate Diameter (b) = 4.26 mm, Minor Diameter (c) = 3.45 mm. What is the arithmetic mean diameter?",
+          "choices": [
+            "4.72",
+            "4.55",
+            "4.36",
+            "4.19"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The degerminator efficiency of a corn mill is:",
+          "choices": [
+            "80%",
+            "85%",
+            "90%",
+            "95%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The expression used to indicate the amount of bran removed in the milling process.",
+          "choices": [
+            "Head Rice Recovery",
+            "Milling Recovery",
+            "Hulling Efficiency",
+            "Milling Degree"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": "Milling Degree: Indicates how much bran has been removed during milling. Head Rice Recovery: Percentage of whole kernels after milling. Milling Recovery: Total milled rice obtained from paddy. Hulling Efficiency: Efficiency of removing husk from paddy."
+        },
+        {
+          "q": "7.25 tons of palay was milled in 6 hours produces 4250 kg of brown rice and 3975 milled rice. What is the milling recovery?",
+          "choices": [
+            "54%",
+            "55%",
+            "56%",
+            "57%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If 9 tons of a product is to be dried from 24% to 14%, the final weight of the product would be.",
+          "choices": [
+            "6.13 tons",
+            "8,554 kg",
+            "7.95 tons",
+            "9,154 kg"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the amount of moisture to be removed from a material whose moisture content is 14.5% with dry weight of 76kg?",
+          "choices": [
+            "10.23 kg",
+            "12.88 kg",
+            "14 kg",
+            "16.37 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Determine the quantity of corn in kilogram at 39% (db) required to produce 1 metric ton at 17.9% (wb).",
+          "choices": [
+            "767",
+            "876",
+            "984",
+            "NOTA"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}
