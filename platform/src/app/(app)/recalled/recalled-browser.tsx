@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import type { MockArea } from "@/app/mock/actions";
-import { startRecalledQuiz } from "@/app/practice/actions";
+import { startRecalledQuiz, startRecalledMistakeRetry } from "@/app/practice/actions";
 
 export type RecalledQuestion = {
   questionId: string;
@@ -61,7 +61,15 @@ function YearGroup({ year, questions }: { year: string; questions: RecalledQuest
   );
 }
 
-function AreaDocument({ area, questions }: { area: MockArea; questions: RecalledQuestion[] }) {
+function AreaDocument({
+  area,
+  questions,
+  mistakeCount,
+}: {
+  area: MockArea;
+  questions: RecalledQuestion[];
+  mistakeCount: number;
+}) {
   if (questions.length === 0) {
     return <p className="py-8 text-center text-sm text-muted-foreground">No recalled questions published for this area yet.</p>;
   }
@@ -77,18 +85,28 @@ function AreaDocument({ area, questions }: { area: MockArea; questions: Recalled
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3">
         <div>
           <p className="text-sm font-medium">Quiz yourself on {AREA_LABELS[area]}</p>
           <p className="text-xs text-muted-foreground">
-            {questions.length} recalled question{questions.length === 1 ? "" : "s"} — answered instantly, one at a time, just like Practice.
+            Answered instantly, one at a time, just like Practice — new questions first, so you won&apos;t keep seeing the
+            same ones on repeat.
           </p>
         </div>
-        <form action={startRecalledQuiz.bind(null, area)}>
-          <Button type="submit" size="sm">
-            Start Quiz
-          </Button>
-        </form>
+        <div className="flex shrink-0 gap-2">
+          {mistakeCount > 0 && (
+            <form action={startRecalledMistakeRetry.bind(null, area)}>
+              <Button type="submit" size="sm" variant="outline">
+                Review mistakes ({mistakeCount})
+              </Button>
+            </form>
+          )}
+          <form action={startRecalledQuiz.bind(null, area)}>
+            <Button type="submit" size="sm">
+              Start Quiz
+            </Button>
+          </form>
+        </div>
       </div>
 
       {years.map((year) => (
@@ -98,7 +116,13 @@ function AreaDocument({ area, questions }: { area: MockArea; questions: Recalled
   );
 }
 
-export function RecalledBrowser({ questions }: { questions: RecalledQuestion[] }) {
+export function RecalledBrowser({
+  questions,
+  mistakeCountByArea,
+}: {
+  questions: RecalledQuestion[];
+  mistakeCountByArea: Record<MockArea, number>;
+}) {
   const byArea = new Map<MockArea, RecalledQuestion[]>();
   for (const q of questions) {
     const list = byArea.get(q.mockArea) ?? [];
@@ -119,7 +143,7 @@ export function RecalledBrowser({ questions }: { questions: RecalledQuestion[] }
       {AREA_ORDER.map((area) => (
         <TabsContent key={area} value={area}>
           <div className="mt-3">
-            <AreaDocument area={area} questions={byArea.get(area) ?? []} />
+            <AreaDocument area={area} questions={byArea.get(area) ?? []} mistakeCount={mistakeCountByArea[area] ?? 0} />
           </div>
         </TabsContent>
       ))}
