@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fillUnitsToTarget, groupIntoUnits } from "@/lib/series";
-import { NOT_FLAGGED_FILTER } from "@/lib/flagged-questions";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -74,11 +73,14 @@ const OFFICIAL_SUBJECT_ITEM_TARGETS: Record<string, number> = {
  * The candidate pool includes published recalled questions (is_recalled is
  * not filtered out — they're ordinary student_questions rows once
  * published) alongside regular ones, but excludes any question flagged
- * "FLAGGED FOR REVIEW" (see NOT_FLAGGED_FILTER — the source material
- * itself expressed uncertainty about the answer, unfit for a scored, timed
- * exam) and any question shorter than MIN_MOCK_QUESTION_WORDS (a blunt
- * stand-in for real PRC-level phrasing until the question bank gets a
- * proper content pass).
+ * "FLAGGED FOR REVIEW" (the source material itself expressed uncertainty
+ * about the answer, unfit for a scored, timed exam) and any question
+ * shorter than MIN_MOCK_QUESTION_WORDS (a blunt stand-in for real
+ * PRC-level phrasing until the question bank gets a proper content pass).
+ * The flagged-id check queries the questions table directly rather than
+ * student_questions — that view doesn't expose explanation at all (it's
+ * only ever revealed post-answer via dedicated RPCs, to avoid leaking
+ * answer keys through the general browsing view).
  */
 export async function startAreaMockExam(formData: FormData) {
   const supabase = await createClient();
@@ -90,19 +92,21 @@ export async function startAreaMockExam(formData: FormData) {
     throw new Error("Invalid exam area.");
   }
 
-  const [{ data: rawCandidates, error: qErr }, { data: topics }, { data: subjects }] = await Promise.all([
-    supabase
-      .from("student_questions")
-      .select("id, topic_id, series_key, series_position, question_text, explanation")
-      .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`)
-      .or(NOT_FLAGGED_FILTER),
-    supabase.from("topics").select("id, subject_id"),
-    supabase.from("subjects").select("id, name"),
-  ]);
+  const [{ data: rawCandidates, error: qErr }, { data: topics }, { data: subjects }, { data: flaggedRows }] =
+    await Promise.all([
+      supabase
+        .from("student_questions")
+        .select("id, topic_id, series_key, series_position, question_text")
+        .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`),
+      supabase.from("topics").select("id, subject_id"),
+      supabase.from("subjects").select("id, name"),
+      supabase.from("questions").select("id").ilike("explanation", "%FLAGGED FOR REVIEW%"),
+    ]);
   if (qErr) throw new Error(qErr.message);
 
+  const flaggedIds = new Set((flaggedRows ?? []).map((r) => r.id));
   const candidates = (rawCandidates ?? []).filter(
-    (c) => (c.question_text ?? "").trim().split(/\s+/).length >= MIN_MOCK_QUESTION_WORDS,
+    (c) => !flaggedIds.has(c.id) && (c.question_text ?? "").trim().split(/\s+/).length >= MIN_MOCK_QUESTION_WORDS,
   );
 
   const subjectIdByTopicId = new Map((topics ?? []).map((t) => [t.id, t.subject_id]));
