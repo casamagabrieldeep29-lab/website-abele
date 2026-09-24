@@ -3,6 +3,9 @@ import { GeminiProvider } from "./gemini";
 import { GroqProvider } from "./groq";
 import { OpenRouterProvider } from "./openrouter";
 import { CerebrasProvider } from "./cerebras";
+import { MistralProvider } from "./mistral";
+import { NvidiaProvider } from "./nvidia";
+import { SambaNovaProvider } from "./sambanova";
 import { AIProvider, FallbackAIProvider } from "./types";
 
 export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 500);
@@ -10,14 +13,21 @@ export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 500);
 let cached: AIProvider | null = null;
 
 /**
- * Configured AI provider — tries every configured key across four free-tier
+ * Configured AI provider — tries every configured key across seven free-tier
  * vendors, in this order: Gemini (x2 keys), Groq (x2 keys), OpenRouter,
- * Cerebras (see FallbackAIProvider). A vendor's "_2" key is a second
- * account: one account's rate limit/quota errors fall through to the
- * other's separate allowance, effectively doubling that vendor's free-tier
- * quota. Every env var here is optional — only the ones actually set
- * become part of the chain. Returns null if none are set at all (callers
- * must handle this — never crash the request).
+ * Cerebras, Mistral, NVIDIA NIM, SambaNova (see FallbackAIProvider). A
+ * vendor's "_2" key is a second account: one account's rate limit/quota
+ * errors fall through to the other's separate allowance, effectively
+ * doubling that vendor's free-tier quota. Every env var here is optional —
+ * only the ones actually set become part of the chain. Returns null if
+ * none are set at all (callers must handle this — never crash the
+ * request).
+ *
+ * The Mistral/NVIDIA/SambaNova default model names below are NOT verified
+ * against a live key the way Gemini's and Groq's are (see the comment on
+ * groqModel — a guessed model name silently broke Groq for a while before
+ * being caught). If one of these vendors' key gets added and "Teach Me
+ * This" still fails, check that vendor's own live model list first.
  */
 export function getAIProvider(): AIProvider | null {
   if (!cached) {
@@ -50,6 +60,21 @@ export function getAIProvider(): AIProvider | null {
     const cerebrasKey = process.env.CEREBRAS_API_KEY;
     if (cerebrasKey) {
       providers.push(new CerebrasProvider(cerebrasKey, process.env.CEREBRAS_MODEL ?? "llama-3.3-70b"));
+    }
+
+    const mistralKey = process.env.MISTRAL_API_KEY;
+    if (mistralKey) {
+      providers.push(new MistralProvider(mistralKey, process.env.MISTRAL_MODEL ?? "mistral-small-latest"));
+    }
+
+    const nvidiaKey = process.env.NVIDIA_API_KEY;
+    if (nvidiaKey) {
+      providers.push(new NvidiaProvider(nvidiaKey, process.env.NVIDIA_MODEL ?? "meta/llama-3.3-70b-instruct"));
+    }
+
+    const sambanovaKey = process.env.SAMBANOVA_API_KEY;
+    if (sambanovaKey) {
+      providers.push(new SambaNovaProvider(sambanovaKey, process.env.SAMBANOVA_MODEL ?? "Meta-Llama-3.3-70B-Instruct"));
     }
 
     if (providers.length === 0) return null;
