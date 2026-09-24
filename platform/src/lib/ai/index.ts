@@ -23,7 +23,11 @@ export function getAIProvider(): AIProvider | null {
   if (!cached) {
     const providers: AIProvider[] = [];
     const geminiModel = process.env.GEMINI_MODEL ?? "gemini-3.1-flash-lite";
-    const groqModel = process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
+    // "llama-3.3-70b-versatile" was retired from Groq's lineup — verified
+    // against Groq's live /models list and a real generate call before
+    // adopting this replacement (2026-09-24), same caution as Gemini's own
+    // model-selection history in 24_CHANGELOG.md's 2026-09-18 entry.
+    const groqModel = process.env.GROQ_MODEL ?? "openai/gpt-oss-120b";
 
     const geminiKey = process.env.GEMINI_API_KEY;
     if (geminiKey) providers.push(new GeminiProvider(geminiKey, geminiModel));
