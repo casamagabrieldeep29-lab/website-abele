@@ -96,9 +96,22 @@ function weightedSampleUnits<T>(units: WeightedUnit<T>[], count: number): T[] {
  * never-attempted=1.5x, previously-correct=1x — see 25_DECISION_LOG.md),
  * then groups into series-aware units (a unit's weight is the MAX of its
  * members', so a series containing even one previously-missed question is
- * prioritized) and samples without replacement until `count` questions are
- * reached. Shared by every adaptive/weighted session type — topic practice,
- * Quick Practice, and the Custom Quiz Builder.
+ * prioritized). Shared by every adaptive/weighted session type — topic
+ * practice, Quick Practice, the Custom Quiz Builder, PAES and Recalled
+ * Questions quizzes.
+ *
+ * Needs-practice units (weight > 1: never attempted, or most recently
+ * missed) are drawn from FIRST and exclusively; already-correct ("mastered")
+ * units are only reached into once every needs-practice unit has already
+ * been used, and only to fill whatever's still short of `count`. A plain
+ * single-pool weighted sample still let an already-mastered question win
+ * occasionally, which is what caused sessions to keep re-serving questions
+ * a student had already gotten right — Gabriel's report after a week of
+ * use (2026-09-24): "do not keep repeating the questions... prioritize
+ * unanswered questions[,] or their weak areas." Splitting into two tiers
+ * instead of just weighting harder guarantees this rather than merely
+ * making it likely, while still never leaving a session short if the
+ * needs-practice pool alone can't fill it.
  */
 export async function weighAndSampleCandidates(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,5 +142,12 @@ export async function weighAndSampleCandidates(
     weight: Math.max(...members.map((m) => weightOf(m.id))),
   }));
 
-  return weightedSampleUnits(units, count);
+  const needsPractice = units.filter((u) => u.weight > 1);
+  const mastered = units.filter((u) => u.weight === 1);
+
+  const selected = weightedSampleUnits(needsPractice, count);
+  if (selected.length < count && mastered.length > 0) {
+    selected.push(...weightedSampleUnits(mastered, count - selected.length));
+  }
+  return selected;
 }
