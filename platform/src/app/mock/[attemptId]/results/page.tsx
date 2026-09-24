@@ -17,6 +17,13 @@ type ReviewRow = {
   explanation: string | null;
 };
 
+type SubjectBreakdownRow = {
+  exam_area_name: string;
+  subject_name: string;
+  total: number;
+  correct: number;
+};
+
 export default async function MockExamResultsPage({
   params,
 }: {
@@ -37,9 +44,10 @@ export default async function MockExamResultsPage({
   if (!attempt) notFound();
   if (attempt.status !== "completed") redirect(`/mock/${attemptId}`);
 
-  const { data: review, error } = await supabase.rpc("get_attempt_review", {
-    p_attempt_id: attemptId,
-  });
+  const [{ data: review, error }, { data: breakdown }] = await Promise.all([
+    supabase.rpc("get_attempt_review", { p_attempt_id: attemptId }),
+    supabase.rpc("get_mock_exam_subject_breakdown", { p_attempt_id: attemptId }),
+  ]);
 
   if (error) {
     return <p className="p-10 text-sm text-destructive">Couldn&apos;t load results: {error.message}</p>;
@@ -49,6 +57,14 @@ export default async function MockExamResultsPage({
   const percent = attempt.total_questions
     ? Math.round((attempt.correct_count / attempt.total_questions) * 100)
     : 0;
+
+  const subjectRows = (breakdown ?? []) as SubjectBreakdownRow[];
+  const byExamArea = new Map<string, SubjectBreakdownRow[]>();
+  for (const row of subjectRows) {
+    const list = byExamArea.get(row.exam_area_name) ?? [];
+    list.push(row);
+    byExamArea.set(row.exam_area_name, list);
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -79,6 +95,34 @@ export default async function MockExamResultsPage({
             </div>
           </CardContent>
         </Card>
+
+        {byExamArea.size > 0 && (
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle className="text-base">Score by subject</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              {[...byExamArea.entries()].map(([examAreaName, subjects]) => (
+                <div key={examAreaName}>
+                  <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">{examAreaName}</p>
+                  <div className="mt-2 space-y-1.5">
+                    {subjects.map((s) => {
+                      const subjectPercent = s.total ? Math.round((100 * s.correct) / s.total) : 0;
+                      return (
+                        <div key={s.subject_name} className="flex items-center justify-between gap-3 text-sm">
+                          <span className="text-foreground">{s.subject_name}</span>
+                          <span className="shrink-0 font-medium text-muted-foreground">
+                            {s.correct}/{s.total} ({subjectPercent}%)
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
 
         <h2 className="mt-8 text-lg font-semibold">Question review</h2>
         <div className="mt-4 space-y-4">
