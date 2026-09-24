@@ -49,6 +49,24 @@ function Heading({ children }: { children?: React.ReactNode }) {
   return <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-primary first:mt-0">{children}</p>;
 }
 
+// remark-math only recognizes the dollar-sign math syntax ($x$ inline,
+// $$x$$ display) — it does NOT recognize the \(...\)/\[...\] LaTeX-style
+// delimiters. Gemini consistently uses the dollar-sign form already, but a
+// fallback AI provider (see src/lib/ai/) defaulting to \(...\)/\[...\]
+// instead falls straight through to plain markdown, where CommonMark's own
+// backslash-escape rule silently eats the backslashes (`\;`, `\[`, `\]`
+// each just become a stray `;`, `[`, `]`) — the result is broken-looking
+// half-rendered LaTeX rather than a clean equation. Converting both
+// delimiter styles to the dollar-sign form before handing text to
+// react-markdown makes every AI surface (Teach Me This, Study Assistant,
+// and static explanations that fall back to this renderer) render
+// correctly no matter which underlying model produced the text.
+function normalizeLatexDelimiters(text: string): string {
+  return text
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_match, inner: string) => `$$${inner}$$`)
+    .replace(/\\\(([\s\S]*?)\\\)/g, (_match, inner: string) => `$${inner}$`);
+}
+
 /** Renders AI-generated markdown + LaTeX text (Teach Me This, Study Assistant) with a real parser instead of ad hoc regex, so any markdown/math combination Gemini produces renders correctly rather than needing to be individually special-cased. trust: false and strict: "ignore" keep unsafe/malformed LaTeX from breaking the render, appropriate since this is AI-generated, not directly user-typed, text. */
 export function AIMarkdown({ text }: { text: string }) {
   return (
@@ -58,7 +76,7 @@ export function AIMarkdown({ text }: { text: string }) {
         rehypePlugins={[[rehypeKatex, { trust: false, strict: "ignore" }]]}
         components={components}
       >
-        {text}
+        {normalizeLatexDelimiters(text)}
       </ReactMarkdown>
     </div>
   );
