@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
     topicName: row.topic_name,
     subtopicName: row.subtopic_name,
     examAreaName: row.exam_area_name,
+    relevantFormulas: row.relevant_formulas ?? [],
   };
 
   try {

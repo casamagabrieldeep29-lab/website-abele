@@ -10,6 +10,13 @@ Rules you must follow:
 - Write any math using dollar-sign LaTeX delimiters only: $...$ for inline math, $$...$$ for a display equation on its own line. Never use \\(...\\) or \\[...\\] — the renderer does not recognize those and the equation will display broken.
 - Never use a markdown table (| ... | ... |). Write everything, including comparisons across the answer choices, as plain prose sentences and paragraphs — the way a person explains something out loud, not a spreadsheet.`;
 
+export type TeachMeFormula = {
+  title: string;
+  formula: string | null;
+  variables: string | null;
+  description: string | null;
+};
+
 export type TeachMeContext = {
   questionText: string;
   choices: { text: string; is_correct: boolean }[];
@@ -17,10 +24,12 @@ export type TeachMeContext = {
   topicName: string;
   subtopicName: string | null;
   examAreaName: string;
+  relevantFormulas: TeachMeFormula[];
 };
 
 export function buildTeachMeSystemInstruction(): string {
   return `${ANTI_HALLUCINATION_RULES}
+- If this topic's verified reference formulas are given to you below and the question requires computing a numeric result, derive the solution FROM one of those formulas — quote it, substitute the question's given values into it, and show the working — rather than reasoning from a formula you recall on your own. Only fall back to general knowledge if none of the given formulas actually apply to this question, and say so plainly when you do.
 
 Default response structure (use markdown headers exactly like this, keep it useful but not unnecessarily long):
 
@@ -43,6 +52,15 @@ export function buildTeachMePrompt(ctx: TeachMeContext, followUp?: string): stri
   const correct = ctx.choices.find((c) => c.is_correct)?.text ?? "(not available)";
   const choiceLines = ctx.choices.map((c) => `- ${c.text}${c.is_correct ? " (CORRECT)" : ""}`).join("\n");
 
+  const formulaLines = ctx.relevantFormulas
+    .map((f) => {
+      const parts = [`- ${f.title}: ${f.formula ?? "(no formula text)"}`];
+      if (f.variables) parts.push(`  where ${f.variables}`);
+      if (f.description) parts.push(`  (${f.description})`);
+      return parts.join("\n");
+    })
+    .join("\n");
+
   const base = `Verified ABELIEVER data:
 Exam area: ${ctx.examAreaName}
 Topic: ${ctx.topicName}${ctx.subtopicName ? `\nSubtopic: ${ctx.subtopicName}` : ""}
@@ -54,7 +72,9 @@ ${choiceLines}
 
 Correct answer: ${correct}
 
-Official verified explanation: ${ctx.explanation ?? "(none provided — explain from the question/answer alone, and say if you're uncertain about details it doesn't cover)"}`;
+Official verified explanation: ${ctx.explanation ?? "(none provided — explain from the question/answer alone, and say if you're uncertain about details it doesn't cover)"}
+
+This topic's verified reference formulas: ${formulaLines ? `\n${formulaLines}` : "(none on file for this topic)"}`;
 
   if (!followUp) {
     return `${base}\n\nExplain this to the student using the structure you were given.`;
