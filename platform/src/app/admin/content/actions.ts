@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
 import { getAIProvider } from "@/lib/ai";
 import { buildCategorizeQuestionsPrompt, buildCategorizeQuestionsSystemInstruction } from "@/lib/ai/prompts";
+import { NOT_FLAGGED_FILTER } from "@/lib/flagged-questions";
 
 const CATEGORIZE_BATCH_SIZE = 25;
 
@@ -95,14 +96,10 @@ export async function unpublishQuestion(questionId: string) {
   revalidatePath("/admin/content");
 }
 
-// Excludes flagged questions (explanation containing "FLAGGED FOR REVIEW",
-// see Flagged Questions page) from both bulk-publish actions below — a
+// Excludes flagged questions from both bulk-publish actions below — a
 // flagged question needs a human look before it goes live, never a sweep.
-// NULL explanations must be included via `.or()`, not just `.not(...ilike)`
-// alone: `NOT (NULL ILIKE ...)` evaluates to NULL, which a WHERE clause
-// treats as non-matching and would silently exclude every question that
-// has no explanation at all.
-const NOT_FLAGGED_FILTER = "explanation.is.null,explanation.not.ilike.%FLAGGED FOR REVIEW%";
+// See src/lib/flagged-questions.ts for why this needs an explicit
+// explanation.is.null clause, not just .not("explanation", "ilike", ...).
 
 export async function publishAllInTopic(topicId: string) {
   await requireAdmin();

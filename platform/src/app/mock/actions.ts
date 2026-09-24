@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fillUnitsToTarget, groupIntoUnits } from "@/lib/series";
+import { NOT_FLAGGED_FILTER } from "@/lib/flagged-questions";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -15,12 +16,6 @@ const MOCK_EXAM_TIME_LIMIT_MINUTES = 180; // 3 hours per area, matching the real
 // Bank which still show everything) — it reduces, but can't fully replace,
 // an actual content review pass over the question bank.
 const MIN_MOCK_QUESTION_WORDS = 8;
-
-// Some recalled-question transcriptions carry an explicit uncertainty flag
-// in their explanation (see supabase/seed/content/recalled-area-*-import.sql)
-// because the original source material itself expressed doubt about the
-// correct answer — those must never be used in a scored, timed exam.
-const FLAGGED_EXPLANATION_PREFIX = "[FLAGGED FOR REVIEW";
 
 /**
  * Exact "Number of Items and Distribution" per official TOS subject, from
@@ -79,10 +74,11 @@ const OFFICIAL_SUBJECT_ITEM_TARGETS: Record<string, number> = {
  * The candidate pool includes published recalled questions (is_recalled is
  * not filtered out — they're ordinary student_questions rows once
  * published) alongside regular ones, but excludes any question flagged
- * FLAGGED_EXPLANATION_PREFIX (the source material itself expressed
- * uncertainty about the answer — unfit for a scored, timed exam) and any
- * question shorter than MIN_MOCK_QUESTION_WORDS (a blunt stand-in for real
- * PRC-level phrasing until the question bank gets a proper content pass).
+ * "FLAGGED FOR REVIEW" (see NOT_FLAGGED_FILTER — the source material
+ * itself expressed uncertainty about the answer, unfit for a scored, timed
+ * exam) and any question shorter than MIN_MOCK_QUESTION_WORDS (a blunt
+ * stand-in for real PRC-level phrasing until the question bank gets a
+ * proper content pass).
  */
 export async function startAreaMockExam(formData: FormData) {
   const supabase = await createClient();
@@ -99,14 +95,14 @@ export async function startAreaMockExam(formData: FormData) {
       .from("student_questions")
       .select("id, topic_id, series_key, series_position, question_text, explanation")
       .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`)
-      .not("explanation", "ilike", `${FLAGGED_EXPLANATION_PREFIX}%`),
+      .or(NOT_FLAGGED_FILTER),
     supabase.from("topics").select("id, subject_id"),
     supabase.from("subjects").select("id, name"),
   ]);
   if (qErr) throw new Error(qErr.message);
 
   const candidates = (rawCandidates ?? []).filter(
-    (c) => c.question_text.trim().split(/\s+/).length >= MIN_MOCK_QUESTION_WORDS,
+    (c) => (c.question_text ?? "").trim().split(/\s+/).length >= MIN_MOCK_QUESTION_WORDS,
   );
 
   const subjectIdByTopicId = new Map((topics ?? []).map((t) => [t.id, t.subject_id]));

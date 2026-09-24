@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { NOT_FLAGGED_FILTER } from "@/lib/flagged-questions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AutoCategorizePanel } from "./auto-categorize-panel";
@@ -24,7 +25,7 @@ export default async function AdminContentPage() {
         .from("questions")
         .select("id", { count: "exact", head: true })
         .eq("status", "draft")
-        .or("explanation.is.null,explanation.not.ilike.%FLAGGED FOR REVIEW%"),
+        .or(NOT_FLAGGED_FILTER),
       supabase
         .from("questions")
         .select("id", { count: "exact", head: true })
