@@ -1,0 +1,1893 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Design and Management of AB Processing System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The expression used to indicate the amount of bran removed in the milling process.",
+          "choices": [
+            "Milling percentage",
+            "Head rice recovery",
+            "Bran recovery",
+            "Milling degree"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A dried paddy sample was milled using a rubber roll laboratory rice mill. After milling, the weight of the whole milled grains, broken milled, and rice husk were 34 g, 298 g, and 189 g respectively. The milled rice was classified as Class A. Determine the percent head rice.",
+          "choices": [
+            "5.13%",
+            "6.29%",
+            "6.53%",
+            "5.57%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is the most important factor in selecting a location for agricultural processing facility expansion?",
+          "choices": [
+            "Presence of accessible roads for transport",
+            "Proximity to consumers and markets",
+            "Availability of raw materials and utilities",
+            "Availability of laborers and workers"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Regular milled rice has how many percent of bran removed?",
+          "choices": [
+            "25%",
+            "50%",
+            "75%",
+            "100%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Five tons of paddy milled in 6 hrs produce 3950 kgs of brown rice and 3250 kgs of milled rice. If the head rice recovery is 85 %, what is the amount of broken grains?",
+          "choices": [
+            "487.50 kg",
+            "521.4 kg",
+            "473.89 kg",
+            "535.18 kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A local process or series of processes used to improve, alter, or preserve agricultural, fishery, and forestry products. This includes activities like cleaning, sorting, grading, processing, packaging, and transporting these products.",
+          "choices": [
+            "Agricultural and bio-processing",
+            "Postharvest processing",
+            "Agro-industrial processing",
+            "Primary processing"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A farmer-trader pays P9.00 per kilogram for a palay with moisture content of 24% wet basis and purity 80%. After passing it through the cleaner, the purity became 95%. Moreover, the former used open sun drying to dry the palay to 14% wet basis. Determine how much should the farmer-trader sell her clean dried palay if she wants to have a profit of P0.40 per kilogram clean dried palay. Assume a processing fee of P0.30 per kilogram clean dried palay",
+          "choices": [
+            "Php 12.80/kg",
+            "Php 14.50/kg",
+            "Php 11.20/kg",
+            "Php 13.80/kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This rice grade meets the lowest grade requirement for milled rice.",
+          "choices": [
+            "Grade 4",
+            "Grade 5",
+            "Grade 6",
+            "Grade 7"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A procedure developed for designing, checking, and maintaining machines, equipment, and the product quality to carry out acceptable procedures and products is:",
+          "choices": [
+            "Manufacturing",
+            "Fabrication",
+            "Work simulation",
+            "Standardization"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This allows the movement of nutrients from the bran layer to the inner part of the grain thus making the vitamins available to the milled rice.",
+          "choices": [
+            "Polishing",
+            "Nutrient soaking",
+            "Tempering",
+            "Parboiling"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A milled rice particle with length ranging from 3/8 to 6/8 of the whole length of the grain.",
+          "choices": [
+            "Head rice",
+            "Large broken",
+            "Small broken",
+            "Brewer's rice"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Rice kernels from which only the hull has been removed and with the bran layer still intact.",
+          "choices": [
+            "Brown rice",
+            "Dehulled rice",
+            "Cargo rice",
+            "All of the above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is suitable for many biomass fuel, can gasify wet fuel, and does not require any specific fuel size.",
+          "choices": [
+            "Updraft",
+            "Downdraft",
+            "Cross-draft",
+            "Fluidized bed"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Which among the following is the most appropriate reason for storing green mangoes at low temperature?",
+          "choices": [
+            "The photosynthetic rate is reduced",
+            "Respiration and photosynthesis are completely inhibited, prolonging shelf-life of green mangoes",
+            "The respiration rate is reduced",
+            "The rate of respiration and photosynthesis are reduced"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The process of separation of product into various quality fractions that may be defined on the basis of size, shape, density, texture, and color is:",
+          "choices": [
+            "Blending",
+            "Grading",
+            "Fractionating",
+            "Sorting"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a controlled atmosphere storage, the X is reduced, and the Y level is increased.",
+          "choices": [
+            "X = carbon dioxide, Y = oxygen",
+            "X = nitrogen, Y = carbon dioxide",
+            "X = oxygen, Y = nitrogen",
+            "X = oxygen, Y = carbon dioxide"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is one of the most renowned and well-established quality management system in the food sector and focuses on food safety management for all food produces, and it involves the ability of companies to control hazards in terms of food safety to conform to the regulatory requirements and to communicate food safety issues to all involved stakeholders.",
+          "choices": [
+            "ISO 22000",
+            "ISO 9001:2015",
+            "British Retail Consortium",
+            "Hazard Analysis and Critical Control Points"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Suppose you are working in a food processing plant. A contamination had spread in the facility. As an engineer, what must be the first thing that you should do?",
+          "choices": [
+            "Monitor the critical control points",
+            "Conduct clearing in the food processing plant",
+            "Find the source of contamination",
+            "Determine the hazards in the area"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the fifth principle in the seven principles of HACCP?",
+          "choices": [
+            "Establish corrective measures",
+            "Establish critical limits",
+            "Establish verification procedures",
+            "Determine the critical control points"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the maximum/minimum value to which a biological, chemical, or physical parameter must be controlled to prevent, eliminate, or reduce to an acceptable level the occurrence of a food safety hazard.",
+          "choices": [
+            "Critical control point",
+            "Critical limits",
+            "Deviation",
+            "Control measure"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are set of guidelines and regulations that ensure hygienic and controlled manufacturing processes.",
+          "choices": [
+            "Hazard Analysis Critical Control Points",
+            "ISO 9001:2015",
+            "Good Manufacturing Practices",
+            "Sanitation Standard Operating Procedures"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which food safety system focuses on analyzing potential hazards at each step of production and implementing controls to prevent contamination?",
+          "choices": [
+            "Hazard Analysis Critical Control Points",
+            "ISO 9001:2015",
+            "Good Manufacturing Practices",
+            "Sanitation Standard Operating Procedures"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which program is designed to regularly check the processing environment for microbial hazards and ensure sanitary conditions are maintained?",
+          "choices": [
+            "Environmental monitoring program",
+            "Good manufacturing practices",
+            "Sanitation Standard Operating Procedures",
+            "Hazard Analysis Critical Control Points"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a United States Food and Drug Administration designation that a chemical or substance added to food is considered safe by experts under the conditions of its intended uses.",
+          "choices": [
+            "HRPS",
+            "GRAS",
+            "PRTS",
+            "GMTS"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What specific Sustainable Development Goal (SDG) is ensuring access to food, ending malnutrition, and sustainable food production fall into?",
+          "choices": [
+            "SDG 1",
+            "SDG 2",
+            "SDG 9",
+            "SDG 13"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following is not a part of the processes involved in the mechanical separations in food processing?",
+          "choices": [
+            "Screening",
+            "Centrifugation",
+            "Agglomeration",
+            "Mechanical expression"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is one method of improving the storage quality of fruits and vegetables to extending their shelf-life?",
+          "choices": [
+            "Reduce air circulation within the storage facility",
+            "Control relative humidity and temperature according to its needs",
+            "Use non-ventilated storage rooms to prevent moisture loss",
+            "Decrease the storage temperature in the facility"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which type of microorganism is most commonly responsible for the spoilage of fruits and vegetables?",
+          "choices": [
+            "Bacteria",
+            "Viruses",
+            "Yeast",
+            "Fungi"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are food that is lost at the retail or consumer levels. This can occur at grocery stores, restaurants, and in consumers' homes.",
+          "choices": [
+            "Food loss",
+            "Food waste",
+            "Food consumption",
+            "Food dump"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What water activity value does proliferation of yeasts start in food products?",
+          "choices": [
+            "0.6",
+            "0.7",
+            "0.8",
+            "0.9"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This law of size reduction states that the energy required to reduce the size of particles is proportional to the ratio of the initial size of a typical dimension to the final size of that dimension.",
+          "choices": [
+            "Kick's Law",
+            "Rittinger's Law",
+            "Bond's Law",
+            "Fourier's Law"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A company exports mangoes to China. However, upon inspection, it was identified that some mangoes are already infected with Anthracnose disease. As an ABE, what is the best procedure you should use to address the problem?",
+          "choices": [
+            "Use of ethylene gas",
+            "Controlled atmosphere packaging",
+            "Hot water treatment",
+            "Fumigation"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Industrial bottling of virgin coconut oil prints a batch number. What is the main purpose of this batch number?",
+          "choices": [
+            "Bottle identification",
+            "Expiry indicator",
+            "Serial number",
+            "Product recall"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The following are the component elements of food security, except for one:",
+          "choices": [
+            "Development",
+            "Availability",
+            "Utilization",
+            "Access"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of packaging that interacts with the product and its environment to extend shelf-life and maintain quality of products.",
+          "choices": [
+            "Smart packaging",
+            "Active packaging",
+            "Modified atmosphere packaging",
+            "Bio-composite packaging"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "To aid in recycling, a number is placed inside the recycle logo to identify what plastic the material is. What type of plastic does the number 4 indicate?",
+          "choices": [
+            "PET",
+            "HDPE",
+            "LDPE",
+            "PP"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are natural polysaccharides used as biological sources of biodegradable film directly extracted from red and purple seaweeds.",
+          "choices": [
+            "Chitosan",
+            "Alginates",
+            "Carrageenan",
+            "Cellulose"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The process of destroying most disease-producing microorganisms and limiting fermentation in milk or other liquids by heating a foodstuff for a definite time and temperature.",
+          "choices": [
+            "Hot water treatment",
+            "Pasteurization",
+            "Evaporation",
+            "Irradiation"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Fresh milk of high purity to be delivered to the consumer within 36 hours. The number of bacteria is 10,000 counts or less per mL.",
+          "choices": [
+            "Certified milk",
+            "Evaporated milk",
+            "Condensed milk",
+            "Powder milk"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a milk where the butterfat is replaced with vegetable fat such as coconut fat.",
+          "choices": [
+            "Certified milk",
+            "Evaporated milk",
+            "Condensed milk",
+            "Filled milk"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A fresh milk heated to a temperature of not lower than 145 degrees Fahrenheit for a period of not less than 30 minutes.",
+          "choices": [
+            "Reconstituted milk",
+            "Homogenized milk",
+            "Pasteurized milk",
+            "Recombined milk"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Under PAES 418:2002, washing of tomato is done by using _____% chlorox solution applied by dipping, spraying, or wiping with a damp cloth then drying the fruit before packing.",
+          "choices": [
+            "0.5%",
+            "1%",
+            "1.5%",
+            "2%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The toxin produced by some strain of the fungi Aspergillus flavus and Aspergillus parasitum, the most potent carcinogen yet discovered is called",
+          "choices": [
+            "Aflatoxin",
+            "Hydrophilic toxin",
+            "Fusarium toxin",
+            "Mycotoxin"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The core components of Good Manufacturing Practices are composed of 5P's, which highlights the critical areas of focus for maintaining quality in manufacturing. What are these 5P's?",
+          "choices": [
+            "People, Products, Processes, Procedures, Premises",
+            "People, Processes, Procedures, Personality, Products",
+            "People, Premises, Personality, Production, Procedures",
+            "People, Products, Premises, Production, Procedures"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This GMP principle is crucial for maintaining the integrity of the manufacturing processes and ensuring product quality and safety.",
+          "choices": [
+            "Creating SOPs",
+            "Document procedures and processes",
+            "Implement and enforce SOPs",
+            "Validate the effectiveness of the SOPs"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This GMP principle is crucial for the continual improvement and maintaining regulatory compliances.",
+          "choices": [
+            "Develop job competence of workers",
+            "Conduct GMP audits regularly",
+            "Implement and enforce SOPs",
+            "Prioritize quality and integrate it in the workflow"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are written procedures that an establishment develops and implements to prevent direct contamination and adulteration of products.",
+          "choices": [
+            "SSOP",
+            "GMP",
+            "HACCP",
+            "ISO 2200"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The ISO is an independent, non-governmental, internal standard development organization for quality management. What does ISO stand for?",
+          "choices": [
+            "International Standard Organization",
+            "Internal Organization for Standardization",
+            "International Standardization Organization",
+            "International Organization for Standards"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Related ISO quality management standards are based from these seven Quality Management Principles (QMPs). Which of the following is NOT part of these principles?",
+          "choices": [
+            "Customer focus",
+            "Improvement",
+            "Satisfaction",
+            "Engagement of people"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a product-oriented approach which focuses on testing and inspecting raw materials, processes, and finished products to ensure they meet safety and quality standards.",
+          "choices": [
+            "Quality Control",
+            "Quality Assurance",
+            "Quality Standards",
+            "Quality Management"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a process-oriented approach which ensures that systems, policies, and preventive measures are in place to consistently produce safe and high-quality food.",
+          "choices": [
+            "Quality Control",
+            "Quality Assurance",
+            "Quality Standards",
+            "Quality Management"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the main objective of HACCP?",
+          "choices": [
+            "Production process monitoring",
+            "Preventive approach to food safety",
+            "Efficient resource allocation",
+            "Finished product inspection"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a critical step to remove impurities from raw sugarcane juice by using heat, chemical additives like lime, and sedimentation to create a clear liquid.",
+          "choices": [
+            "Sedimentation",
+            "Clarification",
+            "Filtration",
+            "Liming"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The process of heating vegetables in steam or in boiling water to inactivate enzymes and to reduce microbial population thereby prolonging storage at sub-freezing temperature.",
+          "choices": [
+            "Blanching",
+            "Boiling",
+            "Conching",
+            "Tempering"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Food Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The mass of water vapor present in one kilogram of dry air is called?",
+          "choices": [
+            "Absolute humidity",
+            "Relative humidity",
+            "Humidity ratio",
+            "Specific humidity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the ratio of convective to conductive heat transfer.",
+          "choices": [
+            "Nusselt Number (Nu)",
+            "Lewis Number",
+            "Reynolds Number (Re)",
+            "Froude Number (Fr)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of system that occurs when there is no exchange of heat that takes place with the surroundings, either in closed or open systems",
+          "choices": [
+            "Semi-open systems",
+            "Isolated systems",
+            "Adiabatic systems",
+            "Isothermal systems"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The governing law for heat conduction.",
+          "choices": [
+            "Fourier's Law",
+            "Newton's Law of Cooling",
+            "Newton's Law of Heating",
+            "Stefan-Boltzmann Law"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A glass of water with a mass of 0.3 kg at 30 degrees Celsius is to be cooled down to 4 degrees Celsius by dropping ice cubes into it. The latent heat of fusion of ice is 334 kJ/kg. The amount of ice that needs to be added to cool the water down is?",
+          "choices": [
+            "35.5 g",
+            "76.4 g",
+            "93.0 g",
+            "97.6 g"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following statements is incorrect?",
+          "choices": [
+            "The constant dry bulb temperature line represents the adiabatic saturation process",
+            "Willis Carrier invented the psychrometric chart",
+            "The content wet bulb temperature line coincides with the constant enthalpy line",
+            "The chart is plotted for pressure equal to 760 mmHg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the heat associated with the change in the physical state or phase of materials.",
+          "choices": [
+            "Sensible Heat",
+            "Latent Heat",
+            "Specific heat",
+            "Heat of vaporization"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The process where heat transfer is attributed only to a change in dry bulb temperature is called?",
+          "choices": [
+            "Humidification",
+            "Sensible heating and cooling",
+            "Sensible heating",
+            "Sensible cooling"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Sensible cooling occurs when air temperature decreases due to the loss of heat with ___________.",
+          "choices": [
+            "Constant pressure",
+            "Constant enthalpy",
+            "Constant moisture content",
+            "Constant specific volume"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A thermodynamic process that occurs without heat transfer between the system and its surroundings.",
+          "choices": [
+            "Isothermal",
+            "Isobaric",
+            "Isochoric",
+            "Adiabatic"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This states that if two systems are in thermal equilibrium with a third system, then they are also in thermal equilibrium with each other.",
+          "choices": [
+            "Zeroth Law of Thermodynamics",
+            "First Law of Thermodynamics",
+            "Second Law of Thermodynamics",
+            "Third Law of Thermodynamics"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Following the supply of high-temperature, high-pressure vapor from the compressor, the condenser facilitates the cooling process. As a result, the refrigerant undergoes a transformation into a ________, and is subsequently directed towards the expansion valve in the loop.",
+          "choices": [
+            "Low pressure, low temperature",
+            "High pressure, low temperature",
+            "Low pressure, high temperature",
+            "High pressure, high temperature"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The actual dry bulb temperature from an evaporative cooler is 22°C. If the outside air has dry bulb temperature of 33°C and wet bulb temperature of 20°C, determine the evaporative cooler efficiency.",
+          "choices": [
+            "82.56%",
+            "83.81%",
+            "84.05%",
+            "84.62%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A Carnot refrigeration cycle absorbs heat at –3°C and rejects t at 27°C. If the cycle is used as a heat pump and works with the same given conditions, what is the COP?",
+          "choices": [
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "During sensible cooling, what happens to the moisture content of the product?",
+          "choices": [
+            "It increases",
+            "It decreases",
+            "It may either increase of decrease",
+            "No change occurs"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a refrigeration cycle, the heat is rejected by the refrigerant in what part?",
+          "choices": [
+            "Evaporator",
+            "Condenser",
+            "Compressor",
+            "Expansion Valve"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A rice husk stove boils 2 liters of water and subsequently evaporated 0.5 liter. The initial temperature of water is 27 C. The amount of fuel consumed in boiling and evaporating water is 1.5 kg. What is the thermal efficiency of the stove? Assume a heat of vaporization of water equal to 540 kCal/kg and heating value of fuel equal to 3,000 kCal per kg.",
+          "choices": [
+            "6.2%",
+            "9.2%",
+            "10.5%",
+            "11.4%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the amount of heat needed to raise the temperature of a 1.5-tons medium-size paddy from 27°C to 45°C? The moisture content of paddy is 14% wet basis.",
+          "choices": [
+            "18,569 BTU",
+            "20,675 BTU",
+            "22,763 BTU",
+            "25,351 BTU"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Estimate the heat required to increase the temperature of 20 kilograms of orange pulp from 30 to 70 degrees Celsius. The mean heat capacity of the orange pulp is 4 kJ/kg-C.",
+          "choices": [
+            "1778 kJ",
+            "3100 kJ",
+            "1834 kJ",
+            "3200 kJ"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Moist air at standard atmospheric pressure is 45°C dry bulb and 25% relative humidity. Find the saturation vapor pressure.",
+          "choices": [
+            "9.58 kPa",
+            "9.85 kPa",
+            "5.98 kPa",
+            "5.89 kPa"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the actual vapor pressure in # 113?",
+          "choices": [
+            "2.45 kPa",
+            "2.43 kPa",
+            "2.40 kPa",
+            "2.37 kPa"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the main component of dry ice?",
+          "choices": [
+            "Carbon dioxide",
+            "Carbon monoxide",
+            "Oxygen",
+            "Water"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the temperature at which water vapor starts to condense out of the air, and is read by following a horizontal line from the state-point to the saturation line.",
+          "choices": [
+            "Dry bulb temperature",
+            "Wet bulb temperature",
+            "Dew point temperature",
+            "Relative humidity"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "At 100% relative humidity, the wet bulb temperature is:",
+          "choices": [
+            "Lower than the dew point temperature",
+            "Higher than the dew point temperature",
+            "Equal to the dew point temperature",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Food Process Evaluation and Modelling",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the stoichiometric air of rice husk?",
+          "choices": [
+            "3.5 kg air/kg rice husk",
+            "4.7 kg air/kg rice husk",
+            "5.6 kg air/kg rice husk",
+            "6.5 kg air/kg rice husk"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are losses that occur between the completion of harvest and the moment of consumption.",
+          "choices": [
+            "Production losses",
+            "Quality losses",
+            "Postharvest losses",
+            "Both A and C"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the complete or near removal of water from a material.",
+          "choices": [
+            "Drying",
+            "Dehydration",
+            "Evaporation",
+            "Both A and B"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How much liter of kerosene is needed to dry one ton of paddy from 30% to 14%? Assume latent heat of vaporization is 2500 kJ/kg, heating value of kerosene is 43 MJ/kg, kerosene specific gravity is 0.8, and burner efficiency is 80%",
+          "choices": [
+            "11 liters",
+            "14 liters",
+            "17 liters",
+            "21 liters"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many kilograms of water is lost from a ton of palay at 20.9% if the moisture content changes to 15.2%?",
+          "choices": [
+            "53.15 kg",
+            "67.22 kg",
+            "72.15 kg",
+            "64.69 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the geometric mean diameter of rice with the following dimensions: L = 11.18 mm, W = 4.56 mm, Thickness = 2.14 mm.",
+          "choices": [
+            "3.98 mm",
+            "4.56 mm",
+            "4.78 mm",
+            "4.12 mm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the percentage increase in the porosity of the harvested medium-sized paddy with 21% moisture content wet basis if it is to be dried to 14% wet basis?",
+          "choices": [
+            "0.1%",
+            "0.2%",
+            "68%",
+            "45%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many kilograms of rice hull are needed to dry one ton of palay from 24% to 14% w.b.? Assume latent heat of vaporization is 2,500 kJ/kg, heating value of rice hull is 14 MJ/kg, and it is 100% efficient.",
+          "choices": [
+            "157.8 kg",
+            "29.1 kg",
+            "116.3 kg",
+            "20.80 kg"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The following are mechanical dryers under heated-air mechanical drying except for one. Which is it?",
+          "choices": [
+            "Batch dryer",
+            "Recirculating batch dryer",
+            "In-store dryer",
+            "Continuous flow dryer"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Convert a moisture content of 25% wet basis to moisture content dry basis.",
+          "choices": [
+            "33%",
+            "28%",
+            "39%",
+            "24%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum moisture content for safe storage in paddy seeds for less than one year?",
+          "choices": [
+            "9%",
+            "12%",
+            "14%",
+            "18%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The material is said to be in the state of equilibrium if __________.",
+          "choices": [
+            "The vapor pressure of the air is equal to the vapor pressure of the product",
+            "The vapor pressure of the air is greater than the vapor pressure of the product",
+            "The vapor pressure of the air is lesser than the vapor pressure of the product",
+            "The vapor pressure of the air is greater than or equal to the vapor pressure of the product"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following are the factors that affects the equilibrium moisture content?",
+          "choices": [
+            "Dry bulb temperature and wet bulb temperature",
+            "Relative humidity and humidity ratio",
+            "Relative humidity and dry bulb temperature",
+            "Relative humidity and specific enthalpy"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The best index for determining the optimum time of harvesting grains is:",
+          "choices": [
+            "Planting date",
+            "Moisture content",
+            "Grain color",
+            "Flag leaf dryness"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the best level of equilibrium relative humidity for storage of grains in silos, bins, and other storage facilities?",
+          "choices": [
+            "Less than 75%",
+            "Less than 65%",
+            "Greater than 85%",
+            "Greater than 65%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum moisture content for safe storage in palay seeds?",
+          "choices": [
+            "10%",
+            "12%",
+            "14%",
+            "16%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a method of preserving agricultural commodities such as grains using airtight and moisture-proof containers that create a sealed environment.",
+          "choices": [
+            "Hypobaric storage",
+            "Controlled atmosphere storage",
+            "Hermetic storage",
+            "Modern-sealed storage"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of postharvest loss where it is attributed on moisture loss, physical and structural damages to the commodity.",
+          "choices": [
+            "Qualitative loss",
+            "Quantitative loss",
+            "Production loss",
+            "Postharvest loss"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a material balance, if the system is in a steady-state condition, what can be assumed about the accumulation term?",
+          "choices": [
+            "It is equal to the total output alone",
+            "It is equal to zero",
+            "It is equal to the sum of all components",
+            "It is equal to the total input alone"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following salt solution produces a relative humidity of 70 – 75%?",
+          "choices": [
+            "Magnesium chloride",
+            "Potassium sulfate",
+            "Sodium chloride",
+            "Potassium carbonate"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Eight thousand kg of paddy with a moisture content of 12% (d.b) is required for a research project on grain storage. It was decided that the available freshly harvested paddy with a moisture content of 20% (w.b.) should be procured and then it will be dried to a moisture content of 12% (d.b.) How many kg of freshly harvested paddy are to be procured?",
+          "choices": [
+            "9010 kg",
+            "8760 kg",
+            "8540 kg",
+            "8930 kg"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Determine the amount of rice husk fuel required to dry 4 tons of paddy from 21% to 14% moisture content. The air temperature for drying is 45 degrees Celsius. The ambient temperature is 30 degrees Celsius while the relative humidity is 85%. The recommended airflow rate is 25 cu. m of air per min-ton of grain. Assume a heating value for rice husk of 3000 kcal/kg and heat utilization efficiency for the dryer is 0.4. Based on the psychrometric chart, the following are obtained: h1 = 88 kJ/kg-da; h2 = 104 kJ/kg-da; and vs=0.93 cu.m./kg-da",
+          "choices": [
+            "18.54 kg/hr",
+            "20.64 kg/hr",
+            "23.17 kg/hr",
+            "25.76 kg/hr"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The moisture content at the turning point from the constant rate drying to the first stage falling rate drying is said to be:",
+          "choices": [
+            "Absolute moisture content",
+            "Ambient moisture content",
+            "Critical moisture content",
+            "Equilibrium moisture content"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A corn cob has an stoichiometric air requirement of 5.7 kg air/kg fuel. If 3 kg of corn cob is required to be burned per hour, how much air in m³/hr is required for the system.",
+          "choices": [
+            "3.69 m³/hr",
+            "31.69 m³/hr",
+            "13.96 m³/hr",
+            "None of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In this drying period, water vapor diffused through the dry solids to the drying air and the drying rate is controlled by the rate of moisture movement through the solid.",
+          "choices": [
+            "Constant rate period",
+            "First falling rate period",
+            "Second falling period",
+            "Initial induction period"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If the vapor pressure of the water held by the grain is greater than the vapor pressure of the surrounding air, what condition exists?",
+          "choices": [
+            "Absorption",
+            "Adsorption",
+            "Desorption",
+            "Hysteresis"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Calculate the molarity for this sugar solution, which is prepared by dissolving 10 kg of sucrose in 90 kilograms of water. The density of the solution is 1040 kg/m3.",
+          "choices": [
+            "0.28 mol/liter",
+            "0.30 mol/liter",
+            "0.32 mol/liter",
+            "0.34 mol/liter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An evaporator has a rated evaporation capacity of 500 kg of water per one hour operation. Calculate the rate of production of juice concentrate containing 45% total solids from raw juice containing 12% solids.",
+          "choices": [
+            "179 kg",
+            "182 kg",
+            "186 kg",
+            "180 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Papaya slices containing 85% moisture is dehydrated in a fruit dryer. The dry product has 5% moisture content, how much product is needed to produce one ton of papaya slice product per day? Preparation losses like peeling and trimming is 10%.",
+          "choices": [
+            "7020 kg",
+            "7037 kg",
+            "7043 kg",
+            "7018 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the amount of sugar that is to be added in a 100 kg sugar solution to raise its concentration from 20% to 45%?",
+          "choices": [
+            "36.76 kg",
+            "45.45 kg",
+            "51.25 kg",
+            "56.19 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A sugar solution with 15% sugar concentration is fed into a mixer at 35,000 kg/hr. Dry sugar is added to produce 50,000 kg/hr of a solution with 30% sugar concentration. Calculate the mass flow rate of the dry sugar needed for the solution.",
+          "choices": [
+            "5,750 kg/hr",
+            "7,750 kg/hr",
+            "9,750 kg/hr",
+            "8,740 kg/hr"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "At a moisture content of 20%, the angle of repose for paddy will be ________ than a dry paddy with 14% moisture content.",
+          "choices": [
+            "Greater",
+            "Lower",
+            "Equal",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "As the relative humidity ________ and air temperature ________, the EMC of grains increases.",
+          "choices": [
+            "Increases, increases",
+            "Increases, decreases",
+            "Decreases, increases",
+            "Decreases, decreases"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the EMC of milled rice (in d.b.) in Philippine environmental condition.",
+          "choices": [
+            "13%",
+            "14%",
+            "16%",
+            "18%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a moisture content determination method where it makes use of the electrical properties of the material which is directly related to the MC.",
+          "choices": [
+            "Primary method",
+            "Secondary method",
+            "Tertiary method"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For seed storage purposes, drying air temperatures should never exceed _______.",
+          "choices": [
+            "35°C",
+            "43°C",
+            "51 °C",
+            "55 °C"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For sun drying of paddy grains, the optimum layer thickness is ________.",
+          "choices": [
+            "3 to 5 cm",
+            "2 to 3 cm",
+            "3 to 4 cm",
+            "2 to 4 cm"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The most commonly used continuous flow dryer, which can also be classified as mixing and non-mixing.",
+          "choices": [
+            "Concurrent flow",
+            "Counter-flow",
+            "Cross flow"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The efficiency of the dryer operation is an important factor in assessing and selecting optimum dryer. Which of the following is not a factor affecting drying efficiency?",
+          "choices": [
+            "Environment-related",
+            "Crop-specific",
+            "Design and operation",
+            "All of the above",
+            "None of the above"
+          ],
+          "answer": 4,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is recommended that paddy should be harvested when 80% of the panicle are fully ripe for the reason that:",
+          "choices": [
+            "Harvesting paddy before 80% will produce more broken grains",
+            "Harvesting paddy above 80% will produce more empty grains",
+            "Harvesting paddy above 80% will produce more shattered and broken grains",
+            "All of the above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a drying system where ambient air is forced through a column of grains.",
+          "choices": [
+            "Mechanical drying",
+            "Heated-air drying",
+            "Unheated-air drying",
+            "Flash drying"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "One ton of rough rice at 24% moisture content wet basis is to be dried to 14% moisture content dry basis. What is the weight of the dry matter?",
+          "choices": [
+            "700 kg",
+            "760 kg",
+            "240 kg",
+            "830 kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The amount of grain moisture removed by a cubic meter of air in a drying system is 0.0015 kg. What blower capacity in cubic meters per min, is needed to remove all 120 kg moisture if the drying time is 12 hours?",
+          "choices": [
+            "111",
+            "121",
+            "234",
+            "100"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Sixty thousand cubic meters of air is needed to be removed from grains to attain 14% MC db which is safe for long term storage. What fan capacity, in cubic meters per min, is needed to accomplish drying in 8 hours",
+          "choices": [
+            "140",
+            "130",
+            "125",
+            "155"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The angle of friction is the angle measured from the horizontal at which the product starts to move downward over a smooth surface. Which among these is true?",
+          "choices": [
+            "Wet grain has greater angle of friction than dry grain",
+            "Wet grain has lower angle of friction than dry grain",
+            "Wet grain has equal angle of friction than dry grain",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a measure of dissolved solids in sugar liquor or syrup using refractometer.",
+          "choices": [
+            "Glycemic index",
+            "Brix index",
+            "Brix",
+            "Sugar index"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the amount of foreign materials in a sample of grains.",
+          "choices": [
+            "Impurities",
+            "Chalky grains",
+            "Dockage",
+            "Defects"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which of the following demonstrates the drying process of grains?",
+          "choices": [
+            "Heating – Tempering – Evaporation – Cooling",
+            "Cooling – Evaporation – Heating – Tempering",
+            "Heating – Evaporation – Cooling– Tempering",
+            "Heating– Evaporation – Tempering - Cooling"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the biomass fuel heating value of peanut hull",
+          "choices": [
+            "4695 kcal/kg",
+            "4102 kcal/kg",
+            "3000 kcal/kg",
+            "4797 kcal kg"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The expression of moisture content commonly used in commercial scale.",
+          "choices": [
+            "MC db",
+            "MC wb",
+            "MC",
+            "All of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "What is the optimum recommended stack heigh (in feet) for paddy?",
+          "choices": [
+            "15.46",
+            "19.68",
+            "6",
+            "5.5"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A silo that has an aspect ratio greater than or equal to 2.0 (h/d is greater than or equal to 2.0)",
+          "choices": [
+            "Retaining",
+            "Intermediate",
+            "Squat",
+            "Slender"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A 23-ton of potatoes are to be stored at an agricultural processing plant. How many areas are needed to be provided for the commodity?",
+          "choices": [
+            "360 m2",
+            "430 m2",
+            "460 m2",
+            "520 m2"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If a pile of rough rice is 8 meters long, 6 meters wide, and 3.6 meters high, how many bags of rough rice are safe to be piled?",
+          "choices": [
+            "5,443 bags",
+            "8,592 bags",
+            "2,732 bags",
+            "1,728 bags"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Based on PAES 418, the store room for finished products in the primary processing plant of fruits and vegetables shall have humidity level of:",
+          "choices": [
+            "40%",
+            "60%",
+            "70%",
+            "85%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The storage area of a processing plant shall have a capacity for temporary storage of raw materials for how many processing days?",
+          "choices": [
+            "1 to 3 days",
+            "2 to 3 days",
+            "1 to 5 days",
+            "2 to 5 days"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Based on the Philippine Agricultural Engineering Standards, what is the angle of repose for rice hull?",
+          "choices": [
+            "30 to 36 degrees",
+            "35 to 45 degrees",
+            "30 to 55 degrees",
+            "35 to 50 degrees"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The size of wire mesh used in storage to protect stored products from insects and rodents (PAES 419:2015)",
+          "choices": [
+            "1/8 inches wire mesh",
+            "¼ inches wire mesh",
+            "½ inches wire mesh",
+            "¾ inches wire mesh"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Ten tons of shelled corn will be stored in a cylindrical silo. Loading will be done only from the bottom to the top of the cylindrical container without considering the additional volume of the cone due to the effects of the angle of repose of the sample. If the silo required a 1.5D = H ratio, what would be the dimension of the silo? Assume BD shelled corn = 45 lb/cu. Ft",
+          "choices": [
+            "D = 2.07 m; H = 3.11 m",
+            "D = 2.70 m; H = 4.05 m",
+            "D = 2.82 m; H = 4.23 m",
+            "D = 2.28 m; H = 3.42 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Jute bags should not be stacked higher than ____ and plastics bags higher than _____.",
+          "choices": [
+            "1 m, 2 m",
+            "2 m, 3 m",
+            "5 m, 4 m",
+            "4 m, 3 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In this type of bag storage, bags are laid in complete length-wise or breath-wise tiers in alternate layers systematically.",
+          "choices": [
+            "Block stacking",
+            "Japanese method",
+            "Criss-cross method",
+            "Chinese method"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Out of the 220 kg of paddy rice that goes through the rubber roller of a rice mill, 46.2 kg of unhulled paddy is collected. What is the hulling coefficient? (Assume 570 kg/cu. m density of paddy)",
+          "choices": [
+            "0.67",
+            "0.71",
+            "0.79",
+            "0.21"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of horizontal conveyor which can be inclined, has high handling capacity, and can convey up to 30 meters of distance.",
+          "choices": [
+            "Belt conveyor",
+            "Screw conveyor",
+            "Chain conveyor",
+            "Pneumatic elevator"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of mechanical transport operations which has higher energy requirement and is preferred for large-scale transport of food such as spices and other powdery products.",
+          "choices": [
+            "Hydraulic conveyor",
+            "Mechanical conveyor",
+            "Screw conveyor",
+            "Pneumatic conveyor"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Rice hull has high proportion of ______ which causes considerable damage to processing equipment through excessive wear of machine parts and interconnecting transfer facilities.",
+          "choices": [
+            "Hemicellulose",
+            "Lignin",
+            "Silica",
+            "Cellulose"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Maximum speed requirement for vertical abrasive whitening cone machine.",
+          "choices": [
+            "13 m/s",
+            "14 m/s",
+            "15 m/s",
+            "20 m/s"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is an auxiliary part of modern rice mills which is used to remove light materials like chaffs and unfilled grains.",
+          "choices": [
+            "Aspirator",
+            "Destoner",
+            "Whitener",
+            "Paddy separator"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "If the end point in milling is brown rice, the grain has just passed through a _____.",
+          "choices": [
+            "Paddy cleaner",
+            "Rubber roll huller",
+            "Whitener",
+            "Sifter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A blower elevates forage into a 12.2 m high silo t a rate of 455 kg/minute. Determine the input power of the blower if its efficiency is 40%.",
+          "choices": [
+            "0.91 kW",
+            "2.30 kW",
+            "5.55 kW",
+            "1.50 kW"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The grain to be used in heated-air mechanical grain dryer testing shall be homogenous with a moisture content of at least _____ for rice and corn.",
+          "choices": [
+            "14%",
+            "18%",
+            "22%",
+            "25%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A chamber wherein air pressure forms uniform distribution of heated-air through the grain mass.",
+          "choices": [
+            "Duct",
+            "Bin",
+            "Blower",
+            "Plenum"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The main principle at which rubber huller work is?",
+          "choices": [
+            "Two rollers at opposite direction with same speed",
+            "Two rollers at opposite direction with different speed",
+            "Two rollers at same direction with same speed",
+            "Two rollers at same direction with different speed"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A rubber roller is used as a huller for a rice mill. The faster roller is directly driven by an electric motor at 1500 rpm. What would be the required speed for the slower roller?",
+          "choices": [
+            "1290 rpm",
+            "1920 rpm",
+            "1125 rpm",
+            "2190 rpm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the theoretical rpm of a bucket elevator whose head pulley diameter is 0.2 m and the bucket projection is 0.1 m?",
+          "choices": [
+            "75 rpm",
+            "77 rpm",
+            "79 rpm",
+            "81 rpm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The husking ratio or rubber roll huller is about _______.",
+          "choices": [
+            "50-60%",
+            "60-70%",
+            "70-80%",
+            "80-90%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The commonly used threshing units for throw-in type thresher",
+          "choices": [
+            "Peg-tooth",
+            "Wire loop",
+            "Rasp bar",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}

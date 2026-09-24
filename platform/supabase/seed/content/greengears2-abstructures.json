@@ -1,0 +1,1810 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "This is the specific gravity of cement, particularly, the more common Portland cement.",
+          "choices": [
+            "2.65",
+            "3.15",
+            "3.16",
+            "2.66"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the minimum distance of slaughterhouse away from any building used for human habitation, and from any factory, public road or public place.",
+          "choices": [
+            "100 m",
+            "150 m",
+            "200 m",
+            "250 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to DPWH's DO No. 112 Series of 2019 and as revised in DO No. 15 Series 2020, this is the design speed for all terrain types of farm-to-market roads.",
+          "choices": [
+            "20 kph",
+            "30 kph",
+            "40 kph",
+            "50 kph"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A farmer needs to order lumber for work bench that requires a total of 428 board feet. If each piece of lumber measures 2 inches thick, 6 inches wide, and 12 feet long, how many pieces of lumber should the carpenter order?",
+          "choices": [
+            "32 pcs",
+            "34 pcs",
+            "36 pcs",
+            "38 pcs"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the brooding temperature that should be provided for 15-day old chicks in a broiler house?",
+          "choices": [
+            "25-27 °C",
+            "27-29 °C",
+            "29-32 °C",
+            "32-35 °C"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of farmstead which consists primarily of residence and small service buildings. In this, essential farm operations area carried on with hired services.",
+          "choices": [
+            "Suburban",
+            "Community",
+            "Open farmstead",
+            "Central"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This measurement is the maximum length of greenhouses and maximum total width of gutter-connected greenhouses.",
+          "choices": [
+            "25 m",
+            "50 m",
+            "30 m",
+            "60 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Seven adult pigs are to be contained in a pen of a swine house. What should be the area of the pen for this group?",
+          "choices": [
+            "10.5 sq. m.",
+            "14 sq. m",
+            "15.75 sq. m",
+            "17.5 sq. m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "PAES 289:2019 – This percentage is the minimum crossfall of road carriageway. Meanwhile, twice of this should be the cross fall of the road shoulder.",
+          "choices": [
+            "1.5%",
+            "2%",
+            "2.5%",
+            "3%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How long is the defects liability period to ensure the contractor rectifies any structural defects or failures that appear after the project's completion?",
+          "choices": [
+            "Three months after project completion",
+            "Six months after project completion",
+            "Nine months after project completion",
+            "Twelve months after project completion"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In zone planning, the farmstead is divided into different zones of 10 to 30 meters wide concentric circles. What can be found within the innermost circle?",
+          "choices": [
+            "Family dwelling area",
+            "Implement and machine storage",
+            "Farm workshop",
+            "Livestock building"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Due to constant typhoons, an old mango tree was cut to prevent it from falling along the farmer's house. If the width of its trunk is 40 cm and the length of the trunk is 5 meters, how many board foot can be obtained from it?",
+          "choices": [
+            "405 bd. ft.",
+            "141 bd. ft.",
+            "254 bd. ft.",
+            "129 bd. ft."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A farm shed is to be made of masonry and wood. What type of construction would it be?",
+          "choices": [
+            "Type I",
+            "Type II",
+            "Type III",
+            "Type V"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Maximum wind gusts which the frames of a greenhouse shall be able to withstand.",
+          "choices": [
+            "100 kph",
+            "150 kph",
+            "200 kph",
+            "250 kph"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum distance of a milking parlor away from the lactating barn if milking is done two times a day?",
+          "choices": [
+            "30 m",
+            "180 m",
+            "275 m",
+            "100 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is described as the rate of increase or decrease in the level of the land, the slope expressed in percentage.",
+          "choices": [
+            "grade",
+            "gradient",
+            "gradation",
+            "grading"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The number of CHB needed to build a wall is 394 pieces, given that the height of the wall is 3.5 m, what is its length?",
+          "choices": [
+            "7.5 m",
+            "8 m",
+            "8.5 m",
+            "9 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which among the pipe below can withstand the most pressure?",
+          "choices": [
+            "GI pipe schedule 20",
+            "GI pipe schedule 80",
+            "GI pipe schedule 40",
+            "GI pipe schedule 10"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the measurement of a rectangle pallet as given by the American Society of Agricultural Engineers (ASAE)?",
+          "choices": [
+            "120 cm x 100 cm x 72 cm",
+            "100 cm x 72 cm x 61 cm",
+            "100 cm x 120 cm x 61 cm",
+            "120 cm x 72 cm x 61 cm"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Unless otherwise specified in the contract, what is the free-haul distance for the construction of farm to market roads?",
+          "choices": [
+            "1200 m",
+            "1000 m",
+            "700 m",
+            "600 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a laying cage, the floor shall be made of a 12 gauge wire and is sloped to allow laid eggs to roll out. What should be the slope of its floor?",
+          "choices": [
+            "18-25%",
+            "4-7%",
+            "21-25%",
+            "2-4%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A square storage room has a floor area of 16 sqm, a ceiling height of 2.4 m, a window which measures 0.3 m by 0.4 m, and a standard door 210 cm by 900 mm. How many CHB was used to build its walls?",
+          "choices": [
+            "480 pcs",
+            "455 pcs",
+            "215 pcs",
+            "390 pcs"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the recommended lighting intensity for the refrigerated storage room of a fruit and vegetable storage.",
+          "choices": [
+            "100 lux",
+            "200 lux",
+            "500 lux",
+            "50 lux"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum dimension of the gate of a farm workshop and machinery shed?",
+          "choices": [
+            "3 m high by 3.7 m wide",
+            "3.7 m high by 3 m wide",
+            "600 mm wide by 0.9-1 m high",
+            "900 mm wide by 2 m high"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A greenhouse has a roof pitch of 60%. What type of covering material is used for the greenhouse?",
+          "choices": [
+            "Glass",
+            "Plastic",
+            "Wood",
+            "Metal"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How much class A concrete can be made of 100 40-kg bags of cement?",
+          "choices": [
+            "11.11 m³",
+            "12.12 m³",
+            "13.33 m³",
+            "14.44 m³"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which drawing command creates multiple evenly spaced copies of objects in a circular or rectangular pattern?",
+          "choices": [
+            "Copy",
+            "Mirror",
+            "Array",
+            "Offset"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a wood defect which is characterized by a small separation of the wood fiber in the longitudinal direction, it does not extend entirely to the opposite side of the wood.",
+          "choices": [
+            "Checks",
+            "Shakes",
+            "Wane",
+            "Diamond"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the recommended lighting intensity within the pen area of a housing for dairy cattle.",
+          "choices": [
+            "200 lux",
+            "70 lux",
+            "30 lux",
+            "100 lux"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum road shoulder width of one lane concrete FMR?",
+          "choices": [
+            "0.5 m",
+            "0.75 m",
+            "1.0 m",
+            "1.5 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A 4-inch thick floor slab is to be filled with concrete, how much 40-kg cement bags, sand, and gravel is needed if the designed floor area is 25 sq. m?",
+          "choices": [
+            "23 bags, 1.27 m³, 2.54 m³",
+            "16 bags, 1.27 m³, 2.54 m³",
+            "31 bags, 1.72 m³, 3.44 m³",
+            "21 bags, 1.72 m³, 3.44 m³"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the suitable material used for embankments. It is excavated from a source or pit.",
+          "choices": [
+            "borrow",
+            "fill",
+            "backfill",
+            "excavation"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a load which tends to shorten or crush a structural member.",
+          "choices": [
+            "compression",
+            "tension",
+            "shear",
+            "bending"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a pre-built structural member capable of supporting a load over a given span. It consists of one or more triangles in its construction.",
+          "choices": [
+            "column",
+            "beam",
+            "truss",
+            "foundation"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a warehouse for bag type storage of grains, what is the recommended space between the edge of bag piles and the wall?",
+          "choices": [
+            "0.25 m",
+            "0.5 m",
+            "0.75 m",
+            "1.0 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Twenty 50-kg pigs are to be housed in a pen, what should be the designed a floor area of their pen?",
+          "choices": [
+            "7 sqm",
+            "10 sqm",
+            "14 sqm",
+            "17 sqm"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Four hundred fifty-five pieces of 4-inch CHB is needed to build a storage room. If the total length of its walls is 16 m and the height 2.4 m, how much 12 mm-thick class B mortar was used to build its walls?",
+          "choices": [
+            "1.65 m³",
+            "1.365 m³",
+            "1.6 m³",
+            "1.35 m³"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Four carabaos in a feedlot should have a minimum space of ________?",
+          "choices": [
+            "12 m²",
+            "14 m²",
+            "16 m²",
+            "18 m²"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A corrugated G.I. sheet has an effective width of 60 cm, what is its side lapping?",
+          "choices": [
+            "1 corrugation",
+            "1 ½ corrugations",
+            "2 corrugations",
+            "2 ½ corrugations"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A beam requires 0.5 m³ of concrete upon its construction, how many 40-kg bags of cement should be used?",
+          "choices": [
+            "4 bags",
+            "5 bags",
+            "3 bags",
+            "9 bags"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of load that comes from the intended used and on the occupancy of the building.",
+          "choices": [
+            "floor live loads",
+            "utility loads",
+            "occupancy load",
+            "roof live loads"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the distance between two main trusses.",
+          "choices": [
+            "bay",
+            "span",
+            "rise",
+            "pitch"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum slope of a one-lane earth road?",
+          "choices": [
+            "3%",
+            "2.5%",
+            "1.5%",
+            "4%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It defines a part or the entirety of a property, site or location, with defined physical boundaries, used or required by a government infrastructure project.",
+          "choices": [
+            "Government land",
+            "Right-of-Way",
+            "Expansion land",
+            "Property acquistion"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A warehouse needs to store 60,000 bags of rice. What should be its designed dimension?",
+          "choices": [
+            "6-10 m x 30 m buildings",
+            "1-25 x 78 m building",
+            "1-20 m x 60 m and 1-10 m x 30 m buildings",
+            "2-16 m x 48 m buildings"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Ten coconut trees were cut to be sold as lumbers, if their average diameter is 0.35 m and their average length 20 m. Approximately, how many board feet can be obtained from these?",
+          "choices": [
+            "3920 bd. ft.",
+            "3900 bd. ft.",
+            "3921 bd. ft.",
+            "3923 bd. ft."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What should be the minimum step width for the stairs of goat and sheep housing?",
+          "choices": [
+            "800 mm",
+            "200 mm",
+            "300 mm",
+            "700 mm"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Three poultry housing of slot-litter type floor has a pen space of 98 m² each. How many laying chickens can they accommodate?",
+          "choices": [
+            "2000 heads",
+            "2100 heads",
+            "2200 heads",
+            "2300 heads"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a cement that attains high early strength and should not be used in large masses as it has high heat evolution.",
+          "choices": [
+            "Type V",
+            "Type IV",
+            "Type III",
+            "Type II"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What should be the thickness of the concrete base slab for the floor of a slaughterhouse?",
+          "choices": [
+            "150 mm",
+            "200 mm",
+            "250 mm",
+            "300 mm"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the recommended maximum ventilation rate for most greenhouses?",
+          "choices": [
+            "0.75-1 air change per minute",
+            "1-2 air change per minute",
+            "0.5-1.5 air change per minute",
+            "1.5-2 air change per minute"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Approximately how many times is the total dry volume of concrete components greater than the volume of wet concrete?",
+          "choices": [
+            "1.24 times",
+            "1.34 times",
+            "1.44 times",
+            "1.54 times"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the application of water to concrete through brushing or pressure spraying to prevent the loss of initial moisture and maintain the chemical reaction within the concrete mixture, commonly for seven days.",
+          "choices": [
+            "watering",
+            "setting",
+            "misting",
+            "curing"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to DPWH D.O. No. 32 series of 2025, this is the class of structural concrete including pre-stressed concrete structures and members.",
+          "choices": [
+            "Class A",
+            "Class B",
+            "Class C",
+            "Class P"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These types of foundation consist of continuous lengths of concrete of prescribed width, depth, and thickness, placed centrally under each wall to be supported.",
+          "choices": [
+            "Slab foundations",
+            "Strip foundations",
+            "Pile and beam foundations",
+            "Combined footing"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the total period of occupancy in a nursery/weaners' pen of a swine house?",
+          "choices": [
+            "38-45 days",
+            "33-38 days",
+            "93-153 days",
+            "63- 65 days"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many kilograms of cement is needed to create 2 m³ of class A mortar?",
+          "choices": [
+            "1440 kg",
+            "960 kg",
+            "1160 kg",
+            "1120 kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What are the dimensions for maximum piling in a warehouse for bag type storage of grains?",
+          "choices": [
+            "7.3 m x 21.9 m x 4.5 m",
+            "7.9 m x 21.3 m x 5.4 m",
+            "7.4 m x 21.5 m x 4.5 m",
+            "7.1 m x 25.3 m x 5.4 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is an abnormal wood that forms on the underside of leaning and crooked trees. It is hard and brittle, and its presence denotes an unbalanced structure in the wood.",
+          "choices": [
+            "shake",
+            "check",
+            "knots",
+            "reaction wood"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A log measures 18 inches in diameter and 24 feet long. Estimate the lumber yield in board feet.",
+          "choices": [
+            "290 bd. ft.",
+            "292 bd. ft.",
+            "294 bd. ft.",
+            "296 bd. ft."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are lumber composed of factory plane graded for doors, sash and others cutting for general mill works.",
+          "choices": [
+            "Yard lumber",
+            "Factory and Shop Lumber",
+            "Structural Lumber",
+            "Plain lumber"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This a wood preservative which is a black to brownish oil produced by the distillation of coal-tar, and has many of the properties required of a preservative, but it increases flammability and is subject to evaporation.",
+          "choices": [
+            "unleachable metallic salts",
+            "used engine oil",
+            "coal tar",
+            "creosote"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a non-plotting layer in AutoCAD, meaning anything on it will not show up when you print.",
+          "choices": [
+            "defpoints layer",
+            "layer 0",
+            "current layer",
+            "invisible layer"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A supplier offers two types of lumber: Type A: 2\" x 6\" x 14' at P65/bd.ft and Type B: 1\" × 12\" × 14' at P58/bd.ft. If you need 120 board feet of either type, how much cheaper is Type B?",
+          "choices": [
+            "720 pesos",
+            "840 pesos",
+            "960 pesos",
+            "1040 pesos"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to DPWH's DO No. 15 series of 2020, what should be the minimum pavement width of two-lane FMR?",
+          "choices": [
+            "5 m",
+            "5.1 m",
+            "6 m",
+            "6.1 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "From PAES 419:2000 to PAES 419:2015, what is the increase in the spacing between piles in a warehouse for bagged type storage of grain?",
+          "choices": [
+            "0.4m",
+            "0.5 m",
+            "0.6 m",
+            "1.0 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What should be the maximum water cement ratio of concrete if it is intended to be watertight when it is exposed to sea water?",
+          "choices": [
+            "0.42",
+            "0.44",
+            "0.46",
+            "0.48"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum depth of foundation for greenhouses?",
+          "choices": [
+            "0.4 m",
+            "0.45 m",
+            "0.5 m",
+            "0.6 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the total board foot of 16 pieces of a 1-in. x 12-in. x 16-feet wood?",
+          "choices": [
+            "256 bd. ft.",
+            "265 bd. ft.",
+            "225 bd. ft.",
+            "252 bd. ft."
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What are the components of a mortar/plaster?",
+          "choices": [
+            "Cement, sand, and gravel",
+            "Cement, gravel, and water",
+            "Cement and water",
+            "Cement, sand, and water"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the lighting intensity for the stunning area in a slaughterhouse?",
+          "choices": [
+            "220 lux",
+            "200 lux",
+            "500 lux",
+            "100 lux"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the slope of wall tops and ledges for agricultural structures involving food processing?",
+          "choices": [
+            "30 degrees",
+            "45 degrees",
+            "60 degrees",
+            "90 degrees"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Twelve reinforced concrete posts, each measuring 30 cm x 30 cm x 3 meters, will be constructed. Each post requires four vertical reinforcing bars, along with stirrups placed at 30-cm intervals. Determine how many 6-meter standard reinforcing bars are needed to supply all the vertical bars for the project.",
+          "choices": [
+            "16 bars",
+            "20 bars",
+            "24 bars",
+            "28 bars"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These have a thread which gives them a greater holding power and resistance to withdrawal than nails and can easily be removed without damage to the wood.",
+          "choices": [
+            "Bolts and nuts",
+            "Locks and latches",
+            "screws",
+            "rivets"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These plans show the layout of the buildings in relation to each other and to other objects. This type of drawing must be according to scale, it is essential for the proper planning and layout of the farmstead and must indicate the positions of the existing and proposed: roads, buildings, fences, watering points, pipelines, septic tanks, electric cables, telephone poles and trees.",
+          "choices": [
+            "Site plans",
+            "Floor plan",
+            "Foundation plan",
+            "Roofing plan"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A storage room is estimated to consume 320 pieces of 4-in. thick CHB. How many cubic meters of sand is needed to formulate the class B mortar that will be used in filling these CHBs?",
+          "choices": [
+            "0.96 m³",
+            "1 m³",
+            "0.48 m³",
+            "0.5 m³"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Determine weight of the foundation required to carry the load of an internal combustion engine use to drive a 10 sacks per hour multi-pass rice mill. The engine is a 40 hp diesel at a maximum engine speed of 870 rpm. The total weight of the engine is 982 kg. Assume a concrete density of 2,406 kg/m3 .",
+          "choices": [
+            "3186.13 kg",
+            "3318.36 kg",
+            "3631.86 kg",
+            "3168.31 kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the bulk density of light concrete.",
+          "choices": [
+            "1450–1650 kg",
+            "850–1500 kg",
+            "1800–2500 kg",
+            "500–1800 kg"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a wood joint made by beveling each two parts to be joined, usually at a 45 degree angle, to form a corner usually a 90 degree.",
+          "choices": [
+            "Straight joint",
+            "Corner joint",
+            "Miter joint",
+            "Lap joint"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This code  provide for all buildings and structures, a framework of minimum standards and requirements to regulate and control their location, site, design, quality of materials, construction, use, occupancy, and maintenance.",
+          "choices": [
+            "National Building Code of the Philippines",
+            "National Structural Code of the Philippines",
+            "Constructors' Performance Evaluation System (CPES)",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a comprehensive set of regulations and standards that govern the design, construction, and maintenance of structures within the Philippines. It aims to ensure safety, durability, and resilience of buildings and infrastructure against natural and man-made hazards such as earthquakes, typhoons, and other environmental factors prevalent in the country.",
+          "choices": [
+            "National Building Code of the Philippines",
+            "National Structural Code of the Philippines",
+            "Constructors' Performance Evaluation System (CPES)",
+            "None of the above"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the size of reinforcement bar for concrete slabs in slaughterhouses?",
+          "choices": [
+            "10 mm dia. RSB",
+            "12 mm dia. RSB",
+            "16 mm dia. RSB",
+            "20 mm dia. RSB"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of concrete mixture that should be used for foundations unless otherwise stated.",
+          "choices": [
+            "Coarse concrete",
+            "Normal concrete",
+            "Fine concrete",
+            "None of the above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Inn FMRs, how long shall forms for concrete remain in place undisturbed after concrete pouring?",
+          "choices": [
+            "Not less than 72 hours.",
+            "Not less than 48 hours",
+            "Not less than 36 hours",
+            "Not less than 24 hours"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the maximum stacking height for cell packs in a fruit and vegetable storage.",
+          "choices": [
+            "16 units",
+            "12 units",
+            "8 units",
+            "4 units"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Using Fuller's rule, how many cubic meters of gravel is needed for a 5 m³ class C concrete mixture?",
+          "choices": [
+            "5 m³",
+            "4.53 m³",
+            "4.62 m³",
+            "4.89 m³"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the density of concrete used in the estimate of foundation for agricultural machinery?",
+          "choices": [
+            "1440 kg/m³",
+            "2406 kg/m³",
+            "2399 kg/m³",
+            "1780 kg/m³"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A graphic representation of the view as seen by the eyes, it shows the appearance of the finished building. This drawing represents the actual, in three-dimensional form of the proposed building.",
+          "choices": [
+            "Sketch",
+            "Location plan",
+            "Site plan",
+            "Perspective"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This unit consisting of upright containers used for storage and handling of grains in bulk and provided with necessary equipment and accessories.",
+          "choices": [
+            "Warehouse",
+            "Silo",
+            "Storage house",
+            "Grain tank"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A silo that has an aspect ratio greater than 1.0 and less than 2.0.",
+          "choices": [
+            "Retaining",
+            "Squat",
+            "Intermediate",
+            "Slender"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "From the NSCP, what is the basic wind speed of Zone 1 in the Philippines?",
+          "choices": [
+            "250 kph",
+            "200 kph",
+            "150 kph",
+            "100 kph"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "From the NSCP, under what seismic zone classification are most provinces of the Philippines?",
+          "choices": [
+            "Zone 1",
+            "Zone 2",
+            "Zone 3",
+            "Zone 4"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "An open building is a building having each wall opened at a minimum of  ?",
+          "choices": [
+            "90%",
+            "80%",
+            "70%",
+            "60%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the strongest direction of a wood and is parallel to the fiber grain.",
+          "choices": [
+            "axial",
+            "radial",
+            "tangential",
+            "horizontal"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A wall fence which measures 10 m x 3 m is to be plastered on both sides, how many 40-kg cement bags and how much cubic meter/s of sand is needed considering a class C 25 mm thick plaster?",
+          "choices": [
+            "14 bags, 1.5 m³ sand",
+            "13 bags, 1.5 m³ sand",
+            "7 bags, 0.75 m³ sand",
+            "6 bags, 0.75 m³ sand"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "They are used to fix corrugated sheet materials and must be long enough to go at least 20 mm into the wood.",
+          "choices": [
+            "Lost head nails",
+            "Concrete nails",
+            "Roofing nails",
+            "Clout or slate nails"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the capacity of cement bags is used in Fuller's rule of concrete estimate?",
+          "choices": [
+            "Approximately 40 kg",
+            "Approximately 50 kg",
+            "Approximately 94 kg",
+            "Approximately 110 kg"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Using Fuller's rule, how many bags of cement is needed for a one cubic meter class AA concrete?",
+          "choices": [
+            "7.5 bags",
+            "9.5 bags",
+            "9 bags",
+            "10 bags"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Five dry sows are to be housed in a pen with a length of 3 m, what should be the width of the pen?",
+          "choices": [
+            "2 m",
+            "3 m",
+            "4 m",
+            "5 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What should be the orientation of slats for partially slotted floor in a swine house?",
+          "choices": [
+            "Perpendicular to the length of the pen",
+            "Parallel to the length of the pen",
+            "Angled at 45 degrees",
+            "Angled at 60 degrees"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many community nest box is needed to be provided for 45 layers?",
+          "choices": [
+            "one",
+            "two",
+            "three",
+            "four"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a container filled with a liquid solution used to immerse livestock or disinfect footwear. It should be provided in a cattle ranch if the herd is 200 units or more.",
+          "choices": [
+            "Disinfection pool",
+            "Animal pond",
+            "Dipping vat",
+            "Sanitation bath"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is any physical change made on buildings/structures to increase the value, quality, and/or to improve the aesthetic.",
+          "choices": [
+            "alteration",
+            "addition",
+            "renovation",
+            "repair"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Starting from 2026, which government agency will be taking over the development of farm-to-market roads?",
+          "choices": [
+            "Department of Public Works and Highways (DPWH)",
+            "Department of Agriculture (DA)",
+            "Department of Agrarian Reform (DAR)",
+            "Department of Interior and Local Government (DILG)"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "From the National Farm-to-Market Roads Network Plan 2023-2028, what is the total target of FMRs to be concreted within the country?",
+          "choices": [
+            "64,155.20 km",
+            "67,255.46 km",
+            "66,253.89 km",
+            "65,766.23 km"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a type of stall that allows the animals to proceed directly forward after milking is completed.",
+          "choices": [
+            "back-out stall",
+            "walk-through stall",
+            "turn-around stall",
+            "rotating stall"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Using Fuller's rule, how many cubic meters of sand is needed to create a 10 m³ class B concrete mixture?",
+          "choices": [
+            "5 m³",
+            "4.53 m³",
+            "4.62 m³",
+            "4.89 m³"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Locations of vents for warehouse.",
+          "choices": [
+            "Near the floor level",
+            "Top of the wall near grid line",
+            "Top of the roof and the ridge",
+            "All of the above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "At what minimum distance shall the farm workshop and machinery shed be situated from other buildings to reduce fire hazard, to allow for future expansion, and maneuvering and parking of machinery?",
+          "choices": [
+            "20 m",
+            "35 m",
+            "50 m",
+            "45 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the graded portion of a highway between top and side slopes, prepared as a foundation for the pavement structure and shoulder.",
+          "choices": [
+            "Road bed",
+            "Roadway embankment",
+            "Roadway",
+            "Road carriageway"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "These are types of hydrated lime which develop high, early plasticity and higher water retentivity and by a limitation on their unhydrated oxide content.",
+          "choices": [
+            "Type N",
+            "Type S",
+            "Type NA and SA",
+            "Type S and SA"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum thickness of roadside masonry V-ditch?",
+          "choices": [
+            "0.15 m",
+            "0.20 m",
+            "0.25 m",
+            "0.30 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is described as the difference in crossfall between the pavement and its adjacent shoulder.",
+          "choices": [
+            "Shoulder gradient",
+            "Pavement difference",
+            "Shoulder rollover",
+            "Pavement rollover"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the property of a metal by virtue of which it can be drawn into wires or elongated before rupture takes place.",
+          "choices": [
+            "ductility",
+            "plasticity",
+            "elasticity",
+            "malleability"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The CHB estimate per square meter of wall assuming there is no breakage during construction.",
+          "choices": [
+            "12 pcs/m²",
+            "12.5 pcs/m²",
+            "13 pcs/m²",
+            "13.5 pcs/m²"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Environmental Engineering and Science",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "pH value that should be maintained in biogas digesters to maintain proper digestion process and prevent toxic effect to methanogenic bacteria.",
+          "choices": [
+            "4 to 5.5",
+            "5 to 6.5",
+            "6.5 to 7",
+            "7 to 8.5"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A biogas digester is to be fed with manure from 20 feedlot cows. By utilizing the minimum recommended retention period for cow manure, what is the expected volume of biogas to be produced if the gas production potential is at 0.026 m³/kg manure?",
+          "choices": [
+            "291.2 m³",
+            "78 m³",
+            "145.6 m³",
+            "135.2 m³"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a part of total solids which pass through the filter during the filtration procedure of liquid wastes.",
+          "choices": [
+            "Dissolved solids",
+            "Filtered solids",
+            "Volatile solids",
+            "Suspended solids"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A farm intends to integrate a biogas digester in its operations. They intent to utilize the manure that will be produced by their chicken layers. If they've found out that they would need 10 m³ biogas per day, how many layers do they need to sustain this? Use 30 days retention period.",
+          "choices": [
+            "2052 heads",
+            "2000 heads",
+            "2051 heads",
+            "2223 heads"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the clay content of soils in which agricultural waste management structures shall be constructed on?",
+          "choices": [
+            "30%",
+            "25%",
+            "20%",
+            "15%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The manure of thirty 75-kg finishers is going to be fed into a biogas digester. Utilizing a 25-day retention period and a 1:2 slurry ratio, how much biogas can be produced daily?",
+          "choices": [
+            "13.92 m³/day",
+            "29. 01 m³/day",
+            "39 m³/day",
+            "32.63 m³/day"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The composting of agricultural solid wastes requires aerobic condition. What minimum percentage of oxygen shall be maintained in these condition?",
+          "choices": [
+            "25%",
+            "15%",
+            "10%",
+            "5%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a biogas digester requiring fast movement of substrates, gravity cannot be used due to topographical reasons. Instead, what type of pump can be used if the substrate utilized has higher solid contents?",
+          "choices": [
+            "Centrifugal pumps",
+            "Rotary pumps",
+            "Positive displacement pumps",
+            "Submersible pump"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In a fixed type biogas digester, how much of the digester volume is occupied by slurry?",
+          "choices": [
+            "90%",
+            "66%",
+            "60%",
+            "80%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the recommended maximum retention period in a biogas digester of animal manure mixed with plant material?",
+          "choices": [
+            "80 days",
+            "50 days",
+            "40 days",
+            "55 days"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the amount of organic matters in a substrate that can be degraded by anaerobic microorganisms. It also indicates the biogas output per unit quantity of substrate.",
+          "choices": [
+            "methanogenic potential (MP)",
+            "biogas potential (BP)",
+            "biochemical methane potential (BMP)",
+            "biochemical methane quality (BMQ)"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the average period time the slurry is in the inlet tank prior to digestion, expressed in days.",
+          "choices": [
+            "retention period",
+            "storage period",
+            "digestion period",
+            "fermentation period"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In wet anaerobic digestion, the organic material used has a consistency of how much dry matter?",
+          "choices": [
+            "10-20% or less",
+            "10-15% or less",
+            "5-10% or less",
+            "15-20% or less"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A farm produces 2000 kg of animal manure monthly, if this is fed into a biogas digester and retained for 30 days, what is the total volume of the digester at 1:1 slurry ratio?",
+          "choices": [
+            "5 m³",
+            "6 m³",
+            "4 m³",
+            "8 m³"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is a biogas digester with a volume of 140 to 7000 cubic meter.",
+          "choices": [
+            "household",
+            "small-scale",
+            "medium-scale",
+            "large-scale"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of gutter for agricultural liquid waste management structures collecting cattle manure.",
+          "choices": [
+            "Gravity drain gutter",
+            "Step dam gutters",
+            "Scrape gutters",
+            "Flush gutter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the composting time for aerated static pile.",
+          "choices": [
+            "4 months",
+            "4 weeks",
+            "7 days",
+            "30 days"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Design and Management of AB Processing System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "A primary processing plant for fresh onions has an area of 1700 m², what is the capacity of the plant?",
+          "choices": [
+            "170 tons",
+            "68 tons",
+            "85 tons",
+            "90 tons"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The temporary storage of raw materials in a primary processing plant for fresh fruit and vegetable shall be able to store materials for how long?",
+          "choices": [
+            "2-5 processing days",
+            "3-5 processing days",
+            "3-4 processing days",
+            "2-4 processing days"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "This is an insect control technique which creates airtight conditions to reduce oxygen and increase carbon dioxide levels arresting insects and stopping mold development.",
+          "choices": [
+            "sanitation",
+            "chemical control",
+            "hermetic storage",
+            "Controlled storage"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This is the subjecting of cultures to conditions favorable to the growth of the plant tissue.",
+          "choices": [
+            "fermentation",
+            "incubation",
+            "storage",
+            "ageing"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the condition that describes the freedom of plant materials, culture medium, confines of the culture vessel from contaminating microorganisms.",
+          "choices": [
+            "sanitized",
+            "sterilized",
+            "asepsis",
+            "sepsis"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The CPES rating is expressed as a numerical score with corresponding qualitative description. A rating of 83%–89% typically corresponds to which qualitative rating?",
+          "choices": [
+            "Outstanding",
+            "Very Satisfactory",
+            "Satisfactory",
+            "Unsatisfactory"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Maximum rating for time upon completion of projects for contracts which do not involve the supply of construction materials or where the materials are supplied by the owner/agency.",
+          "choices": [
+            "0.5",
+            "0.4",
+            "0.3",
+            "0.2"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A project is to be evaluated twice during construction, at what percentage of physical completion shall the first evaluation be conducted?",
+          "choices": [
+            "30% physically complete",
+            "35% physically complete",
+            "40% physically complete",
+            "50% physically complete"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In CPES, what is the weight of the evaluation upon completion of a horizontal project?",
+          "choices": [
+            "40%",
+            "30%",
+            "60%",
+            "70%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What type of license must a constructors' performance evaluator possess?",
+          "choices": [
+            "Professional Architect",
+            "Professional Engineer",
+            "Driver's License",
+            "Both A and B"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "How many visits shall, at least, be done by the CPE during the construction of projects with a duration of 85 calendar days?",
+          "choices": [
+            "one",
+            "two",
+            "three",
+            "four"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the maximum rating of Environmental, Safety and Health (ESH) during construction of projects which involve the supply of construction materials?",
+          "choices": [
+            "0.07",
+            "0.05",
+            "0.10",
+            "0.15"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "It refers to one of the implementing Boards of the CIAP which is tasked to formulate, recommend and implement policies, guidelines, plans and programs for the efficient implementation of public and private construction in the country.",
+          "choices": [
+            "Philippine Contractors Accreditation Board (PCAB)",
+            "Philippine Domestic Construction Board (PDCB)",
+            "National Philippine Board of Construction (NPBC)",
+            "INFRACOM"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A document issued by the Building Official (BO) to an owner/applicant to proceed with the construction, installation, addition, alteration, renovation, conversion, repair, moving, demolition or other work activity of a specific project/building/structure or portions.",
+          "choices": [
+            "Application form",
+            "Building permit",
+            "Referral code",
+            "Building regulation form"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Which government agency is primarily responsible for enforcing PD 1096?",
+          "choices": [
+            "Department of Public Works and Highways (DPWH)",
+            "Department of Agriculture (DA)",
+            "Department of Agrarian Reform (DAR)",
+            "Department of Interior and Local Government (DILG)"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}

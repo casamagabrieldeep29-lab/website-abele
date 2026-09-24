@@ -1,0 +1,2481 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Agricultural Building and Structures",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "This gutter is recommended for collecting cattle manure.",
+          "choices": [
+            "gravity drain gutter",
+            "flush gutter",
+            "scrape gutter",
+            "step-dam gutter"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "When this type of curing is used, the pavement shall be cured initially with burlap or cotton mats, until after final set of the concrete or, in any case, for 12 hours after placing the concrete.",
+          "choices": [
+            "white polyethylene sheet",
+            "waterproof paper",
+            "impervious membrane method",
+            "straw"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 409:2002, how many milking operators are required for a milking herd having 11-20 animals without a milking machine?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Doe/Ewe of 50 kg space requirement in slotted flooring.",
+          "choices": [
+            "0.7 sq. m.",
+            "0.9 sq. m.",
+            "1.1 sq. m.",
+            "2.5 sq. m."
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 421:2009, the tank shall have heating device able to heat a complete charge of bituminous liquid to ___ °C.",
+          "choices": [
+            "80",
+            "120",
+            "180",
+            "200"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 415:2001, under natural ventilating systems of greenhouse, large vent openings provide the most ventilation with total vent area that should be ____ - ____ of floor area.",
+          "choices": [
+            "15% - 30%",
+            "30% - 50%",
+            "25% - 50%",
+            "15% - 25%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 421:2009, it is constructed to drain water from the subgrade and to collect surface water either from the roadway surface or adjacent.",
+          "choices": [
+            "roadside ditch",
+            "culvert",
+            "channel",
+            "conduit"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 408:2001, the minimum space requirement for carabao feedlot feeding shall be _____ m/animal.",
+          "choices": [
+            "0.5",
+            "1.0",
+            "0.75",
+            "1.25"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 401:2000, heaters shall be installed in creep areas to provide newborn pigs its required temperature of __°C - ___°C until they are 3 days old.",
+          "choices": [
+            "32-35",
+            "29-35",
+            "30-35",
+            "27-35"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In lateral and sub-lateral canal where the available roadway width is 3 meters, the carriageway width shall be 2 meters and the shoulder width shall be 0.5 meters. If the available roadway width is 4 meters, the shoulder shall expand to 1 meter.",
+          "choices": [
+            "roadway on main irrigation canals",
+            "road bed lateral canals",
+            "roadway on lateral & sub lateral irrigation canals",
+            "turn-out section canals"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the layer of aggregate, soil-treated aggregate, treated soil, or soil aggregate that rests upon the subbase or if no subbase, upon the sub-grade. Treatment may include application of chemical-based soil additives such as soil-stabilizers and/or any approved method.",
+          "choices": [
+            "Aggregate Base Course",
+            "Base Course",
+            "Subbase Course",
+            "Aggregate Subbase Course"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 421:2009, the minimum radius of curvature for flat, rolling and mountainous terrains respectively shall be.",
+          "choices": [
+            "75, 50 & 5 m",
+            "500, 150 & 50 m",
+            "150, 100 & 50 m",
+            "600, 200 & 100 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Standard thickness of concrete of trapezoidal ditch w/ riprap.",
+          "choices": [
+            "0.25 m",
+            "0.15 m",
+            "0.30 m",
+            "0.20 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 420:2002, the door height shall be provided with a clearance of at least ____ m above the tallest machinery.",
+          "choices": [
+            "0.3",
+            "0.4",
+            "0.6",
+            "0.7"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Recommended stacking density for corn in terms of number of bags per cubic meter.",
+          "choices": [
+            "10",
+            "9",
+            "12",
+            "15"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 418:2002, area in sqm per ton of commodity in primary processing plant is:",
+          "choices": [
+            "10 sqm per ton",
+            "15 sqm per ton",
+            "20 sqm per ton",
+            "25 sqm per ton"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 411:2000, the gut room/tripery shall be provided with lighting intensity of _____ lux.",
+          "choices": [
+            "200",
+            "220",
+            "540",
+            "110"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 409:2002, how many milking operators are required for a milking herd having 21-30 animals without a milking machine?",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The height of hover type brooder shall be adjustable. Hovers shall be maintained at a minimum clearance of ____ above the back of the birds.",
+          "choices": [
+            "120 mm",
+            "150 mm",
+            "170 mm",
+            "200 mm"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Doe/Ewe of 70 kg space requirement in Slotted Flooring.",
+          "choices": [
+            "0.7 sq. m.",
+            "0.9 sq. m.",
+            "1.1 sq. m.",
+            "2.5 sq. m."
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In housing for broiler, the width of pen shall be about ___ m.",
+          "choices": [
+            "10-12",
+            "12-14",
+            "14-16",
+            "16-18"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The fence height for Brahman and other exotic breeds in a cattle ranch shall be ____.",
+          "choices": [
+            "1.7 – 1.8 m",
+            "1.8 – 2.0 m",
+            "1.5 – 1.7 m",
+            "2.0 – 2.2 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The lairage for small and large animals shall be located at least ___ away from the slaughterhouse.",
+          "choices": [
+            "20 m",
+            "50 m",
+            "10 m",
+            "30 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Maximum allowable noise limits of a slaughterhouse during night located in a noise sensitive place is ___.",
+          "choices": [
+            "55 dB",
+            "50 dB",
+            "40 dB",
+            "45 dB"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Waste management structures shall be constructed on soils with at least ___ content.",
+          "choices": [
+            "15% silt",
+            "10% clay",
+            "15% clay",
+            "15% silt-clay"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Low portable platform made of wood or plastic or metal or combination to facilitate handling, storage, or transport of materials as a unit load using a forklift.",
+          "choices": [
+            "pallet bin storage",
+            "bulk storage",
+            "bin",
+            "pallet"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The recommended dimension for warehouse with 10,000-cavan capacity.",
+          "choices": [
+            "10m x 25m",
+            "10m x 30m",
+            "15m x 25m",
+            "15m x 30m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 421:2009, what is the minimum carriage way of one-lane and two-lane FMR, excluding shoulders?",
+          "choices": [
+            "2 and 4 m",
+            "4 and 6 m",
+            "2.5 and 5 m",
+            "3 and 6 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 402:2000, the recommended brooding temperature for 14-21 days chicks.",
+          "choices": [
+            "provide heat when necessary",
+            "29-32 °C",
+            "32-35 °C",
+            "27-29 °C"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the defect of wood that causes abnormal growth which occurs at the starting point of a limb or branch of a tree?",
+          "choices": [
+            "shake",
+            "knot",
+            "check",
+            "wane"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 410:2000, the lairage shall be provided with lighting intensity of _____ lux.",
+          "choices": [
+            "200",
+            "100",
+            "500",
+            "110"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 403:2001, under the individual nest subsection, there shall be one nest for each ___ to ___ layer.",
+          "choices": [
+            "5 – 6",
+            "8 – 10",
+            "7 – 8",
+            "4 – 6"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What cement class is used for the construction of FMR?",
+          "choices": [
+            "AA",
+            "A",
+            "B",
+            "C"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "According to the National Building Code, the agricultural buildings are classified under Group ___.",
+          "choices": [
+            "B",
+            "D",
+            "J",
+            "G"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In minimum, all culverts and storm drains used in relation with FMR should be designed using a storm of ___ and 24 hours.",
+          "choices": [
+            "1-year",
+            "2-year",
+            "3-year",
+            "4-year"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The noise emitted by the large ruminant's slaughterhouse equipment, particularly the stunning box (knocking pen) shall not be more than ____.",
+          "choices": [
+            "90 dB",
+            "96 dB",
+            "92 dB",
+            "98 dB"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the maximum height of the stacks for warehouse when using woven polypropylene bags.",
+          "choices": [
+            "3 meters",
+            "6 meters",
+            "12 meters",
+            "9 meters"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the dimension for maximum piling of stacks to conform with the fumigating sheets in situations where warehouses cannot be made airtight.",
+          "choices": [
+            "7.4 m x 20.9 m x 4.5 m",
+            "7.3 m x 20.9 m x 4.5 m",
+            "7.3 m x 21.9 m x 4.5 m",
+            "7.4 m x 21.9 m x 4.5 m"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Recommended stack height for warehouse should not exceed the height of the walls and a space of at least between the tops of the stacks and the roof frame.",
+          "choices": [
+            "3 meter",
+            "5 meters",
+            "7 meters",
+            "1 meters"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to any building or place which is used for killing of animals where the flesh is intended for human consumption.",
+          "choices": [
+            "Slaughter House",
+            "stunning pen",
+            "Butcher house",
+            "Meat Processing Plant"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a slaughter house with required facilities and operational procedures to serve any market.",
+          "choices": [
+            "\"A\" Slaughter House",
+            "\"AA\" Slaughter House",
+            "\"AAA\" Slaughter House",
+            "None of the Above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the amount of water requirement of a slaughter house for large animals.",
+          "choices": [
+            "107 liters per day per animal",
+            "227 liters per day per animal",
+            "207 liters per day per animal",
+            "127 liters per day per animal"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the amount of water requirement of a slaughter house for small animals.",
+          "choices": [
+            "102 liters per day per animal",
+            "114 liters per day per animal",
+            "104 liters per day per animal",
+            "112 liters per day per animal"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the amount of water requirement of a slaughter house for swine.",
+          "choices": [
+            "50 liters per day per animal",
+            "54 liters per day per animal",
+            "60 liters per day per animal",
+            "57 liters per day per animal"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum distance required of slaughter house when it is to be located near the river, streams, or lakes.",
+          "choices": [
+            "5 m from the bank",
+            "15 m from the bank",
+            "10 m from the bank",
+            "20 m from the bank"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum pipeline pressure for water supply system in slaughter houses.",
+          "choices": [
+            "5 psi",
+            "10 psi",
+            "15 psi",
+            "20 psi"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended height of the windows for slaughter houses.",
+          "choices": [
+            "1.0 meters above the floor",
+            "2.0 meters above the floor",
+            "1.5 meters above the floor",
+            "2.5 meters above the floor"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum width of doorways for slaughter houses.",
+          "choices": [
+            "10 meters wide",
+            "20 meters wide",
+            "25 meters wide",
+            "15 meters wide"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the allowable space between the tops for the stocks and the roof truss of the warehouse.",
+          "choices": [
+            "1.0 meter",
+            "1.5 meter",
+            "2.0 meter",
+            "2.5 meter"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the optimum recommended stock height for the paddy stored in the warehouse.",
+          "choices": [
+            "12 layers",
+            "14 layers",
+            "16 layers",
+            "18 layers"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the optimum recommended stock height for maize stored in the warehouse.",
+          "choices": [
+            "12 layers",
+            "14 layers",
+            "16 layers",
+            "18 layers"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum side space requirement between the edge of the pile and the wall of the warehouse.",
+          "choices": [
+            "0.5 m",
+            "0.2 m",
+            "1.0 m",
+            "0.3 m"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum recommended height of the interior between the beam and the floor of warehouse.",
+          "choices": [
+            "40 feet",
+            "10 feet",
+            "20 feet",
+            "30 feet"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended size of reinforcement bar for warehouse.",
+          "choices": [
+            "8 mm diameter",
+            "12 mm diameter",
+            "16 mm diameter",
+            "24 mm diameter"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum requirement for illumination of warehouse.",
+          "choices": [
+            "4 watts per square meter",
+            "6 watts per square meter",
+            "3 watts per square meter",
+            "8 watts per square meter"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum distance required of slaughter house from buildings used for human habitation, factory, public road and places.",
+          "choices": [
+            "25 m",
+            "50 m",
+            "75 m",
+            "100 m"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended spacing of reinforcement bar for warehouse wall.",
+          "choices": [
+            "200 mm vertical and horizontal",
+            "400 mm vertical and horizontal",
+            "600 mm vertical and horizontal",
+            "800 mm vertical and horizontal"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended height of floor for warehouse to permit easy loading and unloading by trucks at the sides of the warehouse.",
+          "choices": [
+            "1.0 meter above the ground",
+            "1.5 meter above the ground",
+            "2.0 meter above the ground",
+            "2.5 meter above the ground"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended height of the floor if trucks are permitted to load and unload inside the warehouse.",
+          "choices": [
+            "0.10 m above the ground",
+            "0.20 m above the ground",
+            "0.30 m above the ground",
+            "0.40 m above the ground"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the location of vents in a warehouse.",
+          "choices": [
+            "Near the floor level",
+            "Top of the wall near grid line",
+            "Top of the roof and the ridge",
+            "All of the Above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the maximum recommended length for greenhouse.",
+          "choices": [
+            "20 meters",
+            "50 meters",
+            "100 meters",
+            "150 meters"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the maximum recommended width for gutter connected greenhouse.",
+          "choices": [
+            "20 meters",
+            "50 meters",
+            "100 meters",
+            "150 meters"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is an algebraic sum of all the external forces acting parallel to cross-section of one side of the section tending to cause failure by sliding movement.",
+          "choices": [
+            "Shear Force",
+            "Ultimate Strength",
+            "Shearing Stress",
+            "Shear Stress"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the amount of stress that produces failure by increasing the unit stress until breakage or rupture occurs.",
+          "choices": [
+            "Shear Force",
+            "Ultimate Strength",
+            "Shearing Stress",
+            "Shear Stress"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a stress that tends to cause two contiguous parts of a body to slide, relative to each other in a direction parallel to the plant of contact.",
+          "choices": [
+            "Shear Force",
+            "Ultimate Strength",
+            "Shearing Stress",
+            "Unit Stress"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the maximum stock height for grains stored in jute bags.",
+          "choices": [
+            "1/2 the wall height",
+            "1/4 the wall height",
+            "Wall Height",
+            "None of the Above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum stock height for grains stored in woven polypropylene bags.",
+          "choices": [
+            "1/2 the wall height",
+            "1/4 the wall height",
+            "Wall Height",
+            "None of the Above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the preferred lighting fixtures for warehouse building.",
+          "choices": [
+            "Fluorescent Lamp",
+            "Incandescent Lamp",
+            "LED Lamp",
+            "Mercury Vapor Lamp"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Rural Electrification",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In PAES 129:2002, this indicates the maximum load that can be successfully carried by the motor if it is to operate continuously and remain within a safe temperature range.",
+          "choices": [
+            "service factor",
+            "breakdown torque",
+            "duty rating",
+            "locked-rotor current"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The maximum number of outlets for a 15-A circuit.",
+          "choices": [
+            "8-10 outlets",
+            "10-12 outlets",
+            "14-15 outlets",
+            "6-8 outlets"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "STRUCTURES_ENVIRONMENT",
+      "topic_name": "Environmental Engineering and Science",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "The introduction of substances not found in the natural composition of water that make the water less desirable or unfit for intended use",
+          "choices": [
+            "water pollution",
+            "contamination",
+            "impurification",
+            "deterioration"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Precipitate resulting from coagulation or sedimentation of liquid waste.",
+          "choices": [
+            "Slurry",
+            "Sludge",
+            "Effluent",
+            "suspended solid"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Dissolved oxygen concentrations will be the lowest within a waterbody on _____.",
+          "choices": [
+            "Afternoon",
+            "Sunrise",
+            "Sunset",
+            "Noon"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 232:2017, precautionary measures in Wastewater Re-Use for Irrigation, whic is false?",
+          "choices": [
+            "Direct contact with wastewater shall be avoided",
+            "Use of fine mist for sprinkler irrigation shall be used",
+            "Potable and wastewater lines shall not cross-connect",
+            "Irrigation with wastewater shall be stopped immediately when algal bloom occurs"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the minimum methane content of biogas in order to operate biogas-fueled generators?",
+          "choices": [
+            "50%",
+            "65%",
+            "85%",
+            "90%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of biogas plant which have aerobic conditions in the upper layers and anaerobic processes occurring in the bottom layers, especially in the settled solids?",
+          "choices": [
+            "Aerobic Biogas",
+            "Anaerobic Biogas",
+            "Facultative Biogas",
+            "Activated Biogas"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a wastewater, either treated or untreated, discharged from a reservoir, basin, or treatment plant.",
+          "choices": [
+            "Effluent",
+            "Influent",
+            "Turbid Water",
+            "Hard Water"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is an environmental-friendly refrigerant.",
+          "choices": [
+            "CFC",
+            "HFC",
+            "HCFC",
+            "FC"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It involves the arrangement of compost mix in long, narrow piles or windrows that are periodically turned to maintain aerobic conditions.",
+          "choices": [
+            "Aerated static pile",
+            "In-vessel system composting",
+            "Windrow composting",
+            "Bin composting"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 616:2016, precautionary measures in Wastewater Re-Use for Irrigation, which is false?",
+          "choices": [
+            "Direct contact with wastewater shall be avoided",
+            "Use of fine mist for sprinkler irrigation shall be used",
+            "Potable and wastewater lines shall not cross connect",
+            "Irrigation with wastewater shall be stopped immediately when algal bloom occurs"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Stoichiometric air requirement for pyrolysis.",
+          "choices": [
+            "10-20%",
+            "20-30%",
+            "30-40%",
+            "40-50%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The C/N Ratio of agricultural waste.",
+          "choices": [
+            "10:20",
+            "20:30",
+            "30:40",
+            "40:50"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The moisture content of the composting agricultural solid wastes should be maintained at ___ to nourish composting bacteria.",
+          "choices": [
+            "50 – 60%",
+            "55 – 65%",
+            "40 – 50%",
+            "60 – 70%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In flocculation process, it is necessary that the water being treated must be",
+          "choices": [
+            "Stagnant",
+            "Agitated",
+            "Filtered",
+            "Settled"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a water treatment process aimed to destroy microorganisms that cause infectious disease.",
+          "choices": [
+            "Disinfection",
+            "Coagulation",
+            "Filtration",
+            "Sedimentation"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Lesser amount of chlorine is needed for water being treated if the turbidity of water is",
+          "choices": [
+            "High",
+            "medium",
+            "Low",
+            "None of the Above"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the commonly practiced method of disinfecting water by households.",
+          "choices": [
+            "Boiling",
+            "Chlorination",
+            "Filtration",
+            "Sedimentation"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a partially lined or unlined underground pit into which raw animal or household waste water is discharged.",
+          "choices": [
+            "Septic Tank",
+            "Cesspool",
+            "Soak Pit",
+            "Drain Field"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the breakdown of organic matter in a water solution or suspension into simpler or more biologically-stable compounds.",
+          "choices": [
+            "Fermentation",
+            "Digestion",
+            "Decomposition",
+            "Stabilization"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In sedimentation, processed water is allowed to pass through a settling chamber at",
+          "choices": [
+            "Low velocity",
+            "High velocity",
+            "Equilibrium velocity",
+            "All of the Above"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "They are factors that contribute to the increasing amount of waste.",
+          "choices": [
+            "Over population",
+            "Utilization of chemicals in Agriculture",
+            "Natural catastrophes and droughts",
+            "All of the Above"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the rapid oxidation of solids in a specifically-designed combustion chamber.",
+          "choices": [
+            "Combustion",
+            "Pyrolysis",
+            "Gasification",
+            "Incineration"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is waste water flowing into a reservoir or treatment plant.",
+          "choices": [
+            "Influent",
+            "Effluent",
+            "Leachate",
+            "Sludge"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Design and Management of AB Processing System",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "It refers to local activity or series of activities to maintain or raise the quality or change the form or characteristics of agricultural, fishery, forestry and biological products/materials and includes, but is not limited to, cleaning, sorting, grading, treating, drying, dehydrating, grinding, mixing, milling, canning, dressing, slaughtering, freezing, pasteurizing, conditioning, packaging, repacking, transporting of agricultural, fishery, forestry and other biological products/materials.",
+          "choices": [
+            "Agricultural Process Engineering",
+            "Agricultural and Bio-Processing",
+            "Agricultural and Bioprocess Engineering",
+            "Crop Process Engineering"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Elements of Food Processing and Process Design",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Rice grain from which the hull, the germ, the outer bran layer, and the greater part of the inner bran layer have been removed, but part of the lengthwise streaks of the bran layer may still be present on more than 40% of the sample grains",
+          "choices": [
+            "Well-milled rice",
+            "Regular milled rice",
+            "Overmilled rice",
+            "Undermilled rice"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the milled corn kernels with particle size between 1.1 mm to 1.19 mm.",
+          "choices": [
+            "Grit #16",
+            "Grit #18",
+            "Grit #10",
+            "Grit #14"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Product of the coefficient of hulling and the coefficient of wholeness of grains, expressed in percent.",
+          "choices": [
+            "Coefficient of wholeness",
+            "Coefficient of hulling",
+            "Hulling Efficiency",
+            "Fineness Modulus"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the extent or degree by which the bran layer of the brown rice is removed as a result of whitening.",
+          "choices": [
+            "Whitening degree",
+            "Milling degree",
+            "Milling recovery",
+            "Milling index"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a rice grain from which the hull, the germ, the outer bran layers, and the greater part of the inner bran layer have been removed, but part of the lengthwise streaks of the bran layers may still be present on less than 20% of the sample grains.",
+          "choices": [
+            "Well-milled rice",
+            "Regular milled rice",
+            "Overmilled rice",
+            "Undermilled rice"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the milled corn kernels with particle size between 1.2 mm to 1.4 mm.",
+          "choices": [
+            "Grit #16",
+            "Grit #18",
+            "Grit #10",
+            "Grit #14"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A grain or a piece of a grain with its length equal to or greater than three-fourths (3/4) of the average length of the whole kernels",
+          "choices": [
+            "paddy",
+            "head rice",
+            "well-milled rice",
+            "cargo rice"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the process or suspending the carcass for particular operation.",
+          "choices": [
+            "Sticking",
+            "Pitching",
+            "Gambrelling",
+            "Stunning"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the insertion of a rod or coiled wire through the hole in the skull of a cattle made by captive blot to destroy the brain and the spinal cord to prevent reflex muscular action and possible injury to operatives.",
+          "choices": [
+            "Sticking",
+            "Pitching",
+            "Gambrelling",
+            "Stunning"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It renders the animal insensible before it is killed.",
+          "choices": [
+            "Sticking",
+            "Pitching",
+            "Gambrelling",
+            "Stunning"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the removal of hide of the carcass.",
+          "choices": [
+            "Flaying",
+            "Scalding",
+            "Sticking",
+            "blanching"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the lowering of animal into a steam to prepare the skin for dehairing.",
+          "choices": [
+            "Flaying",
+            "Scalding",
+            "Sticking",
+            "blanching"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the meat requiring further examination as declared by a veterinary inspector after veterinary examination.",
+          "choices": [
+            "Detained Meat",
+            "Rejected Meat",
+            "Condemned Meat",
+            "Contaminated Meat"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the meat which is unfit for human consumption as declared by a veterinary inspector after veterinary examination.",
+          "choices": [
+            "Detained Meat",
+            "Rejected Meat",
+            "Condemned Meat",
+            "Contaminated Meat"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the process of preserving food materials in a hermetically-sealed container which has been sterilized with the use of heat.",
+          "choices": [
+            "Pasteurization",
+            "Canning",
+            "Heat sterilization",
+            "Filtration"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the process of removing the solid particles from the liquid such as wine, fruit juices, vinegar, and vegetable oil.",
+          "choices": [
+            "Filtration",
+            "Distilling",
+            "Canning",
+            "Heat sterilization"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the process of subjecting the food product to a temperature of about 65°C for 30 mins. This causes the death of many but, not all of the organisms present.",
+          "choices": [
+            "Pasteurization",
+            "Canning",
+            "Heat sterilization",
+            "Filtration"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the termination of the entire organism in the product using heat at a temperature of about 50 to 100°C.",
+          "choices": [
+            "Pasteurization",
+            "Canning",
+            "Heat sterilization",
+            "Filtration"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the assembling and measuring out of the required qualities of solid raw feed materials into a batch of the desired composition.",
+          "choices": [
+            "Blending",
+            "Mixing",
+            "Formulation",
+            "Weighing"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the ordinary killing of all living microorganisms with the use of heat and pressure or with the use of some chemicals.",
+          "choices": [
+            "Disinfection",
+            "Pasteurization",
+            "Sterilization",
+            "Sanitization"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "BIOPROCESS",
+      "topic_name": "Food Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Heat absorbed by a unit mass of a material at its boiling point to convert the material into a gas without temperature change.",
+          "choices": [
+            "Latent heat of sublimation",
+            "Latent heat of deposition",
+            "Latent heat of fusion",
+            "Latent heat of vaporization"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The angle measured from the horizontal at which product will start to move downwards over a smooth surface with gravity discharging the product is called a ___________.",
+          "choices": [
+            "angle of discharge",
+            "angle of friction",
+            "angle of repose",
+            "hopper angle"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The amount of moisture in the grain expressed as a percentage of the total weight of the samples.",
+          "choices": [
+            "Moisture content dry basis",
+            "Moisture content wet basis",
+            "Moisture content",
+            "Equilibrium moisture content"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "What is the value of the work done for a closed, reversible, isometric system?",
+          "choices": [
+            "positive",
+            "negative",
+            "zero",
+            "cannot be determined"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery Design, Fabrication/Manufacturing and Testing",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In PAES 204:2015, the minimum purity of the mechanical rice thresher without sifter and with fan is:",
+          "choices": [
+            "50%",
+            "65%",
+            "80%",
+            "95%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 201:2015, the minimum heating system efficiency for biomass fuel heated air mechanical grain dryer for indirect-fired operation.",
+          "choices": [
+            "90%",
+            "75%",
+            "65%",
+            "50%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 251:2018, the minimum main product recovery of corn mill is:",
+          "choices": [
+            "84%",
+            "86%",
+            "96",
+            "64%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Any entity that produces agricultural and fishery machinery from prototyping, testing, commissioning, and selling. Usually, they produce agricultural and fishery machinery depending on the order and arrangement.",
+          "choices": [
+            "Producer",
+            "assembler",
+            "manufacturer",
+            "fabricator"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 201:2015, the minimum drying efficiency of mechanical grain dryer is:",
+          "choices": [
+            "90%",
+            "85%",
+            "80%",
+            "75%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 205:2000, it is the required straw length (cm)for mechanical rice thresher testing:",
+          "choices": [
+            "40-45",
+            "45-50",
+            "50-55",
+            "55-60"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 220:2004, the maximum mechanically damage kernel for peanut sheller is:",
+          "choices": [
+            "3.5",
+            "3.0",
+            "2.0",
+            "7.0"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 208:2000, the minimum shelling efficiency for corn sheller:",
+          "choices": [
+            "97.0",
+            "99.8",
+            "95.0",
+            "99.5"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 202:2015, Heated air mechanical grain dryer – Methods of test, the grain to be used shall be homogeneous and the moisture content should be at least _____% for rice and corn.",
+          "choices": [
+            "18%",
+            "22%",
+            "24%",
+            "26%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a type of whitening machine consisting of a ribbed cylinder enclosed in a perforated steel housing.",
+          "choices": [
+            "friction type",
+            "abrasive type",
+            "rubber roll type",
+            "cone \"cono\" type"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A throw-in type of thresher wherein cut plants are fed between the rotating cylinder and stationary concave, and the threshed materials/straws are discharged out of the threshing chamber tangentially.",
+          "choices": [
+            "radial type thresher",
+            "hold-on type thresher",
+            "axial-flow thresher",
+            "through flow thresher"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The percent of moisture content of test materials for peanut sheller.",
+          "choices": [
+            "8%-10%, wet basis",
+            "12%-14%, wet basis",
+            "8%-10%, dry basis",
+            "12%-14%, dry basis"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Ratio of the weight of corn kernels that fell out from the machine during shelling operation to the weight of the total corn kernel input of the sheller, expressed in percent.",
+          "choices": [
+            "Scattering loss",
+            "Cylinder loss",
+            "Separation loss",
+            "Blower loss"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Moisture gradient of corn and rice in mechanical dryer.",
+          "choices": [
+            "0.5%",
+            "1.0%",
+            "2.5%",
+            "2.0%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the chamber maintained under pressure for uniform distribution of the heated air through the grain mass.",
+          "choices": [
+            "dust collection system",
+            "drying chamber",
+            "plenum",
+            "tempering bin"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a type of a huller with rotating blades and utilizes pressure such as Coriolis' force, frictional force from the blades, or impact force at collision with the blades and the peripheral surface.",
+          "choices": [
+            "centrifugal type",
+            "friction type",
+            "abrasive type",
+            "cono type"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In PAES 206:2015, minimum percent head rice index for rice mill is:",
+          "choices": [
+            "0.97",
+            "0.98",
+            "0.80",
+            "0.90"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Moisture gradient for Mechanical Grain Dryer",
+          "choices": [
+            "2%",
+            "6%",
+            "4%",
+            "8%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Min. shelling recovery for Peanut Sheller",
+          "choices": [
+            "75%",
+            "60%",
+            "93%",
+            "96%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Noise level for Mechanical Rice Thresher, Rice Combine and Fiber Decorticator.",
+          "choices": [
+            "80 dB",
+            "75 dB",
+            "85 dB",
+            "95 dB"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Min. Milling Recovery of Rubber Roll & Centrifugal Type Rice Mill",
+          "choices": [
+            "90%",
+            "96%",
+            "93%",
+            "98%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For corn mill testing, the min. purity of sample is ____.",
+          "choices": [
+            "65%",
+            "75%",
+            "85%",
+            "95%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Noise Level of Corn Sheller.",
+          "choices": [
+            "120dB",
+            "95dB",
+            "100dB",
+            "80dB"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "A minimum of ________engine shall be used for a rotary cutting knife cutting mechanism with ________cutting width.",
+          "choices": [
+            "8 hp and 2.4 m",
+            "5 hp and 1.2 m",
+            "3 hp and 1.4 m",
+            "1.5 hp and 2 m"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The reaper shall be operated at the speed of_________.",
+          "choices": [
+            "6 kph to 8 kph",
+            "3 kph to 5 kph",
+            "2 kph to 6 kph",
+            "4 kph to 9 kph"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The rubber hardness shall be ____for press-cured rubber mixes.",
+          "choices": [
+            "85 shore",
+            "95 shore",
+            "75 shore",
+            "65 shore"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The modulus of elasticity of the rubber shall be ____to____.",
+          "choices": [
+            "482 kPa to 689 kPa",
+            "462 kPa to 689 kPa",
+            "472 kPa to 689 kPa",
+            "492 kPa to 689 kPa"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Grains that fall with the cut stalks during delivery and release at the side of the reaper during operation.",
+          "choices": [
+            "header loss",
+            "conveying loss",
+            "shattering loss",
+            "delivery loss"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of shelling unit with cylinder having shelling elements of knife bar or Pegtooth.",
+          "choices": [
+            "open-frame cylinder",
+            "closed-frame cylinder",
+            "disc-type",
+            "cylinder-type"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of shelling unit consisting of a vertical disc with spiked surface.",
+          "choices": [
+            "open-frame cylinder",
+            "closed-frame cylinder",
+            "disc-type",
+            "cylinder-type"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of shelling cylinder where the shelling elements are attached to the equally spaced longitudinal bars arranged cylindrically.",
+          "choices": [
+            "open-frame cylinder",
+            "closed-frame cylinder",
+            "disc-type",
+            "cylinder-type"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Mechanically Damage kernel for Corn Sheller.",
+          "choices": [
+            "3%",
+            "6%",
+            "4%",
+            "8%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For Mechanical Grain Dryer testing, the grain to be used shall be single variety and the moisture content shall be _________and above for rice and corn with the highest available moisture content to be used in the test.",
+          "choices": [
+            "20%",
+            "25%",
+            "30%",
+            "15%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Total losses for Peanut Sheller.",
+          "choices": [
+            "5%",
+            "6%",
+            "7%",
+            "8%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Type of a huller with rotating blades and utilizes pressure such as Coriolis' force.",
+          "choices": [
+            "Rubber Roll type",
+            "centrifugal type",
+            "Under Runner Type",
+            "Cone type"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For rice mill, hammer mill, and rubber roll testing, the min. purity of sample is ____.",
+          "choices": [
+            "96%",
+            "98%",
+            "93%",
+            "95%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For Corn Sheller testing, the Kernel-Ear Corn Ratio of samples is ______.",
+          "choices": [
+            "0.67 – 0.71",
+            "0.77 – 0.81",
+            "0.57 – 0.61",
+            "0.87 – 0.91"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Grain Moisture Content for Mechanical Rice Thresher testing.",
+          "choices": [
+            "24% MCwb",
+            "20% MCwb",
+            "14% MCwb",
+            "17% MCwb"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Cutting mechanism consisting of planetary type circular saw-toothed blade which rotates at the same time with the pick-up triangular frame.",
+          "choices": [
+            "Reciprocating cutter knife",
+            "Rotary knife",
+            "Circular saw",
+            "Rotary blade"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Cutting mechanism consisting of fixed lower knife and reciprocating upper knife wherein its movement is controlled by the crank connected to the gear box or belt drive.",
+          "choices": [
+            "Rotary knife",
+            "Reciprocating cutter knife",
+            "Rotary blade",
+            "Circular saw"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "For Corn Mill Testing, the sample's variety to be used is ____.",
+          "choices": [
+            "Composite",
+            "Inbred",
+            "Open pollinated",
+            "Hybrid"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Max. Total Losses of Corn Mill.",
+          "choices": [
+            "10%",
+            "3%",
+            "2%",
+            "5%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Min. Main Product recovery of Corn Mill.",
+          "choices": [
+            "12%",
+            "5%",
+            "10%",
+            "2%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the distance between two outermost divider tips.",
+          "choices": [
+            "Cutting width",
+            "Cutting Area",
+            "Cutting Length",
+            "Cutting Height"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The rubber roll when tested in accordance with PAES 215 shall have hulling efficiency of at least______.",
+          "choices": [
+            "90%",
+            "80%",
+            "75%",
+            "60%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The tensile stress of the rubber roll shall be ________to________.",
+          "choices": [
+            "6 000 kPa to 8 268 kPa",
+            "9 300 kPa to 8 268 kPa",
+            "6 200 kPa to 8 268 kPa",
+            "8 000 kPa to 8 268 kPa"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The specific gravity of the rubber shall be ____to_______.",
+          "choices": [
+            "1.2 to 1.3",
+            "1.5 to 1.9",
+            "1.3 to 1.6",
+            "1.4 to 1.8"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This type of forage chopper usually produces the longest mean particle lengths, and the least uniformly cut particles.",
+          "choices": [
+            "random-cut forage chopper",
+            "semi-precision-cut forage chopper",
+            "precision-cut forage chopper",
+            "random precision cut chopper"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "This type of forage chopper is capable of producing the shortest and most uniformly cut particles.",
+          "choices": [
+            "random-cut forage chopper",
+            "random precision cut chopper",
+            "precision-cut forage chopper",
+            "semi-precision-cut forage chopper"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The noise emitted by the hammer mill, forage chopper, and coconut decorticator shall not be more than______.",
+          "choices": [
+            "90 dB",
+            "96 dB",
+            "92 dB",
+            "98 dB"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the sum of the weight fractions retained above each sieve divided by 100.",
+          "choices": [
+            "Bulk Density",
+            "Specific Gravity",
+            "Uniformity Coefficient",
+            "Fineness Modulus"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The hammer mill should be used for the desired product having a reduction ratio of at least _______.",
+          "choices": [
+            "20:1",
+            "30:1",
+            "60:1",
+            "50:1"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a cylindrical roll generally with protrusions or flutes, used to gather, compress and advance the crop into the cutterhead.",
+          "choices": [
+            "Feed auger",
+            "Conveyor chain",
+            "Feedroll",
+            "Gathering reel"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the adjustment clearance for rubber brakes in vertical abrasive whitening cone.",
+          "choices": [
+            "2 to 6 mm from cone coating",
+            "2 to 5 mm from cone coating",
+            "2 to 4 mm from cone coating",
+            "2 to 3 mm from cone coating"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It refers to the maximum speed requirement of the vertical abrasive whitening cone machine.",
+          "choices": [
+            "8 m/s",
+            "13 m/s",
+            "18 m/s",
+            "15 m/s"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the normal setting speed of the horizontal abrasive whitener.",
+          "choices": [
+            "500 rpm",
+            "800 rpm",
+            "1000 rpm",
+            "1200 rpm"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the average velocity of the hammer tip of a hammer mill.",
+          "choices": [
+            "50 m/s",
+            "20 m/s",
+            "100 m/s",
+            "200 m/s"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the approximate speed of a horizontal type feed mixer.",
+          "choices": [
+            "5 rpm",
+            "10 rpm",
+            "15 rpm",
+            "25 rpm"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the optimum mixing time of a vertical-type feed mixer.",
+          "choices": [
+            "25 minutes",
+            "15 minutes",
+            "30 minutes",
+            "45 minutes"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is used to control the flow of materials in a feed milling plant to ensure that it will enter the full width of the mill chamber and at the same time, optimum capacity is obtained while the motor is overloaded.",
+          "choices": [
+            "Conveyor",
+            "Feeder",
+            "Hopper",
+            "Chute"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "They are feed mixers that are characterized by high capacity, short mixing time, and high power requirement.",
+          "choices": [
+            "Horizontal mixer",
+            "Vertical mixers",
+            "Drum Mixer",
+            "Pan Mixe"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a feed mixer which has an auger that elevates the feed on top of the mixing bin and is spread evenly in the bin by gravity for another mixing cycle.",
+          "choices": [
+            "Horizontal mixer",
+            "Vertical mixers",
+            "Drum Mixer",
+            "Pan Mixe"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a mixer which consists of a U shaped bin that contains a central mixing blade or ribbon mounted on a rotating shaft.",
+          "choices": [
+            "Horizontal mixer",
+            "Vertical mixers",
+            "Drum Mixer",
+            "Pan Mixe"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a feed mixer that is characterized by low capacity, longer mixing time, and low power requirement.",
+          "choices": [
+            "Horizontal mixer",
+            "Vertical mixers",
+            "Drum Mixer",
+            "Pan Mixe"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum by-product recovery required in the performance criteria for corn mill.",
+          "choices": [
+            "31%",
+            "36%",
+            "22%",
+            "24%"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the minimum main product recovery required in the performance criteria for corn mill.",
+          "choices": [
+            "68%",
+            "75%",
+            "64%",
+            "80%"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the ratio of the weight of corn kernel input to the total operating time.",
+          "choices": [
+            "Grinding Efficiency",
+            "Milling Capacity",
+            "Milling Recovery",
+            "Output Rate"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the major component of a corn mill that reduce a corn kernel into grits.",
+          "choices": [
+            "Hammer Mill",
+            "Steel Roller Mill",
+            "Grinding Plate",
+            "Disc Mill"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the ratio of the weight of corn grits to the total weight of corn kernel input expressed in percent.",
+          "choices": [
+            "Grinding Efficiency",
+            "Milling Capacity",
+            "% main product recovery",
+            "Output Rate"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is the recommended clearance setting between stones of a disk huller.",
+          "choices": [
+            "1/3 of the length of the paddy",
+            "1/4 of the length of the paddy",
+            "1/2 of the length of the paddy",
+            "1 of the length of the paddy"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Agricultural Machinery, Power Units, and Workshop Management",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "For a welding area, a welding hood with a fan that will move air about ____ shall be provided.",
+          "choices": [
+            "28-57 cu. m/min",
+            "38-67 cu. m/min",
+            "18-37 cu. m/min",
+            "28-67 cu. m/min"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "POWER_ENERGY_MACHINERY",
+      "topic_name": "Renewable and Alternative Farm Power Sources",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Burning efficiency of the biomass furnace shall be at least:",
+          "choices": [
+            "98%",
+            "95%",
+            "90%",
+            "80%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Main product of gasification.",
+          "choices": [
+            "CH4",
+            "CO",
+            "O2",
+            "CO2"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "The heating system efficiency for rice hull direct-fired mechanical grain dryer.",
+          "choices": [
+            "95%",
+            "80%",
+            "90%",
+            "65%"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a cantilever beam that holds the gasholder/movable cover in position at the desired biogas pressure",
+          "choices": [
+            "gasholder retainer",
+            "gasholding beam",
+            "gasholder frame",
+            "biogas cover-lever"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Solar Powered Irrigation System Photovoltaic array should be facing ____ based on efficiency and performance",
+          "choices": [
+            "North",
+            "South",
+            "East",
+            "West"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "It is a type of biogas plant where the digester is separated from the gas chamber.",
+          "choices": [
+            "Fixed-Dome Type",
+            "Floating-Drum Type",
+            "Balloon-Type Plant",
+            "Split-type Plant"
+          ],
+          "answer": 3,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "PROJECT_MGMT_RDE",
+      "topic_name": "Engineering Economy and Project Feasibility Analysis",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In CPES rating, what is the equivalent score of very satisfactory?",
+          "choices": [
+            "82% to 89%",
+            "89% to 96%",
+            "75% to 82%",
+            "< 96%"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "All projects shall be subjected to a minimum of ___ evaluations to be performed by the CPE during construction. Except for those projects with a duration of 90 calendar days and below which may be subjected to at least ___ visit.",
+          "choices": [
+            "1,2",
+            "2,1",
+            "2,3",
+            "3,2"
+          ],
+          "answer": 1,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "In order to become an accredited CPES evaluator, an applicant must have at least _____ years of experience in the actual implementation of project.",
+          "choices": [
+            "3",
+            "2",
+            "5",
+            "7"
+          ],
+          "answer": 2,
+          "diff": "moderate",
+          "explanation": null
+        },
+        {
+          "q": "Defects Liability Period shall be _____ year/s from project completion up to final acceptance by the Government.",
+          "choices": [
+            "1 year",
+            "2 years",
+            "3 years",
+            "5 years"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    },
+    {
+      "exam_area_code": "LAWS_ETHICS",
+      "topic_name": "Laws, Professional Standards, and Ethics",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "In accordance to RA 9367, (a) at least ___ % bioethanol in the annual total volume of gasoline fuel actually sold and distributed by each and every oil company in the country; (b) at least _____ % blend of biodiesel by volume, is required.",
+          "choices": [
+            "5;2",
+            "10;2",
+            "5;5",
+            "10;5"
+          ],
+          "answer": 0,
+          "diff": "moderate",
+          "explanation": null
+        }
+      ]
+    }
+  ]
+}
