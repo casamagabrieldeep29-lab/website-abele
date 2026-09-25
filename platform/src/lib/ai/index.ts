@@ -12,16 +12,36 @@ export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 500);
 let cached: AIProvider | null = null;
 
 /**
+ * Reads KEY, KEY_2, KEY_3, ... (one env var per separate account on that
+ * vendor) and stops at the first gap — so adding a 3rd/4th account's key
+ * later is just setting one more numbered env var in Vercel, no code
+ * change needed. Capped at 10 purely as a sanity bound, not a real limit
+ * anyone should hit.
+ */
+function collectApiKeys(envPrefix: string): string[] {
+  const keys: string[] = [];
+  const first = process.env[envPrefix];
+  if (first) keys.push(first);
+  for (let i = 2; i <= 10; i++) {
+    const key = process.env[`${envPrefix}_${i}`];
+    if (!key) break;
+    keys.push(key);
+  }
+  return keys;
+}
+
+/**
  * Configured AI provider — tries every configured key across six free-tier
- * vendors, in this order: Gemini (x2 keys), Groq (x2 keys), OpenRouter,
+ * vendors, in this order: Gemini (all keys), Groq (all keys), OpenRouter,
  * Cerebras, Mistral, NVIDIA NIM (see FallbackAIProvider). SambaNova was
  * removed 2026-09-25 after its free tier ended (its API started returning
- * 402 Payment Required on every call). A vendor's "_2" key is a second
- * account: one account's rate limit/quota errors fall through to the
- * other's separate allowance, effectively doubling that vendor's free-tier
- * quota. Every env var here is optional — only the ones actually set become
- * part of the chain. Returns null if none are set at all (callers must
- * handle this — never crash the request).
+ * 402 Payment Required on every call). Each extra numbered key (`_2`, `_3`,
+ * ...) is a separate account: one account's rate limit/quota errors fall
+ * through to the next account's separate allowance, effectively
+ * multiplying that vendor's free-tier quota by however many accounts are
+ * configured. Every env var here is optional — only the ones actually set
+ * become part of the chain. Returns null if none are set at all (callers
+ * must handle this — never crash the request).
  *
  * The Mistral/NVIDIA default model names below are NOT verified against a
  * live key the way Gemini's and Groq's are (see the comment on groqModel —
@@ -39,17 +59,13 @@ export function getAIProvider(): AIProvider | null {
     // model-selection history in 24_CHANGELOG.md's 2026-09-18 entry.
     const groqModel = process.env.GROQ_MODEL ?? "openai/gpt-oss-120b";
 
-    const geminiKey = process.env.GEMINI_API_KEY;
-    if (geminiKey) providers.push(new GeminiProvider(geminiKey, geminiModel, "Gemini (key 1)"));
+    collectApiKeys("GEMINI_API_KEY").forEach((key, i) => {
+      providers.push(new GeminiProvider(key, geminiModel, `Gemini (key ${i + 1})`));
+    });
 
-    const geminiKey2 = process.env.GEMINI_API_KEY_2;
-    if (geminiKey2) providers.push(new GeminiProvider(geminiKey2, geminiModel, "Gemini (key 2)"));
-
-    const groqKey = process.env.GROQ_API_KEY;
-    if (groqKey) providers.push(new GroqProvider(groqKey, groqModel, "Groq (key 1)"));
-
-    const groqKey2 = process.env.GROQ_API_KEY_2;
-    if (groqKey2) providers.push(new GroqProvider(groqKey2, groqModel, "Groq (key 2)"));
+    collectApiKeys("GROQ_API_KEY").forEach((key, i) => {
+      providers.push(new GroqProvider(key, groqModel, `Groq (key ${i + 1})`));
+    });
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;
     if (openRouterKey) {
