@@ -205,11 +205,11 @@ export default async function DashboardPage() {
   const examDaysLeft = daysUntilBoardExam();
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
+    <div className="mx-auto w-full max-w-6xl space-y-6 2xl:max-w-[1680px]">
       {/* Hero */}
       <div className="dashboard-hero flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
             {greeting()}, {displayName} 👋
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -317,32 +317,34 @@ export default async function DashboardPage() {
       {/* Today's Recommendation — the primary CTA */}
       {recommendation ? (
         <Card className="bg-surface-featured shadow-sm ring-2 ring-primary/25">
-          <CardContent className="py-5">
-            <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
-              <Target className="size-3.5" />
-              Your next study session
+          <CardContent className="py-5 xl:flex xl:items-start xl:justify-between xl:gap-8">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
+                <Target className="size-3.5" />
+                Your next study session
+              </div>
+              <h2 className="mt-2 text-xl font-semibold xl:text-2xl">{recommendation.topic_name}</h2>
+              <p className="text-sm text-muted-foreground">{recommendation.exam_area_name}</p>
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span>
+                  Mastery:{" "}
+                  <strong className="text-foreground">
+                    {recommendation.mastery !== null ? `${recommendation.mastery}%` : "still gathering data"}
+                  </strong>
+                </span>
+                <span>
+                  Last practiced:{" "}
+                  <strong className="text-foreground">
+                    {recommendation.last_answered_at ? `${daysSince(recommendation.last_answered_at)}d ago` : "never"}
+                  </strong>
+                </span>
+                {/* Estimated from SESSION_SIZE, not the pool-clamped actual
+                    count, so a topic with fewer than 20 published questions
+                    never has that discrepancy shown to the student. */}
+                <span>~{Math.round(SESSION_SIZE * 1.2)} min</span>
+              </div>
             </div>
-            <h2 className="mt-2 text-xl font-semibold">{recommendation.topic_name}</h2>
-            <p className="text-sm text-muted-foreground">{recommendation.exam_area_name}</p>
-            <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              <span>
-                Mastery:{" "}
-                <strong className="text-foreground">
-                  {recommendation.mastery !== null ? `${recommendation.mastery}%` : "still gathering data"}
-                </strong>
-              </span>
-              <span>
-                Last practiced:{" "}
-                <strong className="text-foreground">
-                  {recommendation.last_answered_at ? `${daysSince(recommendation.last_answered_at)}d ago` : "never"}
-                </strong>
-              </span>
-              {/* Estimated from SESSION_SIZE, not the pool-clamped actual
-                  count, so a topic with fewer than 20 published questions
-                  never has that discrepancy shown to the student. */}
-              <span>~{Math.round(SESSION_SIZE * 1.2)} min</span>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-2">
+            <div className="mt-4 flex flex-wrap items-center gap-2 xl:mt-0 xl:shrink-0">
               <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)}>
                 <Button type="submit" size="lg">
                   Start session →
@@ -494,85 +496,92 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      {/* Recent Activity */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Recent Activity</h2>
-        <div className="mt-2 space-y-2">
-          {recent.length > 0 ? (
-            recent.map((a) => {
-              const label = a.mode === "mock" ? "Mock Exam" : a.topics?.name ?? "Practice session";
-              const href = a.mode === "mock" ? `/mock/${a.id}/results` : `/practice/${a.id}`;
-              const cardAccent = a.mode === "mock" ? "border-l-4 border-l-primary bg-primary/5" : "border-l-4 border-l-border bg-secondary/40";
-              return (
-                <Card key={a.id} className={cardAccent}>
-                  <CardContent className="flex items-center justify-between gap-3 py-3">
-                    <div>
-                      <p className="text-sm font-medium">{label}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {a.correct_count}/{a.total_questions} correct
-                      </p>
-                    </div>
-                    <Button render={<Link href={href}>Review →</Link>} nativeButton={false} size="sm" variant="outline" />
-                  </CardContent>
-                </Card>
-              );
-            })
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              Your recent practice and mock exam sessions will show up here.
-            </p>
-          )}
-          {mistakeCount! > 0 && (
-            <Card className="border-l-4 border-l-destructive bg-destructive/5">
-              <CardContent className="flex items-center justify-between gap-3 py-3">
-                <div>
-                  <p className="text-sm font-medium">Mistake Bank</p>
-                  <p className="text-xs text-muted-foreground">
-                    {mistakeCount} question{mistakeCount === 1 ? "" : "s"} waiting for review
-                  </p>
-                </div>
-                <Button render={<Link href="/mistakes">Review →</Link>} nativeButton={false} size="sm" variant="outline" />
-              </CardContent>
-            </Card>
-          )}
+      {/* Recent Activity + Quick Access/Achievements rail — side by side on
+          wide desktop so the two sections use horizontal space instead of
+          just stacking under each other; single column below xl. */}
+      <div className="grid gap-6 xl:grid-cols-[1.7fr_1fr] xl:items-start">
+        {/* Recent Activity */}
+        <div>
+          <h2 className="text-sm font-semibold text-muted-foreground">Recent Activity</h2>
+          <div className="mt-2 space-y-2">
+            {recent.length > 0 ? (
+              recent.map((a) => {
+                const label = a.mode === "mock" ? "Mock Exam" : a.topics?.name ?? "Practice session";
+                const href = a.mode === "mock" ? `/mock/${a.id}/results` : `/practice/${a.id}`;
+                const cardAccent = a.mode === "mock" ? "border-l-4 border-l-primary bg-primary/5" : "border-l-4 border-l-border bg-secondary/40";
+                return (
+                  <Card key={a.id} className={cardAccent}>
+                    <CardContent className="flex items-center justify-between gap-3 py-3">
+                      <div>
+                        <p className="text-sm font-medium">{label}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {a.correct_count}/{a.total_questions} correct
+                        </p>
+                      </div>
+                      <Button render={<Link href={href}>Review →</Link>} nativeButton={false} size="sm" variant="outline" />
+                    </CardContent>
+                  </Card>
+                );
+              })
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Your recent practice and mock exam sessions will show up here.
+              </p>
+            )}
+            {mistakeCount! > 0 && (
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="flex items-center justify-between gap-3 py-3">
+                  <div>
+                    <p className="text-sm font-medium">Mistake Bank</p>
+                    <p className="text-xs text-muted-foreground">
+                      {mistakeCount} question{mistakeCount === 1 ? "" : "s"} waiting for review
+                    </p>
+                  </div>
+                  <Button render={<Link href="/mistakes">Review →</Link>} nativeButton={false} size="sm" variant="outline" />
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Quick Access */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Quick Access</h2>
-        <div className="mt-2 flex flex-wrap gap-2">
-          <Button render={<Link href="/quick">Quick 10</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/quiz-builder">Custom Quiz</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/mock">Mock Exam</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/mistakes">Mistake Bank</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/notes">My Notes</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/question-bank">Question Bank</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/flashcards">Flashcards</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/reviewers">Reviewers</Link>} nativeButton={false} variant="secondary" size="sm" />
-          <Button render={<Link href="/study-plan">Study Plan</Link>} nativeButton={false} variant="secondary" size="sm" />
-        </div>
-      </div>
+        <div className="space-y-6">
+          {/* Quick Access */}
+          <div>
+            <h2 className="text-sm font-semibold text-muted-foreground">Quick Access</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Button render={<Link href="/quick">Quick 10</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/quiz-builder">Custom Quiz</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/mock">Mock Exam</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/mistakes">Mistake Bank</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/notes">My Notes</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/question-bank">Question Bank</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/flashcards">Flashcards</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/reviewers">Reviewers</Link>} nativeButton={false} variant="secondary" size="sm" />
+              <Button render={<Link href="/study-plan">Study Plan</Link>} nativeButton={false} variant="secondary" size="sm" />
+            </div>
+          </div>
 
-      {/* Achievements */}
-      <div>
-        <h2 className="text-sm font-semibold text-muted-foreground">Achievements</h2>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {Object.entries(ACHIEVEMENTS).map(([code, a]) => {
-            const earned = earnedCodes.has(code);
-            return (
-              <span
-                key={code}
-                title={a.description}
-                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${
-                  earned ? "border-gold/30 bg-gold/10 text-gold" : "border-border text-muted-foreground opacity-50"
-                }`}
-              >
-                <a.icon className="size-3.5" />
-                {a.label}
-              </span>
-            );
-          })}
+          {/* Achievements */}
+          <div>
+            <h2 className="text-sm font-semibold text-muted-foreground">Achievements</h2>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {Object.entries(ACHIEVEMENTS).map(([code, a]) => {
+                const earned = earnedCodes.has(code);
+                return (
+                  <span
+                    key={code}
+                    title={a.description}
+                    className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${
+                      earned ? "border-gold/30 bg-gold/10 text-gold" : "border-border text-muted-foreground opacity-50"
+                    }`}
+                  >
+                    <a.icon className="size-3.5" />
+                    {a.label}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 

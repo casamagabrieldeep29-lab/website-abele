@@ -122,7 +122,7 @@ export function AppSidebar({
         </button>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="gap-2">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>

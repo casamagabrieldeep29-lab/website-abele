@@ -18,12 +18,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         signOutAction={signOut}
       />
       <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 sm:px-6 lg:px-8 2xl:px-10">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <span className="text-sm font-medium text-muted-foreground">ABELIEVER</span>
         </header>
-        <div className="flex-1 p-4 sm:p-6">{children}</div>
+        <div className="flex-1 p-4 sm:p-6 lg:px-8 2xl:px-10">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

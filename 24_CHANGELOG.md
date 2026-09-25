@@ -355,3 +355,25 @@ Gabriel's follow-up to the depth pass above: the Light theme still read as "Dark
 **`platform/src/app/(app)/dashboard/page.tsx`:** the "Next Study Session" featured card's background changed from a generic `bg-gradient-to-br from-primary/5` wash to `bg-surface-featured`, so it now uses the dedicated featured-surface token everywhere instead of an ad hoc gradient.
 
 **Testing performed:** same local magic-link + temporary `/api/dev-login` technique (created, used, deleted; confirmed untracked via `git status`) to visually verify as the owner account: Light (dashboard, scrolled progress section), Ocean (unaffected — still its own photo/glass/aqua palette), Forest (unaffected — confirmed `bg-surface-featured` correctly resolves to Forest's own dark-green fallback, no Light-theme color leaking through), Dark (unaffected, still teal-black), and mobile 375px (no horizontal overflow). `npm run lint` and `npm run build` both clean.
+
+Follow-up same day: the "ABELE Countdown" chip was unboxed per feedback — replaced the bordered/filled container with a plain right-aligned stack behind a thin divider, and the number size bumped `text-lg` → `text-4xl`/`text-5xl` so it reads as a real number rather than small metadata. Commit `87a81b7`.
+
+---
+
+## 2026-09-25 — Dashboard desktop composition: fix dead space at wide viewports
+
+Gabriel's next request: the dashboard read as "sidebar | empty space | narrow website | empty space" at real desktop widths (1440–2560px) because the content column was capped at `max-w-5xl` (896px) regardless of viewport. A parallel request for a responsive-button audit arrived mid-task; folded in below.
+
+**`platform/src/app/(app)/layout.tsx`:** header and content-wrapper horizontal padding both changed from a flat `p-4 sm:p-6` to a shared responsive scale (`px-4 sm:px-6 lg:px-8 2xl:px-10`) so the header's left edge and the page content's left edge stay aligned at every breakpoint, not just coincidentally at the one they happened to share before.
+
+**`platform/src/app/(app)/dashboard/page.tsx`:**
+- Container widened: `mx-auto max-w-5xl` → `mx-auto w-full max-w-6xl 2xl:max-w-[1680px]`. Nothing inside is an unconstrained full-width paragraph (the hero subtext and footer note both wrap at their own natural length), so widening the container doesn't create "enormous text lines" — only the card grids gain the extra room.
+- "Next Study Session" card: reworked to split horizontally at `xl:` (1280px+) — topic/meta on the left, the CTA button row on the right, `items-start` (not centered) so a long-wrapped title never visually collides with the CTA block. **Caught and fixed a real regression during testing**: the first pass used the `lg:` breakpoint (1024px), which left too little width for real topic names (e.g. "Agricultural Machinery Design, Fabrication/Manufacturing and Testing") — the title wrapped 5 lines deep and the vertically-centered CTA block ended up floating mid-paragraph. Moved the breakpoint to `xl:` and switched to top-alignment; re-tested at 1024/1280/1440/1920px to confirm the fix.
+- Lower dashboard sections ("Recent Activity" + "Quick Access"/"Achievements") now sit in an `xl:grid-cols-[1.7fr_1fr]` two-column split instead of stacking full-width one under another — the single biggest source of unused horizontal space below the fold at wide viewports. "Needs Your Attention" and "Upcoming Study Plan" stay full-width above it.
+- Hero greeting gains `lg:text-4xl` so it holds up as the visual anchor at the new width.
+
+**`platform/src/components/app-sidebar.tsx`:** added `gap-2` between nav groups (Main / Study Tools / Admin) — the only sidebar change; structure and active-state treatment were already solid.
+
+**Button-system audit (no code changes needed):** grepped the whole `src/` tree for `Button` elements with `w-full`/fixed-width classes — every `w-full` hit is a button that's the sole action inside its own narrow card (Practice/Mock/PAES/Quiz-builder/Study-plan "Start" CTAs, login form) or one half of an intentional 2-button row, never an arbitrary desktop stretch. No fixed-pixel widths found anywhere. The shared `Button` component already has `whitespace-nowrap` (prevents awkward text wrap) and per-size fixed heights independent of label length, and every action group already uses `flex flex-wrap gap-*`. The system already matched the request; nothing to change.
+
+**Testing performed:** visually verified at 1920, 1440, 1280, 1024px, and 375px mobile as the owner account — no horizontal overflow at any width (`scrollWidth === innerWidth` checked via JS at each), confirmed the `xl:` breakpoint fix for the featured card, confirmed the 2-column lower-section split collapses to one column below `xl`. `npm run lint` and `npm run build` both clean.
