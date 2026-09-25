@@ -49,8 +49,29 @@ function matchesQuery(name: string, query: string) {
   return name.toLowerCase().includes(query);
 }
 
-export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
-  const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+/** A deep-link target from the global search: which single row to scroll to
+ * and briefly flash, once its ancestors are already open (see
+ * `initialOpenIds`, computed server-side in page.tsx from the same ids). */
+export type QuestionBankHighlight = {
+  kind: "area" | "os" | "topic" | "subtopic" | "question";
+  targetId: string;
+} | null;
+
+const FLASH_DURATION_MS = 2500;
+
+export function QuestionBankBrowser({
+  areas,
+  initialOpenIds,
+  highlight = null,
+}: {
+  areas: QuestionBankArea[];
+  initialOpenIds?: string[];
+  highlight?: QuestionBankHighlight;
+}) {
+  const [openIds, setOpenIds] = useState<Set<string>>(() => new Set(initialOpenIds));
+  const [flashKey, setFlashKey] = useState<string | null>(
+    highlight && highlight.kind !== "question" ? `${highlight.kind}-${highlight.targetId}` : null,
+  );
   const [rawQuery, setRawQuery] = useState("");
   const query = rawQuery.trim().toLowerCase();
   const isSearching = query.length > 0;
@@ -125,6 +146,19 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
     return { filteredAreas: result, forceOpenIds: openSet };
   }, [areas, query, isSearching]);
 
+  // Non-question highlights (area/subject/topic) are always mounted, so
+  // scroll to them as soon as their ancestors are open. A "question"
+  // highlight instead waits on TopicQuestions below — it only exists in the
+  // DOM once that row's question list has actually loaded.
+  useEffect(() => {
+    if (!highlight || highlight.kind === "question") return;
+    const el = document.getElementById(`qb-${highlight.kind}-${highlight.targetId}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const t = setTimeout(() => setFlashKey(null), FLASH_DURATION_MS);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function isOpen(id: string) {
     return isSearching ? forceOpenIds.has(id) : openIds.has(id);
   }
@@ -182,8 +216,13 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
           const areaOpen = isOpen(`a:${area.id}`);
           const pct = area.weightPercent ?? 0;
 
+          const areaFlashing = flashKey === `area-${area.id}`;
           return (
-            <div key={area.id} className={`rounded-lg border-l-4 border border-border/60 ${accent.border} ${accent.bg}`}>
+            <div
+              key={area.id}
+              id={`qb-area-${area.id}`}
+              className={`rounded-lg border-l-4 border border-border/60 ${accent.border} ${accent.bg} ${areaFlashing ? "ring-2 ring-primary/60 transition-shadow duration-500" : ""}`}
+            >
               <Collapsible open={areaOpen} onOpenChange={() => toggle(`a:${area.id}`)}>
                 <CollapsibleTrigger className="flex w-full items-center gap-3 px-3.5 py-3.5 text-left transition-colors hover:bg-background/40">
                   <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
@@ -210,8 +249,13 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                     )}
                     {area.officialSubjects.map((officialSubject) => {
                       const officialSubjectOpen = isOpen(`os:${officialSubject.id}`);
+                      const osFlashing = flashKey === `os-${officialSubject.id}`;
                       return (
-                        <div key={officialSubject.id} className="border-b border-border/40 last:border-b-0">
+                        <div
+                          key={officialSubject.id}
+                          id={`qb-os-${officialSubject.id}`}
+                          className={`border-b border-border/40 last:border-b-0 ${osFlashing ? "rounded-md ring-2 ring-primary/60 transition-shadow duration-500" : ""}`}
+                        >
                           <Collapsible
                             open={officialSubjectOpen}
                             onOpenChange={() => toggle(`os:${officialSubject.id}`)}
@@ -228,8 +272,13 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                                 )}
                                 {officialSubject.subjects.map((subject) => {
                                   const subjectOpen = isOpen(`s:${subject.id}`);
+                                  const topicFlashing = flashKey === `topic-${subject.id}`;
                                   return (
-                                    <div key={subject.id} className="border-b border-border/30 last:border-b-0">
+                                    <div
+                                      key={subject.id}
+                                      id={`qb-topic-${subject.id}`}
+                                      className={`border-b border-border/30 last:border-b-0 ${topicFlashing ? "rounded-md ring-2 ring-primary/60 transition-shadow duration-500" : ""}`}
+                                    >
                                       <div className="flex flex-wrap items-center justify-between gap-2 rounded-md px-3 py-2 transition-colors hover:bg-background/40">
                                         <Collapsible
                                           open={subjectOpen}
@@ -269,8 +318,13 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                                             )}
                                             {subject.topics.map((topic) => {
                                               const topicOpen = isOpen(`t:${topic.id}`);
+                                              const subtopicFlashing = flashKey === `subtopic-${topic.id}`;
                                               return (
-                                                <div key={topic.id} className="border-b border-border/20 last:border-b-0">
+                                                <div
+                                                  key={topic.id}
+                                                  id={`qb-subtopic-${topic.id}`}
+                                                  className={`border-b border-border/20 last:border-b-0 ${subtopicFlashing ? "rounded-md ring-2 ring-primary/60 transition-shadow duration-500" : ""}`}
+                                                >
                                                   <div className="flex flex-wrap items-center justify-between gap-2 rounded px-2.5 py-1.5 transition-colors hover:bg-background/30">
                                                     <Collapsible
                                                       open={topicOpen}
@@ -296,7 +350,13 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                                                   <Collapsible open={topicOpen}>
                                                     <CollapsibleContent open={topicOpen} keepMounted>
                                                       <div className="px-2.5 pb-2 pl-6">
-                                                        <TopicQuestions subtopicId={topic.id} isOpen={topicOpen} />
+                                                        <TopicQuestions
+                                                          subtopicId={topic.id}
+                                                          isOpen={topicOpen}
+                                                          highlightQuestionId={
+                                                            highlight?.kind === "question" ? highlight.targetId : null
+                                                          }
+                                                        />
                                                       </div>
                                                     </CollapsibleContent>
                                                   </Collapsible>
@@ -326,8 +386,17 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
   );
 }
 
-function TopicQuestions({ subtopicId, isOpen }: { subtopicId: string; isOpen: boolean }) {
+function TopicQuestions({
+  subtopicId,
+  isOpen,
+  highlightQuestionId,
+}: {
+  subtopicId: string;
+  isOpen: boolean;
+  highlightQuestionId?: string | null;
+}) {
   const [questions, setQuestions] = useState<QuestionBankQuestion[] | null>(null);
+  const [flashing, setFlashing] = useState(Boolean(highlightQuestionId));
 
   useEffect(() => {
     if (!isOpen || questions !== null) return;
@@ -340,6 +409,18 @@ function TopicQuestions({ subtopicId, isOpen }: { subtopicId: string; isOpen: bo
     };
   }, [isOpen, questions, subtopicId]);
 
+  // The target <li> only exists once this subtopic's questions have
+  // actually loaded — scroll/flash here instead of in the parent's
+  // mount-time effect, which runs before this fetch resolves.
+  useEffect(() => {
+    if (!highlightQuestionId || !questions) return;
+    if (!questions.some((q) => q.id === highlightQuestionId)) return;
+    const el = document.getElementById(`qb-question-${highlightQuestionId}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const t = setTimeout(() => setFlashing(false), FLASH_DURATION_MS);
+    return () => clearTimeout(t);
+  }, [highlightQuestionId, questions]);
+
   if (!isOpen && questions === null) return null;
   if (questions === null) {
     return <p className="py-1.5 text-xs text-muted-foreground">Loading questions…</p>;
@@ -351,7 +432,13 @@ function TopicQuestions({ subtopicId, isOpen }: { subtopicId: string; isOpen: bo
   return (
     <ol className="space-y-1 py-1.5">
       {questions.map((q, i) => (
-        <li key={q.id} className="flex gap-2 text-sm text-muted-foreground">
+        <li
+          key={q.id}
+          id={`qb-question-${q.id}`}
+          className={`flex gap-2 rounded px-1 py-0.5 text-sm text-muted-foreground ${
+            flashing && q.id === highlightQuestionId ? "ring-2 ring-primary/60 transition-shadow duration-500" : ""
+          }`}
+        >
           <span className="shrink-0 tabular-nums">{i + 1}.</span>
           <span className="line-clamp-2">{q.question_text}</span>
         </li>

@@ -2,9 +2,19 @@ import { redirect } from "next/navigation";
 import { getAuthContext } from "@/lib/auth/session";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { PageHeader } from "@/components/page-header";
-import { QuestionBankBrowser, type QuestionBankArea, type QuestionBankOfficialSubject } from "./question-bank-browser";
+import {
+  QuestionBankBrowser,
+  type QuestionBankArea,
+  type QuestionBankHighlight,
+  type QuestionBankOfficialSubject,
+} from "./question-bank-browser";
 
-export default async function QuestionBankPage() {
+export default async function QuestionBankPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ areaId?: string; subjectId?: string; topicId?: string; subtopicId?: string; questionId?: string }>;
+}) {
+  const { areaId, subjectId, topicId, subtopicId, questionId } = await searchParams;
   const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
 
@@ -101,13 +111,37 @@ export default async function QuestionBankPage() {
     };
   });
 
+  // Deep-link from the global search: reconstruct the exact ancestor-key
+  // set QuestionBankBrowser's own openIds state uses (a:/os:/s:/t: — see
+  // that file) so only the one relevant branch opens, never the whole
+  // tree. subjectId here is the official-subject id; when a topic has none
+  // assigned yet it lives in the synthetic "Other Topics" bucket the tree
+  // builder above creates as `other:${areaId}`.
+  const initialOpenIds: string[] = [];
+  let highlight: QuestionBankHighlight = null;
+  if (areaId) {
+    initialOpenIds.push(`a:${areaId}`);
+    if (subjectId) {
+      initialOpenIds.push(`os:${subjectId}`);
+    } else if (topicId || questionId) {
+      initialOpenIds.push(`os:other:${areaId}`);
+    }
+    if (topicId) initialOpenIds.push(`s:${topicId}`);
+    if (subtopicId) initialOpenIds.push(`t:${subtopicId}`);
+
+    if (questionId) highlight = { kind: "question", targetId: questionId };
+    else if (topicId) highlight = { kind: "topic", targetId: topicId };
+    else if (subjectId) highlight = { kind: "os", targetId: subjectId };
+    else highlight = { kind: "area", targetId: areaId };
+  }
+
   return (
     <div className="mx-auto w-full max-w-4xl space-y-6">
       <PageHeader
         title="Question Bank"
         description="Browse by TOS area, subject, and topic. Drill into a topic to see and practice its questions."
       />
-      <QuestionBankBrowser areas={areas} />
+      <QuestionBankBrowser areas={areas} initialOpenIds={initialOpenIds} highlight={highlight} />
     </div>
   );
 }

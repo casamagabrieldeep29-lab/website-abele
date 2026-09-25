@@ -3,6 +3,7 @@ import { getAuthContext } from "@/lib/auth/session";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
+import { GlobalSearch } from "@/components/global-search/global-search";
 import { signOut } from "@/app/dashboard/actions";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -21,7 +22,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 sm:px-6 lg:px-8 2xl:px-10">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          <span className="text-sm font-medium text-muted-foreground">ABELIEVER</span>
+          <span className="hidden text-sm font-medium text-muted-foreground sm:inline">ABELIEVER</span>
+          <div className="ml-auto flex items-center sm:ml-4">
+            <GlobalSearch />
+          </div>
         </header>
         <div className="flex-1 p-4 sm:p-6 lg:px-8 2xl:px-10">{children}</div>
       </SidebarInset>
