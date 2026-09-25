@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { InviteForm } from "../invite-form";
 import { RemoveUserForm } from "./remove-user-form";
 import { upgradeToSubscriber, downgradeToTrial } from "../actions";
+import { AutoRefresh } from "../auto-refresh";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "remove-confirmation": "You must type REMOVE exactly to confirm.",
@@ -17,6 +18,8 @@ const ERROR_MESSAGES: Record<string, string> = {
 
 const TRIAL_DAYS = 14;
 
+const ONLINE_THRESHOLD_MS = 2 * 60 * 1000;
+
 type Profile = {
   id: string;
   email: string;
@@ -25,6 +28,7 @@ type Profile = {
   created_at: string;
   plan: string;
   trial_started_at: string;
+  last_seen_at: string | null;
 };
 
 function daysLeft(trialStartedAt: string): number {
@@ -34,6 +38,11 @@ function daysLeft(trialStartedAt: string): number {
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function isOnline(lastSeenAt: string | null): boolean {
+  if (!lastSeenAt) return false;
+  return Date.now() - new Date(lastSeenAt).getTime() < ONLINE_THRESHOLD_MS;
 }
 
 function UserRow({
@@ -47,10 +56,15 @@ function UserRow({
   trialBadge?: React.ReactNode;
   showDowngrade?: boolean;
 }) {
+  const online = isOnline(p.last_seen_at);
   return (
     <div className="flex min-w-0 flex-col gap-1.5 rounded-md border border-border p-3">
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-1.5">
+          <span
+            className={`inline-block size-2 shrink-0 rounded-full ${online ? "bg-success" : "bg-muted-foreground/30"}`}
+            title={online ? "Active in the last 2 minutes" : "Not currently active"}
+          />
           <p className="truncate text-sm font-medium">{p.display_name || "(no name set)"}</p>
           {p.role === "admin" && <Badge variant="secondary">Admin</Badge>}
           {trialBadge}
@@ -94,20 +108,26 @@ export default async function AdminUsersPage({
   // every row here — no service-role client needed just to list users.
   const { data } = await supabase
     .from("profiles")
-    .select("id, email, display_name, role, created_at, plan, trial_started_at")
+    .select("id, email, display_name, role, created_at, plan, trial_started_at, last_seen_at")
     .order("created_at", { ascending: false });
 
   const profiles = (data ?? []) as Profile[];
   const subscribers = profiles.filter((p) => p.plan === "subscriber" || p.role === "admin");
   const trialUsers = profiles.filter((p) => p.plan === "trial" && p.role !== "admin");
+  const onlineCount = profiles.filter((p) => isOnline(p.last_seen_at)).length;
 
   return (
     <div className="w-full space-y-6 px-6">
+      <AutoRefresh />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Users</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
             Everyone who has been invited or has an account.
+            <span className="inline-flex items-center gap-1">
+              <span className="inline-block size-2 rounded-full bg-success" />
+              {onlineCount} active now
+            </span>
           </p>
         </div>
         <Link href="/admin" className="text-sm text-muted-foreground hover:underline">
