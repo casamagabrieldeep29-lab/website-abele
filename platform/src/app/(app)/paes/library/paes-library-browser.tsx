@@ -148,11 +148,12 @@ export function PaesLibraryBrowser({
   }, [filtered]);
 
   // Collapsed by default (37 standards would otherwise be an overwhelming
-  // wall of content) — but a search or series filter already narrowed
-  // things down for the student, so auto-expand every matching group instead
-  // of making them click through a second time, matching the Reviewers
-  // page's TosGroupedEntries behavior.
-  const isFiltering = search.trim().length > 0 || series !== "all";
+  // wall of content). Only a text search auto-expands its matches — the
+  // series filter narrows which standards are listed at all, but doesn't by
+  // itself mean the student wants every one of them expanded (e.g. picking
+  // "PAES 400 Series" still leaves 15 standards; they shouldn't all pop open
+  // just from applying that filter).
+  const isFiltering = search.trim().length > 0;
 
   return (
     <div className="mt-6">
