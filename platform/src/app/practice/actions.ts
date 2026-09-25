@@ -132,18 +132,33 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
  * practice attempt — the /paes section's "Take PAES Quiz" action. Mirrors
  * startSubjectPracticeAttempt's shape exactly, just filtered by is_paes
  * instead of subject_id.
+ *
+ * `paesReference` optionally narrows the pool to one specific standard
+ * (the PAES Library's "Practice this PAES" link) — omitted, this is
+ * unchanged from before. Matched with `ilike` rather than exact equality
+ * because questions.paes_reference and reviewer_entries.paes_reference
+ * aren't guaranteed to use the exact same string shape (e.g. a question
+ * might be tagged "PAES 401:2001" while the Library groups by the bare
+ * "PAES 401" pulled from a title) — a prefix match still finds it either way.
  */
-export async function startPaesQuizAttempt(count: number) {
+export async function startPaesQuizAttempt(count: number, paesReference?: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: candidates } = await supabase
+  let query = supabase
     .from("student_questions")
     .select("id, series_key, series_position")
     .eq("is_paes", true);
+  if (paesReference) {
+    query = query.ilike("paes_reference", `${paesReference}%`);
+  }
+
+  const { data: candidates } = await query;
   if (!candidates || candidates.length === 0) {
-    throw new Error("No published PAES questions yet.");
+    throw new Error(
+      paesReference ? `No published questions for ${paesReference} yet.` : "No published PAES questions yet.",
+    );
   }
 
   const selected = await weighAndSampleCandidates(supabase, candidates, count);
@@ -154,7 +169,9 @@ export async function startPaesQuizAttempt(count: number) {
       user_id: user.id,
       mode: "practice",
       total_questions: selected.length,
-      config: { question_ids: selected, kind: "paes" },
+      config: paesReference
+        ? { question_ids: selected, kind: "paes", paes_reference: paesReference }
+        : { question_ids: selected, kind: "paes" },
     })
     .select("id")
     .single();

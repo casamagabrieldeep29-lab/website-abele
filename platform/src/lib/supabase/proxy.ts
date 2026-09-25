@@ -15,6 +15,7 @@ const PROTECTED_PREFIXES = [
   "/study-plan",
   "/flashcards",
   "/reviewers",
+  "/paes",
   "/profile",
   "/settings",
   "/admin",

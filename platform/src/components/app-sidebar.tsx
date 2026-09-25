@@ -8,6 +8,7 @@ import {
   BookMarked,
   BookOpen,
   CalendarClock,
+  ClipboardCheck,
   ClipboardList,
   GalleryVerticalEnd,
   History,
@@ -52,6 +53,7 @@ const MAIN_NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/practice", label: "Practice", icon: BookOpen },
   { href: "/mock", label: "Mock Exams", icon: ClipboardList },
+  { href: "/paes", label: "PAES", icon: ClipboardCheck },
   { href: "/progress", label: "Progress", icon: BarChart3 },
 ];
 
