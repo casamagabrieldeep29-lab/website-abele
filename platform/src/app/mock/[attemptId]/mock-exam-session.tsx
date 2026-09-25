@@ -53,6 +53,20 @@ export function MockExamSession({
     document.getElementById(`mock-q-${i}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  // A reload restores every already-picked answer (initialAnswers comes
+  // fresh from the DB on each request) but the browser itself always
+  // scrolls back to the top of the page — without this, that reads as
+  // "my progress is gone" even though nothing was actually lost. Jumps
+  // straight to the first unanswered item, same resume point Practice/PAES
+  // Quizzer already land on.
+  useEffect(() => {
+    const firstUnansweredIndex = questions.findIndex((q) => !initialAnswers[q.id]?.length);
+    if (firstUnansweredIndex > 0) {
+      document.getElementById(`mock-q-${firstUnansweredIndex}`)?.scrollIntoView({ block: "start" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const deadline = useMemo(
     () => new Date(startedAt).getTime() + timeLimitMinutes * 60 * 1000,
     [startedAt, timeLimitMinutes],

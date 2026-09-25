@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle2, ChevronLeft, ChevronRight, Circle, Star, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,7 +121,28 @@ function withMinusSign(text: string) {
 }
 
 export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
-  const [index, setIndex] = useState(0);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Resumes at the card the student was on before a reload — the study set
+  // itself lives in the URL's `ids` (see study/page.tsx), so `at` is kept in
+  // sync alongside it rather than in component state alone, which a reload
+  // would otherwise always reset to 0.
+  const initialAt = Number(searchParams.get("at") ?? "0");
+  const [index, setIndexState] = useState(
+    Number.isInteger(initialAt) && initialAt >= 0 && initialAt < cards.length ? initialAt : 0,
+  );
+
+  function setIndex(next: number | ((i: number) => number)) {
+    setIndexState((prev) => {
+      const resolved = typeof next === "function" ? next(prev) : next;
+      const params = new URLSearchParams(searchParams);
+      params.set("at", String(resolved));
+      router.replace(`?${params.toString()}`, { scroll: false });
+      return resolved;
+    });
+  }
+
   const [flipped, setFlipped] = useState(false);
   const [saved, setSaved] = useState<Set<string>>(new Set(cards.filter((c) => c.isSaved).map((c) => c.id)));
   const [tally, setTally] = useState({ know: 0, learning: 0, dont_know: 0 });
