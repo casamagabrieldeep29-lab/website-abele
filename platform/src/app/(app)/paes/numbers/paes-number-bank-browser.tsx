@@ -8,6 +8,7 @@ import type { ReviewerEntry } from "../../reviewers/reviewers-browser";
 import { ConstantCard, TableEntryCard } from "../../reviewers/reviewers-browser";
 import type { PaesCategory } from "@/lib/paes-categories";
 import { PAES_CATEGORY_ORDER } from "@/lib/paes-categories";
+import { stripPaesStandardPrefix } from "@/lib/paes-standard-titles";
 
 export type PaesNumberBankEntry = ReviewerEntry & {
   paes_reference: string;
@@ -56,8 +57,12 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
     });
   }, [entries, search, category, reference]);
 
-  const constants = filtered.filter((e) => e.kind === "constant");
-  const tables = filtered.filter((e) => e.kind === "table");
+  // Each card already floats its own PAES-number badge (ReferenceBadge below),
+  // so the redundant "PAES 402 —" prefix on the entry's own title is stripped
+  // here — the card shows just the specification-level subtitle instead.
+  const withSubtitle = (e: PaesNumberBankEntry): PaesNumberBankEntry => ({ ...e, title: stripPaesStandardPrefix(e.title) });
+  const constants = filtered.filter((e) => e.kind === "constant").map(withSubtitle);
+  const tables = filtered.filter((e) => e.kind === "table").map(withSubtitle);
 
   return (
     <div className="mt-6">
