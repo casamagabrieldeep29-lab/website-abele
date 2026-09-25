@@ -43,21 +43,23 @@ export default async function PracticeAttemptPage({
   // explicit, pre-selected id list in attempt.config — fetch exactly those,
   // preserving their order. Otherwise fall back to the original behavior:
   // every published question in the attempt's topic, in id order.
-  let questions: { id: string; question_text: string }[] | null;
+  let questions: { id: string; question_text: string; category: "term" | "solving" | null }[] | null;
   if (isCustomSet) {
     const { data } = await supabase
       .from("student_questions")
-      .select("id, question_text")
+      .select("id, question_text, category")
       .in("id", config.question_ids!);
     const byId = new Map((data ?? []).map((q) => [q.id, q]));
-    questions = config.question_ids!.map((id) => byId.get(id)).filter((q): q is { id: string; question_text: string } => Boolean(q));
+    questions = config.question_ids!
+      .map((id) => byId.get(id))
+      .filter((q): q is { id: string; question_text: string; category: "term" | "solving" | null } => Boolean(q));
   } else {
     // Ordered so a connected series (same series_key) always stays
     // contiguous and in its intended step order, rather than the
     // effectively-random order plain id ordering would give it.
     const { data } = await supabase
       .from("student_questions")
-      .select("id, question_text")
+      .select("id, question_text, category")
       .eq("topic_id", attempt.topic_id)
       .order("series_key", { nullsFirst: true })
       .order("series_position")
@@ -84,6 +86,7 @@ export default async function PracticeAttemptPage({
     id: q.id,
     text: q.question_text,
     choices: choicesByQuestion.get(q.id) ?? [],
+    category: q.category,
   }));
 
   const [{ data: existingAnswers }, { data: notes }, { data: bookmarks }] = await Promise.all([

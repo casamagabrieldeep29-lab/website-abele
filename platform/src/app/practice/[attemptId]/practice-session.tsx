@@ -15,7 +15,12 @@ import { ExplanationDisplay } from "@/components/explanation-display";
 import { studentFacingExplanation } from "@/lib/explanation";
 
 export type PracticeChoice = { id: string; text: string };
-export type PracticeQuestion = { id: string; text: string; choices: PracticeChoice[] };
+export type PracticeQuestion = {
+  id: string;
+  text: string;
+  choices: PracticeChoice[];
+  category: "term" | "solving" | null;
+};
 
 type ExistingAnswer = {
   question_id: string;
@@ -343,7 +348,14 @@ export function PracticeSession({
                 <TeachMeThis
                   attemptId={attemptId}
                   questionId={question.id}
-                  autoStart={!feedback.explanation}
+                  // Only auto-fires for problem-solving questions — a term/
+                  // concept question's answer is usually self-evident from
+                  // the choice itself, so auto-spending a scarce shared AI
+                  // quota call on every one of those (per Gabriel's
+                  // 2026-09-25 request) isn't worth it. Uncategorized
+                  // questions (category null) don't auto-fire either, same
+                  // as "term".
+                  autoStart={!feedback.explanation && question.category === "solving"}
                 />
               </div>
             ) : (

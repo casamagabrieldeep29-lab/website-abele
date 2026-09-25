@@ -3,12 +3,14 @@ import { GoogleGenAI } from "@google/genai";
 import { AIProvider, AIProviderError } from "./types";
 
 export class GeminiProvider implements AIProvider {
+  readonly label: string;
   private client: GoogleGenAI;
   private model: string;
 
-  constructor(apiKey: string, model: string) {
+  constructor(apiKey: string, model: string, label = "Gemini") {
     this.client = new GoogleGenAI({ apiKey });
     this.model = model;
+    this.label = label;
   }
 
   async generate({ systemInstruction, prompt }: { systemInstruction: string; prompt: string }): Promise<string> {
