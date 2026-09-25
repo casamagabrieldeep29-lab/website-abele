@@ -9,17 +9,18 @@ import { QuestionCard } from "../question-card";
 const ALL_AREAS = ["area_1", "area_2", "area_3"] as const;
 const AREA_LABELS: Record<string, string> = { area_1: "Area 1", area_2: "Area 2", area_3: "Area 3" };
 const NEW_CHOICE_SLOTS = 4;
+const DEFAULT_PAGE_SIZE = 50;
 
 export default async function AdminTopicContentPage({
   params,
   searchParams,
 }: {
   params: Promise<{ topicId: string }>;
-  searchParams: Promise<{ showArchived?: string }>;
+  searchParams: Promise<{ showArchived?: string; q?: string; status?: string }>;
 }) {
   await requireAdmin();
   const { topicId } = await params;
-  const { showArchived } = await searchParams;
+  const { showArchived, q, status: statusFilter } = await searchParams;
   const supabase = await createClient();
 
   const { data: topic } = await supabase
@@ -42,6 +43,19 @@ export default async function AdminTopicContentPage({
     (q) => q.status === "draft" && !q.explanation?.includes("FLAGGED FOR REVIEW")
   ).length;
 
+  // A busy topic (some run 300+ questions) rendering every one as a full
+  // edit-form made this page slow to open — same fix as /admin/reviewers:
+  // search/status narrow the set, and an unfiltered view is capped to the
+  // most recent 50 rather than everything.
+  const query = q?.trim().toLowerCase();
+  const hasFilter = Boolean(query || statusFilter);
+  const filteredQuestions = questions.filter((question) => {
+    if (statusFilter && question.status !== statusFilter) return false;
+    if (query && !question.question_text.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  const visibleQuestions = hasFilter ? filteredQuestions : filteredQuestions.slice(0, DEFAULT_PAGE_SIZE);
+
   return (
     <main className="min-h-screen bg-background">
       <header className="flex items-center justify-between border-b px-6 py-4">
@@ -62,7 +76,10 @@ export default async function AdminTopicContentPage({
           <div className="flex gap-2">
             {archivedCount > 0 && (
               <Link
-                href={showArchived ? `/admin/content/${topicId}` : `/admin/content/${topicId}?showArchived=1`}
+                href={{
+                  pathname: `/admin/content/${topicId}`,
+                  query: { ...(q ? { q } : {}), ...(statusFilter ? { status: statusFilter } : {}), ...(showArchived ? {} : { showArchived: "1" }) },
+                }}
                 className="text-sm text-muted-foreground hover:underline"
               >
                 {showArchived ? "Hide" : "Show"} {archivedCount} archived
@@ -76,10 +93,46 @@ export default async function AdminTopicContentPage({
           </div>
         </div>
 
-        <div className="mt-6 space-y-4">
-          {questions.map((q) => (
-            <QuestionCard key={q.id} question={q} topicId={topicId} otherAreas={otherAreas} />
+        <form className="mt-4 flex flex-wrap gap-2 rounded-md border border-border bg-muted/30 p-3">
+          <input type="hidden" name="showArchived" value={showArchived ?? ""} />
+          <input
+            name="q"
+            defaultValue={q ?? ""}
+            placeholder="Search question text…"
+            className="min-w-[10rem] flex-1 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+          />
+          <select name="status" defaultValue={statusFilter ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
+            <option value="">Any status</option>
+            <option value="draft">Draft</option>
+            <option value="review">Review</option>
+            <option value="published">Published</option>
+            {showArchived && <option value="archived">Archived</option>}
+          </select>
+          <Button type="submit" size="sm">
+            Filter
+          </Button>
+          {hasFilter && (
+            <Link href={`/admin/content/${topicId}`} className="self-center text-xs text-muted-foreground hover:underline">
+              Clear
+            </Link>
+          )}
+        </form>
+
+        <p className="mt-2 text-xs text-muted-foreground">
+          {hasFilter
+            ? `${filteredQuestions.length} matching ${filteredQuestions.length === 1 ? "question" : "questions"} of ${questions.length} shown`
+            : `Showing the ${visibleQuestions.length} most recent of ${questions.length} — search or filter above to see the rest.`}
+        </p>
+
+        <div className="mt-4 space-y-4">
+          {visibleQuestions.map((question) => (
+            <QuestionCard key={question.id} question={question} topicId={topicId} otherAreas={otherAreas} />
           ))}
+          {visibleQuestions.length === 0 && (
+            <p className="text-sm text-muted-foreground">
+              {hasFilter ? "No questions match that search/filter." : "No questions in this topic yet."}
+            </p>
+          )}
         </div>
 
         <Card className="mt-6">

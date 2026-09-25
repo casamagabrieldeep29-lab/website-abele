@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   deleteFlashcard,
   publishAllDraftFlashcards,
@@ -62,6 +64,8 @@ export function TopicSubtopicFields({
   );
 }
 
+const DEFAULT_TAB_PAGE_SIZE = 50;
+
 export function FlashcardsAdminBrowser({
   groups,
   topics,
@@ -71,7 +75,11 @@ export function FlashcardsAdminBrowser({
   topics: Topic[];
   subtopics: Subtopic[];
 }) {
+  const [search, setSearch] = useState("");
+
   if (groups.length === 0) return null;
+
+  const query = search.trim().toLowerCase();
 
   return (
     <Tabs defaultValue={groups[0].topicId}>
@@ -83,15 +91,34 @@ export function FlashcardsAdminBrowser({
         ))}
       </TabsList>
 
+      <Input
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search this topic's cards (front/back)…"
+        className="mt-2 max-w-md"
+      />
+
       {groups.map((g) => {
         const draftCount = g.cards.filter((c) => c.status === "draft").length;
         const publishedCount = g.cards.filter((c) => c.status === "published").length;
+
+        // A topic can run 300+ cards — rendering every one as a full
+        // edit-form unfiltered was the same slowness pattern fixed on
+        // /admin/reviewers. Search bypasses the per-tab cap.
+        const matching = query
+          ? g.cards.filter((c) => c.front.toLowerCase().includes(query) || c.back.toLowerCase().includes(query))
+          : g.cards;
+        const visible = query ? matching : matching.slice(0, DEFAULT_TAB_PAGE_SIZE);
 
         return (
           <TabsContent key={g.topicId} value={g.topicId} className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b pb-2">
               <p className="text-sm text-muted-foreground">
-                {g.cards.length} card{g.cards.length === 1 ? "" : "s"}
+                {query
+                  ? `${matching.length} matching of ${g.cards.length} cards`
+                  : `Showing ${visible.length} of ${g.cards.length} cards${
+                      g.cards.length > visible.length ? " — search above to see the rest" : ""
+                    }`}
               </p>
               <div className="flex flex-wrap gap-2">
                 {draftCount > 0 && (
@@ -111,7 +138,7 @@ export function FlashcardsAdminBrowser({
               </div>
             </div>
 
-            {g.cards.map((c) => (
+            {visible.map((c) => (
               <Card key={c.id}>
                 <CardContent className="py-3">
                   <div className="flex items-start justify-between gap-2">
