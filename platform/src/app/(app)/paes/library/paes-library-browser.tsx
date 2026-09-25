@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { ReviewerEntry } from "../../reviewers/reviewers-browser";
 import { FormulaCard, ConstantCard, TableEntryCard } from "../../reviewers/reviewers-browser";
 import type { PaesCategory } from "@/lib/paes-categories";
-import { PAES_CATEGORY_ORDER } from "@/lib/paes-categories";
+import { PAES_STANDARD_TITLES, PAES_SERIES_ORDER, derivePaesSeries, stripPaesStandardPrefix } from "@/lib/paes-standard-titles";
 
 export type PaesLibraryEntry = ReviewerEntry & {
   paes_reference: string;
@@ -23,57 +24,82 @@ function comparePaesReference(a: string, b: string): number {
   return a.localeCompare(b);
 }
 
-/** One PAES standard's "page": a heading for the standard number, its Quick Reference entries, and a link into a quiz scoped to just this standard. */
-function PaesStandardGroup({ paesReference, entries }: { paesReference: string; entries: PaesLibraryEntry[] }) {
-  const tables = entries.filter((e) => e.kind === "table");
-  const constants = entries.filter((e) => e.kind === "constant");
-  const formulas = entries.filter((e) => e.kind === "formula");
+function withSubtitle(entry: PaesLibraryEntry): PaesLibraryEntry {
+  return { ...entry, title: stripPaesStandardPrefix(entry.title) };
+}
+
+/** One PAES standard's "page": a collapsible section headed by the standard's real official title, its Quick Reference entries (as subtitled cards), and a link into a quiz scoped to just this standard. */
+function PaesStandardGroup({
+  paesReference,
+  entries,
+  defaultOpen,
+}: {
+  paesReference: string;
+  entries: PaesLibraryEntry[];
+  defaultOpen: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  const tables = entries.filter((e) => e.kind === "table").map(withSubtitle);
+  const constants = entries.filter((e) => e.kind === "constant").map(withSubtitle);
+  const formulas = entries.filter((e) => e.kind === "formula").map(withSubtitle);
+  const officialTitle = PAES_STANDARD_TITLES[paesReference];
 
   return (
-    <div className="rounded-lg border border-border bg-card/40 p-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="text-lg font-bold tracking-tight text-foreground">{paesReference}</h2>
-          <p className="text-xs text-muted-foreground">
-            {entries.length} {entries.length === 1 ? "entry" : "entries"}
-          </p>
+    <div className="rounded-lg border border-border bg-card/40">
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4 pb-0">
+          <CollapsibleTrigger className="group flex min-w-0 flex-1 items-start gap-2 text-left">
+            <ChevronRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
+            <div className="min-w-0">
+              <h2 className="text-lg font-bold tracking-tight text-foreground">
+                {paesReference}
+                {officialTitle && <span className="font-semibold"> — {officialTitle}</span>}
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                {entries.length} {entries.length === 1 ? "entry" : "entries"}
+              </p>
+            </div>
+          </CollapsibleTrigger>
+          <Link
+            href={`/paes/quiz?paes=${encodeURIComponent(paesReference)}`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/80"
+          >
+            Practice this PAES
+            <ArrowRight className="size-3.5" />
+          </Link>
         </div>
-        <Link
-          href={`/paes/quiz?paes=${encodeURIComponent(paesReference)}`}
-          className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/80"
-        >
-          Practice this PAES
-          <ArrowRight className="size-3.5" />
-        </Link>
-      </div>
 
-      <div className="mt-3">
-        <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Reference</p>
+        <CollapsibleContent open={open}>
+          <div className="p-4 pt-3">
+            <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Reference</p>
 
-        {constants.length > 0 && (
-          <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
-            {constants.map((entry) => (
-              <ConstantCard key={entry.id} entry={entry} />
-            ))}
+            {constants.length > 0 && (
+              <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+                {constants.map((entry) => (
+                  <ConstantCard key={entry.id} entry={entry} />
+                ))}
+              </div>
+            )}
+
+            {formulas.length > 0 && (
+              <div className="mt-2 grid grid-cols-1 items-start gap-2.5 sm:grid-cols-2">
+                {formulas.map((entry) => (
+                  <FormulaCard key={entry.id} entry={entry} />
+                ))}
+              </div>
+            )}
+
+            {tables.length > 0 && (
+              <div className="mt-2 space-y-3">
+                {tables.map((entry) => (
+                  <TableEntryCard key={entry.id} entry={entry} />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-
-        {formulas.length > 0 && (
-          <div className="mt-2 grid grid-cols-1 items-start gap-2.5 sm:grid-cols-2">
-            {formulas.map((entry) => (
-              <FormulaCard key={entry.id} entry={entry} />
-            ))}
-          </div>
-        )}
-
-        {tables.length > 0 && (
-          <div className="mt-2 space-y-3">
-            {tables.map((entry) => (
-              <TableEntryCard key={entry.id} entry={entry} />
-            ))}
-          </div>
-        )}
-      </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 }
@@ -86,25 +112,28 @@ export function PaesLibraryBrowser({
   initialSearch?: string;
 }) {
   const [search, setSearch] = useState(initialSearch);
-  const [category, setCategory] = useState<PaesCategory | "all">("all");
+  const [series, setSeries] = useState<(typeof PAES_SERIES_ORDER)[number] | "all">("all");
 
-  // Only offer category chips for categories that actually have PAES content
-  // right now — never advertise a category with zero entries.
-  const availableCategories = useMemo(() => {
-    const present = new Set(entries.map((e) => e.category));
-    return PAES_CATEGORY_ORDER.filter((c) => present.has(c));
+  // Filter by the PAES standard's own numbering series (100s, 200s, ...),
+  // not the subject-area category we derive for Mastery — this is the
+  // structure a student actually recognizes from the standards themselves.
+  // Only offer chips for series that actually have PAES content right now —
+  // never advertise a series with zero entries.
+  const availableSeries = useMemo(() => {
+    const present = new Set(entries.map((e) => derivePaesSeries(e.paes_reference)));
+    return PAES_SERIES_ORDER.filter((s) => present.has(s));
   }, [entries]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return entries.filter((e) => {
-      if (category !== "all" && e.category !== category) return false;
+      if (series !== "all" && derivePaesSeries(e.paes_reference) !== series) return false;
       if (!q) return true;
       return [e.paes_reference, e.title, e.description, e.topic_name, e.exam_area_name, e.subject_name, e.subtopic_name]
         .filter(Boolean)
         .some((f) => f!.toLowerCase().includes(q));
     });
-  }, [entries, search, category]);
+  }, [entries, search, series]);
 
   const groups = useMemo(() => {
     const byRef = new Map<string, PaesLibraryEntry[]>();
@@ -118,6 +147,13 @@ export function PaesLibraryBrowser({
       .map(([paesReference, groupEntries]) => ({ paesReference, entries: groupEntries }));
   }, [filtered]);
 
+  // Collapsed by default (37 standards would otherwise be an overwhelming
+  // wall of content) — but a search or series filter already narrowed
+  // things down for the student, so auto-expand every matching group instead
+  // of making them click through a second time, matching the Reviewers
+  // page's TosGroupedEntries behavior.
+  const isFiltering = search.trim().length > 0 || series !== "all";
+
   return (
     <div className="mt-6">
       <Input
@@ -127,17 +163,17 @@ export function PaesLibraryBrowser({
         className="max-w-md"
       />
 
-      {availableCategories.length > 0 && (
+      {availableSeries.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
-          <button type="button" onClick={() => setCategory("all")}>
-            <Badge variant={category === "all" ? "default" : "outline"} className="cursor-pointer px-2.5 py-1">
+          <button type="button" onClick={() => setSeries("all")}>
+            <Badge variant={series === "all" ? "default" : "outline"} className="cursor-pointer px-2.5 py-1">
               All
             </Badge>
           </button>
-          {availableCategories.map((c) => (
-            <button key={c} type="button" onClick={() => setCategory(c)}>
-              <Badge variant={category === c ? "default" : "outline"} className="cursor-pointer px-2.5 py-1">
-                {c}
+          {availableSeries.map((s) => (
+            <button key={s} type="button" onClick={() => setSeries(s)}>
+              <Badge variant={series === s ? "default" : "outline"} className="cursor-pointer px-2.5 py-1">
+                {s}
               </Badge>
             </button>
           ))}
@@ -152,7 +188,17 @@ export function PaesLibraryBrowser({
               : "No matches for your search or filter."}
           </p>
         ) : (
-          groups.map((g) => <PaesStandardGroup key={g.paesReference} paesReference={g.paesReference} entries={g.entries} />)
+          groups.map((g) => (
+            // Keying on isFiltering forces a remount (fresh initial `open`
+            // state) whenever search/filter starts or clears, instead of
+            // syncing local state from a prop via an effect.
+            <PaesStandardGroup
+              key={`${g.paesReference}:${isFiltering}`}
+              paesReference={g.paesReference}
+              entries={g.entries}
+              defaultOpen={isFiltering}
+            />
+          ))
         )}
       </div>
     </div>
