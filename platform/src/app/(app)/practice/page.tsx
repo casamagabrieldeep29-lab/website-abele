@@ -48,7 +48,7 @@ export default async function PracticePage() {
   }));
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto w-full max-w-5xl">
       <PageHeader
         title="Practice"
         description="Pick a topic. Questions are answered one at a time with immediate feedback."

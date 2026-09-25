@@ -102,7 +102,7 @@ export default async function QuestionBankPage() {
   });
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto w-full max-w-4xl space-y-6">
       <PageHeader
         title="Question Bank"
         description="Browse by TOS area, subject, and topic. Drill into a topic to see and practice its questions."

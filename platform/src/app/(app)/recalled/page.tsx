@@ -44,7 +44,7 @@ export default async function RecalledQuestionsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto w-full max-w-5xl space-y-6">
       <PageHeader
         title="Recalled Questions"
         description="Questions past examinees remember from the actual board exam (2011-2024), compiled by area. Choices and correct answers are shown directly — this is a reference document, not a timed practice session."

@@ -213,7 +213,7 @@ export default async function ProgressPage() {
       : null;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
+    <div className="mx-auto w-full max-w-5xl space-y-6">
       <PageHeader
         title="Progress"
         description="A full breakdown of your mastery, accuracy trend, and mock exam history."
@@ -228,7 +228,7 @@ export default async function ProgressPage() {
           </p>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             <div>
               <p className="text-xl font-semibold">{questionsCompleted}</p>
               <p className="text-xs text-muted-foreground">Questions completed</p>

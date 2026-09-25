@@ -44,7 +44,7 @@ export default async function StudyPlanPage({
   const upcoming = days.filter((d) => d.date >= new Date().toISOString().slice(0, 10)).slice(0, 14);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto w-full max-w-3xl space-y-6">
       <PageHeader
         title="Study Plan"
         description="A schedule built around your actual weak areas — regenerate anytime as your mastery changes."

@@ -25,7 +25,7 @@ export default async function NotesPage() {
   const bookmarkRows = (bookmarkData ?? []) as BookmarkRow[];
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto w-full max-w-4xl space-y-8">
       <PageHeader
         title="Saved"
         description="Questions you've bookmarked, and private reminders you've attached in Practice."

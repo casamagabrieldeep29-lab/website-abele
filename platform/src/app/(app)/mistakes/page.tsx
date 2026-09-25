@@ -39,7 +39,7 @@ export default async function MistakesPage() {
   );
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto w-full max-w-4xl">
       <PageHeader
         title="Mistakes"
         description="Questions whose most recent answer was incorrect. Get one right on retry and it drops off this list."

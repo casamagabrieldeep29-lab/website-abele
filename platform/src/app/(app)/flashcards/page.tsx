@@ -33,13 +33,13 @@ export default async function FlashcardsPage({
   // No area chosen yet — show the Area 1/2/3 picker first.
   if (!currentArea) {
     return (
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto w-full max-w-4xl">
         <PageHeader title="Flashcards" description="Pick an area to study its terms, definitions, and formulas." />
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 grid gap-3 sm:grid-cols-3">
           {(areaTopics ?? []).map((area) => (
             <Link key={area.id} href={`/flashcards?area=${area.id}`} className="block">
-              <Card className="transition-colors hover:border-primary/40">
+              <Card className="h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40">
                 <CardHeader>
                   <CardTitle className="text-base">{area.name}</CardTitle>
                 </CardHeader>
@@ -65,7 +65,7 @@ export default async function FlashcardsPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto w-full max-w-4xl">
       <PageHeader title={currentArea.name} description="Active recall for ABE terms, definitions, and formulas." />
       <Link href="/flashcards" className="mt-2 inline-block text-sm text-muted-foreground hover:underline">
         ← All areas
@@ -80,7 +80,7 @@ export default async function FlashcardsPage({
       {(totalPublished ?? 0) === 0 ? (
         <p className="mt-6 text-sm text-muted-foreground">No flashcards published yet for this area.</p>
       ) : (
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Quick study</CardTitle>

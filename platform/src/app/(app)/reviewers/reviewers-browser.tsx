@@ -418,6 +418,22 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
       ? parseFormulaGroups(entry.table_content)
       : null;
 
+  // A cell is "value-like" if it's short and mostly digits — a bare number
+  // or number+unit ("998.2 kg/m³"), not a label that merely contains a
+  // digit ("Mild Steel A36" has a 4+ letter word, so it stays prose). A
+  // column counts as numeric (and right-aligns, header included) when most
+  // of its data rows qualify — decided per column, not per cell, so a
+  // header never ends up misaligned against the values beneath it.
+  const isValueLikeCell = (cell: string) => cell.length <= 28 && /\d/.test(cell) && !/[A-Za-z]{4,}/.test(cell);
+  const numericCols = parsed
+    ? parsed.headers.map((_, ci) => {
+        const dataRows = parsed.rows;
+        if (dataRows.length === 0) return false;
+        const valueLike = dataRows.filter((r) => isValueLikeCell(r[ci] ?? "")).length;
+        return valueLike >= Math.ceil(dataRows.length / 2);
+      })
+    : [];
+
   return (
     <div data-slot="card" className="rounded-lg border border-border bg-card p-4">
       <p className="text-base leading-snug font-semibold text-foreground">{entry.title}</p>
@@ -435,7 +451,7 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
                 {parsed.headers.map((h, i) => (
                   <th
                     key={i}
-                    className="border-b border-border px-3 py-1.5 text-left text-xs font-semibold whitespace-nowrap text-muted-foreground uppercase tracking-wide"
+                    className={`border-b border-border px-3 py-2 text-xs font-semibold whitespace-nowrap text-muted-foreground uppercase tracking-wide ${numericCols[i] ? "text-right" : "text-left"}`}
                   >
                     {h}
                   </th>
@@ -453,7 +469,7 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
                     return (
                       <td
                         key={ci}
-                        className={`px-3 py-1.5 text-foreground ${long ? "min-w-[16rem] whitespace-normal" : "whitespace-nowrap"}`}
+                        className={`px-3 py-2 text-foreground ${long ? "min-w-[16rem] whitespace-normal" : "whitespace-nowrap"} ${numericCols[ci] ? "text-right tabular-nums" : ""}`}
                       >
                         {renderFormula(cell)}
                       </td>

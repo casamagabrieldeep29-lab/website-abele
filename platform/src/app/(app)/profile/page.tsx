@@ -31,7 +31,7 @@ export default async function ProfilePage() {
   const accent = getHarmonizedAccent(user.id);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto w-full max-w-4xl space-y-6">
       <PageHeader title="Profile" description="Who you are and how you're doing." />
 
       <Card>

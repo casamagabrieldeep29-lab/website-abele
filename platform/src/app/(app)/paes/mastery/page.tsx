@@ -37,7 +37,7 @@ export default async function PaesMasteryPage() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl space-y-6">
+      <div className="mx-auto w-full max-w-5xl space-y-6">
         <PageHeader
           title="PAES Mastery"
           description="Per-standard mastery tracking, built on the same engine as Progress."
@@ -88,7 +88,7 @@ export default async function PaesMasteryPage() {
     }));
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto w-full max-w-5xl space-y-6">
       <PageHeader
         title="PAES Mastery"
         description="Per-standard mastery tracking, built on the same engine as Progress."

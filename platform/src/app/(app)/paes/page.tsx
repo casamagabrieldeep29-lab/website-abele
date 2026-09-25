@@ -79,11 +79,17 @@ export default async function PaesHubPage() {
         description="Philippine Agricultural Engineering Standards — official technical standards content, separate from the general Reviewers and Practice pool."
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => {
           const Icon = card.icon;
           const body = (
-            <Card className={card.disabled ? "opacity-70" : "transition-colors hover:border-primary/40"}>
+            <Card
+              className={
+                card.disabled
+                  ? "opacity-70"
+                  : "h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40"
+              }
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary">

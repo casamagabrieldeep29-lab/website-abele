@@ -185,10 +185,10 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
           return (
             <div key={area.id} className={`rounded-lg border-l-4 border border-border/60 ${accent.border} ${accent.bg}`}>
               <Collapsible open={areaOpen} onOpenChange={() => toggle(`a:${area.id}`)}>
-                <CollapsibleTrigger className="flex w-full items-center gap-3 px-3 py-3 text-left">
+                <CollapsibleTrigger className="flex w-full items-center gap-3 px-3.5 py-3.5 text-left transition-colors hover:bg-background/40">
                   <ChevronRight className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold break-words">{area.name}</p>
+                    <p className="text-base font-semibold break-words">{area.name}</p>
                     <div className="mt-1.5 h-1 w-full max-w-40 overflow-hidden rounded-full bg-background/60">
                       <div
                         className="h-full rounded-full bg-primary"
@@ -211,12 +211,12 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                     {area.officialSubjects.map((officialSubject) => {
                       const officialSubjectOpen = isOpen(`os:${officialSubject.id}`);
                       return (
-                        <div key={officialSubject.id} className="rounded-md border border-border/60">
+                        <div key={officialSubject.id} className="border-b border-border/40 last:border-b-0">
                           <Collapsible
                             open={officialSubjectOpen}
                             onOpenChange={() => toggle(`os:${officialSubject.id}`)}
                           >
-                            <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2 text-left">
+                            <CollapsibleTrigger className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left transition-colors hover:bg-background/40">
                               <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
                               <span className="min-w-0 flex-1 text-sm font-semibold break-words">{officialSubject.name}</span>
                             </CollapsibleTrigger>
@@ -229,8 +229,8 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                                 {officialSubject.subjects.map((subject) => {
                                   const subjectOpen = isOpen(`s:${subject.id}`);
                                   return (
-                                    <div key={subject.id} className="rounded-md border border-border/60 bg-background/40">
-                                      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
+                                    <div key={subject.id} className="border-b border-border/30 last:border-b-0">
+                                      <div className="flex flex-wrap items-center justify-between gap-2 rounded-md px-3 py-2 transition-colors hover:bg-background/40">
                                         <Collapsible
                                           open={subjectOpen}
                                           onOpenChange={() => toggle(`s:${subject.id}`)}
@@ -270,8 +270,8 @@ export function QuestionBankBrowser({ areas }: { areas: QuestionBankArea[] }) {
                                             {subject.topics.map((topic) => {
                                               const topicOpen = isOpen(`t:${topic.id}`);
                                               return (
-                                                <div key={topic.id} className="rounded border border-border/50">
-                                                  <div className="flex flex-wrap items-center justify-between gap-2 px-2.5 py-1.5">
+                                                <div key={topic.id} className="border-b border-border/20 last:border-b-0">
+                                                  <div className="flex flex-wrap items-center justify-between gap-2 rounded px-2.5 py-1.5 transition-colors hover:bg-background/30">
                                                     <Collapsible
                                                       open={topicOpen}
                                                       onOpenChange={() => toggle(`t:${topic.id}`)}
