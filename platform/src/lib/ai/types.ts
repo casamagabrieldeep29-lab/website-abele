@@ -19,18 +19,20 @@ export class FallbackAIProvider implements AIProvider {
   constructor(private providers: AIProvider[]) {}
 
   async generate(input: { systemInstruction: string; prompt: string }): Promise<string> {
-    let lastError: unknown;
+    const failures: string[] = [];
     for (const provider of this.providers) {
       try {
         return await provider.generate(input);
       } catch (err) {
-        lastError = err;
-        console.error(
-          `[ai] ${provider.constructor.name} failed, trying next provider:`,
-          err instanceof Error ? err.message : err,
-        );
+        const message = err instanceof Error ? err.message : String(err);
+        failures.push(`${provider.constructor.name}: ${message}`);
+        console.error(`[ai] ${provider.constructor.name} failed, trying next provider:`, message);
       }
     }
-    throw lastError instanceof Error ? lastError : new AIProviderError("All AI providers failed.");
+    // One combined error naming every provider that failed and why — the
+    // single last-provider error (e.g. SambaNova's) previously shown to
+    // callers made it look like only that one vendor was the problem, when
+    // in fact everything before it in the chain had already failed too.
+    throw new AIProviderError(`All AI providers failed —\n${failures.join("\n")}`);
   }
 }
