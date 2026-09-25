@@ -102,7 +102,7 @@ export default async function AdminUsersPage({
   const trialUsers = profiles.filter((p) => p.plan === "trial" && p.role !== "admin");
 
   return (
-    <div className="mx-auto max-w-[1800px] space-y-6 px-4">
+    <div className="w-full space-y-6 px-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Users</h1>
@@ -135,39 +135,45 @@ export default async function AdminUsersPage({
         </CardContent>
       </Card>
 
-      <div>
-        <h2 className="text-sm font-semibold">
-          Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
-        </h2>
-        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {subscribers.map((p) => (
-            <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
-          ))}
+      {/* Two main columns (Subscribers | Free-Trial) side by side from tablet
+          width up, each with its own 2-column tile grid — 4 tiles across on
+          a full desktop/tablet screen. Both collapse to a single stacked
+          column on mobile. */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+          <h2 className="text-sm font-semibold">
+            Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
+          </h2>
+          <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {subscribers.map((p) => (
+              <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
+            ))}
+          </div>
+          {subscribers.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No subscribers yet.</p>}
         </div>
-        {subscribers.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No subscribers yet.</p>}
-      </div>
 
-      <div>
-        <h2 className="text-sm font-semibold">
-          Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
-        </h2>
-        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {trialUsers.map((p) => {
-            const left = daysLeft(p.trial_started_at);
-            const badge =
-              left <= 0 ? (
-                <Badge variant="destructive">Expired</Badge>
-              ) : (
-                <Badge variant={left <= 3 ? "destructive" : "outline"}>
-                  {left} {left === 1 ? "day" : "days"} left
-                </Badge>
-              );
-            return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
-          })}
+        <div>
+          <h2 className="text-sm font-semibold">
+            Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
+          </h2>
+          <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {trialUsers.map((p) => {
+              const left = daysLeft(p.trial_started_at);
+              const badge =
+                left <= 0 ? (
+                  <Badge variant="destructive">Expired</Badge>
+                ) : (
+                  <Badge variant={left <= 3 ? "destructive" : "outline"}>
+                    {left} {left === 1 ? "day" : "days"} left
+                  </Badge>
+                );
+              return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
+            })}
+          </div>
+          {trialUsers.length === 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">No free-trial users right now.</p>
+          )}
         </div>
-        {trialUsers.length === 0 && (
-          <p className="mt-2 text-sm text-muted-foreground">No free-trial users right now.</p>
-        )}
       </div>
 
       {!profiles.length && <p className="text-sm text-muted-foreground">No users yet.</p>}
