@@ -9,12 +9,16 @@ import { AIProvider, AIProviderError } from "./types";
  * logic per provider.
  */
 export class OpenAICompatibleProvider implements AIProvider {
+  readonly label: string;
+
   constructor(
     private endpoint: string,
     private apiKey: string,
     private model: string,
     private providerLabel: string,
-  ) {}
+  ) {
+    this.label = providerLabel;
+  }
 
   async generate({ systemInstruction, prompt }: { systemInstruction: string; prompt: string }): Promise<string> {
     const response = await fetch(this.endpoint, {

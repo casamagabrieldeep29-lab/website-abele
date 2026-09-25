@@ -40,16 +40,16 @@ export function getAIProvider(): AIProvider | null {
     const groqModel = process.env.GROQ_MODEL ?? "openai/gpt-oss-120b";
 
     const geminiKey = process.env.GEMINI_API_KEY;
-    if (geminiKey) providers.push(new GeminiProvider(geminiKey, geminiModel));
+    if (geminiKey) providers.push(new GeminiProvider(geminiKey, geminiModel, "Gemini (key 1)"));
 
     const geminiKey2 = process.env.GEMINI_API_KEY_2;
-    if (geminiKey2) providers.push(new GeminiProvider(geminiKey2, geminiModel));
+    if (geminiKey2) providers.push(new GeminiProvider(geminiKey2, geminiModel, "Gemini (key 2)"));
 
     const groqKey = process.env.GROQ_API_KEY;
-    if (groqKey) providers.push(new GroqProvider(groqKey, groqModel));
+    if (groqKey) providers.push(new GroqProvider(groqKey, groqModel, "Groq (key 1)"));
 
     const groqKey2 = process.env.GROQ_API_KEY_2;
-    if (groqKey2) providers.push(new GroqProvider(groqKey2, groqModel));
+    if (groqKey2) providers.push(new GroqProvider(groqKey2, groqModel, "Groq (key 2)"));
 
     const openRouterKey = process.env.OPENROUTER_API_KEY;
     if (openRouterKey) {

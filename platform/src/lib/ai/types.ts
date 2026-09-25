@@ -2,6 +2,10 @@
 // swapping Gemini for another provider later means writing one new file
 // that implements this interface, not touching call sites.
 export interface AIProvider {
+  // A fixed, human-readable name (e.g. "Gemini") for error messages/logs —
+  // never derived from `constructor.name`, which gets minified to
+  // meaningless short names (e.g. "g3") in a production build.
+  readonly label: string;
   generate(input: { systemInstruction: string; prompt: string }): Promise<string>;
 }
 
@@ -16,6 +20,7 @@ export class AIProviderError extends Error {}
  * throws once every provider in the chain has failed.
  */
 export class FallbackAIProvider implements AIProvider {
+  readonly label = "Fallback chain";
   constructor(private providers: AIProvider[]) {}
 
   async generate(input: { systemInstruction: string; prompt: string }): Promise<string> {
@@ -25,8 +30,8 @@ export class FallbackAIProvider implements AIProvider {
         return await provider.generate(input);
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
-        failures.push(`${provider.constructor.name}: ${message}`);
-        console.error(`[ai] ${provider.constructor.name} failed, trying next provider:`, message);
+        failures.push(`${provider.label}: ${message}`);
+        console.error(`[ai] ${provider.label} failed, trying next provider:`, message);
       }
     }
     // One combined error naming every provider that failed and why — the
