@@ -115,7 +115,7 @@ export default async function AdminReviewersPage({
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10 space-y-4">
+      <div className="w-full px-6 py-10 space-y-4">
         <p className="text-sm text-muted-foreground">
           Tables, formulas, and constants for the student-facing Reviewers section. Never invent values — only
           enter verified content.

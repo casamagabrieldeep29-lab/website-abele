@@ -98,7 +98,7 @@ export default async function AdminQualityPage({
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10 space-y-8">
+      <div className="w-full px-6 py-10 space-y-8">
         <p className="text-sm text-muted-foreground">
           Automatic flags only — nothing here is auto-fixed. Every flag needs a human look, same as the rest of
           this project&apos;s content pipeline.
