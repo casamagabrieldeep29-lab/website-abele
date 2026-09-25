@@ -61,10 +61,12 @@ export async function inviteUser(
     return { ok: false, message: "Enter a valid email address." };
   }
 
+  const plan = formData.get("plan") === "subscriber" ? "subscriber" : "trial";
+
   const siteUrl = await getSiteUrl();
   const admin = createAdminClient();
 
-  const { error } = await admin.auth.admin.inviteUserByEmail(email, {
+  const { data, error } = await admin.auth.admin.inviteUserByEmail(email, {
     redirectTo: `${siteUrl}/auth/callback`,
   });
 
@@ -72,5 +74,27 @@ export async function inviteUser(
     return { ok: false, message: error.message };
   }
 
+  // handle_new_user() already created the profiles row (default plan
+  // 'trial', trial_started_at = now() — i.e. the moment of this invite,
+  // per Gabriel's explicit "it starts from the moment they get invited").
+  // Only need a follow-up write when the admin picked "subscriber" instead.
+  if (plan === "subscriber" && data.user) {
+    await admin.from("profiles").update({ plan: "subscriber" }).eq("id", data.user.id);
+  }
+
   return { ok: true, email };
+}
+
+/**
+ * One-click upgrade from the Free-Trial Users list — no payment gateway
+ * behind this, it's purely Gabriel manually recording that this reviewee
+ * has actually paid (per his explicit "add a feature in free trial users
+ * where in i can just click them and add them as subscriber", 2026-09-25).
+ * Immediately lifts the 14-day proxy.ts block on their next request.
+ */
+export async function upgradeToSubscriber(userId: string) {
+  await requireAdmin();
+  const admin = createAdminClient();
+  await admin.from("profiles").update({ plan: "subscriber" }).eq("id", userId);
+  revalidatePath("/admin/users");
 }

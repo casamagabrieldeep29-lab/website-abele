@@ -25,6 +25,19 @@ export function InviteForm() {
         />
       </div>
 
+      <div className="space-y-2">
+        <Label htmlFor="plan">Plan</Label>
+        <select
+          id="plan"
+          name="plan"
+          defaultValue="trial"
+          className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+        >
+          <option value="trial">Free Trial (14 days, starts now)</option>
+          <option value="subscriber">Subscriber</option>
+        </select>
+      </div>
+
       {result && (
         <p className={`text-sm ${result.ok ? "text-primary" : "text-destructive"}`}>
           {result.ok
