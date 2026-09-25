@@ -207,22 +207,25 @@ export default async function DashboardPage() {
   return (
     <div className="mx-auto max-w-5xl space-y-8">
       {/* Hero */}
-      <div className="dashboard-hero">
+      <div className="dashboard-hero flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            {greeting()}, {displayName} 👋
+          </h1>
+          <p className="mt-1 text-muted-foreground">
+            {questionsAnswered > 0
+              ? `You've answered ${questionsAnswered} question${questionsAnswered === 1 ? "" : "s"} so far. Ready for today's review?`
+              : "Ready to start your first review session?"}
+          </p>
+        </div>
         {examDaysLeft >= 0 && (
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-primary">
-            <Calendar className="size-3.5" />
-            <span className="text-sm font-semibold">{examDaysLeft} days</span>
-            <span className="text-xs text-primary/80">to the ABE Board Exam · {BOARD_EXAM_DATE_LABEL}</span>
+          <div className="shrink-0 text-right leading-tight">
+            <p className="text-2xl font-bold tracking-wide sm:text-3xl">
+              {examDaysLeft} DAYS <span className="text-muted-foreground">· ABELE</span>
+            </p>
+            <p className="text-xs text-muted-foreground italic sm:text-sm">{BOARD_EXAM_DATE_LABEL}</p>
           </div>
         )}
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          {greeting()}, {displayName} 👋
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          {questionsAnswered > 0
-            ? `You've answered ${questionsAnswered} question${questionsAnswered === 1 ? "" : "s"} so far. Ready for today's review?`
-            : "Ready to start your first review session?"}
-        </p>
       </div>
 
       {/* Quick jump row */}
