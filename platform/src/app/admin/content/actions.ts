@@ -50,8 +50,14 @@ export async function autoCategorizeBatch(): Promise<{ processed: number; remain
     });
     const cleaned = raw.trim().replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "");
     classifications = JSON.parse(cleaned);
-  } catch {
-    return { processed: 0, remaining: batch.length, error: "AI classification failed for this batch — try again." };
+  } catch (err) {
+    // Surfaced verbatim rather than a generic message — this is admin-only
+    // tooling, so the actual provider/parse error (quota, model 404, or the
+    // AI returning non-JSON) is far more useful here than it would be on a
+    // student-facing surface like Teach Me This.
+    const detail = err instanceof Error ? err.message : String(err);
+    console.error("[autoCategorizeBatch]", detail);
+    return { processed: 0, remaining: batch.length, error: `AI classification failed: ${detail}` };
   }
 
   let processed = 0;
