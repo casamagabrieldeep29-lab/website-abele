@@ -30,7 +30,8 @@ function CodeForm({ email, onCancel }: { email: string; onCancel: () => void }) 
     <div className="space-y-3 rounded-md border border-destructive/30 bg-destructive/5 p-3">
       <p className="text-sm text-destructive">
         We sent a code to <strong>{email}</strong>. Enter it to permanently reset all your
-        practice/mock history, mastery, streaks, and flashcard progress. This cannot be undone.
+        practice/mock history, mastery, and flashcard progress. Your day streak is kept. This
+        cannot be undone.
       </p>
       <form action={formAction} className="space-y-2">
         <Label htmlFor="reset-token" className="text-xs">
@@ -78,8 +79,9 @@ export function ResetProgressForm() {
   return (
     <div className="space-y-3 rounded-md border border-destructive/30 bg-destructive/5 p-3">
       <p className="text-sm text-destructive">
-        This permanently wipes all your practice/mock history, mastery, streaks, and flashcard
-        progress. Your account, saved notes, and bookmarks stay untouched. This cannot be undone.
+        This permanently wipes all your practice/mock history, mastery, and flashcard progress.
+        Your account, saved notes, bookmarks, and day streak stay untouched. This cannot be
+        undone.
       </p>
       <form action={sendAction} className="space-y-2">
         {sendResult && !sendResult.ok && <p className="text-sm text-destructive">{sendResult.message}</p>}

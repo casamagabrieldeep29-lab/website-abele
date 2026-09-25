@@ -255,9 +255,9 @@ export default async function SettingsPage({
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="text-sm text-muted-foreground">
-                Wipes your practice/mock history, mastery, streaks, and flashcard progress so you can
-                start over — your account, saved notes, and bookmarks are kept. Requires a
-                verification code sent to your email.
+                Wipes your practice/mock history, mastery, and flashcard progress so you can
+                start over — your account, saved notes, bookmarks, and day streak are kept.
+                Requires a verification code sent to your email.
               </p>
               <ResetProgressForm />
             </CardContent>
