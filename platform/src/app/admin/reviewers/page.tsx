@@ -70,11 +70,18 @@ function TopicSubtopicFields({
   );
 }
 
-export default async function AdminReviewersPage() {
+const DEFAULT_PAGE_SIZE = 50;
+
+export default async function AdminReviewersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; topicId?: string; status?: string }>;
+}) {
   await requireAdmin();
   const supabase = await createClient();
+  const { q, topicId: topicFilter, status: statusFilter } = await searchParams;
 
-  const [entries, { data: topics }, { data: subtopics }] = await Promise.all([
+  const [allEntries, { data: topics }, { data: subtopics }] = await Promise.all([
     // reviewer_entries just crossed 1000 rows — a plain `.select()` would
     // silently cap at PostgREST's 1000-row default and hide the newest
     // entries from this admin management view. Paginated.
@@ -84,6 +91,20 @@ export default async function AdminReviewersPage() {
     supabase.from("topics").select("id, name").order("name"),
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);
+
+  const hasFilter = Boolean(q?.trim() || topicFilter || statusFilter);
+  const query = q?.trim().toLowerCase();
+  const filtered = allEntries.filter((e) => {
+    if (topicFilter && e.topic_id !== topicFilter) return false;
+    if (statusFilter && e.status !== statusFilter) return false;
+    if (query && !e.title.toLowerCase().includes(query)) return false;
+    return true;
+  });
+  // Rendering all 1000+ entries as full edit-forms in one page load is what
+  // made this page slow to open — capped to a page's worth by default.
+  // Filtering (search/topic/status) bypasses the cap entirely, since a
+  // filtered result set is already the size the admin actually asked for.
+  const entries = hasFilter ? filtered : filtered.slice(0, DEFAULT_PAGE_SIZE);
 
   return (
     <main className="min-h-screen bg-background">
@@ -101,10 +122,46 @@ export default async function AdminReviewersPage() {
         </p>
 
         <PublishAllReviewerDraftsButton
-          draftCount={(entries ?? []).filter((e) => e.status === "draft").length}
+          draftCount={allEntries.filter((e) => e.status === "draft").length}
         />
 
-        {(entries ?? []).map((e) => (
+        <form className="flex flex-wrap gap-2 rounded-md border border-border bg-muted/30 p-3" action="/admin/reviewers">
+          <input
+            name="q"
+            defaultValue={q ?? ""}
+            placeholder="Search by title…"
+            className="min-w-[10rem] flex-1 rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+          />
+          <select name="topicId" defaultValue={topicFilter ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
+            <option value="">All topics</option>
+            {(topics ?? []).map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+          <select name="status" defaultValue={statusFilter ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
+            <option value="">Any status</option>
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+          <Button type="submit" size="sm">
+            Filter
+          </Button>
+          {hasFilter && (
+            <Link href="/admin/reviewers" className="self-center text-xs text-muted-foreground hover:underline">
+              Clear
+            </Link>
+          )}
+        </form>
+
+        <p className="text-xs text-muted-foreground">
+          {hasFilter
+            ? `${filtered.length} matching ${filtered.length === 1 ? "entry" : "entries"} of ${allEntries.length} total`
+            : `Showing the ${entries.length} most recent of ${allEntries.length} total — search or filter above to see the rest.`}
+        </p>
+
+        {entries.map((e) => (
           <Card key={e.id}>
             <CardContent className="py-3">
               <div className="flex items-center justify-between gap-2">
@@ -170,7 +227,11 @@ export default async function AdminReviewersPage() {
             </CardContent>
           </Card>
         ))}
-        {(entries ?? []).length === 0 && <p className="text-sm text-muted-foreground">No reviewer materials yet.</p>}
+        {entries.length === 0 && (
+          <p className="text-sm text-muted-foreground">
+            {hasFilter ? "No entries match that search/filter." : "No reviewer materials yet."}
+          </p>
+        )}
 
         <Card>
           <CardHeader>
