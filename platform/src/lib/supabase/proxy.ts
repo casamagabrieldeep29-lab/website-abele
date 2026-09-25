@@ -89,17 +89,32 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Every /admin page and server action already calls requireAdmin() itself,
-  // so this is defense-in-depth, not the only guard: it just means a future
-  // admin page that forgets that call isn't immediately exploitable.
-  if (user && request.nextUrl.pathname.startsWith("/admin")) {
+  if (user && isProtected) {
+    // One query serves both the admin-role check below and the trial-expiry
+    // check — was two separate queries before trial gating was added.
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role")
+      .select("role, plan, trial_started_at")
       .eq("id", user.id)
       .single();
-    if (profile?.role !== "admin") {
+
+    // Every /admin page and server action already calls requireAdmin()
+    // itself, so this is defense-in-depth, not the only guard: it just
+    // means a future admin page that forgets that call isn't immediately
+    // exploitable.
+    if (request.nextUrl.pathname.startsWith("/admin") && profile?.role !== "admin") {
       return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    // Free-trial accounts are manually assigned by an admin at invite time
+    // (no payment gateway — see patch 032_subscriber_plan.sql) and expire
+    // 14 days after trial_started_at unless moved to "subscriber". Admins
+    // are never gated by this, regardless of their own plan value.
+    if (profile && profile.role !== "admin" && profile.plan === "trial") {
+      const expiresAt = new Date(profile.trial_started_at).getTime() + 14 * 24 * 60 * 60 * 1000;
+      if (Date.now() >= expiresAt) {
+        return NextResponse.redirect(new URL("/trial-expired", request.url));
+      }
     }
   }
 
