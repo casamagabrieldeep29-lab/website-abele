@@ -140,8 +140,18 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
  * aren't guaranteed to use the exact same string shape (e.g. a question
  * might be tagged "PAES 401:2001" while the Library groups by the bare
  * "PAES 401" pulled from a title) — a prefix match still finds it either way.
+ *
+ * `timedSeconds` (Phase 2) optionally stores a per-question time limit in
+ * attempt.config for the Quickfire mode — the PAES Quiz session route reads
+ * it back to drive its countdown. Omitted for untimed modes (PAES 50,
+ * Specialized/Mixed), same as before this parameter existed.
+ *
+ * Redirects into /paes/[attemptId] (not /practice/[attemptId]) — the
+ * Phase 2 Kahoot-style session route. This is the only caller of this
+ * action, so the redirect target could be changed here without touching
+ * any other quiz mode.
  */
-export async function startPaesQuizAttempt(count: number, paesReference?: string) {
+export async function startPaesQuizAttempt(count: number, paesReference?: string, timedSeconds?: number) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
@@ -169,9 +179,12 @@ export async function startPaesQuizAttempt(count: number, paesReference?: string
       user_id: user.id,
       mode: "practice",
       total_questions: selected.length,
-      config: paesReference
-        ? { question_ids: selected, kind: "paes", paes_reference: paesReference }
-        : { question_ids: selected, kind: "paes" },
+      config: {
+        question_ids: selected,
+        kind: "paes",
+        ...(paesReference ? { paes_reference: paesReference } : {}),
+        ...(timedSeconds ? { timed_seconds: timedSeconds } : {}),
+      },
     })
     .select("id")
     .single();
@@ -180,7 +193,7 @@ export async function startPaesQuizAttempt(count: number, paesReference?: string
     throw new Error(error?.message ?? "Failed to start PAES quiz");
   }
 
-  redirect(`/practice/${attempt.id}`);
+  redirect(`/paes/${attempt.id}`);
 }
 
 /**

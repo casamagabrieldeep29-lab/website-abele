@@ -1,0 +1,2148 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "entries": [
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Irrigation Methods and Application Terminologies",
+          "table_content": "Term | Definition\nBasin | Field that is level in all directions, encompassed by a dike to prevent runoff, and provides an undirected flow of water onto the field\nBasin irrigation | Type of surface irrigation where water is applied to the basin through a gap in the perimeter dike or adjacent ditch; water is retained until it infiltrates into the soil or the excess is drained off\nBorder irrigation | Method of irrigation which makes use of parallel border strips where the water flows down the slope at a nearly uniform depth\nBorder strip | Area of land bounded by two border ridges or dikes that guide the irrigation stream from the inlet point of application to the ends of the strip\nFurrows | Small parallel channels, made to carry water in order to irrigate the crop\nFurrow irrigation | Method of irrigation where water runs through small parallel channels as it moves down the slope of the field\nDrip irrigation | Trickle irrigation; involves dripping water onto the soil at very low rates (2-20 litres/hour) from emitters where water is applied close to plants so that only part of the soil in which the roots grow is wetted\nSprinkler irrigation | Method of applying irrigation water similar to natural rainfall where water is distributed through a system of pipes by pumping and then sprayed into the air through sprinklers so that it breaks up into small water drops which fall to the ground\nSurface irrigation system | Application of water by gravity flow to the surface of the field; either the entire field is flooded (basin irrigation) or the water is fed into small channels (furrows) or strips of land (borders)\nHead ditch | Supply ditch; small channel along one part of a field that is used for distributing water in surface irrigation\nFarm ditch | Channel which conveys irrigation water from the turnout to the paddy field",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of irrigation application methods and related surface-irrigation terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Open Channel Hydraulics Terminologies",
+          "table_content": "Term | Definition\nArea | Cross-sectional area of the flow which is measured perpendicular to the direction of flow\nChannel bed slope | Inclination or elevation drop per unit length of the channel bottom\nCritical depth | Depth of water flow where the energy content is at minimum, hence no other backwater forces are involved\nDepth | Depth of water in the channel cross-section\nEnergy grade line | Specific energy line; grade line of the water surface profile plus the velocity head in open channels\nHydraulic depth | Ratio of flow area to the wetted top width\nHydraulic grade line | Hydraulic gradient; profile of the free water surface\nHydraulic jump | Occurs when a thin sheet of incoming flow moving at high velocity strikes water of sufficient depth\nHydraulic radius | Cross-sectional area of flow divided by the wetted perimeter\nNormal depth | Constant flow depth along a longitudinal section of a channel under a uniform flow condition\nOpen channel flow | Water flow that is conveyed in such a manner that the top surface is exposed to the atmosphere, such as flow in canals, ditches, drainage channels, culverts, and pipes under partially full flow conditions\nSide slope | Ratio of the horizontal to vertical dimension of the channel wall\nSlope of the energy grade line | Slope of the water surface profile plus the velocity head in open channels\nSlope of the hydraulic grade line | Slope of the free water surface\nTop width | Width of the channel cross-section at the free surface\nUniform flow | Occurs when flow has a constant water area, depth, discharge, and average velocity through a reach of channel\nWetted perimeter | Portion of the perimeter of the canal that is in contact with the flowing water",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of open channel and hydraulic terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Canal and Conveyance Structure Terminologies",
+          "table_content": "Term | Definition\nDrop | In-line canal structure designed to convey canal water from a higher level to a lower level, duly dissipating the excess energy resulting from the drop in elevation\nInvert | Inside bottom or sill of the conduit\nInverted siphon | Closed conduit designed to convey canal water in full and under pressure running condition, to convey canal water by gravity under roadways, railways, drainage channels and local depressions\nElevated flume | Water conveying conduit or trough which is supported on abutments by piers\nRoad crossing | Conveys canal water under roads or railroads\nEquipment crossing | Provision for passing of equipment and small machinery\nLined channel | Lined canal; canals with impermeable material (usually concrete) for channel stabilization and/or reduced seepage\nUnlined channels | Unlined canal; canals that are cut through the soil, in which the soil excavated from the bed is used to form the embankment\nDiversion dam | Structure or weir provided across the river or creek to raise its water level and divert the water into the main canal to facilitate irrigation by gravity",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of canal and conveyance structure terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Crop Water Requirement and Irrigation Efficiency Terminologies",
+          "table_content": "Term | Definition\nActual crop evapotranspiration | Rate of evapotranspiration equal to or smaller than predicted crop evapotranspiration as affected by the level of available soil water, salinity, field size or other causes\nApplication efficiency | Ratio of the average depth of irrigation water infiltrated and stored in the root zone to the average depth of irrigation water applied\nConveyance efficiency | Ratio between water received at the inlet for a block of fields to that released at the project's headwork\nConveyance loss | Loss of water from a channel during transport due to seepage and percolation\nCrop coefficient | Ratio of the actual crop evapotranspiration to its potential evapotranspiration\nCrop evapotranspiration | Rate of evapotranspiration of a disease-free crop growing in a large field under optimal soil conditions, including sufficient water and fertilizer, achieving full production potential under the given growing environment\nCropping pattern | Sequence of different crops grown in regular order on any particular field or fields\nCrop water requirements | Amount of water used in producing crops which is the sum of evapotranspiration or consumptive use plus seepage and percolation losses\nDiversion water requirement | Total quantity of water diverted from a stream, lake, or reservoir, or removed from the ground in order to irrigate a crop\nEffective rainfall | Amount of rainwater that falls directly on the field and is used by the crop for growth and development, excluding deep percolation, surface runoff and interception\nEffective rooting depth | Soil depth from which the bulk of the roots of the crop extracts most of the water needed for evapotranspiration\nEvapotranspiration | Combination of water transpired from vegetation and evaporated from the soil, water, and plant surfaces\nFarm water requirement | Amount of water to replenish the crop water requirement and losses less the effective rainfall\nLand preparation water requirement | Amount of water required in lowland rice production which includes water losses through evaporation, seepage and percolation and land soaking\nLand soaking water requirement | Amount of water required in lowland rice production which is a function of the initial soil moisture and the physical properties of the soil\nPan coefficient | Ratio between reference evapotranspiration and water loss by evaporation from an open water surface of a pan\nPan evaporation | Rate of water loss by evaporation from an open water surface of a pan\nPercolation | Vertical flow of water to below the root zone, affected by soil structure, texture, bulk density, mineralogy, organic matter content, salt type and concentration\nReference crop evapotranspiration | Rate of evapotranspiration from a reference surface: a hypothetical reference crop with an assumed crop height of 0.2 m, a fixed surface resistance of 70 s/m and an albedo of 0.23\nResidual moisture content | Moisture left in the soil before the initial irrigation water delivery, describing the extent of water depletion from the soil when the water supply has been cut off\nDistribution uniformity | Numerical value on the uniformity of application for agricultural irrigation systems\nIrrigation period | Time required to cover an area with one application of water",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of crop water requirement and irrigation efficiency terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Dam, Embankment and Reservoir Terminologies",
+          "table_content": "Term | Definition\nActive storage | Volume of water stored in reservoir between the minimum water level and normal water level\nAfflux elevation | Rise in maximum flood level from the original unobstructed flood level which results after an obstruction to the flow, such as a dam, has been introduced\nDam | Any barrier constructed to store water\nDam height | Vertical distance from lowest point of the ground line to the dam crest\nDead storage | Volume below the intake structure; sediment volume based on 25 years of accumulation in the reservoir\nDesigned height | Actual height of the embankment after settlement\nFinished height | Height of the embankment to be attained during construction\nFreeboard | Additional height of the dam provided as a safety factor to prevent overtopping by wave action or other causes\nHomogeneous embankment | Dam composed of a single kind of embankment material exclusive for slope protection\nInside slope | Slope of the upstream face of the embankment\nOutside slope | Slope at the downstream face of the embankment\nNatural spillway | Spillway which is not excavated, such as a natural draw, saddle or drainage way\nNormal storage elevation | Maximum elevation of the water surface which can be attained by the dam or reservoir without flow in the spillway\nReservoir | Part of the system that impounds the runoff\nSpillway | Channel which releases surplus or flood water which cannot be contained in the active storage space of the reservoir\nStorage capacity | Total capacity at normal water surface elevation\nStorage ratio | Ratio of the storage capacity to the total earth volume required for embankment construction, indicating the relative cost of different reservoir types\nStructural height | Vertical distance measured from the top of the dam down to the bedrock\nUpstream face | Side of the embankment wetted by the impounded water\nZoned embankment | Dam consisting of a central impervious core flanked between zones of more pervious materials\nWell-protected reservoir | Reservoir where the upper reaches of the basin is shielded by high mountain barriers\nBearing capacity | Maximum average contact pressure between the foundation and the soil which should not produce shear failure in the soil\nFilter drain | Dam component which prevents migration of small particles and screens off fine materials that flow with seepage water and prevent piping\nWatershed | Area which contributes runoff or drains water into the reservoir\nWater balance | Accounting of water inflows, such as irrigation and rainfall, and outflows, such as evaporation, seepage and percolation\nWater right | Privilege granted by the government to use and appropriate water",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of dam, embankment and reservoir terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Groundwater and Soil Terminologies",
+          "table_content": "Term | Definition\nAquifer | Geologic formation which contains water and transmits it at a rate sufficient to be economically developed for pumping by an artificially developed well\nConfined aquifer | Groundwater that is confined by a relatively impermeable layer\nUnconfined aquifer | Aquifer which has a water table serving as the upper surface of the zone of saturation\nShallow tubewell | Tube or shaft vertically set into the ground at a depth that is usually less than 15 m for the purpose of bringing groundwater into the soil surface, whose pumps are set above the water level\nWell log | Record of formation stratification of an aquifer showing the depth, thickness, degree of consolidation and other aquifer physical characteristics\nKarst topography | Geological formation shaped by the dissolution of a layer or layers of soluble bedrock, usually carbonate rocks such as limestone or dolomite\nPermeability test | Method to determine the rate of flow under laminar flow conditions through a unit cross-sectional area of soil under unit hydraulic gradient\nEffective size | Particle diameter corresponding to a 10% sieve passing\nUniformity coefficient | Ratio of the particle size at 60% passing to that at 10% passing\nDesign irrigable area | Maximum area which an irrigation project can serve, considering the extent of arable lands and the available water supply\nPotential irrigable area | Area capable of being irrigated, principally as regards availability of water, suitable soils, and topography of land\nHydrologic frequency analysis | Estimation of the chance or likelihood of occurrence of a given event by determining the frequency curves of best fit to samples of hydrologic data",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of groundwater and soil terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Water Quality and Wastewater Terminologies",
+          "table_content": "Term | Definition\nAccess areas | Areas open for public entry, such as golf courses, public and private parks, playgrounds, schoolyards and playing fields, residential landscapes and industrial park landscapes\nRestricted areas | Areas with limited entry, such as freeway landscape, highway medians and other similar areas\nAlgal bloom | Overgrowths of algae in water producing dangerous toxins in fresh or marine water\nContamination | Introduction of substances not found in the natural composition of water that make the water less desirable or unfit for intended use\nEffluent | Discharges from known sources which is passed into a body of water or land, or wastewater flowing out of a manufacturing/industrial plant including domestic, commercial and recreational facilities\nEffluent standard | Any legal restriction or limitation on quantities, rates, and/or concentrations of physical, chemical or biological parameters of effluent which a person or point source is allowed to deliver into a body of water or land\nLoading limit | Allowable pollutant-loading limit per unit of time which the wastewater generator is permitted to discharge into any receiving body of water or land\nPollutant | Any substance, whether solid, liquid, gaseous or radioactive, which directly or indirectly alters the quality of any segment of the receiving water body or land resource, or is hazardous or in excess of allowable limits\nRe-use | Taking wastewater from one industry or process, treating it and then using it in another process or industry, such as for irrigation, as liquid fertilizer and for aquaculture\nSetback distance | Distance from the perimeter of the irrigation area to the community or area of concern that is sensitive to contamination\nWaste | Any material, either solid, liquid, semi-solid, contained gas or other forms, resulting from industrial, commercial, mining, or agricultural operations, or from community and household activities, that is devoid of usage and discarded\nWastewater | Waste in liquid state containing pollutants\nUnimodal rainfall pattern | Rainfall pattern with five wet months of more than 200 mm/month, five dry months of less than 100 mm/month, two transition months of 100-200 mm/month, and total annual rainfall above 1500 mm",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of water quality, effluent and wastewater terms."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 601 — Table: Sprinkler and Drip/Micro-Irrigation Terminologies",
+          "table_content": "Term | Definition\nEmitters | Applicator used in drip, subsurface, or bubbler irrigation, designed to dissipate pressure and discharge a small uniform flow or trickle of water at a constant rate that does not vary significantly because of minor differences in pressure\nEmitter spacing | Spacing between emitters or emission points along a lateral line\nManifold | Portion of the pipe network between the mainline and the laterals\nManufacturer's coefficient of variation | Measure of the variability of discharge of a random sample of a given make, model and size of emitter, as provided by the manufacturer before any field operations or aging has taken place, determined through a discharge test of a sample of 50 emitters under a set pressure\nOptimal emitter spacing | Drip emitter spacing which is 80% of the wetted diameter estimated from field tests\nSprinkler spacing | Distance between two sprinkler heads along the lateral\nWetted diameter | Diameter of the circular area wetted by the sprinkler when operating at a given pressure and no wind\nWetted widths | Width of the strip that would be wetted by a row of emitters spaced at their optimal spacing along a single lateral line",
+          "description": "PAES 601:2016 General Irrigation Terminologies - definitions of sprinkler and drip/micro-irrigation terms."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Crop Water Requirement (CWR)",
+          "formula": "CWR = ETa + (S&P)field",
+          "variables": "CWR = crop water requirement, mm/day; ETa = actual evapotranspiration, mm/day; (S&P)field = seepage and percolation in the field/service area, mm/day.",
+          "description": "PAES 602:2016 - basic equation for crop water requirement, applicable to both lowland and upland crops.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Actual Evapotranspiration (ETa)",
+          "formula": "ETa = ETo x Kc",
+          "variables": "ETa = actual evapotranspiration, mm/day; ETo = reference evapotranspiration, mm/day; Kc = crop coefficient.",
+          "description": "PAES 602:2016 - actual crop evapotranspiration is derived from reference evapotranspiration and the crop coefficient.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Farm Water Requirement (FWR)",
+          "formula": "FWR = CWR - ER + LPWR + farm ditch losses; or FWR = (CWR - ER + LPWR) / Ea",
+          "variables": "FWR = farm water requirement, mm; CWR = crop water requirement, mm; ER = effective rainfall, mm; LPWR = land preparation water requirement, mm; Ea = application efficiency.",
+          "description": "PAES 602:2016 - farm water requirement equation (upland crops omit LPWR).",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Land Preparation Water Requirement (LPWR)",
+          "formula": "LPWR = LSR + SW + ETo",
+          "variables": "LPWR = land preparation water requirement, mm; LSR = land soaking requirement, mm; SW = standing water, mm; ETo = reference evapotranspiration, mm.",
+          "description": "PAES 602:2016 - land preparation water requirement for lowland rice.",
+          "notes": "The recommended value for standing water (SW) during land preparation is 10 mm."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Land Soaking Requirement (LSR)",
+          "formula": "LSR = [n - (RMC x As)] x Drz / 100",
+          "variables": "LSR = land soaking requirement, mm; n = soil porosity; RMC = residual moisture content; As = apparent specific gravity; Drz = depth of root zone, mm.",
+          "description": "PAES 602:2016 - land soaking requirement, detailed in Annex F using soil physical properties by texture.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Farm Ditch Losses",
+          "formula": "Farm ditch losses = (S&P)farm ditch x P x L",
+          "variables": "(S&P)farm ditch = seepage and percolation rate in farm ditch, mm/day; P = wetted perimeter, m; L = length of farm ditch, m.",
+          "description": "PAES 602:2016 - seepage and percolation losses in farm ditches, determined per PAES 604/605 methods.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Diversion Water Requirement (DWR)",
+          "formula": "DWR = FWR + conveyance losses; or DWR = FWR / Ec",
+          "variables": "DWR = diversion water requirement, mm; FWR = farm water requirement, mm; Ec = conveyance efficiency.",
+          "description": "PAES 602:2016 - diversion water requirement equation.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Seepage and Percolation Losses in Canals",
+          "formula": "(S&P)canals = Aw x S&P rate",
+          "variables": "(S&P)canals = seepage and percolation losses in the canals; Aw = wetted area = wetted perimeter x length of canal; S&P rate = rate of seepage and percolation.",
+          "description": "PAES 602:2016 Annex G - determination of conveyance losses in unlined canals.",
+          "notes": "Leakage through gates and left-over water in the canal is estimated as 5% of total farm water requirement; leakage through canal dikes is computed the same way as seepage and percolation losses in canals."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Reference Evapotranspiration, Penman-Monteith Method",
+          "formula": "ETo = [0.408*Delta(Rn - G) + gamma(900/(Tmean+273))u2(es - ea)] / [Delta + gamma(1 + 0.34u2)]",
+          "variables": "ETo = reference evapotranspiration, mm/day; Delta = slope of vapor pressure curve, kPa/C; Rn = net radiation, MJ/m2/day; G = soil heat flux, MJ/m2/day; gamma = psychrometric constant, kPa/C; Tmean = mean daily air temperature, C; u2 = wind speed at 2 m height, m/s; es = saturation vapor pressure, kPa; ea = actual vapor pressure, kPa.",
+          "description": "PAES 602:2016 Annex B - Penman-Monteith method, reliable for any length period among the four ETo methods.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Reference Evapotranspiration, Radiation Method",
+          "formula": "ETo = W x Rs",
+          "variables": "ETo = reference evapotranspiration, mm/day; W = weighting factor for the effect of radiation on ETo (function of temperature and altitude, Table B.11); Rs = solar radiation expressed as mm/day equivalent.",
+          "description": "PAES 602:2016 Annex B - Radiation method, usable for periods of 5 days or more, less precise than Penman-Monteith.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Reference Evapotranspiration, Blaney-Criddle Method",
+          "formula": "ETo = p(0.46 Tmean + 8)",
+          "variables": "ETo = reference evapotranspiration, mm/day; p = mean daily percentage of annual daytime hours (Table B.14, by latitude); Tmean = mean daily temperature, C.",
+          "description": "PAES 602:2016 Annex B - Blaney-Criddle method, usable for periods of 5 days or more.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Reference Evapotranspiration, Pan Evaporation Method",
+          "formula": "ETo = Kp x Epan",
+          "variables": "ETo = reference evapotranspiration, mm/day; Kp = pan coefficient; Epan = average pan evaporation, mm/day.",
+          "description": "PAES 602:2016 Annex B - Pan evaporation method using Class A pan or Colorado sunken pan.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 602 — Net Radiation Components (Penman-Monteith Method)",
+          "formula": "Rs = (0.25 + 0.50 n/N) Ra; Rso = [(0.75+2*Altitude)/100000] x Ra; Rns = 0.77 Rs; Rn = Rns - Rnl",
+          "variables": "Rs = solar radiation, MJ/m2/day; Ra = extraterrestrial radiation, MJ/m2/day (Table B.7, by latitude/month); n = actual duration of sunshine, h; N = mean daylight hours (Table B.8); Rso = clear-sky solar radiation; Rns = net solar (shortwave) radiation; Rnl = net longwave radiation (function of Tmax, Tmin, ea and Rs/Rso); Rn = net radiation.",
+          "description": "PAES 602:2016 Annex B - component equations used to determine net radiation (Rn) for the Penman-Monteith ETo formula.",
+          "notes": null
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table 4: Crop Coefficient (Kc) for Various Crops",
+          "table_content": "Crop | 0-20% | 20-40% | 40-70% | 70-90% | Harvest\nLowland rice | 0.95 | 1.05 | 1.10 | 1.10 | 0.61\nSoybean, cowpea and mungbean | 0.60 | 0.70 | 0.90 | 0.75 | 0.50\nWheat | 0.50 | 0.65 | 0.90 | 0.8 | 0.50\nPeanut | 0.40 | 0.55 | 0.85 | 0.9 | 0.50\nTobacco | 0.40 | 0.60 | 0.75 | 0.75 | 0.75\nCorn (grain) | 0.40 | 0.70 | 0.90 | 0.8 | 0.55\nCabbage | 0.40 | 0.60 | 0.70 | 0.7 | 0.65",
+          "description": "PAES 602:2016 Table 4 - crop coefficient values by growth stage (percent of total growth duration), source: David, W.P. Lysimeter studies, 1983."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table 5: Percolation Values for Various Soil Textures",
+          "table_content": "Soil Texture | Percolation (mm/day)\nClay | 1.25\nSilty Clay | 1.5\nClay Loam | 1.75\nSilty Clay Loam | 1.75\nSandy Clay Loam | 2\nSandy Loam | 4",
+          "description": "PAES 602:2016 Table 5 - reference percolation values used to determine (S&P)field when soil texture is known."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table 6: Field Application Efficiency",
+          "table_content": "Irrigation Method | USDA | US (SCS) | ICID/ILRI\nSurface, light soils | 0.55 | - | -\nSurface, medium soils | 0.70 | - | -\nSurface, heavy soils | 0.60 | - | -\nGraded border | - | 0.60-0.75 | 0.53\nBasin and level border | - | 0.60-0.80 | 0.58\nContour ditch | - | 0.50-0.55 | -\nFurrow | - | 0.55-0.70 | 0.57\nCorrugation | - | 0.50-0.70 | -\nSubsurface | - | up to 0.80 | -\nSprinkler, hot dry climate | - | 0.60 | -\nSprinkler, moderate climate | - | 0.70 | 0.67\nSprinkler, humid and cool | - | 0.80 | -\nRice | - | - | 0.32",
+          "description": "PAES 602:2016 Table 6 - field application efficiency (Ea) by irrigation method, source: FAO Irrigation and Drainage Paper No. 24, 1977."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table 7: Conveyance Efficiency",
+          "table_content": "Supply System | Conveyance Efficiency (ICID/ILRI)\nContinuous supply with no substantial change in flow | 0.9\nRotational supply, projects of 3000-7000 ha and rotation areas of 70-300 ha, effective management | 0.8\nRotational supply, large schemes (>10000 ha) and small schemes (<1000 ha), predetermined schedule | 0.7\nRotational supply, large schemes (>10000 ha) and small schemes (<1000 ha), advance request | 0.65",
+          "description": "PAES 602:2016 Table 7 - conveyance efficiency (Ec) reference values by type of supply system, source: FAO Irrigation and Drainage Paper No. 24, 1977."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Annex A: Cropping Calendar Climate Types",
+          "table_content": "Climate Type | Description\nType I | Two pronounced seasons: dry from November to April, wet the rest of the year. Covers the western part of Luzon, Mindoro, Negros and Palawan.\nType II | No dry season, with a very pronounced maximum rainfall from November to January. Covers Catanduanes, Sorsogon, eastern Albay, eastern/northern Camarines Norte, part of eastern Quezon, eastern Leyte and a large portion of eastern Mindanao.\nType III | No pronounced season; relatively dry from November to April and wet the rest of the year. Covers western Mountain Province, southern Quezon, Bontoc Peninsula, Masbate, Romblon, northeast Panay, eastern Negros, central/southern Cebu, part of northern Mindanao and most of eastern Palawan.\nType IV | Rainfall more or less evenly distributed throughout the year. Covers Batanes Province, northeastern Luzon, western Camarines Norte and Sur, Albay, eastern Mindoro, Marinduque, western Leyte, northern Negros and most of central, eastern and southern Mindanao.",
+          "description": "PAES 602:2016 Annex A (Informative) - climate type classification used to select recommended cropping calendars."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table B.1: Duration and Accuracy of ETo Estimation Methods",
+          "table_content": "Method | Duration | Accuracy/Reliability\nPenman-Monteith | daily, monthly, seasonal | reliable for any length period\nRadiation | period of 5 days or more | less precise than Penman-Monteith\nBlaney-Criddle | period of 5 days or more | less precise than Penman-Monteith\nPan evaporation | period of 10 days or longer | less reliable for short-term estimates than other methods; can be accurate if evaporation pans are well maintained and properly located",
+          "description": "PAES 602:2016 Table B.1 - comparison of the four reference evapotranspiration calculation methods, source: National Engineering Handbook, 1993."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table B.2: Climatic Data Requirements by ETo Method",
+          "table_content": "Method | Data Required\nPenman-Monteith | maximum temperature, minimum temperature, wind speed at 2m, dewpoint temperature, maximum relative humidity, minimum relative humidity, actual duration of sunshine\nRadiation | maximum temperature, minimum temperature, solar radiation\nBlaney-Criddle | maximum temperature, minimum temperature\nPan evaporation | pan evaporation",
+          "description": "PAES 602:2016 Table B.2 - climatic data required for each ETo estimation method."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table B.16: Class A Pan vs Colorado Sunken Pan Specifications",
+          "table_content": "Item | Class A Pan | Colorado Sunken Pan\nShape | circular | square\nDiameter, cm | 120.7 | 92 or 100\nDepth, cm | 25 | 46 or 50\nMaterial | gauge 22 galvanized iron or 0.8 mm Monel metal | 3 mm thick iron\nPosition | mounted on a wooden pen frame platform 15 cm above ground level | in the ground with the rim 5 cm above soil level\nWater Level | filled to 5 cm below the rim, not allowed to drop more than 7.5 cm below the rim | at or slightly below ground level, i.e., 5-7.5 cm below the rim",
+          "description": "PAES 602:2016 Table B.16 - physical specifications of Class A pan and Colorado sunken pan used for the pan evaporation ETo method."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 602 — Table F.1: Representative Physical Properties of Soils",
+          "table_content": "Soil Texture | Infiltration and Permeability (cm/hr) | Total Pore Space (%) | Apparent Specific Gravity | Field Capacity (%) | Permanent Wilting Point (%)\nSandy | 5 (2.5-25) | 38 (32-42) | 1.65 (1.55-1.80) | 9 (6-12) | 4 (2-6)\nSandy Loam | 2.5 (1.3-7.6) | 43 (40-47) | 1.50 (1.40-1.60) | 14 (10-18) | 6 (4-8)\nLoam | 1.3 (0.8-2.0) | 47 (43-49) | 1.40 (1.35-1.40) | 22 (18-26) | 10 (8-12)\nClay Loam | 0.8 (0.25-1.5) | 49 (47-51) | 1.35 (1.30-1.40) | 27 (23-31) | 13 (11-15)\nSilty Clay | 0.25 (0.03-0.50) | 51 (49-53) | 1.30 (1.30-1.40) | 31 (27-35) | 15 (13-17)\nClay | 0.5 (0.01-0.1) | 53 (51-55) | 1.25 (1.20-1.30) | 35 (31-39) | 17 (15-19)",
+          "description": "PAES 602:2016 Annex F Table F.1 - representative soil physical properties used to determine land soaking requirement (LSR)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 602 — Recommended Standing Water Depth During Land Preparation",
+          "symbol": "SW",
+          "value": "10",
+          "unit": "mm",
+          "description": "PAES 602:2016 Section 7.3 - recommended standing water value used in the land preparation water requirement (LPWR) formula."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 602 — Leakage Through Gates and Left-Over Water in Canals",
+          "symbol": null,
+          "value": "5",
+          "unit": "% of total farm water requirement",
+          "description": "PAES 602:2016 Annex G - estimated leakage through gates and left-over water in the canal, used in determining conveyance losses."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 602 — Reference Crop Assumed Height (ETo Definition)",
+          "symbol": "h",
+          "value": "0.2",
+          "unit": "m",
+          "description": "PAES 602:2016 - assumed crop height of the hypothetical reference crop used to define reference crop evapotranspiration (ETo)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 602 — Reference Crop Fixed Surface Resistance (ETo Definition)",
+          "symbol": "rs",
+          "value": "70",
+          "unit": "s/m",
+          "description": "PAES 602:2016 - fixed surface resistance of the hypothetical reference crop used to define reference crop evapotranspiration (ETo)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 602 — Reference Crop Assumed Albedo (ETo Definition)",
+          "symbol": "alpha",
+          "value": "0.23",
+          "unit": null,
+          "description": "PAES 602:2016 - assumed albedo of the hypothetical reference crop used to define reference crop evapotranspiration (ETo)."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 — Manning's Equation for Channel Sizing",
+          "formula": "Qn/S^(1/2) = A^(5/3)/P^(2/3)",
+          "variables": "Q = discharge, m3/s; n = Manning's roughness coefficient; S = bed slope; A = cross-sectional area, m2; P = wetted perimeter, m.",
+          "description": "PAES 603:2016 Section 5.4.2 - used by trial and error to compute bed width and channel depth for a given design discharge.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 (A) — Rectangular Channel Geometry",
+          "formula": "A = by; P = b + 2y; R = by/(b+2y); T = b; D = y",
+          "variables": "A = area, m2; P = wetted perimeter, m; R = hydraulic radius, m; T = top width, m; D = hydraulic depth, m; b = bottom width, m; y = flow depth, m.",
+          "description": "PAES 603:2016 Annex A.1 - geometric relations for a rectangular canal cross-section.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 (A) — Trapezoidal Channel Geometry",
+          "formula": "A = (b+zy)y; P = b + 2y*sqrt(1+z^2); R = (b+zy)y / [b+2y*sqrt(1+z^2)]; T = b + 2zy; D = (b+zy)y / (b+2zy)",
+          "variables": "A = area, m2; P = wetted perimeter, m; R = hydraulic radius, m; T = top width, m; D = hydraulic depth, m; b = bottom width, m; y = flow depth, m; z = side slope ratio (horizontal:vertical).",
+          "description": "PAES 603:2016 Annex A.2 - geometric relations for a trapezoidal canal cross-section, the recommended shape for irrigation canals.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 (A) — Triangular Channel Geometry",
+          "formula": "A = zy^2; P = 2y*sqrt(1+z^2); R = zy / [2*sqrt(1+z^2)]; T = 2zy; D = y/2",
+          "variables": "A = area, m2; P = wetted perimeter, m; R = hydraulic radius, m; T = top width, m; D = hydraulic depth, m; y = flow depth, m; z = side slope ratio.",
+          "description": "PAES 603:2016 Annex A.3 - geometric relations for a triangular canal cross-section.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 (A) — Circular Channel Geometry",
+          "formula": "A = (1/8)(theta - sin(theta))d0^2; P = (1/2)theta*d0; R = (1/4)(1 - sin(theta)/theta)d0; T = sin(theta/2)d0 = 2*sqrt[y(d0 - y)]",
+          "variables": "A = area, m2; P = wetted perimeter, m; R = hydraulic radius, m; T = top width, m; d0 = conduit diameter, m; theta = angle subtended by the water surface at the center, radians; y = flow depth, m.",
+          "description": "PAES 603:2016 Annex A.4 - geometric relations for a circular conduit flowing partially full.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 (A) — Parabolic Channel Geometry",
+          "formula": "A = (2/3)Ty; P = T + (8y^2)/(3T); R = (2T^2*y)/(3T^2+8y^2); D = (2/3)y",
+          "variables": "A = area, m2; P = wetted perimeter, m; R = hydraulic radius, m; T = top width, m; D = hydraulic depth, m; y = flow depth, m.",
+          "description": "PAES 603:2016 Annex A.5 - geometric relations for a parabolic canal cross-section.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 603 — Freeboard for Open Channels",
+          "formula": "Fb = 0.4d (depths of flow 0.3 m to 2 m); Fb = 0.25d + 0.3 m (depths of flow more than 2 m); Fb = 0.05d + hv + (0.05 m to 0.15 m) (accounting for velocity head)",
+          "variables": "Fb = freeboard, m; d = depth of flow during crop maintenance/at design discharge, m; hv = v^2/2g, velocity head, m.",
+          "description": "PAES 603:2016 Section 5.6.2 - three alternative freeboard formulas; the largest computed value shall be selected as the design freeboard.",
+          "notes": null
+        },
+        {
+          "kind": "table",
+          "title": "PAES 603 — Table 1: Maximum Permissible Velocities for Different Materials",
+          "table_content": "Type of Material | Maximum Permissible Velocity (m/s)\nRock | 2.00\nDecomposed, disintegrated rock | 1.50\nGravel with silt and sand | 1.20\nClay | 0.90\nClay loam | 0.80\nLoam | 0.70\nSandy loam and silty loam | 0.60\nSandy soil | 0.45",
+          "description": "PAES 603:2016 Table 1 - maximum permissible design velocities for unlined channels, by bank/bed material, to avoid destructive erosion."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 603 — Table 2: Mean Roughness Coefficients (Manning's n) for Different Channel Conditions",
+          "table_content": "Material and Condition | Mean Roughness Coefficient (n)\nNatural channel, streams on plain: straight, no weeds, neither cracks nor depths present | 0.0300\nNatural channel, streams on plain: same as above but weeds and stones present | 0.0350\nNatural channel, streams on plain: no weeds but sinuous, with some depths and fords | 0.0400\nNatural channel, streams on plain: sinuous with weeds and stones present | 0.0450\nNatural channel, streams on plain: sinuous, little change in slope/cross-section, low water level | 0.0480\nNatural channel, streams on plain: sinuous with more stones | 0.0500\nNatural channel, streams on plain: weeds and deep crevices along slow stream flow | 0.0700\nNatural channel, streams on plain: densely weeded, many crevices and bushes | 0.1000\nNatural channel, mountainous stream: boulder and gravel bed | 0.0400\nNatural channel, mountainous stream: big boulder bed | 0.0500\nExcavated/dredged canal, earth straight and uniform: clean (immediately after completion) | 0.0225\nExcavated/dredged canal, earth straight and uniform: clean (after weathering) | 0.0250\nExcavated/dredged canal, earth straight and uniform: gravel, no weed, uniform section | 0.0250\nExcavated/dredged canal, earth straight and uniform: short grass, little weeds | 0.0270\nExcavated/dredged canal, earth curved and irregular: no vegetation | 0.0250\nExcavated/dredged canal, earth curved and irregular: some weeds/grass | 0.0300\nExcavated/dredged canal, earth curved and irregular: with dense water weeds | 0.0350\nExcavated/dredged canal, earth curved and irregular: earth bottom and rubble sides | 0.0300\nExcavated/dredged canal, earth curved and irregular: earth bottom and weedy sides | 0.0350\nExcavated/dredged canal, earth curved and irregular: cobblestone bottom and clean sides | 0.0400\nDragline excavation or dredged: no vegetation | 0.0280\nDragline excavation or dredged: some bushes on the banks | 0.0500\nRock excavation: smooth and uniform | 0.0350\nRock excavation: irregular | 0.0400\nLined canal, rigid: concrete | 0.0130\nLined canal, rigid: grouted riprap | 0.0300\nLined canal, rigid: stone masonry | 0.0320\nLined canal, rigid: soil cement | 0.0220\nLined canal, rigid: asphalt | 0.0160\nGravel riprap: 1-inch D50 | 0.0330\nGravel riprap: 2-inch D50 | 0.0410\nRock riprap: 6-inch D50 | 0.0690\nRock riprap: 12-inch D50 | 0.0780",
+          "description": "PAES 603:2016 Table 2 - mean roughness coefficients (Manning's n) for natural channels, excavated/dredged canals, and lined canals, source: Irrigation Engineering Manual for Diversified Cropping, 1991."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 603 — Table 3: Stable Side Slopes for Unlined Channels",
+          "table_content": "Location/Strata | Stable Side Slope (Horizontal:Vertical)\nCutting Reaches - hard rock | 1/4:1 to 1/2:1\nCutting Reaches - decomposed rock, soft rock | 1/4:1 to 1:1\nCutting Reaches - granular soils, sand, gravel and silt | 1:1 to 1.5:1\nCutting Reaches - highly plastic, expansive clays, loams | 1.5:1 to 2:1\nCutting Reaches - noncohesive and loose sand | 2:1\nEmbankment Reaches - granular material, sandy, silty soils | 1.5:1\nEmbankment Reaches - highly plastic, expansive clays, loams | 2:1\nEmbankment Reaches - noncohesive and loose sandy soils | 2:1 to 3:1",
+          "description": "PAES 603:2016 Table 3 - recommended stable side slopes for unlined channels by strata/location, source: Design Manual on Irrigation Facilities, n.d."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 603 — Table 4: Recommended Bed-Width-to-Depth (b/d) Ratio",
+          "table_content": "Channel Discharge (m3/s) | Unlined Channel b/d Range | Lined Channel b/d\n0.1 | 1.00-2.50 | 1.00\n0.5 | 1.25-3.00 | 1.00\n1 | 1.50-3.50 | 1.00\n2 | 2.00-4.00 | 1.00\n5 | 2.50-4.50 | 1.00\n10 | 3.00-5.50 | 1.00\n15 | 3.50-6.00 | 1.25\n20 | 3.75-6.50 | 1.25\n25 | 4.00-7.00 | 1.25\n50 | 4.50-9.00 | 1.50\n75 | 5.00-10.50 | 2.00\n100 | 5.50-11.50 | 2.00\nmore than 100 | - | 2.50",
+          "description": "PAES 603:2016 Table 4 - recommended bed-width-to-depth (b/d) ratio by design discharge, source: Design Manual on Irrigation Facilities, n.d."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 603 — Recommended Side Slope for Lined Channels",
+          "symbol": "z",
+          "value": "1.5:1",
+          "unit": null,
+          "description": "PAES 603:2016 Section 5.4.1.1 - recommended side slope for lined channels."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 603 — Minimum Permissible Velocity for Lined Channels (plain water)",
+          "symbol": "V",
+          "value": "0.6",
+          "unit": "m/s",
+          "description": "PAES 603:2016 Section 5.2.2 - estimated minimum permissible velocity for lined channels carrying plain (sediment-free) water, to avoid sand deposits and weed growth."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 603 — Minimum Permissible Velocity for Lined Channels (water with sediments)",
+          "symbol": "V",
+          "value": "0.9",
+          "unit": "m/s",
+          "description": "PAES 603:2016 Section 5.2.2 - estimated minimum permissible velocity for lined channels carrying water with sediments."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 603 — Recommended Roughness Coefficient for Farm Ditch Design",
+          "symbol": "n",
+          "value": "0.03",
+          "unit": null,
+          "description": "PAES 603:2016 Section 5.3.3 - roughness coefficient value that may be adopted for farm ditches, which are not well maintained, non-uniform in section, and usually have grass/weed growth."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 604 — Change in Water Depth (deltaH)",
+          "formula": "deltaH = Hi - Hf",
+          "variables": "deltaH = change in water depth in the pond at a given time interval, m; Hi = initial reading of water depth in the pond, m; Hf = final reading of water depth in the pond, m.",
+          "description": "PAES 604:2016 Section 9.1 - change in pond water depth used in the ponding method for seepage and percolation determination.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 604 — Average Pond Length and Width",
+          "formula": "Lave = (Li + Lf)/2; Wi = (Wi1+Wi2+Wi3)/3; Wf = (Wf1+Wf2+Wf3)/3; Wave = (Wi + Wf)/2",
+          "variables": "Lave = average wetted length of the pond, m; Li, Lf = pond length during initial and final reading, m; Wi1, Wi2, Wi3 = wetted pond width at three points during the initial reading, m; Wf1, Wf2, Wf3 = wetted pond width at three points during the final reading, m; Wi, Wf = average pond width during initial and final reading, m; Wave = average pond width at a given time interval, m.",
+          "description": "PAES 604:2016 Sections 9.2-9.3 - averaging formulas for pond length and width, based on measurements at a minimum of three points along the pond section.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 604 — Volume Loss (Vloss)",
+          "formula": "Vloss = (deltaH + R) x Lave x Wave",
+          "variables": "Vloss = total volume loss at a given time interval, m3; deltaH = change in water depth in the pond, m; R = amount of rainfall at a given time interval, m; Lave = average wetted length of the pond, m; Wave = average pond width, m.",
+          "description": "PAES 604:2016 Section 9.4 - total volume loss in the ponding method.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 604 — Seepage and Percolation Loss Rate",
+          "formula": "(S&P)losses = (Vloss/deltaT) / Lave; or (S&P)losses = [(deltaH + R) x Wave] / deltaT",
+          "variables": "(S&P)losses = seepage and percolation loss rate, m3/s-m; Vloss = total volume loss, m3; deltaT = time interval between the initial and final reading, s; Lave = average wetted length of the pond, m; deltaH = change in water depth, m; R = rainfall amount, m; Wave = average pond width, m.",
+          "description": "PAES 604:2016 Section 9.5 - seepage and percolation loss rate, expressed per unit length of channel.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 604 — Percent Seepage and Percolation Loss",
+          "formula": "%(S&P)losses = (S&P)losses / Qdesign",
+          "variables": "%(S&P)losses = percent seepage and percolation loss; (S&P)losses = seepage and percolation loss rate, m3/s-m; Qdesign = design flow in the channel.",
+          "description": "PAES 604:2016 Section 9.6 - percent seepage and percolation loss relative to the channel's design flow.",
+          "notes": null
+        },
+        {
+          "kind": "table",
+          "title": "PAES 604 — Table 1: Seepage and Percolation Values for Various Soil Textures",
+          "table_content": "Soil Texture | Seepage and Percolation (mm/day)\nClay | 1.25\nSilty Clay | 1.5\nClay Loam | 1.75\nSilty Clay Loam | 1.75\nSandy Clay Loam | 2\nSandy Loam | 4",
+          "description": "PAES 604:2016 Table 1 - reference seepage and percolation design values by soil texture, used for comparison against ponding-method results, source: Design Guides and Criteria for Irrigation Canals, O&M Roads, Drainage Channels and Appurtenant Structures."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 604 — Table: Materials and Equipment for the Ponding Method",
+          "table_content": "Material/Equipment | Minimum Specification\nPerforated stilling cylinder without bottom | Material: gage 18 GI sheet; Diameter: 20 cm; Height: 40 cm; Quantity: 1\nHook gauge | Quantity: 1\nRain gauge | Standard 8-inch; Quantity: 1\nPlastic sheets | -\nStakes | Length: 1 m\nStopwatch | -",
+          "description": "PAES 604:2016 Section 4 - minimum required materials and equipment for determining seepage and percolation by the ponding method."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Minimum Test Section Length for Ponding Method",
+          "symbol": null,
+          "value": "10",
+          "unit": "m",
+          "description": "PAES 604:2016 Section 5.1 - minimum length of channel section (pond) selected for the ponding method test."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Buffer Zone Length at Each End of Test Section",
+          "symbol": null,
+          "value": "1.5",
+          "unit": "m",
+          "description": "PAES 604:2016 Section 6.4 - buffer zone span provided at each end of the selected test section to minimize leakage across the embankments."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Hook Gauge Reading Interval (First Hour)",
+          "symbol": null,
+          "value": "15",
+          "unit": "minutes",
+          "description": "PAES 604:2016 Section 8.6 - reading interval for the first hour of the ponding method test."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Hook Gauge Reading Interval (After First Hour)",
+          "symbol": null,
+          "value": "30",
+          "unit": "minutes",
+          "description": "PAES 604:2016 Section 8.7 - reading interval after the first hour of the ponding method test."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Pond and Buffer Zone Fill Level",
+          "symbol": null,
+          "value": "80",
+          "unit": "% of channel depth",
+          "description": "PAES 604:2016 Section 6.5 - normal operating capacity level to which the pond and buffer zones shall be filled with water before testing."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 604 — Minimum Comparable Readings to Terminate Measurement",
+          "symbol": null,
+          "value": "3",
+          "unit": "readings",
+          "description": "PAES 604:2016 Section 8.11 - measurement shall be terminated only after this many comparable readings are observed."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 605 — Minimum Channel Section Length for Conveyance Loss Measurement",
+          "symbol": null,
+          "value": "50",
+          "unit": "m",
+          "description": "PAES 605:2016 Conveyance Systems - recommended minimum length of channel section with uniform cross-section and grade between inflow and outflow measuring points (site selection requirement 5.2)."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Seepage and Percolation Loss Rate (Inflow-Outflow Method)",
+          "formula": "(S&P)losses = (Qi - Qo) / L",
+          "variables": "(S&P)losses = seepage and percolation loss rate, m3/s-m; Qi = inflow rate, m3/s; Qo = outflow rate, m3/s; L = length of channel reach, m.",
+          "description": "PAES 605 - computation of conveyance (seepage and percolation) loss using the inflow-outflow method.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Contracted Rectangular Sharp-Crested Weir Discharge",
+          "formula": "Q = 1.84 (L - 0.2H) H^(3/2)",
+          "variables": "Q = discharge, m3/s; L = length of crest, m; H = head (difference between elevation of weir crest and elevation of water surface in weir pool), m.",
+          "description": "PAES 605 Annex A, Table 1 - discharge evaluation for a contracted rectangular sharp-crested weir.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Suppressed Rectangular Sharp-Crested Weir Discharge",
+          "formula": "Q = (2/3) Cd L H sqrt(2gH); Cd = 0.615(1 + 1/(H+1.6))[1 + 0.5(H/(H+D))^2]",
+          "variables": "Q = discharge, m3/s; Cd = discharge coefficient; L = length of crest, m; g = gravitational acceleration, m2/s; H = head, m (mm for computing Cd); D = distance from the crest to the bottom of the approach channel, mm.",
+          "description": "PAES 605 Annex A, Table 1 - discharge evaluation for a suppressed rectangular sharp-crested weir.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Cipoletti Weir Discharge",
+          "formula": "Q = 1.86 L H^(3/2)",
+          "variables": "Q = discharge, m3/s; L = length of crest, m; H = head (difference between elevation of weir crest and elevation of water surface in weir pool), m.",
+          "description": "PAES 605 Annex A, Table 1 - discharge evaluation for a Cipoletti (contracted trapezoidal) weir.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — 90 deg V-notch Weir Discharge",
+          "formula": "Q = (8/15) sqrt(2gCd) H^(5/2)",
+          "variables": "Q = discharge, m3/s; g = gravitational acceleration, m2/s; Cd = discharge coefficient; H = head (difference between elevation of weir crest and elevation of water surface in weir pool), m.",
+          "description": "PAES 605 Annex A, Table 1 - discharge evaluation for a 90 degree V-notch weir.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Long-Throated Flume Discharge",
+          "formula": "Q = Cd Cv (2/3)(2/3 g)^0.50 bc H1^1.50",
+          "variables": "Q = discharge, m3/s; g = gravitational acceleration, m2/s; H1 = (3/2)yc = total upstream energy head over the weir crest, m; Cd = coefficient of discharge; Cv = coefficient due to approach velocity; bc = throat/control section width, m.",
+          "description": "PAES 605 Annex A, Table 2 - discharge evaluation for a long-throated (rectangular control section) flume.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Cutthroat Flume Discharge",
+          "formula": "Q = C Ha^n; C = K W^1.025",
+          "variables": "Q = discharge, m3/s; C = free flow coefficient; Ha = upstream gauge reading (2L/9 from throat); K = flume length coefficient; W = throat width, m.",
+          "description": "PAES 605 Annex A, Table 2 - discharge evaluation for a cutthroat flume.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Parshall Flume Discharge",
+          "formula": "Q = k Ha^u",
+          "variables": "Q = discharge, m3/s; k = dimensional factor which is a function of throat width; Ha = upstream gauge reading; u = 1.522 to 1.60.",
+          "description": "PAES 605 Annex A, Table 2 - discharge evaluation for a Parshall flume.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Sharp-Edged Orifice Discharge",
+          "formula": "Q = Cd Cv A sqrt(2g(h1 - h2)) = Cd Cv A sqrt(2g*deltah)",
+          "variables": "Q = discharge, m3/s; Cd = discharge coefficient; Cv = velocity coefficient; A = area of the orifice, m2; h1 - h2 = head differential across the orifice; deltah = upstream head above the center of the orifice.",
+          "description": "PAES 605 Annex A, Table 3 / Annex B.3 - discharge evaluation for circular or rectangular sharp-edged orifices.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Velocity-Area Method Total Discharge",
+          "formula": "Q = SUM(i=1 to n) ai vi",
+          "variables": "Q = total discharge, m3/s; ai = cross-section area of the ith segment of the n segments into which the cross section is divided, m2; vi = corresponding mean velocity of flow normal to the ith segment or vertical, m/s.",
+          "description": "PAES 605 Annex C.1 - current-meter discharge measurement using the velocity-area method.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 605 — Midsection Method Partial Discharge",
+          "formula": "qi = vi [(b(i+1) - b(i-1)) / 2] di",
+          "variables": "qi = discharge through partial section i, m3/s; vi = mean velocity at location i, m/s; b(i-1), b(i+1) = distance from initial point to the preceding/next location, m; di = depth of water at location i, m.",
+          "description": "PAES 605 Annex C.2 - current-meter discharge measurement using the midsection method.",
+          "notes": null
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.3: Discharge-Head Relationship for a 90 deg V-notch Weir",
+          "table_content": "H, m | Q, L/s\n0.01 | 0.0\n0.02 | 0.1\n0.03 | 0.2\n0.04 | 0.4\n0.05 | 0.8\n0.06 | 1.2\n0.07 | 1.8\n0.08 | 2.5\n0.09 | 3.3\n0.10 | 4.3\n0.11 | 5.5\n0.12 | 6.8\n0.13 | 8.3\n0.14 | 10\n0.15 | 12\n0.16 | 14\n0.17 | 16\n0.18 | 19\n0.19 | 22\n0.20 | 24",
+          "description": "PAES 605 Annex B, Table B.3 - discharge-head relationship for a 90 deg V-notch weir (FAO Irrigation Water Management Training Manual No. 8, 1993)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.4: Free Flow Limits for Various Sizes of Parshall Flumes",
+          "table_content": "Width of Throat (W) | Free Flow Limit of Hb/Ha\n15.2 cm to 23 cm (6 in to 9 in) | 60%\n30.5 cm to 244 cm (1 ft to 8 ft) | 70%",
+          "description": "PAES 605 Annex B, Table B.4 - free flow limits (percent submergence) for various sizes of Parshall flumes, above which submerged-flow correction is required."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.6: Multiplying Factor for Various Throat Widths (Parshall Flume Correction)",
+          "table_content": "Throat Width W (ft) | Throat Width W (cm) | Multiplying Factor, M\n1 | 30.5 | 1.0\n1.5 | 45.7 | 1.4\n2 | 61.0 | 1.8\n3 | 91.5 | 2.4\n4 | 122.0 | 3.1\n5 | 152.5 | 3.7\n6 | 183.0 | 4.3",
+          "description": "PAES 605 Annex B, Table B.6 - multiplying factor applied to the correction diagram discharge for Parshall flumes with throat width greater than 30.5 cm (1 ft)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.7: Average Discharge Coefficients for Circular Orifices",
+          "table_content": "Orifice Diameter (D), m | Cd (free flow) | Cd (submerged flow)\n0.020 | 0.61 | 0.57\n0.025 | 0.62 | 0.58\n0.035 | 0.64 | 0.61\n0.045 | 0.63 | 0.61\n0.050 | 0.62 | 0.61\n0.065 | 0.61 | 0.60\n>= 0.075 | 0.60 | 0.60",
+          "description": "PAES 605 Annex B, Table B.7 - average discharge coefficients for circular orifices with negligible approach velocity (ILRI, Discharge Measurement Structures, 3rd Ed., 1989)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table 4: Types of Current Meters and Discharge Evaluation Methods",
+          "table_content": "Classification | Description | Discharge Evaluation\nAnemometer and Propeller Type | Uses anemometer cup and propellers for sensing velocity; rated by dragging through tanks of still water at known speeds; does not sense direction of velocity | Velocity-Area Method, Midsection Method, Moving Boat Method\nElectromagnetic | Produces voltage proportional to velocity; provides direct analog reading of velocity; provides directional measurements | Velocity-Area Method, Midsection Method, Moving Boat Method\nDoppler Type | Measures velocity by change of source light or sound frequency from the frequency of reflections from moving particles; uses laser light (laser Doppler velocimeters) or sound (acoustic Doppler velocimeter) | Velocity-Area Method, Midsection Method, Moving Boat Method\nOptical Strobe Velocity Meter | Measures velocity using the strobe effect with mirrors mounted around a polygon drum reflecting light from the water surface; rate of rotation varied until images become steady; surface velocity determined from rotation rate and mirror-to-surface distance | Velocity-Area Method, Midsection Method, Moving Boat Method",
+          "description": "PAES 605 Annex A, Table 4 - classification and description of current meter types used for discharge measurement."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.1: Discharge-Head Relationship for a Rectangular Weir",
+          "table_content": "Head (H), m | Q at L=0.25 m, L/s | Q at L=0.50 m, L/s | Q at L=0.75 m, L/s | Q at L=1.00 m, L/s | Q at L=1.25 m, L/s | Q at L=1.50 m, L/s\n0.01 | 0 | 1 | 1 | 2 | 2 | 3\n0.015 | 1 | 2 | 3 | 3 | 4 | 5\n0.02 | 1 | 3 | 4 | 5 | 6 | 8\n0.03 | 2 | 5 | 7 | 10 | 12 | 14\n0.04 | 4 | 7 | 11 | 15 | 18 | 22\n0.05 | 5 | 10 | 15 | 20 | 26 | 31\n0.06 | 6 | 13 | 20 | 27 | 33 | 40\n0.08 | 10 | 20 | 31 | 41 | 51 | 62\n0.10 | 13 | 28 | 42 | 57 | 72 | 86\n0.12 | 17 | 36 | 56 | 75 | 94 | 113\n0.14 | - | 45 | 70 | 94 | 118 | 142\n0.16 | - | 55 | 85 | 114 | 143 | 173\n0.18 | - | 65 | 100 | 135 | 171 | 206\n0.20 | - | 76 | 117 | 158 | 199 | -\n0.25 | - | 104 | 161 | 219 | - | -\n0.30 | - | - | 209 | - | - | -",
+          "description": "PAES 605 Annex B, Table B.1 - discharge-head relationship for a rectangular sharp-crested weir at various crest lengths (FAO Irrigation Water Management Training Manual No. 8, 1993)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 605 — Table B.2: Discharge-Head Relationship for a Cipoletti Weir",
+          "table_content": "Head (H), m | Q at L=0.25 m, L/s | Q at L=0.50 m, L/s | Q at L=0.75 m, L/s | Q at L=1.00 m, L/s | Q at L=1.25 m, L/s | Q at L=1.50 m, L/s\n0.01 | 0 | 1 | 1 | 2 | 2 | 3\n0.015 | 1 | 2 | 3 | 3 | 4 | 5\n0.02 | 1 | 3 | 4 | 5 | 7 | 8\n0.03 | 2 | 5 | 7 | 10 | 12 | 14\n0.04 | 4 | 7 | 11 | 15 | 19 | 22\n0.05 | 5 | 10 | 16 | 21 | 26 | 31\n0.06 | 7 | 14 | 21 | 27 | 34 | 41\n0.08 | 11 | 21 | 32 | 42 | 53 | 63\n0.10 | 15 | 29 | 44 | 59 | 74 | 88\n0.12 | 19 | 39 | 58 | 77 | 97 | 116\n0.14 | - | 49 | 73 | 97 | 122 | 146\n0.16 | - | 60 | 89 | 119 | 149 | 179\n0.18 | - | 71 | 107 | 142 | 178 | 213\n0.20 | - | 83 | 125 | 166 | 208 | -\n0.25 | - | 116 | 174 | 233 | - | -\n0.30 | - | - | 229 | - | - | -",
+          "description": "PAES 605 Annex B, Table B.2 - discharge-head relationship for a Cipoletti weir at various crest lengths (FAO Irrigation Water Management Training Manual No. 8, 1993)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 606 — Table 1: Nominal and Actual Diameter of RCP",
+          "table_content": "Nominal Diameter, cm (in) | Actual Diameter, cm\n75 (30) | 76\n60 (24) | 61\n45 (18) | 46",
+          "description": "PAES 606:2016 Design of Canal Structures - Road Crossing - nominal versus actual internal diameter of reinforced concrete pipe (RCP) conduits."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 606 — Table 2: Maximum Allowable Velocity in Conduits",
+          "table_content": "Conduit | Velocity, m/s\nRCP with earth transition | 1.00\nRCP with concrete transition | 1.50\nBox Culvert | 1.20",
+          "description": "PAES 606 - maximum allowable design velocity in road-crossing conduits, by conduit and transition type."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 606 — Table 3: Inlet and Outlet Coefficients of Open Canal Transition to Closed Conduit",
+          "table_content": "Type of Transition | Inlet Coefficient | Outlet Coefficient\nStreamlined warp to rectangular opening | 0.10 | 0.20\nStraight warp to rectangular opening | 0.20 | 0.30\nBrokenback to rectangular opening | 0.30 | 0.50\nStraight warp with bottom corner fillets to RCP opening | 0.30 | 0.40\nBrokenback to RCP opening | 0.40 | 0.70\nEarth canal to RCP opening | 0.50 | 1.00",
+          "description": "PAES 606 - inlet and outlet loss coefficients for various types of open canal to closed conduit transitions, used in transition loss computations."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 606 — Table 5: Recommended Discharge Per Meter Width of Chute (Baffled Apron Drop)",
+          "table_content": "Canal Discharging Capacity, Q (m3) | Discharge per meter width of chute, q (m3/m)\nUp to 1 | 0.45 to 0.95\n1 to 3 | 0.95 to 1.40\n3 to 5 | 1.40 to 1.85\n5 to 13 | 1.85 to 2.80\n13 to 28 | 2.80 to 4.65\n28 and above | 4.65 to 5.60",
+          "description": "PAES 606 - recommended chute discharge intensity for baffled apron drops based on hydraulic laboratory and field tests (NIA, Design Manual on Irrigation Facilities, 1990)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 606 — Table 6: Recommended Dimensions for Baffled Apron Drops",
+          "table_content": "Channel Capacity (m3) | Intensity (m3/m) | Min. Upstream Length from Bend (m) | Min. Width of Chute Section (m) | Height of Sidewall Normal to Chute (m) | Radius of Curve (m) | Baffle Height Normal to Slope (m) | Baffle and Spacing Width (m) | Length of Wing Wall Near Bottom (m)\nUp to 5 | 0.45 to 1.85 | 3.00 | 1.80 | 1.50 | 1.80 | 0.50 | 0.50 to 0.70 | -\n5 to 13 | 1.85 to 2.80 | 3.50 | 3.00 | 2.10 | 2.50 | 0.60 | 0.90 | 2.30\n13 to 28 | 2.80 to 4.65 | 5.00 | 5.00 | 3.00 | 3.60 | 0.90 | 1.40 | 2.90\nAbove 28 | 4.65 to 5.60 | 6.00 | 6.00 | 3.00 | 3.60 | 0.90 | 1.40 | 2.90",
+          "description": "PAES 606 - recommended structural dimensions for baffled apron drops by channel capacity (NIA, Design Manual on Irrigation Facilities, 1990)."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Conduit Area from Orifice Formula (Road Crossing)",
+          "formula": "Ao = Q / (C sqrt(2g ha))",
+          "variables": "Ao = conduit cross-sectional area, m2; Q = canal discharge, m3/s; C = orifice coefficient, 0.60 to 0.75; g = acceleration due to gravity, 9.805 m/s2; ha = available head, m.",
+          "description": "PAES 606 - sizing of a road-crossing RCP or box culvert conduit assumed to flow full, using the orifice formula.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Conduit Velocity (RCP and Box Culvert)",
+          "formula": "Vp = Q / Ap (RCP); Vb = Q / Ab (box culvert)",
+          "variables": "Vp = velocity in the RCP, m/s; Vb = velocity in the box culvert, m/s; Q = canal discharge, m3/s; Ap, Ab = RCP and box culvert cross-sectional area, m2.",
+          "description": "PAES 606 - velocity check for road-crossing conduits against the maximum allowable velocity in Table 2.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Total Head Loss for Road Crossing / Inverted Siphon",
+          "formula": "hLT = 1.10 (hLi + hLv + hLo) [road crossing]; hLT = 1.10 (hLi + hLv + hb + htr + hLo) [inverted siphon]",
+          "variables": "hLT = total head loss, m; hLi = inlet transition loss, m; hLv = conduit friction loss, m; hb = bend loss, m; htr = trashrack loss, m; hLo = outlet transition loss, m.",
+          "description": "PAES 606 - total head loss shall be less than or equal to the available head; otherwise a different conduit size shall be adopted.",
+          "notes": "A 10% safety margin (factor 1.10) is applied to the sum of individual losses."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Vertical Drop: Critical Depth and Basin Length",
+          "formula": "hva = Va^2/2g; HE = da + hva; dc = (2/3)HE; y = CBu/s - CBd/s + dc; t = sqrt(2y/9.8); x = Vc x t; L = 2x + 0.30",
+          "variables": "hva = headloss due to upstream canal velocity, m; Va = upstream velocity, m/s; HE = height of drop, m; da = water depth upstream, m; dc = critical depth, m; CBu/s, CBd/s = canal bed elevation upstream/downstream, m; Vc = critical velocity, m/s; L = basin length, m.",
+          "description": "PAES 606 - design equations for the critical depth and stilling basin length of a vertical drop structure.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Vertical Drop Discharge Check",
+          "formula": "Q = 1.705 b HE^(3/2)",
+          "variables": "Q = discharge, m3/s; b = canal width, m; HE = height of drop, m.",
+          "description": "PAES 606 - discharge check for a vertical drop; if significantly different from the canal design discharge, the width shall be adjusted.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Rectangular Inclined Drop: Basin Width and Critical Depth",
+          "formula": "b = 18.48 sqrt(Q) / (Q + 9.92); q = Q/b; dc = cbrt(q^2/g)",
+          "variables": "b = basin width, m; Q = canal discharge, m3/s; q = canal discharge per unit width, m2/s; dc = critical depth, m.",
+          "description": "PAES 606 - sizing equations for the basin width and critical depth of a rectangular inclined drop.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Length of Stilling Pool (Rectangular Inclined Drop)",
+          "formula": "F = V/sqrt(g d1); if F <= 4.5, Lp = 3.5 d1; if 4.5 < F < 9, Lp = 4 d1; if F >= 9, Lp = 5 d2",
+          "variables": "F = Froude number; V = velocity, m/s; d1 = depth at the toe of the inclined channel, m; d2 = sequent (tailwater) depth, m; Lp = length of pool, m.",
+          "description": "PAES 606 - length of the stilling pool for a rectangular inclined drop, selected based on the Froude number regime.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Baffled Apron Drop: Chute Width and Baffle Height",
+          "formula": "B = Q/q; dc = cbrt(q^2/g); hb = 0.9 dc",
+          "variables": "B = chute width, m; Q = canal discharge, m3/s; q = discharge per meter width of chute, m3/m (Table 5); dc = critical depth, m; hb = height of baffle block, m.",
+          "description": "PAES 606 - sizing equations for a baffled apron drop chute and baffle blocks.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Inverted Siphon Bend Loss",
+          "formula": "hb = (0.124 + 3.104(S/2R)^(1/2)) x hvp x (theta/180) x number of bends",
+          "variables": "hb = bend loss, m; S = conduit width, m; R = radius along the center line, m; hvp = head loss due to velocity in the conduit, m; theta = deflection angle, degrees.",
+          "description": "PAES 606 - head loss due to bends in an inverted siphon conduit.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Inverted Siphon Trashrack Loss",
+          "formula": "htr = 0.361 (T x V/D)(sin A)(sec^(15/8) B)",
+          "variables": "htr = head loss due to trashrack, m; T = thickness of trashrack bars, cm; V = velocity below the trashrack, m/s; D = center-to-center spacing of bars, cm; A = inclination angle of the rack with the horizontal; B = angle of approach or horizontal inclination.",
+          "description": "PAES 606 - head loss caused by a trashrack installed at the inlet of an inverted siphon.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 606 — Elevated Flume Friction Slope and Critical Slope",
+          "formula": "Sf = Vf n / (Af/Pf)^(2/3); Sc = Vc nc / (Ac/Pc)^(2/3)",
+          "variables": "Sf = friction slope; Vf = actual velocity in the flume, m/s; n = design roughness coefficient; Af, Pf = computed flume area and perimeter, m2, m; Sc = critical slope; Vc = velocity in the flume based on critical depth, m/s; nc = 80% of design roughness coefficient; Ac, Pc = flume area/perimeter based on critical depth.",
+          "description": "PAES 606 - the computed friction slope of an elevated flume shall be greater than the critical slope (using 80% of design n); otherwise a different flume size shall be selected.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 606 — Minimum Clearance for Road/Railroad Crossing",
+          "symbol": null,
+          "value": "0.90",
+          "unit": "m",
+          "description": "PAES 606 - minimum recommended clearance between the road/railroad and culvert for railroad and road crossings (0.60 m for farmroad and thresher crossing)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 606 — Minimum Cover for Inverted Siphon at River/Railway/Highway Crossing",
+          "symbol": null,
+          "value": "1",
+          "unit": "m",
+          "description": "PAES 606 - minimum cover over the conduit of an inverted siphon for river, railway or highway crossing (0.6 m for village roads and roadside ditches)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 606 — Minimum Velocity to Prevent Sediment Settling in Inverted Siphon",
+          "symbol": null,
+          "value": "1.5 to 2",
+          "unit": "m/s",
+          "description": "PAES 606 - minimum velocity of flow to be maintained in an inverted siphon conduit to prevent sediment settling at the bottom, if head loss permits."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 606 — Elevation Difference Threshold Requiring an Inclined Drop or Chute",
+          "symbol": null,
+          "value": "5",
+          "unit": "m",
+          "description": "PAES 606 General Criteria 6.1.4 - if the elevation difference between canal reaches is more than this value, an inclined drop or chute shall be used instead of other drop types."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 606 — Recommended Bed-Depth Ratio for Elevated Flume",
+          "symbol": null,
+          "value": "1 to 3 (2 most hydraulically efficient)",
+          "unit": null,
+          "description": "PAES 606 - acceptable range of the bed-depth (width to depth) ratio of an elevated flume cross-section."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 1: Selection Criteria for Surface Irrigation System",
+          "table_content": "Selection Criteria | Furrow Irrigation | Border Irrigation | Basin Irrigation\nNecessary development costs | Low | Moderate to high | High\nMost appropriate field geometry | Rectangular | Rectangular | Variable\nSoils | Coarse- to moderate-textured soils | Moderate- to fine-textured soils | Moderate- to fine-textured soils\nCrops | Row crops (corn, vegetables, tree, sugarcane) | Row/solid-stand crops, annual crops (sugarcane, forage, pasture) | Solid-stand crops (paddy rice and others that can withstand waterlogged conditions)\nWater supply | Low-discharge, long duration, frequent supply | Moderately high discharge, short duration, infrequent supply | High discharge, short duration, infrequent supply\nPrincipal Risk | Erosion | Scalding | Scalding\nEfficiency and uniformity | Relatively low to moderate | High with blocked ends | High\nSlope | 0.05% to 3.0% | 2.0% to 5.0% | <= 0.1%",
+          "description": "PAES 607:2016 Design of Basin, Border and Furrow Irrigation Systems - comparative selection criteria for the three surface irrigation methods (NRCS-USDA, Part 623: Irrigation - National Engineering Handbook, 2012)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 2: Suggested Basin Areas for Different Soil Types and Rates of Water Flow",
+          "table_content": "Flow Rate (L/s) | Flow Rate (m3/s) | Sand (ha) | Sandy Loam (ha) | Clay Loam (ha) | Clay (ha)\n30 | 0.03 | 0.02 | 0.06 | 0.12 | 0.2\n60 | 0.06 | 0.04 | 0.12 | 0.24 | 0.4\n90 | 0.09 | 0.06 | 0.18 | 0.36 | 0.6\n120 | 0.12 | 0.08 | 0.24 | 0.48 | 0.8\n150 | 0.15 | 0.10 | 0.30 | 0.60 | 1.0\n180 | 0.18 | 0.12 | 0.36 | 0.72 | 1.2\n210 | 0.21 | 0.14 | 0.42 | 0.84 | 1.4\n240 | 0.24 | 0.16 | 0.48 | 0.96 | 1.6\n270 | 0.27 | 0.18 | 0.54 | 1.08 | 1.8\n300 | 0.3 | 0.20 | 0.60 | 1.20 | 2.0",
+          "description": "PAES 607 - suggested basin area (ha) as a function of supply flow rate and soil type (Booher, FAO Agricultural Development Paper 95: Surface Irrigation, 1974)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 3: Approximate Values for the Maximum Basin Width",
+          "table_content": "Slope (%) | Average Maximum Width (m) | Range (m)\n0.2 | 45 | 35-55\n0.3 | 37 | 30-45\n0.4 | 32 | 25-40\n0.5 | 28 | 20-35\n0.6 | 25 | 20-30\n0.8 | 22 | 15-30\n1.0 | 20 | 15-25\n1.2 | 17 | 10-20\n1.5 | 13 | 10-20\n2.0 | 10 | 5-15\n3.0 | 7 | 5-10\n4.0 | 5 | 3-8",
+          "description": "PAES 607 - approximate maximum basin width as a function of land slope (Booher, FAO Agricultural Development Paper 95: Surface Irrigation, 1974)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 4: Suggested Maximum Border Lengths and Widths",
+          "table_content": "Soil Type | Border Slope (%) | Stream Flow (L/s) | Border Width (m) | Border Length (m)\nSand | 0.2-0.4 | 10-15 | 12-30 | 60-90\nSand (infiltration rate >25 mm/h) | 0.4-0.6 | 8-10 | 9-12 | 60-90\nSand (infiltration rate >25 mm/h) | 0.6-1.0 | 5-8 | 6-9 | 75\nLoam | 0.2-0.4 | 5-7 | 12-30 | 90-250\nLoam (infiltration rate 10-25 mm/h) | 0.4-0.6 | 4-6 | 6-12 | 90-180\nLoam (infiltration rate 10-25 mm/h) | 0.6-1.0 | 2-4 | 6 | 90\nClay | 0.2-0.4 | 3-4 | 12-30 | 180-300\nClay (infiltration rate <10 mm/h) | 0.4-0.6 | 2-3 | 6-12 | 90-180\nClay (infiltration rate <10 mm/h) | 0.6-1.0 | 1-2 | 6 | 90",
+          "description": "PAES 607 - suggested maximum border dimensions by soil type, slope and stream flow (Brouwer, Irrigation Water Management Training Manual No. 5: Irrigation Methods)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 5: Practical Maximum Furrow Lengths by Slope, Soil Type, Stream Size and Net Irrigation Depth",
+          "table_content": "Furrow Slope (%) | Max Stream Size (L/s per furrow) | Clay 50mm (m) | Clay 75mm (m) | Loam 50mm (m) | Loam 75mm (m) | Sand 50mm (m) | Sand 75mm (m)\n0.0 | 3.0 | 100 | 150 | 60 | 90 | 30 | 45\n0.1 | 3.0 | 120 | 170 | 90 | 125 | 45 | 60\n0.2 | 2.5 | 130 | 180 | 110 | 150 | 60 | 95\n0.3 | 2.0 | 150 | 200 | 130 | 170 | 75 | 110\n0.5 | 1.2 | 150 | 200 | 130 | 170 | 75 | 110",
+          "description": "PAES 607 - practical maximum furrow lengths (m) depending on slope, soil type, stream size and net irrigation depth (Brouwer, Irrigation Water Management Training Manual No. 5)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Table 6: Recommended Furrow Spacing Based on Soil Type",
+          "table_content": "Soil Type | Furrow Spacing (cm)\nCoarse Sand | 30\nFine Sand | 60\nClay | 75-150",
+          "description": "PAES 607 - recommended furrow spacing based on soil type (Brouwer, Irrigation Water Management Training Manual No. 5: Irrigation Methods)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 607 — Furrow Top-Width-to-Depth Ratio by Soil Type",
+          "table_content": "Soil Type | Top Width to Depth Ratio\nSandy soils | 1.33d to 2.0d\nClayey soils | 5d to 10d",
+          "description": "PAES 607 - recommended furrow cross-section top-width to depth (d) ratio for sandy versus clayey soils, to control percolation area versus wetted area."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 607 — Gross Depth of Irrigation (Furrow)",
+          "formula": "d_gross = (Stream Size x Time Water Applied) / (Furrow Length x Wetted Furrow Spacing)",
+          "variables": "d_gross = gross depth of irrigation; Stream Size = furrow inflow rate; Time Water Applied = irrigation set time; Furrow Length = length of furrow, m; Wetted Furrow Spacing = spacing between furrows, m.",
+          "description": "PAES 607 - computation of the gross irrigation depth applied through a furrow irrigation system.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 607 — Required Discharge from Source (Furrow Irrigation)",
+          "formula": "Discharge from Source = Stream Size x Number of Furrows Flowing",
+          "variables": "Discharge from Source = total required supply, same units as stream size; Stream Size = flow rate delivered to a single furrow; Number of Furrows Flowing = number of furrows irrigated simultaneously.",
+          "description": "PAES 607 - total discharge required at the source to simultaneously irrigate a given number of furrows.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 607 — Basic Intake (Infiltration) Rate",
+          "formula": "fo = (Qin - Qout) / L",
+          "variables": "fo = basic intake rate, m3/min/m; Qin = flow rate into the field, m3/min; Qout = flow rate out of the field, m3/min; L = furrow length, m.",
+          "description": "PAES 607 Annex A.7.2 - basic soil intake rate determined from inflow-outflow measurement along a test furrow.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 607 — Furrow Irrigation Application Efficiency",
+          "formula": "Ea = 100 x (Zreq x L) / (Qo x 60 x tco)",
+          "variables": "Ea = application efficiency, %; Zreq = soil moisture depletion measured x furrow spacing, m3/m; L = length of furrow, m; Qo = inlet discharge, m3/min/furrow; tco = cutoff time, s.",
+          "description": "PAES 607 Annex A.8.1 - application efficiency of a furrow irrigation system, i.e., the fraction of applied water stored in the root zone.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 607 — Tailwater Ratio and Deep Percolation Ratio",
+          "formula": "TWR = 100 x Vout / (Qo x 60 x tco); DPR = 100 - Ea - TWR",
+          "variables": "TWR = tailwater ratio, %; Vout = runoff volume per furrow, m3/furrow; Qo = inlet discharge, m3/min/furrow; tco = cutoff time, s; DPR = deep percolation ratio, %; Ea = application efficiency, %.",
+          "description": "PAES 607 Annex A.8.2-A.8.3 - evaluation of the fraction of applied irrigation water lost as surface runoff (tailwater) and as deep percolation.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Minimum Design Application Efficiency for Basin Irrigation",
+          "symbol": null,
+          "value": "70",
+          "unit": "%",
+          "description": "PAES 607 - the minimum design application efficiency for basin irrigation; the minimum time to cover the basin shall be 60% of the time required for the net application depth to infiltrate the soil."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Basin Dike Freeboard",
+          "symbol": null,
+          "value": "25",
+          "unit": "%",
+          "description": "PAES 607 - the settled height of a basin dike shall be at least equal to the gross application depth or the design maximum depth of flow, plus a freeboard of this percentage, whichever is greater."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Maximum Flow Velocity into a Basin",
+          "symbol": null,
+          "value": "1",
+          "unit": "m/s",
+          "description": "PAES 607 - maximum water flow velocity allowed into a basin, to avoid scouring and erosion of the basin dikes/surface."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Basin Topography Tolerance",
+          "symbol": null,
+          "value": "6 to 9",
+          "unit": "cm",
+          "description": "PAES 607 - allowable difference between the highest and lowest elevations of a basin (shall be less than one-half of the net depth of application)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Maximum Basin Width and Flow Rate per Single Outlet",
+          "symbol": null,
+          "value": "60 m width; up to 0.4 m3/s",
+          "unit": "m; m3/s",
+          "description": "PAES 607 - one outlet shall be installed for basin widths up to 60 m and flow rates up to 0.4 m3/s; multiple outlets may be used for larger basins/flows."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Minimum Furrow Grade",
+          "symbol": null,
+          "value": "0.05",
+          "unit": "%",
+          "description": "PAES 607 - the minimum furrow grade to facilitate effective drainage following irrigation and excessive rainfall."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Default Furrow Stream Size",
+          "symbol": null,
+          "value": "0.5",
+          "unit": "L/s",
+          "description": "PAES 607 - if furrows are not too long, this stream flow shall be adequate for irrigation (maximum stream size otherwise depends largely on furrow slope, see Table 5)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 607 — Soil Intake Rate Range Suitable for Border Irrigation",
+          "symbol": null,
+          "value": "7.6 to 50",
+          "unit": "mm/hr",
+          "description": "PAES 607 - the soil shall have a moderately low to moderately high intake rate for border irrigation; extremely high (coarse sandy) and extremely low intake soils shall be avoided."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 1: Maximum sprinkler spacing as related to wind velocity, rectangular pattern",
+          "table_content": "Average Wind Speed (km/hr) | Spacing as Percent of Wetted Diameter (D)\nUp to 10 | 40% between sprinklers, 65% between laterals\n10-15 | 40% between sprinklers, 60% between laterals\nabove 15 | 30% between sprinklers, 50% between laterals",
+          "description": "PAES 608:2016 Part A (Sprinkler Irrigation) - Table 1, suggested sprinkler/lateral spacing for a rectangular pattern based on wind speed."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 2: Maximum sprinkler spacing as related to wind velocity, square pattern",
+          "table_content": "Average Wind Speed (km/hr) | Spacing as Percent of Wetted Diameter (D)\nUp to 5 | 55%\n6-11 | 50%\n13-19 | 45%",
+          "description": "PAES 608:2016 Part A - Table 2, suggested sprinkler spacing for a square pattern based on wind speed."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 3: Sprinkler specifications and suggested spacing",
+          "table_content": "Nozzle Size (mm) | Pressure (kPa) | Discharge q (m3/h) | Wetted Diameter (m) | Rate 9x12 (mm/hr) | Rate 9x15 (mm/hr) | Rate 12x12 (mm/hr) | Rate 12x15 (mm/hr) | Rate 15x15 (mm/hr) | Rate 18x18 (mm/hr)\n3.0 | 250 | 0.57 | 25.00 | 5.28 | 4.22 | 3.96 | - | - | -\n3.0 | 300 | 0.63 | 25.60 | 5.83 | 4.67 | 4.38 | - | - | -\n3.0 | 350 | 0.68 | 26.20 | 6.30 | 5.04 | 4.72 | - | - | -\n3.5 | 250 | 0.75 | 26.85 | 6.94 | 5.56 | 5.21 | 4.17 | - | -\n3.5 | 300 | 0.82 | 27.60 | 7.59 | 6.07 | 5.69 | 4.56 | - | -\n3.5 | 350 | 0.89 | 28.35 | 8.24 | 6.59 | 6.18 | 4.94 | - | -\n4.0 | 300 | 1.08 | 26.60 | - | 8.00 | 7.50 | 6.00 | 4.60 | -\n4.0 | 350 | 1.16 | 30.50 | - | 8.59 | 8.06 | 6.44 | 5.16 | -\n4.5 | 300 | 1.32 | 30.95 | - | - | 9.17 | 7.33 | 5.87 | -\n4.5 | 350 | 1.42 | 32.00 | - | - | 9.86 | 7.89 | 6.31 | -\n4.5 | 400 | 1.52 | 33.05 | - | - | 10.56 | 8.44 | 7.56 | -\n5.0 | 300 | 1.70 | 33.00 | - | - | - | 9.44 | 8.18 | 5.25\n5.0 | 350 | 1.84 | 34.30 | - | - | - | 10.22 | 8.18 | 5.68\n5.0 | 400 | 1.96 | 35.60 | - | - | - | 10.89 | 8.71 | 6.05",
+          "description": "PAES 608:2016 Part A - Table 3, sprinkler specifications and application rates for various spacing patterns (source: FAO Irrigation Manual Vol. III, Module 8, 2001)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 4: Sample sprinkler characteristics for a head with two nozzles",
+          "table_content": "Nozzle Pressure (kPa) | Nozzle 3.97x3.18mm Wetted Diameter (m) | Nozzle 3.97x3.18mm Discharge (L/s) | Nozzle 4.76x3.97mm Wetted Diameter (m) | Nozzle 4.76x3.97mm Discharge (L/s) | Nozzle 6.35x3.97mm Wetted Diameter (m) | Nozzle 6.35x3.97mm Discharge (L/s)\n207 | 25 | 0.37 | 26 | 0.52 | 28 | 0.76\n276 | 27 | 0.43 | 28 | 0.61 | 31 | 0.90\n345 | 28 | 0.47 | 30 | 0.68 | 34 | 1.00\n414 | 30 | 0.52 | 31 | 0.74 | 36 | 1.10",
+          "description": "PAES 608:2016 Part A - Table 4, sample two-nozzle sprinkler discharge and wetted diameter data (source: Fangmeier et al., Soil and Water Conservation Engineering, 5th Ed., 2006)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 5: F factors for various number of outlets (lateral friction loss correction)",
+          "table_content": "Number of outlets | F | Number of outlets | F\n1 | 1.000 | 14 | 0.370\n2 | 0.625 | 15 | 0.367\n3 | 0.518 | 16 | 0.365\n4 | 0.469 | 17 | 0.363\n5 | 0.440 | 18 | 0.361\n6 | 0.421 | 19 | 0.360\n7 | 0.408 | 20 | 0.369\n8 | 0.398 | 21 | 0.357\n9 | 0.391 | 22 | 0.355\n10 | 0.385 | 23 | 0.353\n11 | 0.380 | 24 | 0.351\n12 | 0.376 | 25 | 0.350\n13 | 0.373 | |",
+          "description": "PAES 608:2016 Part A - Table 5, correction factor F used with total friction loss (Hf) to get lateral friction loss (source: Keller and Bliesner, Sprinkle and Trickle Irrigation, 1990)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 6: Sprinkler specifications for traveling gun sprinklers (continuous-move systems)",
+          "table_content": "Sprinkler Pressure (m) | 20.3mm Discharge (L/s) | 20.3mm Wetted Diam (m) | 25.4mm Discharge (L/s) | 25.4mm Wetted Diam (m) | 30.5mm Discharge (L/s) | 30.5mm Wetted Diam (m) | 35.6mm Discharge (L/s) | 35.6mm Wetted Diam (m) | 40.6mm Discharge (L/s) | 40.6mm Wetted Diam (m)\n42.18 | 9.02 | 86.87 | 14.20 | 99.06 | 20.82 | 111.25 | - | - | - | -\n49.21 | 9.78 | 91.44 | 15.46 | 103.63 | 22.40 | 115.82 | 30.29 | 132.59 | - | -\n56.24 | 10.41 | 94.49 | 16.41 | 108.20 | 23.98 | 120.40 | 34.50 | 138.68 | 42.59 | 146.3\n63.27 | 11.04 | 97.54 | 17.35 | 111.25 | 25.56 | 124.97 | 34.39 | 143.26 | 45.12 | 150.88\n70.30 | 11.67 | 100.58 | 18.30 | 114.30 | 26.82 | 128.02 | 36.28 | 146.30 | 47.64 | 155.45\n77.33 | 12.30 | 103.63 | 19.25 | 117.35 | 28.08 | 131.06 | 38.18 | 149.35 | 48.85 | 158.50\n84.36 | 12.94 | 106.68 | 20.19 | 120.40 | 29.34 | 134.11 | 39.75 | 152.40 | 52.06 | 163.07",
+          "description": "PAES 608:2016 Part A - Table 6, discharge and wetted diameter data for gun sprinklers with tapered nozzles at various operating pressures (source: Keller and Bliesner, 1990)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (A) — Table 7: Typical recommended tow-path spacings for traveling gun sprinklers under various wind conditions",
+          "table_content": "Sprinkler Wetted Diameter (m) | 50% (Over 16 km/hr) | 55% (Over 16 km/hr) | 60% (8-16 km/hr) | 65% (8-16 km/hr) | 70% (3.2-8 km/hr) | 75% (3.2-8 km/hr) | 75% (0-3.2 km/hr)\n60.96 | 30.44 | 33.53 | 36.58 | 39.62 | 42.67 | 45.72 | 48.77\n76.20 | 38.10 | 41.76 | 45.72 | 49.38 | 53.34 | 57.00 | 60.96\n91.44 | 45.72 | 50.29 | 54.86 | 59.44 | 64.01 | 68.58 | 73.15\n106.68 | 53.34 | 58.52 | 64.01 | 69.19 | 74.68 | 79.86 | 85.34\n121.92 | 60.96 | 67.06 | 73.15 | 79.86 | 89.00 | 91.44 | 94.54\n137.16 | 68.58 | 75.59 | 82.30 | 89.00 | 96.01 | 103.02 | 109.73\n152.40 | 76.20 | 83.82 | 91.44 | 99.06 | 106.68 | 114.30 | 121.92\n167.64 | 83.82 | 90.05 | 100.58 | 109.12 | 117.35 | 125.58 | 134.11\n188.88 | 91.44 | 100.58 | 109.73 | 118.87 | 128.02 | - | -",
+          "description": "PAES 608:2016 Part A - Table 7, recommended tow-path spacing as a percentage of wetted diameter under different wind speeds (source: Keller and Bliesner, 1990)."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Net Depth of Water Application",
+          "formula": "d_net = (FC - PWP) x d_rz x MAD",
+          "variables": "d_net = net depth of water application, mm; FC-PWP = available moisture, mm/m; d_rz = depth of root zone, m; MAD = allowable moisture depletion, %.",
+          "description": "PAES 608:2016 Part A, Section 9.1 - used in the preliminary design of periodic-move and continuous-move sprinkler systems.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Irrigation Frequency at Peak Demand",
+          "formula": "I_f = d_net / peak ET_a",
+          "variables": "I_f = irrigation frequency, day; d_net = net depth of water application, mm; peak ET_a = actual evapotranspiration at peak period, mm/day (per PAES 602:2016).",
+          "description": "PAES 608:2016 Part A, Section 9.2.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Gross Depth of Water Application",
+          "formula": "d_gross = d_net / E_a",
+          "variables": "d_gross = gross depth of water application, mm; d_net = net depth of water application, mm; E_a = application efficiency.",
+          "description": "PAES 608:2016 Part A, Section 9.3.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Preliminary System Capacity",
+          "formula": "Q_prelim = (10 x A x d_gross) / (I_f x N_shift x T)",
+          "variables": "Q_prelim = preliminary system capacity, m3/h; A = design area, ha; d_gross = gross depth of water application, mm; I_f = irrigation frequency, days; N_shift = number of shifts per day; T = irrigation time per shift, h.",
+          "description": "PAES 608:2016 Part A, Section 9.4.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Sprinkler Nozzle Discharge",
+          "formula": "q = S_l x S_m x r ; q = 0.00111 x C x d_n^2 x P^(1/2)",
+          "variables": "q = discharge of each sprinkler, m3/h; S_l = sprinkler spacing along the lateral, m; S_m = sprinkler spacing along the main, m; r = application rate, mm/h; C = coefficient of discharge; d_n = diameter of the nozzle orifice, mm; P = pressure at the nozzle, kPa.",
+          "description": "PAES 608:2016 Part A, Section 10.1.3 - theoretical nozzle discharge for sprinkler selection.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — System Capacity (periodic-move and continuous discharge total)",
+          "formula": "Q = N_c x N_s x q  (periodic-move, per shift);  Q = q x N  (total system, N = total number of sprinklers)",
+          "variables": "Q = system capacity, m3/h; N_c = number of laterals operating per shift; N_s = number of sprinklers per lateral; q = discharge of each sprinkler, m3/h; N = total number of sprinklers.",
+          "description": "PAES 608:2016 Part A, Sections 10.1.4 and 10.1.11.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Friction Loss in Main Lines (Hazen-Williams)",
+          "formula": "H_f = [1.21x10^10 x L x (Q/C)^1.852] / D^4.87",
+          "variables": "H_f = total friction loss in pipe with the same flow throughout, m; L = length of pipe, m; Q = total discharge, L/s; C = pipe roughness coefficient (145-150 for plastic pipe, 120 for aluminum pipe with couplers and new/coated steel pipe); D = inside diameter of pipe, mm.",
+          "description": "PAES 608:2016 Part A, Section 10.1.6.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Friction Loss in Laterals",
+          "formula": "h_f = H_f x F",
+          "variables": "h_f = friction loss in the lateral, m; H_f = total friction loss in pipe with the same flow throughout, m; F = correction factor depending on the number of outlets in the lateral (Table 5).",
+          "description": "PAES 608:2016 Part A, Section 10.1.7.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Average Pressure Head and Sprinkler Pressure at Lateral Inlet",
+          "formula": "H_a = H_d + 0.26h_f + (S_e x L_L)/2 ; H_o = H_a + 0.74h_f + (S_e x L_L)/2",
+          "variables": "H_a = average sprinkler pressure of a lateral, m; H_d = sprinkler pressure at the distal end of the lateral, m; h_f = friction loss in the lateral, m; S_e = uniform slope of the lateral from the inlet (positive = uphill); L_L = lateral length, m; H_o = sprinkler pressure at the inlet to the lateral, m.",
+          "description": "PAES 608:2016 Part A, Sections 10.1.8 and 10.1.9.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Total Dynamic Head",
+          "formula": "TDH = H_n + H_m + H_j + H_s ; H_n = H_o + H_rh",
+          "variables": "TDH = total dynamic head against which the pump is working, m; H_n = head required at the junction of the lateral and the main, m; H_m = maximum friction loss in the main and suction line, m; H_j = elevation difference between the pump and the junction of the lateral and the main, m; H_s = elevation difference between the pump and the water supply after drawdown, m; H_o = sprinkler pressure at the inlet to the lateral, m; H_rh = riser height, m.",
+          "description": "PAES 608:2016 Part A, Section 10.1.10.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Pump Power Requirement",
+          "formula": "P = (Q x TDH) / (360 x E_p)",
+          "variables": "P = power requirement, kW; Q = system capacity, m3/h; TDH = total dynamic head against which the pump is working, m; E_p = pump efficiency from the pump performance chart.",
+          "description": "PAES 608:2016 Part A, Sections 10.1.12 and 10.2.8 (also used identically in Part B, Section 8.12).",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Maximum Allowable Flow Rate (Continuous-Move Systems)",
+          "formula": "I = (K x Q_sprinkler x 360) / [pi x (0.9R)^2 x w]",
+          "variables": "I = approximate infiltration rate or approximate sprinkler application rate, mm/hr; K = conversion constant, 3600; Q = sprinkler discharge, L/s; R = wetted radius of sprinkler, m; w = portion of circle receiving water, degrees.",
+          "description": "PAES 608:2016 Part A, Section 10.2.1 - the sprinkler application rate shall not exceed the soil's infiltration rate.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (A) — Travel Speed for Traveling Gun Sprinklers",
+          "formula": "v = (k x Q) / (d_gross x W)",
+          "variables": "v = travel speed, m/min; k = conversion constant, 60; Q = sprinkler discharge, L/s; d_gross = gross depth of water application, mm; W = tow-path spacing, m.",
+          "description": "PAES 608:2016 Part A, Section 10.2.4 - continuous-move (traveling gun) system design.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 608 (A) — Maximum velocity in the main line",
+          "symbol": null,
+          "value": "2",
+          "unit": "m/s",
+          "description": "PAES 608:2016 Part A, Section 10.1.5.6 - the velocity in the main line of a sprinkler irrigation system shall be less than or equal to this value."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 608 (A) — Allowable friction loss in laterals",
+          "symbol": null,
+          "value": "20",
+          "unit": "% of average pressure",
+          "description": "PAES 608:2016 Part A, Section 10.1.5.5 - the allowable friction loss in the laterals of a sprinkler irrigation system."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 608 (A) — Minimum soil intake rate for sprinkler irrigation",
+          "symbol": null,
+          "value": "3",
+          "unit": "mm/hr",
+          "description": "PAES 608:2016 Part A, Section 6.5 - sprinkler irrigation is not suitable for soils with an intake rate below this value."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 1: Values of kr (ground cover reduction factor) suggested by different authors",
+          "table_content": "Ground Cover (%) | Keller and Karmeli | Freeman and Garzoli | Decroix CTGREF\n10 | 0.12 | 0.10 | 0.20\n20 | 0.24 | 0.20 | 0.30\n30 | 0.35 | 0.30 | 0.40\n40 | 0.47 | 0.40 | 0.50\n50 | 0.59 | 0.75 | 0.60\n60 | 0.70 | 0.80 | 0.70\n70 | 0.82 | 0.85 | 0.80\n80 | 0.94 | 0.90 | 0.90\n90 | 1.00 | 0.95 | 1.00\n100 | 1.00 | 1.00 | 1.00",
+          "description": "PAES 608:2016 Part B (Drip Irrigation) - Table 1, kr values used to compute localized evapotranspiration for crop water requirement (source: Savva and Frenken, FAO Irrigation Manual, 2002)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 2: Minimum and maximum values of EC_e for various crops",
+          "table_content": "Crop | Min EC_e (dS/m) | Max EC_e (dS/m)\nCotton | 7.7 | 27\nSugar beet | 7.0 | 24\nSorghum | 6.8 | 13\nSoya bean | 5.0 | 10\nSugarcane | 1.7 | 19\nCorn | 1.7 | 10\nDate palm | 4.0 | 32\nGrape | 1.5 | 12\nOrange | 1.7 | 8\nTomato | 2.5 | 12.5\nCucumber | 2.5 | 10\nCabbage | 1.8 | 12\nPotato | 1.7 | 10\nOnion | 1.2 | 7.5\nLettuce | 1.3 | 9",
+          "description": "PAES 608:2016 Part B - Table 2 (selected rows), electrical conductivity of saturated soil extract at which crop yield is unaffected (min) and reduced to zero (max) for leaching requirement computation (source: Keller and Bliesner, 1990)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 3: Estimated areas wetted by a 4 L/h drip emitter operating under various field conditions",
+          "table_content": "Soil/Root Depth and Texture | Homogeneous Se'xW (m x m) | Stratified Se'xW (m x m) | Layered Se'xW (m x m)\nDepth 0.75m, Coarse | 0.4 x 0.5 | 0.6 x 0.8 | 0.9 x 1.1\nDepth 0.75m, Medium | 0.7 x 0.9 | 1.0 x 1.2 | 1.2 x 1.5\nDepth 0.75m, Fine | 0.9 x 1.1 | 1.2 x 1.5 | 1.5 x 1.8\nDepth 1.50m, Coarse | 0.6 x 0.8 | 1.1 x 1.4 | 1.4 x 1.8\nDepth 1.50m, Medium | 1.0 x 1.2 | 1.7 x 2.1 | 2.2 x 2.7\nDepth 1.50m, Fine | 1.2 x 1.5 | 1.6 x 2.0 | 2.0 x 2.4",
+          "description": "PAES 608:2016 Part B - Table 3, wetted soil area estimates for a 4 L/h drip emitter used in emitter spacing/wetted area design (source: Savva and Frenken, 2002)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 4: Emitter discharge exponents for various types of emitter",
+          "table_content": "Emitter Type | Discharge Exponent x\nFully-compensating emitter | 0\nLong-path emitter | 0.7-0.8\nTortuous-path emitter | 0.5-0.7\nOrifice type emitter | 0.5\nVortex emitter | 0.4",
+          "description": "PAES 608:2016 Part B - Table 4, a lower x indicates flow less affected by pressure variations (source: Savva and Frenken, 2002)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 5: Coefficient of variation (Cv) classification for different emitter types",
+          "table_content": "Emitter Type | Cv Range | Classification\nPoint-source | <0.05 | excellent\nPoint-source | 0.05 to 0.07 | average\nPoint-source | 0.07 to 0.11 | marginal\nPoint-source | 0.11 to 0.15 | poor\nPoint-source | >0.15 | unacceptable\nLine-source | <0.10 | good\nLine-source | 0.10 to 0.2 | average\nLine-source | >0.2 | marginal to unacceptable",
+          "description": "PAES 608:2016 Part B - Table 5, manufacturer's coefficient of variation classification used in design emission uniformity (EU) calculations."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 608 (B) — Table 6: F factors for various number of outlets (drip laterals/manifolds)",
+          "table_content": "Number of outlets | F | Number of outlets | F\n1 | 1.000 | 14 | 0.387\n2 | 0.639 | 16 | 0.382\n3 | 0.535 | 18 | 0.379\n4 | 0.486 | 20 | 0.376\n5 | 0.457 | 25 | 0.371\n6 | 0.435 | 30 | 0.368\n8 | 0.415 | 40 | 0.364\n10 | 0.402 | 50 | 0.361\n12 | 0.394 | 100 | 0.356",
+          "description": "PAES 608:2016 Part B - Table 6, friction loss correction factor F for laterals and manifolds in drip systems (source: Savva and Frenken, 2002)."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Localized Evapotranspiration (Crop Water Requirement)",
+          "formula": "ET_crop-loc = ET_a x k_r  ; alternatively ET_crop-loc = ET_a x [0.1(P_d)^0.5]",
+          "variables": "ET_crop-loc = localized evapotranspiration, mm/day; ET_a = actual evapotranspiration, mm/day (per PAES 602:2016); k_r = ground cover reduction factor (Table 1); P_d = percentage ground cover (Keller and Bliesner formula).",
+          "description": "PAES 608:2016 Part B, Section 8.1.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Leaching Requirement Ratio and Leaching Requirement",
+          "formula": "LR_t = EC_w / (2 x maxEC_e) ; IR_n = ET_crop-loc - R + LR ; LR = LR_t x (IR_n/E_a)",
+          "variables": "LR_t = leaching requirement ratio under drip irrigation; EC_w = electrical conductivity of irrigation water, dS/m; maxEC_e = electrical conductivity of saturated soil extract that reduces crop yield to zero, dS/m; IR_n = net irrigation requirement, mm/day; LR = leaching requirement, mm/day; R = rainfall, mm/day; E_a = application efficiency, %.",
+          "description": "PAES 608:2016 Part B, Section 8.2.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Gross Irrigation Requirement",
+          "formula": "IR_g = (ET_crop-loc / E_a) - R + LR",
+          "variables": "IR_g = gross irrigation requirement, mm/day; ET_crop-loc = localized evapotranspiration, mm/day; E_a = application efficiency, %; R = rainfall, mm/day; LR = leaching requirement, mm/day.",
+          "description": "PAES 608:2016 Part B, Section 8.3.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Percentage Wetted Area",
+          "formula": "P_w = (100 x N_p x S_e x W) / (S_p x S_r)",
+          "variables": "P_w = percentage wetted area, %; N_p = number of emitters per plant; S_e = emitter spacing, m; W = wetted width along lateral, m; S_p = distance between plants within a row, m; S_r = row spacing, m.",
+          "description": "PAES 608:2016 Part B, Section 8.4.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Number of Emitters per Plant, Emitter Spacing, and Wetted Area",
+          "formula": "N_p = (Area per plant x P_w) / A_w ; S_e = S_p / N_p ; A_w = (pi x D^2) / 4",
+          "variables": "N_p = number of emitters per plant; P_w = percentage wetted area/100; A_w = area wetted by one emitter, m2; S_e = emitter spacing, m; S_p = distance between plants within a row, m; D = diameter of wetted area, m (Table 3).",
+          "description": "PAES 608:2016 Part B, Section 8.5.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Irrigation Duration per Day",
+          "formula": "T_a = IR_g / (N_p x q)",
+          "variables": "T_a = duration of irrigation per day, h; IR_g = gross irrigation requirement, mm/day; N_p = number of emitters per plant; q = emitter discharge, L/h.",
+          "description": "PAES 608:2016 Part B, Section 8.6.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Emitter Discharge-Pressure Relationship",
+          "formula": "q = K_d x H^x",
+          "variables": "q = emitter discharge, L/h; K_d = discharge coefficient characterizing the emitter; H = emitter operating pressure head, m; x = emitter discharge exponent (Table 4).",
+          "description": "PAES 608:2016 Part B, Section 8.7.2 - a lower x means flow is less affected by pressure variations.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Design Emission Uniformity",
+          "formula": "EU = 100 x [(1 - 1.27Cv)/sqrt(N_p)] x (q_m/q_a)",
+          "variables": "EU = design emission uniformity, %; Cv = manufacturer's coefficient of variation; N_p = number of emitters per plant; q_m = minimum emitter discharge for minimum pressure in the sub-unit, L/h; q_a = average or design emitter discharge for the sub-unit, L/h.",
+          "description": "PAES 608:2016 Part B, Section 8.8.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 608 (B) — Allowable Pressure Variation",
+          "formula": "delta_Hs = 2.5 x (H_a - H_m) ; H_m = H_a x (q_m/q_a)^(1/x)",
+          "variables": "delta_Hs = allowable pressure variation giving an EU reasonably close to the design value, m; H_a = pressure head giving the required q_a to satisfy EU, m; H_m = pressure head giving the required q_m to satisfy EU, m; q_m, q_a = emitter discharges, L/h; x = emitter discharge exponent.",
+          "description": "PAES 608:2016 Part B, Section 8.9.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 608 (B) — Drip emitter discharge rate range",
+          "symbol": null,
+          "value": "2 to 20",
+          "unit": "L/h",
+          "description": "PAES 608:2016 Part B, Section 4.1 - definition of drip/trickle irrigation, water is dripped onto the soil at these very low rates from the emitters."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 608 (B) — Optimal emitter spacing",
+          "symbol": null,
+          "value": "80",
+          "unit": "% of wetted diameter",
+          "description": "PAES 608:2016 Part B, Section 4.8 - optimal emitter spacing is defined as 80% of the wetted diameter estimated from field tests."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table 1: Recommended slopes for small homogeneous earth fill dams on stable foundation",
+          "table_content": "Case | Purpose | Drawdown Condition | Embankment Classification | Upstream Slope | Downstream Slope\nHomogeneous or Modified Homogeneous | Detention or Storage | Slow | GC,GM,SC | 2.5:1 | 2:1\nHomogeneous or Modified Homogeneous | Detention or Storage | Slow | SM,CL,ML,CH | 3:1 | 2.5:1\nHomogeneous or Modified Homogeneous | Detention or Storage | Slow | MH | 3.5:1 | 2.5:1\nModified Homogeneous | Storage | Rapid | GC,GM,SC | 3:1 | 2:1\nModified Homogeneous | Storage | Rapid | SM,CL,ML,CH | 3.5:1 | 2.5:1\nModified Homogeneous | Storage | Rapid | MH | 4:1 | 2.5:1",
+          "description": "PAES 609:2016 (Small Water Impounding System) - Table 1, recommended embankment slopes for homogeneous earth fill dams (source: US Bureau of Reclamation, Design of Small Dams)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table 2: Recommended slopes for small zoned earth fill dams on stable foundation",
+          "table_content": "Case | Purpose | Drawdown | Shell Material | Core Material | Upstream Slope | Downstream Slope\nZoned with minimum core | Any | Not Critical | Rockfill | GC,GM | 2:1 | 2:1\nZoned with minimum core | Any | Not Critical | GW,SP | SM,CL | 2:1 | 2:1\nZoned with minimum core | Any | Not Critical | SW or SP | ML,CH,MH | 2:1 | 2:1\nZoned with maximum core | Detention or Storage | Slow | Rockfill | GC,GM | 2:1 | 2:1\nZoned with maximum core | Detention or Storage | Slow | GW,SP | SC,SM | 2.25:1 | 2.25:1\nZoned with maximum core | Detention or Storage | Slow | SW or SP | CL,ML | 2.5:1 | 2.5:1\nZoned with maximum core | Detention or Storage | Slow | - | CH,MH | 3:1 | 3:1\nZoned with maximum core | Storage | Rapid | Rockfill | GC,GM | 2.5:1 | 2:1\nZoned with maximum core | Storage | Rapid | GW,GP | SC,SM | 2.5:1 | 2.25:1\nZoned with maximum core | Storage | Rapid | SW or SP | CL,ML | 3:1 | 2.5:1\nZoned with maximum core | Storage | Rapid | - | CH,MH | 3.5:1 | 3:1",
+          "description": "PAES 609:2016 - Table 2, recommended embankment slopes for zoned earth fill dams (source: US Bureau of Reclamation, Design of Small Dams)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table 3: Maximum permissible velocities for cohesive soils (unlined spillway discharge channels)",
+          "table_content": "Material | n | Clear Water V (ft/s) | Water Transporting Colloidal Silts V (ft/s)\nFine sand, colloidal | 0.020 | 1.50 | 2.50\nSandy loam, non-colloidal | 0.020 | 1.75 | 2.50\nSilt loam, non-colloidal | 0.020 | 2.00 | 3.00\nAlluvial silt, non-colloidal | 0.020 | 2.00 | 3.50\nOrdinary firm loam | 0.020 | 2.50 | 3.50\nVolcanic ash | 0.020 | 2.50 | 3.50\nStiff clay, very colloidal | 0.025 | 3.75 | 5.00\nAlluvial silts, colloidal | 0.025 | 3.75 | 5.00\nShales and hard pans | 0.025 | 6.00 | 6.00\nFine gravel | 0.020 | 2.50 | 5.00\nGraded loam to cobbles, non-colloidal | 0.030 | 3.75 | 5.00\nGraded silts to cobbles, colloidal | 0.030 | 4.00 | 5.50\nCoarse gravel, non-colloidal | 0.025 | 4.00 | 6.00\nCobble and shingle | 0.035 | 5.00 | 5.50",
+          "description": "PAES 609:2016, Annex C, Table 3 - permissible velocities used to design unlined spillway discharge channels."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table 4: Maximum permissible velocities for grassed spillway channels",
+          "table_content": "Grass Cover | Slope Range (%) | Permissible Velocity - Erosion Resistant Soils (fps) | Permissible Velocity - Easily Eroded Soil (fps)\nBermuda grass | up to 5 | 8 | 6\nBermuda grass | 5 to 10 | 7 | 5\nBermuda grass | over 10 | 6 | 4\nBuffalo/Kentucky blue/Smooth Brome/Blue Grama | up to 5 | 7 | 5\nBuffalo/Kentucky blue/Smooth Brome/Blue Grama | 5 to 10 | 6 | 4\nBuffalo/Kentucky blue/Smooth Brome/Blue Grama | over 10 | 5 | 3\nLespedeza sericea/Weeping love grass/Yellow bluestem | - | 3.5 | 2.5\nCommon Lespedeza/Sudan Grass | up to 5 | 3.5 | 2.5",
+          "description": "PAES 609:2016, Annex C, Table 4 - permissible velocities for grass-lined spillway channels (source: US Conservation Service)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table A.3: Soil groups for estimation of watershed index W",
+          "table_content": "Soil Group | Soil Characteristics | Example\nA | Soils with very low runoff potential | Deep sand with little silt or clay\nB | Light soils/well-structured soils with above-average infiltration | Light sandy loam, silty loam\nC | Medium soils and shallow soils with below-average infiltration | Clay loam\nD | Soils with high runoff potential | Heavy soils of high swelling capacity, very shallow soils underlain by dense clay horizons",
+          "description": "PAES 609:2016, Annex A, Table A.3 - hydrologic soil groups used in agrohydrologic (SCS Curve Number) analysis for reservoir inflow estimation."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table A.4: Antecedent moisture conditions (AMC) for estimation of watershed index",
+          "table_content": "AMC | Rain in Previous 5 Days - Dormant Season | Rain in Previous 5 Days - Growing Season\nI | Less than 0.5 in | Less than 1.4 in\nII | 0.5 in to 1.1 in | 1.4 in to 2.1 in\nIII | More than 1.1 in | More than 2.1 in",
+          "description": "PAES 609:2016, Annex A, Table A.4 - antecedent moisture condition classification used to adjust the watershed index W."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table A.7: Recommended retention rate for hydrologic soil group (USBR)",
+          "table_content": "Hydrologic Soil Group | Retention Rate (in/h)\nA | 0.4\nB | 0.24\nC | 0.12\nD | 0.04",
+          "description": "PAES 609:2016, Annex A, Table A.7 - retention rate values applied in the rainfall excess/hydrologic abstraction computation for reservoir inflow."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 609 — Table C.1: USBR stilling basin selection based on Froude Number",
+          "table_content": "Froude Number | USBR Basin Type\n2.5 <= F <= 4.5 | Type IV\nF > 4.5 (V <= 60 fps) | Type III\nF > 4.5 (V > 60 fps) | Type II",
+          "description": "PAES 609:2016, Annex C, Table C.1 - selection of USBR hydraulic jump stilling basin type for the spillway terminal structure based on the Froude Number at basin entrance."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Dead Storage Volume",
+          "formula": "V = 20900 x A^0.687",
+          "variables": "V = dead storage volume (sediment volume), based on 25 years of accumulation; A = drainage area, km2.",
+          "description": "PAES 609:2016, Section 3.4 - dead storage is the volume below the intake structure computed from this empirical sediment-yield relationship.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Freeboard (Wave Run-up and Embankment Settlement)",
+          "formula": "Fb1 = 1.5 x (0.032 x sqrt(F x V) + 0.763 - 0.271 x F^(1/4)) ; Fb2 = 2% to 5% of dam height ; Fb = Fb1 + Fb2",
+          "variables": "Fb1 = freeboard due to wave run-up, m; F = reservoir effective fetch, km; V = wind velocity, km/h; Fb2 = freeboard due to embankment settlement, m; Fb = total freeboard, m.",
+          "description": "PAES 609:2016, Section 7.1.1 - used to determine the total dam height together with dead storage, active storage, and flood surcharge.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Dam Crest Width",
+          "formula": "W1 = (5/3) x sqrt(H1) ; W2 = (H2/5) + 10",
+          "variables": "W1 = width of the dam crest, m; H1 = dam height, m; W2 = width of the dam crest, ft; H2 = dam height, ft. The minimum crest width for maintenance is 4 m; the largest computed dimension is adopted.",
+          "description": "PAES 609:2016, Section 7.1.2.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Lag Time (Snyder's Synthetic Unit Hydrograph Method)",
+          "formula": "T_L = Ct x (L x Lc / sqrt(Y))^0.38",
+          "variables": "T_L = lag time, h; Ct = coefficient (1.2 for mountainous drainage area, 0.72 for foothill drainage area, 0.35 for valley drainage area); L = mainstream length from outlet to highest ridge, mi; Lc = mainstream length from outlet to nearest basin centroid, mi; Y = watershed gradient.",
+          "description": "PAES 609:2016, Annex A, Section A.1.1.1 - used to derive the synthetic unit hydrograph for reservoir inflow estimation.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Time of Concentration and Time to Peak",
+          "formula": "Tc = T_L / 0.70 ; Tp = 0.5 x deltaD + T_L",
+          "variables": "Tc = time of concentration, h; T_L = lag time, h; Tp = time to peak, h; deltaD = standard rainfall duration, h (0.5 or 0.4 hr if Tc < 3; 1 hr if 3<Tc<6; 0.2 x Tc if Tc > 6).",
+          "description": "PAES 609:2016, Annex A, Sections A.1.1.3 and A.1.1.4.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Peak Rate of Runoff",
+          "formula": "qp = 0.20A / T_L",
+          "variables": "qp = peak rate of runoff, cm/mm; A = drainage area, km2; T_L = lag time, h.",
+          "description": "PAES 609:2016, Annex A, Section A.1.1.5 - used to derive the synthetic unit hydrograph.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Initial Abstraction (Runoff Curve Number Method)",
+          "formula": "Ia = 0.2s ; s = (1000/W) - 10",
+          "variables": "Ia = initial abstraction, in; s = maximum potential difference between rainfall and runoff, in; W = watershed index/runoff curve number (function of soil group, antecedent moisture condition, and land use cover).",
+          "description": "PAES 609:2016, Annex A, Section A.1.5 - used to compute rainfall excess for the design flood inflow hydrograph.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Spillway Discharge (Broad-Crested Weir)",
+          "formula": "Q = C x L x H^(3/2)",
+          "variables": "Q = discharge over the spillway, m3/s; C = weir coefficient, 1.704; H = surcharge height, m; L = spillway width, m.",
+          "description": "PAES 609:2016, Annex A, Section A.5.2.3 - spillway rating equation used in flood routing (maximum surcharge height allowed is 1 m).",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Size of Rock or Stone for Slope Protection (Riprap)",
+          "formula": "d_m = 2.23 x C x H_w x [W/(G-W)] x sqrt[(1+S^2)/(S(S+2))]",
+          "variables": "d_m = riprap diameter, m; C = riprap factor (0.54 for hand-laced, 0.80 for dumped); H_w = wave height, m; W = unit weight of water, ton/m3; G = unit weight of stone, ton/m3; S = slope of embankment.",
+          "description": "PAES 609:2016, Annex B, Section B.1.2 - sizing of upstream slope rock/riprap protection.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Filter Drain Design Equation",
+          "formula": "Q = (k x t^2 x w) / L",
+          "variables": "Q = design seepage value (equivalent to 5-10 times the estimated embankment seepage); k = average permeability of filter material; t = thickness of drain; L = length of drain; w = width of drain (perpendicular to flow).",
+          "description": "PAES 609:2016, Annex B, Section B.2.3 - sizing of the filter drain that prevents migration of fine soil particles and piping.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Froude Number for Stilling Basin Selection",
+          "formula": "F = V / sqrt(g x d1)",
+          "variables": "F = Froude Number; V = velocity at entrance to the basin, m/s; g = gravitational acceleration, m/s2; d1 = depth of flow at the entrance to the basin, m.",
+          "description": "PAES 609:2016, Annex C, Section C.3.2.4 - used with Table C.1 to select the appropriate USBR stilling basin type.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Preliminary Discharge Pipe Diameter (Outlet Works)",
+          "formula": "d_p = sqrt{ 4Q_d / [pi x (2gh)^(1/4)] }",
+          "variables": "d_p = preliminary pipe diameter, m; Q_d = critical demand (large discharge under low head), m3/s; g = gravitational acceleration, m2/s; h = critical head, m.",
+          "description": "PAES 609:2016, Annex D, Section D.1.2 - sizing of the steel discharge pipe of the outlet works.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 609 — Impact-Type Energy Dissipator Basin Width",
+          "formula": "W = 2.85 x d_s x F x 0.58",
+          "variables": "W = basin width, m; d_s = equivalent square opening of the discharge pipe diameter, m; F = Froude number of flow exiting the discharge pipe.",
+          "description": "PAES 609:2016, Annex D, Section D.2.3 - sizing of the impact-type stilling basin at the outlet works.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 609 — Small Water Impounding System height and service area range",
+          "symbol": null,
+          "value": "5 to 15 m height; 25 to 150 ha service area",
+          "unit": "m; ha",
+          "description": "PAES 609:2016, Section 1 (Scope) - a small water impounding system is an earth-fill structure with a height of 5 m to a maximum of 15 m, serving 25 ha to 150 ha."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 609 — Minimum reservoir area at normal water level",
+          "symbol": null,
+          "value": "1",
+          "unit": "ha",
+          "description": "PAES 609:2016, Section 5.1.11 - the reservoir of a small water impounding system shall be at least this area at normal water level."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 609 — Maximum recommended watershed slope",
+          "symbol": null,
+          "value": "18",
+          "unit": "%",
+          "description": "PAES 609:2016, Section 5.2.3 - the watershed of a small water impounding system shall have a maximum slope of this value."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 609 — Minimum clay content of dam site soil",
+          "symbol": null,
+          "value": "30",
+          "unit": "%",
+          "description": "PAES 609:2016, Section 5.1.5 - soil at the dam site shall be well-graded and shall contain at least this percentage of clay."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 609 — Maximum spillway surcharge height for flood routing",
+          "symbol": null,
+          "value": "1",
+          "unit": "m",
+          "description": "PAES 609:2016, Section 7.2.2 - spillway width shall be determined from flood routing results by allowing a maximum surcharge height of this value."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 610 — Definitions",
+          "table_content": "Term | Definition\ndesigned height | actual height of the embankment after settlement\nfinished height | height of the embankment to be attained during construction\nfreeboard | additional height of the dam provided as a safety factor to prevent overtopping by wave action or other causes\ninside slope | slope of the upstream face of the embankment\noutside slope | slope at the downstream face of the embankment\nstorage ratio | ratio of the storage capacity to the total earth volume required for embankment construction which indicates the relative cost of the different types of reservoir\nunimodal rainfall pattern | rainfall pattern with five wet months of more than 200 mm/month, five dry months of less than 100 mm/month, two transition months of 100mm-200mm/month and total annual rainfall above 1500 mm",
+          "description": "PAES 610:2016 Rainwater and Runoff Management - Small Farm Reservoir - Section 3 definitions."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 610 — Table 1: Basic types of small farm reservoir",
+          "table_content": "Type | General Description | Slope (%) | Storage Ratio\nStraight Embankment | Suited to an area with an undulating topography. A dam is built across a valley and water is impounded on the upstream side of the dam. | 2-15 | 2-7\nRectangular Balanced Excavation (on slightly sloping land) | The excavated earth can be used to impound some water above ground level. | < 2 | 1.5-2.5\nRectangular Balanced Excavation (on higher slopes) | Can be designed so that all water is stored above service level. | 2-12 | 1.5-2.5\nSemicircular Embankment | Water is impounded against the slope behind a semicircular embankment. | 4-7 | 2.5-4.0\nDugout Pond | The only design suited to flat areas. A reservoir is constructed by excavating the earth leaving storage space that can be filled with water. Water is stored below ground level and pumping is required to draw out water. | flat | 1.0",
+          "description": "PAES 610:2016 - Table 1, basic types of small farm reservoir with suitable slope and storage ratio."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 610 — Table 2: Minimum size of catchment area per 1000 m2 reservoir capacity",
+          "table_content": "Land Use | Size\nTerraced | 0.2-0.5 ha\nGrassland/Residential | 0.6-1.0 ha",
+          "description": "PAES 610:2016 - minimum catchment area required per 1000 m2 of reservoir storage capacity, by land use."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 610 — Reservoir Storage Capacity (Embankment Type)",
+          "formula": "Capacity (m3) = [Surface area (m2) x Depth (m)] / 3",
+          "variables": "Capacity = potential reservoir storage capacity; Surface area = pond surface area; Depth = depth of the reservoir.",
+          "description": "PAES 610:2016 - formula for estimating potential reservoir capacity for embankment-type small farm reservoirs.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 610 — Reservoir Storage Capacity (Dugout Pond Design)",
+          "formula": "Capacity (m3) = Surface area (m2) x Depth (m)",
+          "variables": "Capacity = potential reservoir storage capacity; Surface area = pond surface area; Depth = depth of the reservoir.",
+          "description": "PAES 610:2016 - formula for estimating potential reservoir capacity specifically for dugout pond designs (no divisor, unlike the embankment-type formula).",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Small farm reservoir embankment height threshold",
+          "symbol": null,
+          "value": "< 5",
+          "unit": "m",
+          "description": "PAES 610:2016 - a small farm reservoir is defined as a system with an earth dam embankment height of less than 5 m and a pond area of about 1500 m2."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Recommended inside slope of embankment",
+          "symbol": "IS",
+          "value": "3:1 (H:V)",
+          "unit": null,
+          "description": "PAES 610:2016 Section 8.3 - the inside slope (upstream face) of the small farm reservoir embankment shall be equal to 3:1 (H:V)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Recommended outside slope of embankment",
+          "symbol": "OS",
+          "value": "2:1 (H:V)",
+          "unit": null,
+          "description": "PAES 610:2016 Section 8.3 - the outside slope (downstream face) of the small farm reservoir embankment shall be equal to 2:1 (H:V)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Finished height allowance for settlement",
+          "symbol": null,
+          "value": "20",
+          "unit": "%",
+          "description": "PAES 610:2016 Section 8.2 - the finished height (H') of the embankment should be 20% higher than the designed height (H) to provide allowance for settlement."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Crest width range",
+          "symbol": "Bt",
+          "value": "2 to 3",
+          "unit": "m",
+          "description": "PAES 610:2016 Section 8.4 - the width of the crest (Bt) of the small farm reservoir embankment can range from 2 m to 3 m."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Minimum diversion channel depth",
+          "symbol": null,
+          "value": "0.75",
+          "unit": "m",
+          "description": "PAES 610:2016 Section 8.6 - the diversion channel around a small farm reservoir shall have a depth of at least 0.75 m, with width at least twice the depth."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 610 — Site slope requirement",
+          "symbol": null,
+          "value": "0 to 15",
+          "unit": "%",
+          "description": "PAES 610:2016 Section 6.1 - a small farm reservoir shall be located in areas with slope 0% to 15%, most suited to undulating topography."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 611 — Small reservoir irrigation system dam height range",
+          "symbol": null,
+          "value": "15 to 35",
+          "unit": "m",
+          "description": "PAES 611:2016 Section 1 - a small reservoir irrigation system is defined as a structure built across a river to store river runoff for immediate and multiple use, and may be built with a dam height of 15 m to 35 m."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 611 — Minimum river bed/bank survey extent",
+          "symbol": null,
+          "value": "2.0",
+          "unit": "km",
+          "description": "PAES 611:2016 Section 4.1.5 - river bed and banks profile and cross sections shall be prepared for at least 2.0 km upstream and downstream from the dam axis, or as required."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 611 — Minimum number of boreholes along dam axis",
+          "symbol": null,
+          "value": "5",
+          "unit": "holes",
+          "description": "PAES 611:2016 Section 4.4.3 - a minimum of 5 boreholes/drill holes located along the dam axis and at the dam foundation upstream and downstream area shall be required, with depth approximately equal to or greater than the proposed dam height."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 611 — Minimum number of drill holes for spillway and diversion outlet",
+          "symbol": null,
+          "value": "3",
+          "unit": "holes",
+          "description": "PAES 611:2016 Section 4.4.3 - a minimum of three drill holes shall be required for both the spillway and diversion outlet."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 611 — Dam instrumentation reading frequency",
+          "table_content": "Reading/Measurement | Frequency of Reading\nPiezometer | monthly or weekly depending on the difficulty (or ease) of taking them\nSeepage | daily\nTotal pressure cells | every six months\nSettlement/deflection | every six months\nStrong motion accelerographs | during a strong earthquake\nShort period accelerographs | daily\nSpecial Event | within several hours",
+          "description": "PAES 611:2016 Annex B (B.6) - recommended frequency of readings for the various dam instrumentation types."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 611 — Seepage flow increase threshold requiring reporting",
+          "symbol": null,
+          "value": "10",
+          "unit": "%",
+          "description": "PAES 611:2016 Annex B (B.7.2.1) - an increase in seepage flow quantity (not related to rainfall) in excess of 10 percent as compared to historical flow quantity for the particular reservoir level must be considered unusual and reported to higher authorities."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 611 — General types of dam instrumentation",
+          "table_content": "Instrument | Function\nPiezometer (pneumatic/standpipe) | Provide data on water pressure at selected points within an embankment dam or foundation\nFlow measuring devices (weirs) | Measure the total seepage and the seepage from selected locations, through and under the dam\nTotal pressure cells | Measure the total vertical pressure (combined water pressure and effective earth pressure) at selected locations within the embankment\nCross-arm settlement devices | Measure internal settlements in an embankment dam and in foundations\nSurface settlement and deflection points | Surface monuments placed on the dam crest and slopes to measure long term settlement and horizontal deflection\nSeismic instruments (strong motion accelerograph, auxiliary short period accelerograph) | Measure the effects of strong earthquakes and seismic activity at the site",
+          "description": "PAES 611:2016 Annex B (B.5) - general types of dam instrumentation and their functions."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 611 — Table A.1: Sediment Yield Estimation for Various Drainage Areas",
+          "table_content": "Drainage Area (km2) | Soil Loss (ton/km2) | Sediment Yield (ton/km2)\n52 | 345 | 345\n90 | 223 | 85\n112 | 332 | 312\n165 | 276 | 256\n191 | 654 | 970\n232 | 365 | 400\n240 | 431 | 585\n253 | 424 | 566\n258 | 296 | 209\n274 | 665 | 1420\n285 | 1017 | 2213\n312 | 808 | 1262\n347 | 291 | 195\n353 | 562 | 2049\n512 | 415 | 539\n709 | 335 | 374\n764 | 351 | 363\n1177 | 278 | 182",
+          "description": "PAES 611:2016 Annex A.1 (informative), based on De Vera 1981 Universal Soil Loss Equation study for Central Luzon basins - used for reservoir sedimentation analysis."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 612 — Definitions",
+          "table_content": "Term | Definition\npiping | internal erosion induced by regressive erosion of particles from downstream and along the upstream line towards an outside environment\nrockfill dam | dam that relies on rock, either dumped in lifts or compacted in layers, as a major structural element where an impervious membrane is used as the water barrier and can be placed either within the embankment or on the upstream slope",
+          "description": "PAES 612:2016 Design of a Rockfill Dam - Section 3 definitions."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 612 — Table 1: Determination of Dam Crest Width",
+          "table_content": "Method/Name | Formula\nUSBR | 3.6 H^(1/3) - 1.5\nMerriman | 0.2 H + 1.5\nTrantwine | 1.1 H^(1/2) + 0.6\nJANCOLD | 3.6 H^(1/3) - 3.0",
+          "description": "PAES 612:2016 Section 9 - four formulas for determining rockfill dam crest width (W) as a function of dam height (H)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 612 — Minimum recommended dam crest width",
+          "symbol": null,
+          "value": "4",
+          "unit": "m",
+          "description": "PAES 612:2016 Section 9.2 - the recommended minimum width of a rockfill dam crest is 4 m."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 612 — Table 2: Recommended upstream and downstream slope of various types of rockfill dams",
+          "table_content": "Type of Rockfill Dam | Upstream Slope | Downstream Slope\nCentral earth-core | 1:1.8 to 1:2 | 1:1.8 to 1:2\nSloping earth-core | 1:2.5 to 1:2.75 | 1:1.6 to 1:2\nConcrete-faced compacted by hard rocks | 1:1.3 to 1:1.4 | 1:1.3 to 1:1.4\nConcrete-faced compacted by soft rocks and gravel | 1:1.5 to 1:1.7 | 1:1.5 to 1:1.7\nAsphaltic concrete-faced | 1:1.6 to 1:1.7 | 1:1.3 to 1:1.4",
+          "description": "PAES 612:2016 Section 10 - recommended upstream and downstream embankment slopes for various types of rockfill dams based on the type and location of the impervious membrane."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 612 — Table 1 (Section 11.2): Filter Criteria for Downstream Semi-Pervious Zone",
+          "table_content": "Protected Material Category | Percent Finer than 0.075 mm | D5 Size (mm) | D15 Size (mm) | D60 Size (mm) | D100/Dmax Size (mm)\nFine silts and clays | More than 85% finer | >= 0.075 | <= 9 d85 | <= 4.75 or <= 20 D10 | <= 50\nSands, silts, clays, and silty and clayey sands | 40% to 85% finer | >= 0.075 | <= 0.7 | <= 4.75 or <= 20 D10 | <= 50\nSilty and clayey sands and gravels | 15% to 40% finer | >= 0.075 | <= [(40-A)/(40-15)] x (4d85 - 0.7) + 0.7 | <= 4.75 or <= 20 D10 | <= 50 to 150\nSands and gravels | Less than 15% finer | >= 0.075 | <= 4 d85 | <= 20 D10 | <= 50 to 150",
+          "description": "PAES 612:2016 Section 11.2 - filter criteria for the downstream semi-pervious (filter) zone of a rockfill dam, based on the gradation of the protected material."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 612 — Slip Circle Stability Safety Factor",
+          "formula": "Safety Factor = [c'L + tan(phi') x (N - U)] / T",
+          "variables": "c' = effective cohesion of material on sliding surface of each slice; L = length of arc of slip circle; phi' = effective angle of internal friction; N = summation of normal forces along the arc; U = summation of uplift forces caused by pore water pressure along the arc; T = algebraic summation of tangential forces along the arc.",
+          "description": "PAES 612:2016 Section 13 - slip circle method safety factor formula for embankment dam stability analysis.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 612 — Horizontal Drain Leakage Volume",
+          "formula": "Q = K x Yo x L",
+          "variables": "Q = volume of leakage, m3/day; K = coefficient of permeability, m/day; Yo = sqrt(d^2 + H^2) - d, where d = 0.3L1 + L2; L = longitudinal length, m.",
+          "description": "PAES 612:2016 Section 14.1 - formula for computing the volume of seepage leakage to be conveyed by the horizontal drain.",
+          "notes": "The acceptable leakage volume is 0.05% of the storage capacity."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 612 — Acceptable horizontal drain leakage volume",
+          "symbol": null,
+          "value": "0.05",
+          "unit": "% of storage capacity",
+          "description": "PAES 612:2016 Section 14.2 - the acceptable leakage volume for the horizontal drain of a rockfill dam is 0.05% of the reservoir storage capacity."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 612 — Allowable velocity of flow on dam face",
+          "symbol": null,
+          "value": "5 to 7",
+          "unit": "m/s",
+          "description": "PAES 612:2016 Section 6.3 - the velocity of flow on the dam face shall be within 5 m/s to 7 m/s, with reliable protection measures against scouring."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 612 — Minimum cutoff depth and width for sound rock foundation",
+          "symbol": null,
+          "value": "1",
+          "unit": "m",
+          "description": "PAES 612:2016 Section 6.16 - for a sound rock foundation, a minimum depth and width of 1 m cutoff shall be required."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 612 — Filter drain gradation criteria",
+          "table_content": "Criterion | Requirement\nF15/B15 | > 5\nF15/B85 | < 5\nGradation curves | Gradation curves of filter and base material desired to be parallel\nFilter material cohesiveness | Filter material shall not be cohesive and shall not contain silt and clay particles more than 5%",
+          "description": "PAES 612:2016 Section 14.3 - gradation criteria for the sandy filter covering the horizontal drain, where F = filter material and B = base material."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Table 1: Types of Diversion Dams",
+          "table_content": "Type | Description | Site Conditions\nOgee | Upper curve conforms to the shape of the lower nappe of a ventilated sheet of water falling from a sharp-crested weir; has a high discharge efficiency | For most sites under normal conditions\nVertical Drop | Produces free-discharging flows and dissipates the overflowing water jet with impact in the downstream apron; not adaptable for high drops on yielding foundation | For mountain streams with very steep slopes where a hydraulic jump cannot form; drop height (weir crest to downstream apron) should not exceed 1.50 m and the foundation must be firm and unyielding\nGlacis | Surface slopes gently downward from the crest to the downstream apron so only the horizontal component of the overflow jet impacts the tailwater; stable, predictable hydraulic jump; most adoptable for rivers with heavy sediment loads | For weirs not more than 1 m high on rivers with large, rolling boulders and other debris during flood condition\nGated | Larger part of the ponding is by the solid obstruction of the weir; additional head achieved by installing gates on the crest that can be collapsed or raised during floods | For rivers/creeks where the afflux level would affect populated or cropped areas upstream, or where heavy sediment loads during floods must be allowed to pass through gate openings\nTrapezoidal | Sloping upstream and downstream slopes allow boulders and debris to roll over and hit the downstream apron with less impact | For weirs more than 1 m but not exceeding 4 m in height, on rivers with large rolling boulders and debris during flood condition\nCorewall | Stabilizes the river bed for intake-type diversion structures or gains a limited amount of diversion head; the exposed part is pure concrete while the inside is filled with stones and cobbles | For intake structures requiring only a minimal additional diversion head; maximum height from crest to existing river bed is 0.50 m",
+          "description": "PAES 613:2016 Design of a Diversion Dam - Table 1, types of diversion dams and their suitability by site condition."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Table 2: Allowable Maximum Flood Concentration for Various Foundation Material",
+          "table_content": "Character of Foundation Material | Allowable Maximum Flood Concentration (m3/s/m)\nFine sand | 5\nCoarse sand | 10\nSand and gravel | 15\nSandy clay | 20\nClay | 25\nRock | 50",
+          "description": "PAES 613:2016 - Table 2, used with Lmin = Q/qallow to determine the minimum required length of a diversion dam."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Table 3: Recommended Length of Downstream Apron",
+          "table_content": "Froude Number | Type of Basin | Formula for Length\n< 4.5 | Type I basin with dentated end sills | La = 5(d2 - d1)\n> 4.5 | Type II basin with dentated end sills | La = 3.5 d2\n> 4.5 | Type III basin with dentated end sills | La = 4 d2",
+          "description": "PAES 613:2016 - Table 3, recommended downstream apron length by Froude number and basin type (Section 5.7)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Table 4: Recommended Sizes of Chute Blocks, Baffle Blocks and End Sill",
+          "table_content": "Froude Number | Chute Blocks (cm) | Baffle Blocks (cm) | End Sill (cm)\n< 2.85 | 30 | 60 | 30\n> 2.85 | 40 to 60 | 80 to 120 | 30 to 40",
+          "description": "PAES 613:2016 - Table 4, recommended sizes of energy-dissipation elements at the downstream apron (Section 5.8)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Annex A Table A4: Percentage Coefficient for Various Catchment Characteristics (Runoff Formula)",
+          "table_content": "Type of Catchment | Maximum Value of P\nSteep bare rock | 0.90\nRock, steep but wooded | 0.80\nPlateaus lightly covered | 0.70\nClayey soils, stiff and bare | 0.60\nClayey soils, lightly covered | 0.50\nLoam, lightly cultivated or covered | 0.40\nLoam, largely cultivated | 0.30\nSandy soil, light growth | 0.20\nSandy soil, covered, heavy brush | 0.10",
+          "description": "PAES 613:2016 Annex A, Table A4 - catchment coefficient P used in the Runoff Formula Q = 0.028 x P x f x A x Ic."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Annex A Table A5: Runoff Coefficient for Various Catchment Characteristics (Rational Formula)",
+          "table_content": "Type of Catchment | Recommended Values of C\nParks, lawns and gardens | 0.05 - 0.25\nOpen or Unpaved areas | 0.20 - 0.30\nLight residential areas | 0.25 - 0.35\nModerate residential areas | 0.30 - 0.55\nDense residential areas | 0.50 - 0.75\nSuburban areas | 0.45 - 0.55\nAgricultural lands | 0.15 - 0.25\nSteep sloped watershed | 0.55 - 0.70\nModerately sloped watershed | 0.45 - 0.55",
+          "description": "PAES 613:2016 Annex A, Table A5 - runoff coefficient C used in the Rational Formula Q = F x C x IM x A."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 613 — Annex C Table C.1: Allowable Sliding Factor for Various Foundation Materials",
+          "table_content": "Foundation Material | Sliding Factor, f\nSound rock, clean and irregular surface | 0.8\nRock, some jointing and laminations | 0.7\nGravel and coarse sand | 0.4\nSand | 0.3\nShale | 0.3\nSilt and clay | Laboratory test necessary",
+          "description": "PAES 613:2016 Annex C, Table C.1 - allowable sliding factor by foundation material used to check dam stability against sliding."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Minimum Required Length of a Diversion Dam",
+          "formula": "Lmin = Q / qallow",
+          "variables": "Lmin = minimum required length of the dam, m. Q = maximum flood discharge, m3/s. qallow = allowable maximum flood concentration, m3/s/m (Table 2).",
+          "description": "PAES 613:2016 Section 5.4 - minimum dam length based on foundation material's allowable flood concentration.",
+          "notes": "The minimum stable river width shall also be checked; the average of the two values is preferred for the final dam length."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Lacey's Formula for Minimum Dam Length",
+          "formula": "Pw = 4.825 x Q^(1/2)",
+          "variables": "Pw = minimum required length of the dam, m. Q = maximum flood discharge, m3/s.",
+          "description": "PAES 613:2016 Section 5.4.2 - Lacey's regime formula, an alternative check for minimum diversion dam length.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Discharge Per Meter Run of Dam",
+          "formula": "qr = Q / L",
+          "variables": "qr = discharge per meter run, m3/s/m. Q = maximum flood discharge, m3/s. L = dam length, m.",
+          "description": "PAES 613:2016 Section 5.5.1 - used at the start of the afflux-elevation trial-and-error procedure.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Coefficient of Discharge for Flow Over a Submerged Dam",
+          "formula": "Cs = [(100 - %Decrease) / 100] x Co",
+          "variables": "Cs = coefficient of discharge for flow over a submerged dam. Co = coefficient of discharge for free-flow condition (Figure 9). %Decrease = decrease in coefficient of discharge from Figure 10.",
+          "description": "PAES 613:2016 Section 5.5.5 - adjusts the free-flow discharge coefficient for tailwater submergence.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Discharge Equation for an Ogee Weir",
+          "formula": "qs = (Cs / 1.811) x H^(3/2)",
+          "variables": "qs = supplied discharge per meter run, m3/s/m. Cs = coefficient of discharge for flow over a submerged dam. H = head above the dam, m.",
+          "description": "PAES 613:2016 Section 5.5.6 - solved iteratively until qs equals the required qr, to establish the afflux elevation.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Hydraulic Jump Conjugate Depth",
+          "formula": "d2 = -(d1/2) + sqrt[(d1^2/4) + (2 x v1^2 x d1 / g)]",
+          "variables": "d2 = depth of water just downstream of the jump, m. d1 = assumed depth of water just upstream of the jump, m. v1 = velocity of water just upstream of the jump, m/s. g = gravitational acceleration, m/s2.",
+          "description": "PAES 613:2016 Section 5.6.3 - jump height (sequent/conjugate depth) computation for hydraulic jump analysis; may also be read from the nomograph in Figure 12.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Froude Number for Apron Length Selection",
+          "formula": "F = v^2 / sqrt(g x d)",
+          "variables": "F = Froude number. v = water velocity. d = hydraulic depth. g = gravitational acceleration.",
+          "description": "PAES 613:2016 Section 5.7 - determines which basin type/apron-length formula in Table 3 applies.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Bottom Velocity for Riprap Sizing",
+          "formula": "vb = 2.57 x sqrt(D)",
+          "variables": "vb = bottom velocity, ft/s. D = weighted mean diameter of river bed materials, in.",
+          "description": "PAES 613:2016 Section 5.10.1 - Berry's equation; the average tailwater velocity may be used if bottom velocity is unavailable.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Weight of Required Riprap Stone",
+          "formula": "WR = (4/3) x pi x r^3 x 165",
+          "variables": "WR = weight of riprap, lbs. r = required stone radius, ft.",
+          "description": "PAES 613:2016 Section 5.10.2 - riprap stone weight from the required radius (165 lb/ft3 assumed unit weight).",
+          "notes": "Riprap thickness shall be 1.5 times the stone diameter; gravel blanket thickness shall be half the riprap thickness but not less than 12 in."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Depth of Downstream Cut-off Wall",
+          "formula": "dco = R - dsupplied",
+          "variables": "dco = required depth of the downstream cut-off wall, m. R = depth of scour, m (from Figure 14). dsupplied = supplied tailwater depth, m.",
+          "description": "PAES 613:2016 Section 5.11 - sizes the downstream cut-off wall against scour.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Ogee Crest Shape Equation",
+          "formula": "y / H = -K x (x / H)^n",
+          "variables": "y = vertical distance from the apex of the crest. x = horizontal distance from the apex of the crest. H = difference between energy elevation and dam crest elevation. K, n = constants from the upstream face inclination and velocity of approach (Figure B3).",
+          "description": "PAES 613:2016 Annex B - defines the downstream ogee crest profile fitted to the underside of a ventilated nappe.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Rational Formula for Flood Discharge",
+          "formula": "Q = F x C x IM x A",
+          "variables": "Q = flood discharge, m3/s. F = conversion factor. C = runoff coefficient of the catchment (Table A5). IM = rainfall intensity, mm/h. A = catchment area, km2.",
+          "description": "PAES 613:2016 Annex A.4 - flood discharge estimation method when streamflow records are unavailable.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 613 — Empirical Flood Formula (Rare and Occasional Flows)",
+          "formula": "Qrare = 150A / sqrt(A + 17); Qoccasional = 85A / sqrt(A + 9)",
+          "variables": "Qrare = rare flow for a river with streamflow record, m3/s. Qoccasional = occasional flow for a river with streamflow record, m3/s. A = drainage area of the river with streamflow record, km2.",
+          "description": "PAES 613:2016 Annex A.7 - the average of Qrare and Qoccasional is used as the flow estimate for rivers without streamflow records.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Height Range of a Diversion Dam",
+          "symbol": null,
+          "value": "3 to 5",
+          "unit": "m",
+          "description": "PAES 613:2016 Section 1 (Scope) - height range of the diversion dam type covered by the standard."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Minimum Length of Riprap",
+          "symbol": null,
+          "value": "10",
+          "unit": "m",
+          "description": "PAES 613:2016 Section 5.9 - minimum extent of riprap protection downstream of a diversion dam."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Horizontal Seismic Acceleration Coefficient",
+          "symbol": null,
+          "value": "0.15",
+          "unit": "g",
+          "description": "PAES 613:2016 Annex C.4.3.1 - horizontal acceleration applied at the dam's center of gravity for earthquake force analysis."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Factor of Safety Against Overturning",
+          "symbol": null,
+          "value": "1.5 to 2 (may reduce to 1 with seismic forces)",
+          "unit": null,
+          "description": "PAES 613:2016 Annex C.2.1 - required factor of safety against overturning under normal stable conditions."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Assumed Unit Weight of Concrete in Stability Analysis",
+          "symbol": null,
+          "value": "150",
+          "unit": "lb/ft3",
+          "description": "PAES 613:2016 Annex C.4.4 - unit weight of concrete used to compute the weight of the dam structure."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Assumed Silt Pressure",
+          "symbol": null,
+          "value": "85 lb/ft3 (horizontal fluid pressure), 120 lb/ft3 (vertical weight)",
+          "unit": "lb/ft3",
+          "description": "PAES 613:2016 Annex C.4.2 - assumed silt loading used in structural stability analysis."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 613 — Maximum Drop Height for a Vertical Drop Diversion Dam",
+          "symbol": null,
+          "value": "1.50",
+          "unit": "m",
+          "description": "PAES 613:2016 Table 1 - maximum permissible drop height (weir crest to downstream apron) for a Vertical Drop type diversion dam."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 614 — Table 1: Classification of Check Dams",
+          "table_content": "Type | Material | Bed Characteristics | Dam and Spillway\nBrushwood Check Dam | Posts and brush | Gradient 5%-12%; depth < 1 m; length <= 100 m; catchment area <= 1 ha | Max dam height 1 m; upstream/downstream face inclination 30% backwards; spillway form concave or rectangular\nLog Check Dam | Logs, posts, planks, heavy boards, slabs, poles or old railroad ties | Length <= 100 m; catchment area <= 2 ha | Max dam height 1.5 m; face inclination 25% backwards; rectangular spillway; spillway length 1-2 m; spillway depth 0.5-0.6 m\nLoose Stone Check Dam | Relatively small rocks | Length <= 100 m; catchment area <= 2 ha | Max dam height 1.5 m; foundation depth >= 0.5 m; downstream face inclination 20%; upstream face vertical; dam thickness at spillway level 0.5-0.7 m\nBoulder Check Dam | Boulders | Length <= 900 m; catchment area <= 20 ha | Max dam height 2 m; foundation depth >= 0.5 x dam height; downstream face inclination 30%; upstream face vertical; dam thickness at spillway level 0.7-10 m; trapezoidal spillway\nMasonry Check Dam | Cement mortar and non-disintegrating stones | Length > 900 m; catchment area > 20 ha | Computations shown in Section 5.2\nGabion Check Dam | Gabions | Length > 900 m; catchment area > 20 ha | Computations shown in Section 5.3",
+          "description": "PAES 614:2016 Design of a Check Dam - Table 1, classification of check dams by construction material with design/site limits."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 614 — Check Dam Spillway Discharge",
+          "formula": "Q = C x L x D^(3/2)",
+          "variables": "Q = maximum discharge of the catchment area at the check dam, m3/s. C = coefficient (3.0 for loose rock, boulder, log and brushwood check dams; 1.8 for gabion and cement masonry check dams). L = length of spillway, m. D = depth of spillway, m.",
+          "description": "PAES 614:2016 Section 5.1.2 - spillway sizing formula common to all check dam types.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 614 — Gabion Check Dam Dimensions (3 m to 5 m Height)",
+          "formula": "k = 0.4H; d = 0.6H; f = 0.3H",
+          "variables": "k = thickness of the dam's crest at spillway level, m. d = thickness of the dam's base, m. f = depth of foundation, m. H = total height of the dam including foundation, m.",
+          "description": "PAES 614:2016 Section 5.2.2 - sizing formulas for gabion check dams 3 m to 5 m in total height.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 614 — Masonry Check Dam Base Thickness (Hoffman Formula, 2 m to 6 m Height)",
+          "formula": "d = 0.462H",
+          "variables": "d = thickness of the dam's base, m. H = total height of the dam including foundation, m.",
+          "description": "PAES 614:2016 Section 5.3.2 - Hoffman formula for masonry check dam base thickness when total height is 2 m to 6 m.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 614 — Masonry Check Dam Crest Thickness (6 m to 8 m Height)",
+          "formula": "k = (1 + 10H) / 10",
+          "variables": "k = thickness of the dam's crest at spillway level, m. H = total height of the dam including foundation, m.",
+          "description": "PAES 614:2016 Section 5.3.3 - crest thickness formula for masonry check dams 6 m to 8 m in total height.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Maximum Height of a Brushwood Check Dam",
+          "symbol": null,
+          "value": "1",
+          "unit": "m",
+          "description": "PAES 614:2016 Table 1 - maximum dam height for a brushwood-type check dam."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Maximum Height of Log and Loose Stone Check Dams",
+          "symbol": null,
+          "value": "1.5",
+          "unit": "m",
+          "description": "PAES 614:2016 Table 1 - maximum dam height for log check dams and loose stone check dams."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Maximum Height of a Boulder Check Dam",
+          "symbol": null,
+          "value": "2",
+          "unit": "m",
+          "description": "PAES 614:2016 Table 1 - maximum dam height for a boulder check dam."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Masonry Check Dam Crest Thickness (Height Less Than 2 m)",
+          "symbol": null,
+          "value": "0.4",
+          "unit": "m",
+          "description": "PAES 614:2016 Section 5.3.1 - required crest thickness for masonry check dams less than 2 m in total height."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Portland Cement Mortar Mix for the First Masonry Check Dam",
+          "symbol": null,
+          "value": "250 kg cement per m3 of sand (mortar ratio 1:4 or 1:5 by weight)",
+          "unit": null,
+          "description": "PAES 614:2016 Section 5.3.5 - mortar mix requirement for the first masonry check dam body when built on a reinforced concrete base."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Minimum Foundation Depth of the First Masonry Check Dam",
+          "symbol": null,
+          "value": "1",
+          "unit": "m",
+          "description": "PAES 614:2016 Section 5.3.5 - minimum foundation depth if the first masonry check dam is not built on solid rock (a 20 cm reinforced concrete layer is also required)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Minimum Wing Entry Into Gully Sides",
+          "symbol": null,
+          "value": "Gabion check dam: 50 cm; Masonry check dam: 1 m",
+          "unit": null,
+          "description": "PAES 614:2016 Sections 5.2.9 and 5.3.7 - minimum depth wings must enter into each side of the gully."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Aqueduct and Drainage Hole Sizing for Masonry Check Dams",
+          "symbol": null,
+          "value": "Aqueduct diameter 20 to 50 cm; drainage hole diameter at least 10 cm",
+          "unit": null,
+          "description": "PAES 614:2016 Section 5.3.8 - aqueduct and drainage hole dimensions built into masonry check dams (vertical/horizontal hole spacing 1 m and 2 m; gradient 5%)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 614 — Gabion Box Lacing Interval for 2 m Long Box Gabions",
+          "symbol": null,
+          "value": "5",
+          "unit": "parallel ties (per one-third fill increment)",
+          "description": "PAES 614:2016 Section 5.2.4 - after a 2 m long box gabion is one-third full, 5 parallel ties are placed between the inner and outer sides; 5 more at two-thirds full, plus 4 corner ties."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 615 — Table 3: Recommended Pipe Diameter Based on Discharge (Rice-Based Cropping System)",
+          "table_content": "Design Discharge (lps) | Area (ha) | Pipe Diameter, mm (in)\n3.8 | <1 | 50 or 75 (2 or 3)\n7.6 | >2 | 75 or 100 (3 or 4)\n>7.6 | >2 | 100 (4)",
+          "description": "PAES 615:2016 Groundwater Irrigation - Shallow Tubewell - Table 3, based on a crop water requirement of about 11 mm/day and 10-hour/day pump operation."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 615 — Table 4: Recommended Pipe Materials",
+          "table_content": "Type of Well | Pipe Material\nArtificially developed | Schedule 20 GI or PVC\nNaturally developed with design depth of <= 9 m (30 ft) | Schedule 20 GI\nNaturally developed with relatively soft confining layer | Schedule 20 GI\nNaturally developed with hard confining layer | Schedule 40 GI",
+          "description": "PAES 615:2016 - Table 4, recommended pipe material by type/depth/confining-layer condition of the shallow tubewell."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 615 — Table 5: Extent of Aquifer Penetration Based on Type of Well",
+          "table_content": "Type of Well | Extent of Aquifer Penetration\nArtificially developed | 100%\nAquifers of > 4.6 m thickness | 85% of the aquifer thickness\nNaturally developed, design discharge < 15 lps | < 25%\nNaturally developed, design discharge > 15 lps | 50% - 100%",
+          "description": "PAES 615:2016 - Table 5, required extent of aquifer penetration by well type and design discharge."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 615 — Table 4 (Section 10): Friction Losses on GI Pipe per 3 m (10 ft) Length",
+          "table_content": "Pipe Flow Rate (lps) | Pipe Flow Rate (gpm) | Friction Loss, 2 in / 50.8 mm (m) | Friction Loss, 3 in / 76.2 mm (m) | Friction Loss, 4 in / 101.6 mm (m)\n3.15 | 50 | 0.30 | 0.04 | -\n4.73 | 75 | 0.65 | 0.09 | -\n6.31 | 100 | 1.10 | 0.15 | -\n7.89 | 125 | 1.67 | 0.23 | -\n9.46 | 150 | 2.33 | 0.32 | 0.08\n11.04 | 175 | 3.10 | 0.43 | 0.11\n12.62 | 200 | 3.98 | 0.55 | 0.14\n14.20 | 225 | - | 0.69 | 0.17\n15.77 | 250 | - | 0.84 | 0.21\n17.35 | 275 | - | 1.00 | 0.25\n18.93 | 300 | - | 1.17 | 0.29\n20.50 | 325 | - | 1.36 | 0.33\n22.08 | 350 | - | 1.56 | 0.38\n23.66 | 375 | - | 1.77 | 0.44\n25.24 | 400 | - | 2.00 | 0.50\n28.39 | 450 | - | 2.48 | 0.61\n31.55 | 500 | - | 3.02 | 0.74",
+          "description": "PAES 615:2016 Section 10.1.1 - friction loss table used to compute total dynamic head (TDH) for pump selection."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 615 — Table 5 (Section 10): Estimated Body Indicated Power Rating of Various Prime Movers",
+          "table_content": "Prime Mover | Body Indicated Power Rating (relative to BHP)\nElectric motor | 1.15 x BHP\nDiesel, water-cooled | 1.25 - 1.30 x BHP\nDiesel, air-cooled | 1.30 - 1.35 x BHP\nGasoline, water-cooled | 1.35 - 1.40 x BHP\nGasoline, air-cooled | 1.40 - 1.50 x BHP",
+          "description": "PAES 615:2016 Section 10.3 - used to select a prime mover whose full-load continuous duty rating exceeds the computed pump brake horsepower."
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Required Pump Discharge",
+          "formula": "Qr = (IWR / h) x 24",
+          "variables": "Qr = required pump discharge, lps. IWR = irrigation water requirement, lps. h = number of hours of operation, h.",
+          "description": "PAES 615:2016 Section 7.1.2 - required pump discharge from the irrigation water requirement (per PAES 602).",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Maximum Sustained Yield, Confined Aquifer",
+          "formula": "Qs = 2 x pi x k x b x (h2 - h1) / ln(r2/r1)",
+          "variables": "Qs = maximum sustained yield, m3/s. k = hydraulic conductivity, m/s. b = aquifer thickness, m (T = kb = transmissivity). h2, h1 = piezometric water levels at r2 and r1, m. r2, r1 = distance from pumping well to observation wells 2 and 1, m.",
+          "description": "PAES 615:2016 Section 7.1.3.1 - steady-state sustained yield for a confined aquifer.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Maximum Sustained Yield, Unconfined Aquifer",
+          "formula": "Qs = pi x k x (h2^2 - h1^2) / ln(r2/r1)",
+          "variables": "Qs = maximum sustained yield, m3/s. k = hydraulic conductivity, m/s. h2, h1 = piezometric water levels at r2 and r1, m. r2, r1 = distance from pumping well to observation wells 2 and 1, m.",
+          "description": "PAES 615:2016 Section 7.1.3.1 - steady-state sustained yield for an unconfined aquifer.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Pipe Length Estimation for a Single Borehole",
+          "formula": "Pipe length = E + D + (B x %penetration)",
+          "variables": "E = pipe stick-up above ground surface, m. D = depth to static water level, m. B = aquifer thickness, m. %penetration = extent of aquifer penetration (Table 5).",
+          "description": "PAES 615:2016 Section 8.4 - total pipe length for a single borehole; at least 1.2 m (4 ft) is added for pump nipples.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Total Dynamic Head",
+          "formula": "TDH = SWL + Hf + DD + Hsf",
+          "variables": "TDH = total dynamic head, m. SWL = static water level, m. Hf = friction losses in the pipes, m (Table 4). DD = maximum drawdown when pumping at the design discharge, m. Hsf = 0.6 m (2 ft), to account for other head losses.",
+          "description": "PAES 615:2016 Section 10.1.1 - total dynamic head used to size the pump.",
+          "notes": null
+        },
+        {
+          "kind": "formula",
+          "title": "PAES 615 — Pump Brake Horsepower",
+          "formula": "BHP = (TDH x Qd) / (102 x Ep)",
+          "variables": "BHP = brake horsepower, kW. TDH = total dynamic head, m. Qd = design pump discharge, lps. Ep = pump efficiency (assumed 55%).",
+          "description": "PAES 615:2016 Section 10.1.2 - brake horsepower computation for prime mover selection.",
+          "notes": null
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Maximum Depth Defining a Shallow Tubewell",
+          "symbol": null,
+          "value": "less than 15",
+          "unit": "m",
+          "description": "PAES 615:2016 Section 3.5 - a shallow tubewell is usually set at a depth less than 15 m, within the capability of a suction lift pump."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Well Pipe Perforation Slot Dimensions",
+          "symbol": null,
+          "value": "3 to 6 mm width, 60 to 90 mm length",
+          "unit": null,
+          "description": "PAES 615:2016 Section 8.5.1 - cut with an oxyacetylene torch as vertical slots around pipe sections penetrating water-bearing formations."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Minimum Total Slot Opening Area",
+          "symbol": null,
+          "value": "15",
+          "unit": "% of pipe surface area",
+          "description": "PAES 615:2016 Section 8.5.2 - minimum total area of perforation slot openings on the well pipe."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Minimum Gravel Pack Thickness (Uniform or Graded Pack)",
+          "symbol": null,
+          "value": "15",
+          "unit": "cm",
+          "description": "PAES 615:2016 Section 9.1.2.2 - minimum gravel envelope thickness where uniformly graded or graded gravel pack is needed (UC < 2.0 or ES < 0.30 mm)."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Additional Pipe Length Allowance for Nipples",
+          "symbol": null,
+          "value": "1.2 (4 ft)",
+          "unit": "m",
+          "description": "PAES 615:2016 Section 8.4 - minimum additional pipe length added to accommodate nipples for the pumping unit installation."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Minimum Air Pressure for Well Development",
+          "symbol": null,
+          "value": "100 (120-150 desirable)",
+          "unit": "psi",
+          "description": "PAES 615:2016 Section 9.5.3 - sustained air pressure released via air compressor to surge and clear a well during development."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Head Loss Allowance for Other Losses (Hsf)",
+          "symbol": "Hsf",
+          "value": "0.6 (2 ft)",
+          "unit": "m",
+          "description": "PAES 615:2016 Section 10.1.1 - fixed allowance in the total dynamic head (TDH) formula to account for miscellaneous head losses."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Assumed Pump Efficiency",
+          "symbol": "Ep",
+          "value": "55",
+          "unit": "%",
+          "description": "PAES 615:2016 Section 10.1.2 - pump efficiency value assumed in the brake horsepower (BHP) formula."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Practical Suction Lifting Range",
+          "symbol": null,
+          "value": "22",
+          "unit": "ft",
+          "description": "PAES 615:2016 Section 9.2.4.2 - depth used as a rule of thumb for perforating pipe when aquifer hydraulic characteristics are unknown."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Minimum Thickness of a Good Confined Aquifer",
+          "symbol": null,
+          "value": "3 (10 ft)",
+          "unit": "m",
+          "description": "PAES 615:2016 Annex A.2 - minimum thickness for an aquifer dominated by gravel and sand to be considered a good confined aquifer during well logging."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 615 — Maximum Gravel Pack Particle Size (Graded Pack)",
+          "symbol": null,
+          "value": "15",
+          "unit": "mm",
+          "description": "PAES 615:2016 Section 9.1.2.3.2 - upper size limit for graded gravel pack material (UC greater than 2.0, ES less than 0.30 mm)."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 616 — Table 1: Limits on Wastewater Quality for Irrigation",
+          "table_content": "Parameter (Unit) | Landscape Irrigation | Food Eaten Raw (Not Commercially Processed) | Food Crops Commercially Processed | Non-Food Crops\nBicarbonates (mg/L) | <500 | <500 | <500 | <500\nBOD5 (mg/L) | <150 | <150 | <150 | <150\nElectrical Conductivity (uS/cm) | <2000 | <1000 | <1000 | <2000\nFree Residual Chlorine (mg/L) | <1 | <1 | <1 | <1\npH | 6.5-8.0 | 6.5-8.0 | 6.5-8.0 | 6.5-8.0\nSodium Adsorption Ratio (SAR) | <18 | <18 | <18 | <18\nSodium, Na (meq/L) | <3 | <3 | <3 | <3\nTotal Nitrogen, TN (mg/L) | <30 | <30 | <30 | <30\nTotal Phosphorus, TP (mg/L) | <30 | <30 | <30 | <30\nTotal Suspended Solids (mg/L) | <140 | <140 | <140 | <140\nAscaris (MPN/100mL) | 0 | 0 | 0 | 0\nFecal Coliform (MPN/100mL) | <200 | Not detectable (<=14 MPN/100mL) | <200 | <200\nNematodes (MPN/100mL) | 0 | 0 | 0 | 0",
+          "description": "PAES 616:2016 Wastewater Re-use for Irrigation - Table 1, treated wastewater quality limits by irrigation/crop category."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 616 — Table 2: Limits of Trace Elements in Irrigation Waters",
+          "table_content": "Trace Element | Limit (mg/L)\nAluminum | 5.00\nArsenic | 0.10\nBeryllium | 0.10\nBoron | 0.75\nCadmium | 0.01\nChromium | 0.10\nCobalt | 0.05\nCopper | 0.20\nFluoride | 1.00\nIron | 1.00\nLead | 0.20\nLithium | 2.50\nManganese | 0.20\nMercury | 0.002\nMolybdenum | 0.01\nNickel | 0.20\nSelenium | 0.02\nVanadium | 0.10\nZinc | 2.00",
+          "description": "PAES 616:2016 - Table 2, trace element/heavy metal limits for landscape and crop irrigation waters."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 616 — Table 3: Movement of Re-used Wastewater Relative to Soil Type",
+          "table_content": "Soil Type | Intake Rate (cm/h) | Hydraulic Conductivity (cm/h)\nClay | 0.01-0.8 | <0.125-0.5\nSilty Clay | 0.8-2.0 | 0.5-2.0\nClay Loam | 2.0-6.0 | 2.0-6.25\nLoam | 6.0-12.0 | 6.25-12.5\nSandy Loam | 12.5-25.0 | 12.5-25.0\nSand | >25.0 | >25.0",
+          "description": "PAES 616:2016 - Table 3, general guidance on intake rate and hydraulic conductivity by soil type for wastewater reuse siting."
+        },
+        {
+          "kind": "table",
+          "title": "PAES 616 — Table 4: Required Type of Irrigation and Setback Distances",
+          "table_content": "Category | Type of Irrigation System | Setback from Potable Water Wells (m) | Setback from Public-Access Area if Sprinkler/Spray (m)\nLandscape - Restricted Area | Sprinkler and drip | 90 | 30\nLandscape - Access Area | Sprinkler and drip | 25 | -\nCrop - Food eaten raw, not commercially processed | Surface and drip | 25 | -\nCrop - Food crops commercially processed | Surface and sprinkler | 90 | 30\nCrop - Non-food crops | Surface and sprinkler | 90 | 30",
+          "description": "PAES 616:2016 Section 9, Table 4 - required irrigation system type and minimum setback distances by land use/crop category."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 616 — Preferred Soil pH for a Wastewater Reuse Irrigation Site",
+          "symbol": null,
+          "value": "5.5",
+          "unit": null,
+          "description": "PAES 616:2016 Section 7.2 - soils with pH less than 4 (highly acidic) or greater than 8.5 (highly alkaline) shall be avoided; soils with pH of 5.5 are preferred."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 616 — Minimum Soil Depth for a Wastewater Reuse Irrigation Site",
+          "symbol": null,
+          "value": "1.0",
+          "unit": "m",
+          "description": "PAES 616:2016 Section 7.3 - minimum soil depth requirement at a wastewater reuse irrigation site."
+        },
+        {
+          "kind": "constant",
+          "title": "PAES 616 — Fecal Coliform \"Not Detectable\" Threshold",
+          "symbol": null,
+          "value": "14",
+          "unit": "MPN/100mL",
+          "description": "PAES 616:2016 Table 1, footnote 2 - for food crops eaten raw and not commercially processed, total fecal coliform organisms shall not exceed this value in any sample to be considered 'not detectable'."
+        }
+      ]
+    }
+  ]
+}

@@ -20,7 +20,7 @@ export default async function PaesHubPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ count: questionCount }, libraryResult] = await Promise.all([
+  const [{ count: questionCount }, libraryResult, masteryResult] = await Promise.all([
     supabase.from("student_questions").select("id", { count: "exact", head: true }).eq("is_paes", true),
     // paes_reference may not exist yet on a DB that hasn't picked up the
     // 027 migration — degrade to "no count yet" rather than failing the
@@ -30,8 +30,17 @@ export default async function PaesHubPage() {
       .select("id", { count: "exact", head: true })
       .eq("status", "published")
       .not("paes_reference", "is", null),
+    // get_paes_mastery() may not exist yet on a DB that hasn't picked up the
+    // 029 migration — same degrade-gracefully treatment as the Library count
+    // above, just for a lightweight "how many standards have any tracked
+    // mastery" stat rather than the full mastery breakdown.
+    supabase.rpc("get_paes_mastery"),
   ]);
   const libraryCount = libraryResult.error ? null : libraryResult.count;
+  const masteryAvailable = !masteryResult.error;
+  const masteryTrackedCount = masteryResult.error
+    ? 0
+    : (masteryResult.data ?? []).filter((m: { total_attempts: number }) => m.total_attempts > 0).length;
 
   const cards: HubCard[] = [
     {
@@ -55,11 +64,11 @@ export default async function PaesHubPage() {
       description: "Scannable values, dimensions, and space requirements for quick lookup.",
     },
     {
-      href: "/progress",
+      href: "/paes/mastery",
       icon: TrendingUp,
       title: "PAES Mastery",
-      description: "Coming soon — per-standard mastery tracking, built on the same engine as Progress.",
-      disabled: true,
+      description: "Per-standard mastery tracking, built on the same engine as Progress.",
+      stat: masteryAvailable && masteryTrackedCount > 0 ? `${masteryTrackedCount} tracked` : undefined,
     },
   ];
 
