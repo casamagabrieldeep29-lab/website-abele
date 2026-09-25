@@ -59,7 +59,7 @@ export async function startAdaptivePracticeAttempt(topicId: string, count: numbe
     throw new Error("No published questions in this topic yet.");
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count, user.id);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -107,7 +107,7 @@ export async function startSubjectPracticeAttempt(subjectId: string, count: numb
     throw new Error("No published questions in this subject yet.");
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count, user.id);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -172,7 +172,7 @@ export async function startPaesQuizAttempt(count: number, paesReference?: string
     );
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count, user.id);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -249,13 +249,14 @@ export async function startRecalledQuiz(area: MockArea) {
 
   const { data: answered } = await supabase
     .from("attempt_answers")
-    .select("question_id")
+    .select("question_id, attempts!inner(user_id)")
+    .eq("attempts.user_id", user.id)
     .in("question_id", candidates.map((c) => c.id));
   const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
   const unanswered = candidates.filter((c) => !answeredIds.has(c.id));
   const scoped = unanswered.length > 0 ? unanswered : candidates;
 
-  const selected = await weighAndSampleCandidates(supabase, scoped, scoped.length);
+  const selected = await weighAndSampleCandidates(supabase, scoped, scoped.length, user.id);
 
   const { data: attempt, error: insErr } = await supabase
     .from("attempts")
@@ -344,6 +345,7 @@ async function scopeToPracticeMode(
   supabase: SupabaseClient<any>,
   candidates: (SeriesCandidate & { topic_id: string })[],
   mode: PracticeMode,
+  userId: string,
 ): Promise<(SeriesCandidate & { topic_id: string })[]> {
   if (mode === "mixed") return candidates;
 
@@ -368,7 +370,8 @@ async function scopeToPracticeMode(
   // unanswered
   const { data: answered } = await supabase
     .from("attempt_answers")
-    .select("question_id")
+    .select("question_id, attempts!inner(user_id)")
+    .eq("attempts.user_id", userId)
     .in("question_id", candidates.map((c) => c.id));
   const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
   const scoped = candidates.filter((c) => !answeredIds.has(c.id));
@@ -401,8 +404,8 @@ export async function startQuickPractice(count: number, mode?: PracticeMode) {
     throw new Error("No published questions yet.");
   }
 
-  const scoped = await scopeToPracticeMode(supabase, candidates, resolvedMode);
-  const selected = await weighAndSampleCandidates(supabase, scoped, count);
+  const scoped = await scopeToPracticeMode(supabase, candidates, resolvedMode, user.id);
+  const selected = await weighAndSampleCandidates(supabase, scoped, count, user.id);
 
   const { data: attempt, error } = await supabase
     .from("attempts")
@@ -477,7 +480,8 @@ export async function startCustomQuiz(formData: FormData) {
   } else if (filters.source === "unanswered") {
     const { data: answered } = await supabase
       .from("attempt_answers")
-      .select("question_id")
+      .select("question_id, attempts!inner(user_id)")
+      .eq("attempts.user_id", user.id)
       .in("question_id", candidates.length ? candidates.map((c) => c.id) : ["00000000-0000-0000-0000-000000000000"]);
     const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
     candidates = candidates.filter((c) => !answeredIds.has(c.id));
@@ -487,7 +491,7 @@ export async function startCustomQuiz(formData: FormData) {
     redirect("/quiz-builder?error=no-match");
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, filters.count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, filters.count, user.id);
   const adjustedFrom = selected.length < filters.count ? filters.count : null;
 
   const { data: attempt, error } = await supabase
@@ -581,7 +585,7 @@ export async function startSubtopicPracticeAttempt(subtopicId: string, count: nu
     throw new Error("No published questions in this concept yet.");
   }
 
-  const selected = await weighAndSampleCandidates(supabase, candidates, count);
+  const selected = await weighAndSampleCandidates(supabase, candidates, count, user.id);
 
   const { data: attempt, error } = await supabase
     .from("attempts")

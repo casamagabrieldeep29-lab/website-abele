@@ -80,10 +80,11 @@ export default async function ProgressPage() {
       // total answered questions across the account passes 1000, which
       // would truncate the accuracy trend and Preparation Profile stats
       // below. See study-stats.ts.
-      fetchAllAnsweredRows(supabase),
+      fetchAllAnsweredRows(supabase, user.id),
       supabase
         .from("attempts")
         .select("id, total_questions, correct_count, completed_at")
+        .eq("user_id", user.id)
         .eq("mode", "mock")
         .eq("status", "completed")
         .order("completed_at", { ascending: false })
@@ -91,6 +92,7 @@ export default async function ProgressPage() {
       supabase
         .from("attempts")
         .select("total_questions, correct_count")
+        .eq("user_id", user.id)
         .eq("mode", "mock")
         .eq("status", "completed"),
       supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),

@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     // Paginated — a plain `.select()` here silently caps at 1000 rows once a
     // student passes 1000 answered questions, understating questionsAnswered/
     // overallAccuracy in the AI's context. See study-stats.ts.
-    fetchAllAnsweredRows(supabase),
+    fetchAllAnsweredRows(supabase, user.id),
     supabase.rpc("get_mistake_bank"),
   ]);
 

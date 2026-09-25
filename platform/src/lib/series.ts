@@ -119,20 +119,30 @@ export async function weighAndSampleCandidates(
   supabase: SupabaseClient<any>,
   candidates: SeriesCandidate[],
   count: number,
+  userId: string,
 ): Promise<string[]> {
   if (candidates.length === 0) return [];
 
   // attempt_answers can easily exceed 1000 rows for a large candidate pool
-  // (e.g. Quick Practice's whole published-question set, ~7000 answers
-  // across all students) — a plain `.select()` would silently cap at 1000
-  // via PostgREST's default max-rows, understating older answer history and
-  // misclassifying some questions as "never attempted". Paginated.
+  // (e.g. Quick Practice's whole published-question set) — a plain
+  // `.select()` would silently cap at 1000 via PostgREST's default max-rows,
+  // understating older answer history and misclassifying some questions as
+  // "never attempted". Paginated.
+  //
+  // `userId` is required and enforced via an explicit `attempts!inner(user_id)`
+  // filter rather than trusting RLS alone: the attempt_answers SELECT policy
+  // grants admins unrestricted read access (for the admin panel), so an admin
+  // account calling this without the filter would weight candidates off every
+  // student's answer history pooled together instead of just their own —
+  // exactly the "keeps repeating questions I've already gotten right" problem
+  // this weighting exists to prevent, just reappearing for admin accounts.
   const candidateIds = candidates.map((c) => c.id);
   const pastAnswers = await fetchAllRows<{ question_id: string; is_correct: boolean; answered_at: string }>(
     (from, to) =>
       supabase
         .from("attempt_answers")
-        .select("question_id, is_correct, answered_at")
+        .select("question_id, is_correct, answered_at, attempts!inner(user_id)")
+        .eq("attempts.user_id", userId)
         .in("question_id", candidateIds)
         .order("answered_at", { ascending: false })
         .range(from, to),

@@ -122,11 +122,12 @@ export default async function DashboardPage() {
     ).then((data) => ({ data })),
     // attempt_answers grows unbounded per active user — same 1000-row cap
     // risk, already fixed for this exact query in study-stats.ts.
-    fetchAllAnsweredRows(supabase).then((data) => ({ data })),
+    fetchAllAnsweredRows(supabase, user.id).then((data) => ({ data })),
     supabase.rpc("get_mistake_bank").then((r) => ({ count: r.data?.length ?? 0, error: r.error })),
     supabase
       .from("attempts")
       .select("id, mode, status, total_questions, correct_count, completed_at, topics(name)")
+      .eq("user_id", user.id)
       .eq("status", "completed")
       .order("completed_at", { ascending: false })
       .limit(3),
