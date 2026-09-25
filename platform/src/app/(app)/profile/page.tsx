@@ -22,7 +22,7 @@ export default async function ProfilePage() {
     supabase.rpc("get_topic_mastery"),
     // Paginated — a plain `.select()` here silently caps at 1000 rows once a
     // student passes 1000 answered questions. See study-stats.ts.
-    fetchAllAnsweredRows(supabase),
+    fetchAllAnsweredRows(supabase, user.id),
   ]);
 
   const stats = computeStudyStats(masteryRows ?? [], answeredRows ?? []);

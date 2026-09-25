@@ -22,16 +22,24 @@ type AnsweredRow = { answered_at: string | null; is_correct: boolean };
  * before it even reaches this code, not just before display. Paginates in
  * batches of 1000 via `.range()` until a page comes back short, so the
  * real total is always fetched regardless of how large it's grown.
+ *
+ * `userId` is required and enforced via an explicit `attempts!inner(user_id)`
+ * filter rather than trusting RLS alone: the `attempt_answers` SELECT policy
+ * grants admins unrestricted read access (for the admin panel), so an admin
+ * account calling this without the filter would silently get every user's
+ * answers merged into their own "Questions answered"/streak/accuracy.
  */
 export async function fetchAllAnsweredRows(
   supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
 ): Promise<AnsweredRow[]> {
   const pageSize = 1000;
   const all: AnsweredRow[] = [];
   for (let from = 0; ; from += pageSize) {
     const { data, error } = await supabase
       .from("attempt_answers")
-      .select("answered_at, is_correct")
+      .select("answered_at, is_correct, attempts!inner(user_id)")
+      .eq("attempts.user_id", userId)
       .not("answered_at", "is", null)
       .range(from, from + pageSize - 1);
     if (error) throw error;
