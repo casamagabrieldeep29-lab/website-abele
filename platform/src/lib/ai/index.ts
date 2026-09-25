@@ -8,6 +8,10 @@ import { NvidiaProvider } from "./nvidia";
 import { AIProvider, FallbackAIProvider } from "./types";
 
 export const AI_DAILY_LIMIT = Number(process.env.AI_DAILY_LIMIT ?? 500);
+// Stricter cap for free-trial accounts specifically — enforced inside
+// check_and_log_ai_usage() (patch 034), not here; this is just the value
+// passed in as p_trial_daily_limit. Subscribers/admins are unaffected.
+export const AI_TRIAL_DAILY_LIMIT = Number(process.env.AI_TRIAL_DAILY_LIMIT ?? 15);
 
 let cached: AIProvider | null = null;
 
@@ -92,6 +96,20 @@ export function getAIProvider(): AIProvider | null {
     cached = providers.length === 1 ? providers[0] : new FallbackAIProvider(providers);
   }
   return cached;
+}
+
+/**
+ * check_and_log_ai_usage() returns which cap was actually hit
+ * ('trial_limit' vs 'daily_limit') so the two AI routes can show the right
+ * message — a trial account hitting its stricter 15/day cap should be told
+ * to upgrade, not just "try again tomorrow" like a subscriber's much higher
+ * daily cap.
+ */
+export function buildAiLimitMessage(limitReason: string | null | undefined): string {
+  if (limitReason === "trial_limit") {
+    return `Limit reached for your Free Trial account (${AI_TRIAL_DAILY_LIMIT}/day). Upgrade to a Subscriber account for a much higher daily limit.`;
+  }
+  return `You've reached today's AI request limit (${AI_DAILY_LIMIT}/day). Try again tomorrow.`;
 }
 
 export { AIProviderError } from "./types";
