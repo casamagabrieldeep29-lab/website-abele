@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,15 +19,21 @@ export default async function AdminTopicsPage() {
   await requireAdmin();
   const supabase = await createClient();
 
-  const [{ data: examAreas }, { data: topics }, { data: subtopics }, { data: questionCounts }] = await Promise.all([
+  const [{ data: examAreas }, { data: topics }, { data: subtopics }, questionCounts] = await Promise.all([
     supabase.from("exam_areas").select("id, name, sort_order").order("sort_order"),
     supabase.from("topics").select("id, name, exam_area_id, mock_area").order("name"),
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
-    supabase.from("questions").select("topic_id, subtopic_id"),
+    // questions now has 2200+ rows — a plain `.select()` would silently cap
+    // at PostgREST's 1000-row default, wrongly marking some topics/subtopics
+    // that DO have questions as empty and letting their Delete button show.
+    // Paginated.
+    fetchAllRows<{ topic_id: string; subtopic_id: string | null }>((from, to) =>
+      supabase.from("questions").select("topic_id, subtopic_id").range(from, to),
+    ),
   ]);
 
-  const topicHasQuestions = new Set((questionCounts ?? []).map((q) => q.topic_id));
-  const subtopicHasQuestions = new Set((questionCounts ?? []).map((q) => q.subtopic_id).filter(Boolean));
+  const topicHasQuestions = new Set(questionCounts.map((q) => q.topic_id));
+  const subtopicHasQuestions = new Set(questionCounts.map((q) => q.subtopic_id).filter(Boolean));
 
   const topicsByArea = new Map<string, typeof topics>();
   for (const t of topics ?? []) {

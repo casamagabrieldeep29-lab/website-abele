@@ -1,5 +1,6 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 
 export type SeriesCandidate = {
   id: string;
@@ -121,14 +122,24 @@ export async function weighAndSampleCandidates(
 ): Promise<string[]> {
   if (candidates.length === 0) return [];
 
-  const { data: pastAnswers } = await supabase
-    .from("attempt_answers")
-    .select("question_id, is_correct, answered_at")
-    .in("question_id", candidates.map((c) => c.id))
-    .order("answered_at", { ascending: false });
+  // attempt_answers can easily exceed 1000 rows for a large candidate pool
+  // (e.g. Quick Practice's whole published-question set, ~7000 answers
+  // across all students) — a plain `.select()` would silently cap at 1000
+  // via PostgREST's default max-rows, understating older answer history and
+  // misclassifying some questions as "never attempted". Paginated.
+  const candidateIds = candidates.map((c) => c.id);
+  const pastAnswers = await fetchAllRows<{ question_id: string; is_correct: boolean; answered_at: string }>(
+    (from, to) =>
+      supabase
+        .from("attempt_answers")
+        .select("question_id, is_correct, answered_at")
+        .in("question_id", candidateIds)
+        .order("answered_at", { ascending: false })
+        .range(from, to),
+  );
 
   const latestOutcome = new Map<string, boolean>();
-  for (const a of pastAnswers ?? []) {
+  for (const a of pastAnswers) {
     if (!latestOutcome.has(a.question_id)) latestOutcome.set(a.question_id, a.is_correct);
   }
 

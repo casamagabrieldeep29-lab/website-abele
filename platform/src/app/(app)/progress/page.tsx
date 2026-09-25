@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllAnsweredRows } from "@/lib/study-stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StudyAssistant } from "@/components/study-assistant";
@@ -72,10 +73,14 @@ export default async function ProgressPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: masteryRows }, { data: answeredRows }, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
+  const [{ data: masteryRows }, answeredRows, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
     await Promise.all([
       supabase.rpc("get_topic_mastery"),
-      supabase.from("attempt_answers").select("answered_at, is_correct").not("answered_at", "is", null),
+      // Paginated — a plain `.select()` here silently caps at 1000 rows once
+      // total answered questions across the account passes 1000, which
+      // would truncate the accuracy trend and Preparation Profile stats
+      // below. See study-stats.ts.
+      fetchAllAnsweredRows(supabase),
       supabase
         .from("attempts")
         .select("id, total_questions, correct_count, completed_at")

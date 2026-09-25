@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllAnsweredRows } from "@/lib/study-stats";
 import { getAIProvider, AIProviderError, AI_DAILY_LIMIT } from "@/lib/ai";
 import { buildStudyAssistantPrompt, buildStudyAssistantSystemInstruction, type StudyAssistantContext } from "@/lib/ai/prompts";
 
@@ -51,14 +52,17 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const [{ data: masteryRows }, { data: answeredRows }, { data: mistakeRows }] = await Promise.all([
+  const [{ data: masteryRows }, answeredRows, { data: mistakeRows }] = await Promise.all([
     supabase.rpc("get_topic_mastery"),
-    supabase.from("attempt_answers").select("is_correct").not("answered_at", "is", null),
+    // Paginated — a plain `.select()` here silently caps at 1000 rows once a
+    // student passes 1000 answered questions, understating questionsAnswered/
+    // overallAccuracy in the AI's context. See study-stats.ts.
+    fetchAllAnsweredRows(supabase),
     supabase.rpc("get_mistake_bank"),
   ]);
 
   const mastery = (masteryRows ?? []) as TopicMasteryRow[];
-  const answered = answeredRows ?? [];
+  const answered = answeredRows;
   const context: StudyAssistantContext = {
     questionsAnswered: answered.length,
     overallAccuracy: answered.length

@@ -18,7 +18,8 @@ import { startAdaptivePracticeAttempt, startDailyQuestion } from "@/app/practice
 import { startFlashcardsByTopic } from "@/app/flashcards/actions";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { ACHIEVEMENTS } from "@/lib/achievements";
-import { computeStudyStats, type TopicMasteryRow } from "@/lib/study-stats";
+import { computeStudyStats, fetchAllAnsweredRows, type TopicMasteryRow } from "@/lib/study-stats";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { StatCard } from "@/components/stat-card";
 import type { PlanDay } from "@/app/study-plan/actions";
 
@@ -112,8 +113,16 @@ export default async function DashboardPage() {
     { data: studyPlan },
   ] = await Promise.all([
     supabase.rpc("get_topic_mastery"),
-    supabase.from("student_questions").select("id, topic_id").order("id"),
-    supabase.from("attempt_answers").select("answered_at, is_correct").not("answered_at", "is", null),
+    // student_questions now has 1800+ published rows — a plain `.select()`
+    // would silently cap at PostgREST's 1000-row default and truncate the
+    // per-topic published-question-count map below. Paginated via
+    // fetchAllRows, same reasoning as fetchAllAnsweredRows in study-stats.ts.
+    fetchAllRows<{ id: string; topic_id: string }>((from, to) =>
+      supabase.from("student_questions").select("id, topic_id").order("id").range(from, to),
+    ).then((data) => ({ data })),
+    // attempt_answers grows unbounded per active user — same 1000-row cap
+    // risk, already fixed for this exact query in study-stats.ts.
+    fetchAllAnsweredRows(supabase).then((data) => ({ data })),
     supabase.rpc("get_mistake_bank").then((r) => ({ count: r.data?.length ?? 0, error: r.error })),
     supabase
       .from("attempts")

@@ -1,3 +1,5 @@
+import type { createClient } from "@/lib/supabase/server";
+
 export type TopicMasteryRow = {
   topic_id: string;
   topic_name: string;
@@ -11,6 +13,34 @@ export type TopicMasteryRow = {
 };
 
 type AnsweredRow = { answered_at: string | null; is_correct: boolean };
+
+/**
+ * A plain `.select()` on attempt_answers silently caps at PostgREST's
+ * default max-rows (1000) — a student who's answered more than 1000
+ * questions total would see "Questions answered" stuck at exactly 1000
+ * forever, since every row past that point is dropped by the API layer
+ * before it even reaches this code, not just before display. Paginates in
+ * batches of 1000 via `.range()` until a page comes back short, so the
+ * real total is always fetched regardless of how large it's grown.
+ */
+export async function fetchAllAnsweredRows(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+): Promise<AnsweredRow[]> {
+  const pageSize = 1000;
+  const all: AnsweredRow[] = [];
+  for (let from = 0; ; from += pageSize) {
+    const { data, error } = await supabase
+      .from("attempt_answers")
+      .select("answered_at, is_correct")
+      .not("answered_at", "is", null)
+      .range(from, from + pageSize - 1);
+    if (error) throw error;
+    if (!data || data.length === 0) break;
+    all.push(...data);
+    if (data.length < pageSize) break;
+  }
+  return all;
+}
 
 export type StudyStats = {
   questionsAnswered: number;

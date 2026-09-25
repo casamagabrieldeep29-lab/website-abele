@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { StatCard } from "@/components/stat-card";
 import { SettingsForm } from "@/components/settings-form";
-import { computeStudyStats } from "@/lib/study-stats";
+import { computeStudyStats, fetchAllAnsweredRows } from "@/lib/study-stats";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import { updateDisplayName } from "@/app/profile/actions";
 import { PageHeader } from "@/components/page-header";
@@ -17,10 +17,12 @@ export default async function ProfilePage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { data: masteryRows }, { data: answeredRows }] = await Promise.all([
+  const [{ data: profile }, { data: masteryRows }, answeredRows] = await Promise.all([
     supabase.from("profiles").select("display_name, email, created_at").eq("id", user.id).single(),
     supabase.rpc("get_topic_mastery"),
-    supabase.from("attempt_answers").select("answered_at, is_correct").not("answered_at", "is", null),
+    // Paginated — a plain `.select()` here silently caps at 1000 rows once a
+    // student passes 1000 answered questions. See study-stats.ts.
+    fetchAllAnsweredRows(supabase),
   ]);
 
   const stats = computeStudyStats(masteryRows ?? [], answeredRows ?? []);
