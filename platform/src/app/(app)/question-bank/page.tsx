@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getAuthContext } from "@/lib/auth/session";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { PageHeader } from "@/components/page-header";
 import { QuestionBankBrowser, type QuestionBankArea, type QuestionBankOfficialSubject } from "./question-bank-browser";
 
@@ -7,18 +8,23 @@ export default async function QuestionBankPage() {
   const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
 
-  const [{ data: examAreas }, { data: officialSubjects }, { data: topics }, { data: subtopics }, { data: published }] =
+  const [{ data: examAreas }, { data: officialSubjects }, { data: topics }, { data: subtopics }, published] =
     await Promise.all([
       supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),
       supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
       supabase.from("topics").select("id, name, exam_area_id, subject_id").order("name"),
       supabase.from("subtopics").select("id, name, topic_id").order("name"),
-      supabase.from("student_questions").select("topic_id, subtopic_id"),
+      // student_questions now has 1800+ published rows — a plain `.select()`
+      // would silently cap at PostgREST's 1000-row default and understate
+      // per-topic/per-subtopic question counts below. Paginated.
+      fetchAllRows<{ topic_id: string; subtopic_id: string | null }>((from, to) =>
+        supabase.from("student_questions").select("topic_id, subtopic_id").range(from, to),
+      ),
     ]);
 
   const topicCount = new Map<string, number>();
   const subtopicCount = new Map<string, number>();
-  for (const q of published ?? []) {
+  for (const q of published) {
     topicCount.set(q.topic_id, (topicCount.get(q.topic_id) ?? 0) + 1);
     if (q.subtopic_id) subtopicCount.set(q.subtopic_id, (subtopicCount.get(q.subtopic_id) ?? 0) + 1);
   }

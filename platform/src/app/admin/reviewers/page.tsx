@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,22 @@ const KIND_LABELS: Record<string, string> = { formula: "Formula", table: "Table"
 
 type Topic = { id: string; name: string };
 type Subtopic = { id: string; name: string; topic_id: string };
+type ReviewerEntryRow = {
+  id: string;
+  kind: string;
+  title: string;
+  formula: string | null;
+  variables: string | null;
+  symbol: string | null;
+  value: string | null;
+  unit: string | null;
+  table_content: string | null;
+  description: string | null;
+  notes: string | null;
+  topic_id: string;
+  subtopic_id: string | null;
+  status: string;
+};
 
 function TopicSubtopicFields({
   topics,
@@ -57,8 +74,13 @@ export default async function AdminReviewersPage() {
   await requireAdmin();
   const supabase = await createClient();
 
-  const [{ data: entries }, { data: topics }, { data: subtopics }] = await Promise.all([
-    supabase.from("reviewer_entries").select("*").order("created_at", { ascending: false }),
+  const [entries, { data: topics }, { data: subtopics }] = await Promise.all([
+    // reviewer_entries just crossed 1000 rows — a plain `.select()` would
+    // silently cap at PostgREST's 1000-row default and hide the newest
+    // entries from this admin management view. Paginated.
+    fetchAllRows<ReviewerEntryRow>((from, to) =>
+      supabase.from("reviewer_entries").select("*").order("created_at", { ascending: false }).range(from, to),
+    ),
     supabase.from("topics").select("id, name").order("name"),
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);

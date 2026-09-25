@@ -6,6 +6,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
 import { weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import type { MockArea } from "@/app/mock/actions";
 
 export async function startPracticeAttempt(topicId: string) {
@@ -389,7 +390,13 @@ export async function startQuickPractice(count: number, mode?: PracticeMode) {
 
   const resolvedMode = mode ?? (await getUserSettings(supabase, user.id)).defaultPracticeMode;
 
-  const { data: candidates } = await supabase.from("student_questions").select("id, topic_id, series_key, series_position");
+  // Pools EVERY published question (1800+ rows now) — a plain `.select()`
+  // here would silently cap at 1000 via PostgREST's default max-rows,
+  // quietly shrinking Quick Practice's candidate pool. Paginated.
+  const candidates = await fetchAllRows<{ id: string; topic_id: string; series_key: string | null; series_position: number | null }>(
+    (from, to) =>
+      supabase.from("student_questions").select("id, topic_id, series_key, series_position").range(from, to),
+  );
   if (!candidates || candidates.length === 0) {
     throw new Error("No published questions yet.");
   }
@@ -605,8 +612,14 @@ export async function startDailyQuestion() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const { data: candidates } = await supabase.from("student_questions").select("id").order("id");
-  const candidateIds = (candidates ?? []).map((c) => c.id);
+  // Pools EVERY published question (1800+ rows now) to pick a deterministic
+  // daily id — a plain `.select()` would silently cap at 1000 via
+  // PostgREST's default max-rows, shrinking the eligible pool and skewing
+  // which id gets picked. Paginated.
+  const candidates = await fetchAllRows<{ id: string }>((from, to) =>
+    supabase.from("student_questions").select("id").order("id").range(from, to),
+  );
+  const candidateIds = candidates.map((c) => c.id);
   const questionId = pickDailyQuestionId(candidateIds);
   if (!questionId) {
     throw new Error("No published questions yet.");

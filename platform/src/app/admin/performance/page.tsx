@@ -1,9 +1,20 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Card, CardContent } from "@/components/ui/card";
 
 const MIN_MISSES_TO_SHOW = 2;
+
+type PerformanceAnswerRow = {
+  question_id: string;
+  is_correct: boolean;
+  attempt_id: string;
+  // PostgREST embeds a to-one relation as a single-element array when the
+  // client isn't generated from the DB schema (same shape the pre-existing
+  // `as unknown as { user_id: string } | null` cast below already expects).
+  attempts: { user_id: string }[] | null;
+};
 
 export default async function AdminPerformancePage() {
   await requireAdmin();
@@ -12,23 +23,33 @@ export default async function AdminPerformancePage() {
   // Admin RLS already permits reading every user's rows here (not just the
   // caller's own) — see "attempts_own_or_admin" / "attempt_answers_own_or_admin"
   // policies in schema.sql. No new RPC needed.
-  const [{ data: answers }, { data: questions }, { data: topics }] = await Promise.all([
-    supabase
-      .from("attempt_answers")
-      .select("question_id, is_correct, attempt_id, attempts(user_id)")
-      .not("answered_at", "is", null),
-    supabase.from("questions").select("id, topic_id, question_text"),
+  //
+  // Both queries below are unfiltered across the whole account (attempt_answers:
+  // 7000+ rows; questions: 2200+ rows) — a plain `.select()` would silently
+  // cap each at PostgREST's 1000-row default, badly understating topic
+  // accuracy and "most-missed questions" group-wide. Paginated.
+  const [answers, questions, { data: topics }] = await Promise.all([
+    fetchAllRows<PerformanceAnswerRow>((from, to) =>
+      supabase
+        .from("attempt_answers")
+        .select("question_id, is_correct, attempt_id, attempts(user_id)")
+        .not("answered_at", "is", null)
+        .range(from, to),
+    ),
+    fetchAllRows<{ id: string; topic_id: string; question_text: string }>((from, to) =>
+      supabase.from("questions").select("id, topic_id, question_text").range(from, to),
+    ),
     supabase.from("topics").select("id, name"),
   ]);
 
   const topicById = new Map((topics ?? []).map((t) => [t.id, t.name]));
-  const questionById = new Map((questions ?? []).map((q) => [q.id, q]));
+  const questionById = new Map(questions.map((q) => [q.id, q]));
 
   type TopicAgg = { total: number; correct: number; students: Set<string> };
   const byTopic = new Map<string, TopicAgg>();
   const missesByQuestion = new Map<string, number>();
 
-  for (const a of answers ?? []) {
+  for (const a of answers) {
     const question = questionById.get(a.question_id);
     if (!question) continue;
     const userId = (a.attempts as unknown as { user_id: string } | null)?.user_id;

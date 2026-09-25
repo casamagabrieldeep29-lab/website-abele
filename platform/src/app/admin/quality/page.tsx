@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -22,12 +23,19 @@ export default async function AdminQualityPage() {
   await requireAdmin();
   const supabase = await createClient();
 
-  const { data: questions } = await supabase
-    .from("questions")
-    .select("id, topic_id, question_text, question_type, explanation, status, choices(is_correct)")
-    .order("created_at");
+  // questions now has 2200+ rows — a plain `.select()` would silently cap at
+  // PostgREST's 1000-row default, hiding quality issues (missing
+  // explanation, no correct choice, duplicates) in everything past the cap.
+  // Paginated.
+  const questions = await fetchAllRows<QuestionRow>((from, to) =>
+    supabase
+      .from("questions")
+      .select("id, topic_id, question_text, question_type, explanation, status, choices(is_correct)")
+      .order("created_at")
+      .range(from, to),
+  );
 
-  const rows = (questions ?? []) as QuestionRow[];
+  const rows = questions;
 
   const noExplanation = rows.filter((q) => !q.explanation || !q.explanation.trim());
   const noCorrectChoice = rows.filter((q) => q.choices.every((c) => !c.is_correct));
