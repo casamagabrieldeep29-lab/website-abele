@@ -153,7 +153,11 @@ export default async function DashboardPage() {
   // --- Real analytics — shared calculation, see src/lib/study-stats.ts.
   // Profile shows the same numbers from the same computeStudyStats() call. ---
   const answered = answeredRows ?? [];
-  const { questionsAnswered, overallAccuracy, streak, studiedLast7 } = computeStudyStats(mastery, answered);
+  const { questionsAnswered, overallAccuracy, streak, studiedLast7 } = computeStudyStats(
+    mastery,
+    answered,
+    profile?.current_streak ?? 0,
+  );
 
   const scoredTopics = mastery.filter((m) => m.status !== "insufficient_data");
   const avgMastery = scoredTopics.length

@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
-export type SessionProfile = { role: string; display_name: string | null };
+export type SessionProfile = { role: string; display_name: string | null; current_streak: number };
 
 /**
  * getUser() plus the profiles row it gates almost every page on were each
@@ -25,7 +25,7 @@ export const getAuthContext = cache(async () => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role, display_name")
+    .select("role, display_name, current_streak")
     .eq("id", user.id)
     .single();
 

@@ -18,14 +18,14 @@ export default async function ProfilePage() {
   if (!user) redirect("/login");
 
   const [{ data: profile }, { data: masteryRows }, answeredRows] = await Promise.all([
-    supabase.from("profiles").select("display_name, email, created_at").eq("id", user.id).single(),
+    supabase.from("profiles").select("display_name, email, created_at, current_streak").eq("id", user.id).single(),
     supabase.rpc("get_topic_mastery"),
     // Paginated — a plain `.select()` here silently caps at 1000 rows once a
     // student passes 1000 answered questions. See study-stats.ts.
     fetchAllAnsweredRows(supabase, user.id),
   ]);
 
-  const stats = computeStudyStats(masteryRows ?? [], answeredRows ?? []);
+  const stats = computeStudyStats(masteryRows ?? [], answeredRows ?? [], profile?.current_streak ?? 0);
   const displayName = profile?.display_name || user.email?.split("@")[0] || "Student";
   const initial = displayName.charAt(0).toUpperCase();
   const accent = getHarmonizedAccent(user.id);

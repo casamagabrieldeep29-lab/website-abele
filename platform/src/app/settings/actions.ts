@@ -76,7 +76,10 @@ export type ResetProgressResult = { ok: true; summary: string } | { ok: false; m
  * progress only — attempt_answers, attempts, flashcard_progress, and
  * user_achievements. Never the account itself, never user-authored content
  * (notes, bookmarks) or preferences (user_settings) — this is "start my
- * stats over," not account deletion.
+ * stats over," not account deletion. Also deliberately never touches
+ * profiles.current_streak/streak_last_active: a streak is a
+ * practice-consistency habit metric, not a content-mastery stat, so it
+ * survives a progress reset (see patch 031_persist_streak.sql).
  *
  * Runs entirely through the service-role client rather than relying on
  * attempt_answers' `on delete cascade` from attempts: attempt_answers only
