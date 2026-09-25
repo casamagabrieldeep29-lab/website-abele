@@ -62,7 +62,7 @@
  * green rather than the brand teal.
  */
 :root {
-  --background: #f8f9f7;
+  --background: #f4f7f7;
   --foreground: #172121;
   --card: #ffffff;
   --card-foreground: #172121;
@@ -334,6 +334,57 @@
    just equals --primary, so this is a no-op visual change there. */
 .gradient-accent-fill {
   background: var(--gradient-accent);
+}
+
+/*
+ * Default theme depth pass — Ocean/Forest already get a photo background
+ * (see the .theme-ocean/.theme-forest body rule above) plus their own card
+ * treatment (the glass rule further above); everything in this block is
+ * explicitly gated to skip both classes so it never touches those two
+ * themes, and never touches .dark on its own (Default's dark variant gets
+ * the same faint atmosphere — it's still Default, just the dark toggle).
+ *
+ * [data-slot="sidebar-inset"] (not body) is the painted layer here because
+ * it carries its own opaque bg-background fill that sits on top of body —
+ * see the comment on the ocean/forest sidebar-inset rule above for why.
+ * No background-attachment: fixed — that repaints the whole background on
+ * every scroll frame on some engines, and was the specific interaction
+ * that caused the iOS 15.8.8 Safari sticky-position bug fixed earlier
+ * (practice-session.tsx); scrolling normally with the page is free here
+ * since this is flat gradients, not a blurred photo.
+ */
+html:not(.theme-ocean):not(.theme-forest) [data-slot="sidebar-inset"] {
+  background-image:
+    radial-gradient(ellipse 900px 480px at 12% -8%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 70%),
+    linear-gradient(color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px);
+  background-size:
+    auto,
+    64px 64px,
+    64px 64px;
+}
+
+/* Cards get a very soft shadow layered under their existing hairline ring,
+   so white/near-white surfaces read as gently elevated above the tinted
+   page background rather than just outlined. Deliberately restrained — no
+   change to radius, no hover growth here (individual interactive cards opt
+   into their own hover treatment in their own markup). */
+html:not(.theme-ocean):not(.theme-forest) [data-slot="card"] {
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--foreground) 5%, transparent),
+    0 1px 1px color-mix(in srgb, var(--foreground) 3%, transparent);
+}
+
+/* The dashboard greeting band — Ocean/Forest already style .dashboard-hero
+   as a glass panel (above); Default gets a much quieter version: a faint
+   primary-tinted gradient wash and a hairline border, just enough to read
+   as an intentional header band rather than bare text floating on the page
+   background. Not a hero banner — padding stays modest. */
+html:not(.theme-ocean):not(.theme-forest) .dashboard-hero {
+  border-radius: var(--radius-2xl);
+  padding: 1.125rem 1.375rem;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 6%, var(--card)), var(--card) 65%);
+  border: 1px solid var(--border);
 }
 
 /* A soft glow behind feature-icon badges — inert (none) for Default. */

@@ -293,3 +293,40 @@ Picked up the one open item flagged at the end of the previous entry: `questions
 **Code:** `platform/scripts/import-seed-content.js` and `platform/scripts/generate-import-sql.js` both used to write `source: data._meta.author` / `source_reference: <sourceRef arg>` on every inserted question — changed both to always write `null` (mirroring the fix already applied to `import-reviewer-content.js`), and removed the now-dead `author` variable from `generate-import-sql.js`. Any future re-run of either script will no longer reintroduce attribution.
 
 **Testing performed:** `npm run lint` clean (0 errors). No UI changes — this was a database cleanup plus two import-script edits, not a page/feature change.
+
+---
+
+## 2026-09-25 — Reviewers "Tables" tab: real HTML tables instead of raw pipe text
+
+**Root cause found:** `TableEntryCard` (`platform/src/app/(app)/reviewers/reviewers-browser.tsx`) already had a proper markdown-table parser (`parseMarkdownTable`), but it requires a header row + a `---` separator row, and **256 of 277 published table-kind reviewer entries** (92%) were authored as plain `A | B` lines with neither — a glossary/classification list transcribed directly, no markdown table syntax at all. The parser correctly rejected all of them and fell back to a raw `<pre>` block, which is why nearly every "table" looked like a gray code box of pipe-separated text. Also found 14 entries that aren't tables at all — genuine formula reference sheets (chained equations, no `|` anywhere) mistagged as `kind: table`, also falling into the same `<pre>` fallback.
+
+**Fix (rendering-only, zero database changes):**
+- `parseLooseTable()`: recognizes uniform pipe-delimited rows with no separator row, and decides whether row 0 is a real header versus itself a data row by comparing whether its cells read as descriptive text while the rows below are numeric/measurement-shaped (per-column, not per-table) — real headers are kept verbatim from the source (confirmed correct against the PAES 401/402/404/409/411/415 standards tables, which do have genuine header rows), and only when there's truly no header in the source is a safe generic one used (`Item`/`Description`/...), never a fabricated domain term. A genuinely malformed entry (PAES 413 Table 4 — header row has 8 columns, every data row only 7, a real transcription gap) correctly still falls through to plain text rather than the parser guessing a missing value.
+- Formula-shaped `table_content` (no `|`, contains `=`) now renders through the same boxed formula styling used elsewhere (`FormulaCard`'s treatment) instead of flat `<pre>`, including correct subscript/superscript rendering via the existing `renderFormula` helper.
+- Long cell text now wraps instead of forcing every column to `nowrap`-driven horizontal scroll; wide multi-column tables still scroll horizontally within their own bounded card, verified the page itself never overflows at 375px width (`document.documentElement.scrollWidth === window.innerWidth`, checked directly, not eyeballed from a screenshot).
+- `kind: formula` entries (a separate, untouched code path/component) confirmed unaffected — spot-checked "FWR"/"DWR" render identically to before.
+
+**Testing performed:** verified against real live data (not synthetic examples) across all four shapes — a 2-column glossary entry, a real-header PAES table, a formula-reference-sheet entry, and the one malformed 7-vs-8-column entry — plus mobile-width overflow check. `npm run lint` and `npm run build` both clean. Committed `c4323f8`, pushed and deployed.
+
+---
+
+## 2026-09-25 — Default theme dashboard depth/atmosphere pass (site-wide, Ocean/Forest untouched)
+
+Gabriel asked for a visual-only redesign of the plain-white dashboard: subtle tinted page background instead of white, better card elevation/hierarchy, a demoted "days countdown" so it reads as metadata not a competing heading, and — critically — **strictly scoped to the Default theme only**, never touching Ocean or Forest.
+
+**`platform/src/app/globals.css`:**
+- `:root { --background }` changed `#f8f9f7` → `#f4f7f7` (cooler teal tint, still effectively off-white — cards stay `#ffffff` so they visibly separate from the page).
+- New rules, all gated by `html:not(.theme-ocean):not(.theme-forest)` so Ocean/Forest (and their existing photo-background/glassmorphism rules) are never touched:
+  - A very low-opacity grid + radial gradient painted on `[data-slot="sidebar-inset"]` (the actual opaque content-area element, not `body` — `body`'s background is already covered by sidebar-inset's own `bg-background` fill in Default, same reasoning documented in the existing Ocean/Forest comment block). No `background-attachment: fixed` — deliberately avoided given that `position: sticky` + certain paint/scroll interactions caused the iPadOS 15.8.8 Safari bug fixed earlier this session; this is cheap flat gradients anyway, not a blurred photo, so there was no performance reason to reach for `fixed`.
+  - A soft two-layer `box-shadow` on every `[data-slot="card"]`, layered under the existing hairline `ring-1 ring-foreground/10`, so white surfaces read as gently elevated rather than just outlined.
+  - A quiet gradient-wash treatment for `.dashboard-hero` (the greeting band) — small padding, hairline border, faint primary-tinted gradient — not a hero banner.
+- All new rules use `color-mix(in srgb, var(...) X%, transparent)`, matching the existing project pattern (glow/gradient tokens), with the `@csstools/postcss-color-mix-function` fallback already in `postcss.config.mjs` from the earlier iOS-compat fix.
+
+**`platform/src/app/(app)/dashboard/page.tsx`:**
+- Supporting greeting line demoted to `text-sm`.
+- The "55 DAYS · ABELE" block rebuilt as a small bordered/muted metadata chip ("ABELE COUNTDOWN" label + smaller number) instead of a same-weight second heading competing with the greeting.
+- Quick-action cards (Continue Studying/TOS/Practice/Flashcards/Mock Exams): fixed a real (pre-existing, unrelated to this redesign) dead hover state — `hover:border-primary/50` was a no-op because the shared `Card` component has no `border` utility, only `ring-1`, so border-color-only overrides never rendered. Replaced with `hover:ring-primary/40` plus a small `hover:-translate-y-0.5 hover:shadow-sm` lift, which now actually shows on hover.
+- "Your Next Study Session" (the primary CTA card): same dead-`border` bug — `border-primary/30` was invisible — replaced with `ring-2 ring-primary/25` plus `shadow-sm`, so the featured card now visibly stands out from the other cards as intended.
+- Question of the Day: icon moved into a small filled circle, tightened padding, so it reads as a compact daily prompt rather than a full-size generic card.
+
+**Testing performed:** used the existing local magic-link + temporary server-side `/api/dev-login` route technique (created, used, then deleted — confirmed via `git status` never tracked) to log in as the owner account and visually verify in the browser: Default light (dashboard + Reviewers page, confirming the effect is site-wide), Default dark, Ocean (confirmed still glass-on-photo, completely unaffected), Forest (same), and mobile width 375px (2-column card grid stacks correctly, `document.documentElement.scrollWidth === window.innerWidth`, no horizontal overflow). `npm run lint` clean (2 pre-existing unrelated warnings in `settings/actions.ts`, 0 errors).

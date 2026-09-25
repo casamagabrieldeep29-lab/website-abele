@@ -212,18 +212,19 @@ export default async function DashboardPage() {
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {greeting()}, {displayName} 👋
           </h1>
-          <p className="mt-1 text-muted-foreground">
+          <p className="mt-1 text-sm text-muted-foreground">
             {questionsAnswered > 0
               ? `You've answered ${questionsAnswered} question${questionsAnswered === 1 ? "" : "s"} so far. Ready for today's review?`
               : "Ready to start your first review session?"}
           </p>
         </div>
         {examDaysLeft >= 0 && (
-          <div className="shrink-0 text-right leading-tight">
-            <p className="text-2xl font-bold tracking-wide sm:text-3xl">
-              {examDaysLeft} DAYS <span className="text-muted-foreground">· ABELE</span>
+          <div className="shrink-0 rounded-lg border border-border/70 bg-muted/40 px-3 py-1.5 text-right leading-tight">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">ABELE Countdown</p>
+            <p className="mt-0.5 text-lg font-bold tabular-nums text-primary sm:text-xl">
+              {examDaysLeft} <span className="text-xs font-medium text-muted-foreground">days</span>
             </p>
-            <p className="text-xs text-muted-foreground italic sm:text-sm">{BOARD_EXAM_DATE_LABEL}</p>
+            <p className="text-[11px] text-muted-foreground italic">{BOARD_EXAM_DATE_LABEL}</p>
           </div>
         )}
       </div>
@@ -233,7 +234,7 @@ export default async function DashboardPage() {
         {recommendation ? (
           <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)} className="contents">
             <button type="submit" className="block h-full text-left">
-              <Card className="h-full transition-colors hover:border-primary/50">
+              <Card className="h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40">
                 <CardContent className="py-4">
                   <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
                     <Target className="size-4.5" />
@@ -246,7 +247,7 @@ export default async function DashboardPage() {
           </form>
         ) : (
           <Link href="/practice" className="block">
-            <Card className="h-full transition-colors hover:border-primary/50">
+            <Card className="h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40">
               <CardContent className="py-4">
                 <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
                   <Target className="size-4.5" />
@@ -265,7 +266,7 @@ export default async function DashboardPage() {
           { href: "/mock", icon: ClipboardList, label: "Mock Exams", description: "Test your knowledge" },
         ].map((item) => (
           <Link key={item.label} href={item.href} className="block">
-            <Card className="h-full transition-colors hover:border-primary/50">
+            <Card className="h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40">
               <CardContent className="py-4">
                 <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary glow-primary">
                   <item.icon className="size-4.5" />
@@ -281,21 +282,24 @@ export default async function DashboardPage() {
       {/* Question of the Day */}
       {todaysQuestionId && (
         <Card className="border-l-4 border-l-gold bg-gold/5">
-          <CardContent className="flex items-center justify-between gap-3 py-4">
-            <div>
-              <p className="flex items-center gap-1.5 text-sm font-medium">
-                <Calendar className="size-4" /> Question of the Day
-              </p>
-              {dailyAnsweredToday ? (
-                <p className="text-xs text-muted-foreground">
-                  You&apos;ve answered today&apos;s question.{" "}
-                  {dailyStats && dailyStats.total_answers >= MIN_RESPONSES_FOR_DAILY_STAT
-                    ? `${Math.round((100 * dailyStats.correct_count) / dailyStats.total_answers)}% of reviewees answered correctly.`
-                    : "Not enough responses yet for a group stat."}
-                </p>
-              ) : (
-                <p className="text-xs text-muted-foreground">One question, shared by everyone today.</p>
-              )}
+          <CardContent className="flex items-center justify-between gap-3 py-3.5">
+            <div className="flex items-center gap-3">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+                <Calendar className="size-4" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Question of the Day</p>
+                {dailyAnsweredToday ? (
+                  <p className="text-xs text-muted-foreground">
+                    You&apos;ve answered today&apos;s question.{" "}
+                    {dailyStats && dailyStats.total_answers >= MIN_RESPONSES_FOR_DAILY_STAT
+                      ? `${Math.round((100 * dailyStats.correct_count) / dailyStats.total_answers)}% of reviewees answered correctly.`
+                      : "Not enough responses yet for a group stat."}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground">One question, shared by everyone today.</p>
+                )}
+              </div>
             </div>
             {dailyAnsweredToday ? (
               <Button render={<Link href={`/practice/${todaysDailyAttempt!.id}`}>Review →</Link>} nativeButton={false} size="sm" variant="outline" />
@@ -312,7 +316,7 @@ export default async function DashboardPage() {
 
       {/* Today's Recommendation — the primary CTA */}
       {recommendation ? (
-        <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+        <Card className="bg-gradient-to-br from-primary/5 to-transparent shadow-sm ring-2 ring-primary/25">
           <CardContent className="py-5">
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
               <Target className="size-3.5" />
