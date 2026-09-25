@@ -330,3 +330,28 @@ Gabriel asked for a visual-only redesign of the plain-white dashboard: subtle ti
 - Question of the Day: icon moved into a small filled circle, tightened padding, so it reads as a compact daily prompt rather than a full-size generic card.
 
 **Testing performed:** used the existing local magic-link + temporary server-side `/api/dev-login` route technique (created, used, then deleted — confirmed via `git status` never tracked) to log in as the owner account and visually verify in the browser: Default light (dashboard + Reviewers page, confirming the effect is site-wide), Default dark, Ocean (confirmed still glass-on-photo, completely unaffected), Forest (same), and mobile width 375px (2-column card grid stacks correctly, `document.documentElement.scrollWidth === window.innerWidth`, no horizontal overflow). `npm run lint` clean (2 pre-existing unrelated warnings in `settings/actions.ts`, 0 errors).
+
+---
+
+## 2026-09-25 — Light theme gets its own identity: warm ivory + deep teal-green palette
+
+Gabriel's follow-up to the depth pass above: the Light theme still read as "Dark theme but white" rather than having its own designed identity. Full palette replacement plus atmosphere/glass refinements, still strictly scoped to Default (Ocean/Forest/Dark untouched) per his explicit instruction.
+
+**`platform/src/app/globals.css` — `:root` (Light) palette replaced wholesale:**
+- Background `#f4f7f7` → `#f3f5ee` (warm ivory, not cool gray-teal)
+- Card/popover `#ffffff` → `#fffdf7` (warm off-white, not stark white)
+- Foreground `#172121` → `#172522`, muted-foreground `#657272` → `#60716d` (both slightly warmer)
+- Primary `#0f5b5a` → `#075b58`, added a distinct secondary teal `#287c72` (now used for `--ring` and `--chart-2`, giving hover/focus states their own hue instead of reusing primary)
+- Gold `#d9a441` → `#d6a84f` — still scarce, unchanged usage (Question of the Day / streaks / achievements only, never in the generic `accent` token)
+- Border `#dde4e2` → `#dce5e0`, secondary/accent `#e4f1f0` → `#e3efeb`
+- Sidebar stays the same deep-teal family (`#0a4141`) as instructed, but its active/hover surface (`--sidebar-accent`) now uses the new secondary teal `#287c72` instead of duplicating `--sidebar-primary`, so an active nav item is visibly a lighter teal rather than identical to the logo color.
+- New token `--surface-featured` (`#f7faf4` in Light) — a second, slightly green-tinted card surface one step warmer than `--card`, wired into `@theme inline` as `--color-surface-featured` (Tailwind utility `bg-surface-featured`) and given a same-family fallback value in `.dark`, `.theme-ocean`, and `.theme-forest` so it never resolves to nothing outside Light.
+
+**Atmosphere/grid, still gated to `html:not(.theme-ocean):not(.theme-forest)`:**
+- Replaced the single upper-left primary glow with two low-opacity radial glows (teal upper-right, secondary-teal lower-left) per the "soft teal glow / green-teal glow" spec, plus widened the grid spacing (64px → 72px) and switched its line color from neutral foreground-gray to teal (`--primary` at 3%) so it reads as a technical/engineering grid rather than plain graph paper.
+- Added restrained glassmorphism to Light's floating overlays only (`[data-slot="dialog-content"]`, `dropdown-menu-content`, `select-content`) — a 94%-opaque tint plus an 8px blur. Deliberately NOT applied to `[data-slot="card"]` (there can be 15-20+ on screen at once — same performance/legibility reasoning already documented for why Ocean/Forest reserve full glass for single-instance surfaces).
+- Explicitly skipped the optional paper/noise texture from the spec — an SVG-turbulence data-URI layer was judged not reliably practical (cross-browser rendering risk, added complexity) against the "omit if not clearly performant/practical" clause in the request; the two-layer glow + grid already carries the atmosphere.
+
+**`platform/src/app/(app)/dashboard/page.tsx`:** the "Next Study Session" featured card's background changed from a generic `bg-gradient-to-br from-primary/5` wash to `bg-surface-featured`, so it now uses the dedicated featured-surface token everywhere instead of an ad hoc gradient.
+
+**Testing performed:** same local magic-link + temporary `/api/dev-login` technique (created, used, deleted; confirmed untracked via `git status`) to visually verify as the owner account: Light (dashboard, scrolled progress section), Ocean (unaffected — still its own photo/glass/aqua palette), Forest (unaffected — confirmed `bg-surface-featured` correctly resolves to Forest's own dark-green fallback, no Light-theme color leaking through), Dark (unaffected, still teal-black), and mobile 375px (no horizontal overflow). `npm run lint` and `npm run build` both clean.

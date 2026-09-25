@@ -316,7 +316,7 @@ export default async function DashboardPage() {
 
       {/* Today's Recommendation — the primary CTA */}
       {recommendation ? (
-        <Card className="bg-gradient-to-br from-primary/5 to-transparent shadow-sm ring-2 ring-primary/25">
+        <Card className="bg-surface-featured shadow-sm ring-2 ring-primary/25">
           <CardContent className="py-5">
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
               <Target className="size-3.5" />

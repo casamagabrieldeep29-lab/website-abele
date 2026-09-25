@@ -43,6 +43,7 @@
   --color-success-foreground: var(--success-foreground);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
+  --color-surface-featured: var(--surface-featured);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -53,54 +54,61 @@
 }
 
 /*
- * ABELIEVER brand palette (light). Deep teal is the primary brand/action
- * color; warm gold is a deliberately scarce accent reserved for
- * achievements/streaks/milestones — it is NOT wired into the generic
- * `accent` token (that stays a neutral teal-tinted hover/selected wash) so
- * gold can't leak into every hover state across the app. `success` is its
- * own token, separate from `primary`, so "correct answer" reads as a true
- * green rather than the brand teal.
+ * ABELIEVER brand palette (light) — "Modern Academic Workspace": deep
+ * teal-green identity on a warm ivory ground, muted gold kept deliberately
+ * scarce (Question of the Day / streaks / achievements only — never wired
+ * into the generic `accent` token, so it can't leak into ordinary hover
+ * states). Chosen 2026-09-25 to replace the earlier plain warm-gray palette
+ * so Light has its own identity rather than reading as "Dark theme but
+ * white" — see 24_CHANGELOG.md. `success` stays its own token, separate
+ * from `primary`, so "correct answer" reads as a true green.
+ *
+ * --surface-featured is a second, slightly-tinted card surface (used for
+ * the dashboard's "Next Study Session" card and similar single-focus
+ * panels) — one step warmer/greener than --card, one step short of
+ * --secondary's full light-teal wash.
  */
 :root {
-  --background: #f4f7f7;
-  --foreground: #172121;
-  --card: #ffffff;
-  --card-foreground: #172121;
-  --popover: #ffffff;
-  --popover-foreground: #172121;
-  --primary: #0f5b5a;
+  --background: #f3f5ee;
+  --foreground: #172522;
+  --card: #fffdf7;
+  --card-foreground: #172522;
+  --popover: #fffdf7;
+  --popover-foreground: #172522;
+  --primary: #075b58;
   --primary-foreground: #ffffff;
-  --secondary: #e4f1f0;
+  --secondary: #e3efeb;
   --secondary-foreground: #0a4141;
-  --muted: #eff2f1;
-  --muted-foreground: #657272;
-  --accent: #e4f1f0;
+  --muted: #eef1e6;
+  --muted-foreground: #60716d;
+  --accent: #e3efeb;
   --accent-foreground: #0a4141;
   --destructive: #c94a4a;
   --success: #2f7d5a;
   --success-foreground: #ffffff;
-  --gold: #d9a441;
-  --gold-foreground: #172121;
-  --border: #dde4e2;
-  --input: #dde4e2;
-  --ring: #0f5b5a;
-  --chart-1: #0f5b5a;
-  --chart-2: #2f7d5a;
-  --chart-3: #d9a441;
-  --chart-4: #657272;
+  --gold: #d6a84f;
+  --gold-foreground: #172522;
+  --border: #dce5e0;
+  --input: #dce5e0;
+  --ring: #287c72;
+  --chart-1: #075b58;
+  --chart-2: #287c72;
+  --chart-3: #d6a84f;
+  --chart-4: #60716d;
   --chart-5: #0a4141;
   --radius: 0.625rem;
   --sidebar: #0a4141;
-  --sidebar-foreground: #f8f9f7;
-  --sidebar-primary: #0f5b5a;
+  --sidebar-foreground: #f3f5ee;
+  --sidebar-primary: #075b58;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #0f5b5a;
+  --sidebar-accent: #287c72;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: #55aaa6;
   --hero-image: none;
   --gradient-accent: var(--primary);
   --glow-primary: none;
+  --surface-featured: #f7faf4;
 }
 
 .dark {
@@ -142,6 +150,7 @@
   --hero-image: none;
   --gradient-accent: var(--primary);
   --glow-primary: none;
+  --surface-featured: #16302e;
 }
 
 /*
@@ -195,6 +204,7 @@
   --glow-primary: 0 0 16px color-mix(in srgb, #0283a1 55%, transparent);
   --glass-bg: rgba(5, 39, 54, 0.55);
   --glass-border: rgba(255, 255, 255, 0.12);
+  --surface-featured: #0b3a4a;
 }
 
 /*
@@ -244,6 +254,7 @@
   --glow-primary: 0 0 16px color-mix(in srgb, #4f7a3e 55%, transparent);
   --glass-bg: rgba(20, 43, 28, 0.55);
   --glass-border: rgba(255, 255, 255, 0.12);
+  --surface-featured: #1d3823;
 }
 
 /*
@@ -355,18 +366,20 @@
  */
 html:not(.theme-ocean):not(.theme-forest) [data-slot="sidebar-inset"] {
   background-image:
-    radial-gradient(ellipse 900px 480px at 12% -8%, color-mix(in srgb, var(--primary) 7%, transparent), transparent 70%),
-    linear-gradient(color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px);
+    radial-gradient(ellipse 1000px 560px at 92% -12%, color-mix(in srgb, var(--primary) 6%, transparent), transparent 65%),
+    radial-gradient(ellipse 900px 520px at 4% 105%, color-mix(in srgb, var(--chart-2) 5%, transparent), transparent 65%),
+    linear-gradient(color-mix(in srgb, var(--primary) 3%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 3%, transparent) 1px, transparent 1px);
   background-size:
     auto,
-    64px 64px,
-    64px 64px;
+    auto,
+    72px 72px,
+    72px 72px;
 }
 
 /* Cards get a very soft shadow layered under their existing hairline ring,
-   so white/near-white surfaces read as gently elevated above the tinted
-   page background rather than just outlined. Deliberately restrained — no
+   so warm-ivory surfaces read as gently elevated above the tinted page
+   background rather than just outlined. Deliberately restrained — no
    change to radius, no hover growth here (individual interactive cards opt
    into their own hover treatment in their own markup). */
 html:not(.theme-ocean):not(.theme-forest) [data-slot="card"] {
@@ -385,6 +398,19 @@ html:not(.theme-ocean):not(.theme-forest) .dashboard-hero {
   padding: 1.125rem 1.375rem;
   background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 6%, var(--card)), var(--card) 65%);
   border: 1px solid var(--border);
+}
+
+/* Restrained glassmorphism for Default too, but only on floating overlay
+   surfaces (never on the many-at-once dashboard cards — see the Ocean/
+   Forest performance note above, which applies just as much here). A
+   near-opaque tint plus a light blur is enough to read as "lifted off the
+   page" without hurting legibility on an academic study platform. */
+html:not(.theme-ocean):not(.theme-forest) [data-slot="dialog-content"],
+html:not(.theme-ocean):not(.theme-forest) [data-slot="dropdown-menu-content"],
+html:not(.theme-ocean):not(.theme-forest) [data-slot="select-content"] {
+  background-color: color-mix(in srgb, var(--popover) 94%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* A soft glow behind feature-icon badges — inert (none) for Default. */
