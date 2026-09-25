@@ -43,7 +43,7 @@ const KIND_LABELS: Record<ReviewerEntry["kind"], string> = {
 // correctly regardless of what surrounds it, no data changes needed.
 const SUBSUP_RE = /([_^])(\{[^{}]+\}|\([^()]+\)|-?[A-Za-z0-9]+)/g;
 
-function renderFormula(text: string): ReactNode[] {
+export function renderFormula(text: string): ReactNode[] {
   const nodes: ReactNode[] = [];
   let lastIndex = 0;
   let key = 0;
@@ -195,7 +195,7 @@ function CopyButton({ value }: { value: string }) {
 }
 
 /** Formula-focused card: large mathematical notation is the visual focus. */
-function FormulaCard({ entry }: { entry: ReviewerEntry }) {
+export function FormulaCard({ entry }: { entry: ReviewerEntry }) {
   const formulaLines = entry.formula ? splitFormulaLines(entry.formula) : [];
   const varPairs = entry.variables ? parseVariables(entry.variables) : null;
 
@@ -260,7 +260,7 @@ function FormulaCard({ entry }: { entry: ReviewerEntry }) {
  * else (name, symbol, context) is deliberately smaller so the number a
  * student is scanning for jumps out first.
  */
-function ConstantCard({ entry }: { entry: ReviewerEntry }) {
+export function ConstantCard({ entry }: { entry: ReviewerEntry }) {
   const copyValue = entry.value ? `${entry.value}${entry.unit ? ` ${entry.unit}` : ""}` : null;
 
   return (
@@ -409,7 +409,7 @@ function parseFormulaGroups(text: string): FormulaGroup[] {
 }
 
 /** Dense, full-width reference table optimized for scanning, not a card grid. */
-function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
+export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
   const parsed = entry.table_content
     ? (parseMarkdownTable(entry.table_content) ?? parseLooseTable(entry.table_content))
     : null;
