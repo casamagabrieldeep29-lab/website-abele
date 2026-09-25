@@ -23,8 +23,8 @@ export default async function AdminPage() {
         </Link>
       </header>
 
-      <div className="mx-auto max-w-5xl space-y-6 px-6 py-10">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="w-full space-y-6 px-6 py-10">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           <Card>
             <CardHeader>
               <CardTitle>Review &amp; publish content</CardTitle>

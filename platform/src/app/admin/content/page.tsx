@@ -42,7 +42,7 @@ export default async function AdminContentPage() {
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="w-full px-6 py-10">
         <h1 className="text-2xl font-semibold">Topics</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Only <strong>published</strong> questions are visible to students. Review

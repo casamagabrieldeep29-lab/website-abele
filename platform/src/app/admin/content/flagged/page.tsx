@@ -60,7 +60,7 @@ export default async function FlaggedQuestionsPage({
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10">
+      <div className="w-full px-6 py-10">
         <h1 className="text-2xl font-semibold">Flagged Questions</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Questions whose source material flagged uncertainty about the answer or content. These are

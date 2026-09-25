@@ -95,7 +95,7 @@ export default async function AdminPerformancePage() {
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10 space-y-8">
+      <div className="w-full px-6 py-10 space-y-8">
         <p className="text-sm text-muted-foreground">
           Aggregate accuracy across everyone invited, computed from real answered questions — no fabricated numbers.
         </p>

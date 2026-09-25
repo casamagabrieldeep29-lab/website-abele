@@ -49,7 +49,7 @@ export default async function AdminFlashcardsPage() {
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10 space-y-4">
+      <div className="w-full px-6 py-10 space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-muted-foreground">
             Front/back study cards for active recall. Never invent content — only enter verified terms/definitions.

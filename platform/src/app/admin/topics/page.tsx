@@ -57,7 +57,7 @@ export default async function AdminTopicsPage() {
         </Link>
       </header>
 
-      <div className="mx-auto max-w-3xl px-6 py-10 space-y-8">
+      <div className="w-full px-6 py-10 space-y-8">
         <p className="text-sm text-muted-foreground">
           The 8 official PRC exam areas are fixed (Table of Specifications) — only topics and subtopics within
           them are editable here. A topic can&apos;t be deleted while it still has published or draft questions.
