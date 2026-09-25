@@ -1,9 +1,18 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function AdminPage() {
   await requireAdmin();
+  const supabase = await createClient();
+
+  // Same counting rule as /admin/users: an admin always counts as a
+  // Subscriber regardless of their own plan value, so the two pages never
+  // disagree on these numbers.
+  const { data: planRows } = await supabase.from("profiles").select("role, plan");
+  const subscriberCount = (planRows ?? []).filter((p) => p.plan === "subscriber" || p.role === "admin").length;
+  const trialCount = (planRows ?? []).filter((p) => p.plan === "trial" && p.role !== "admin").length;
 
   return (
     <main className="min-h-screen bg-background">
@@ -111,7 +120,17 @@ export default async function AdminPage() {
                 account when needed.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="rounded-md border border-border px-3 py-2">
+                  <p className="text-lg font-semibold">{subscriberCount}</p>
+                  <p className="text-xs text-muted-foreground">Subscriber{subscriberCount === 1 ? "" : "s"}</p>
+                </div>
+                <div className="rounded-md border border-border px-3 py-2">
+                  <p className="text-lg font-semibold">{trialCount}</p>
+                  <p className="text-xs text-muted-foreground">Free-trial user{trialCount === 1 ? "" : "s"}</p>
+                </div>
+              </div>
               <Link href="/admin/users" className="text-sm font-medium text-primary hover:underline">
                 Go to users →
               </Link>
