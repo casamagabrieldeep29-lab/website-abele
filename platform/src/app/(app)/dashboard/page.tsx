@@ -20,6 +20,7 @@ import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { ACHIEVEMENTS } from "@/lib/achievements";
 import { computeStudyStats, fetchAllAnsweredRows, type TopicMasteryRow } from "@/lib/study-stats";
 import { fetchAllRows } from "@/lib/supabase/paginate";
+import { BOARD_EXAM_DATE_LABEL, daysUntilBoardExam } from "@/lib/board-exam";
 import { StatCard } from "@/components/stat-card";
 import type { PlanDay } from "@/app/study-plan/actions";
 
@@ -201,11 +202,19 @@ export default async function DashboardPage() {
   const upcomingPlanDays = planDays.filter((d) => d.date >= new Date().toISOString().slice(0, 10)).slice(0, 3);
 
   const displayName = profile?.display_name || user.email?.split("@")[0] || "there";
+  const examDaysLeft = daysUntilBoardExam();
 
   return (
     <div className="mx-auto max-w-5xl space-y-8">
       {/* Hero */}
       <div className="dashboard-hero">
+        {examDaysLeft >= 0 && (
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-primary">
+            <Calendar className="size-3.5" />
+            <span className="text-sm font-semibold">{examDaysLeft} days</span>
+            <span className="text-xs text-primary/80">to the ABE Board Exam · {BOARD_EXAM_DATE_LABEL}</span>
+          </div>
+        )}
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
           {greeting()}, {displayName} 👋
         </h1>
