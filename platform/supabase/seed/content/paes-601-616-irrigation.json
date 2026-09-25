@@ -1,0 +1,1168 @@
+{
+  "topics": [
+    {
+      "exam_area_code": "LAND_WATER",
+      "topic_name": "Irrigation and Drainage Engineering",
+      "subtopics": {},
+      "questions": [
+        {
+          "q": "Under PAES 601, which term is defined as 'the vertical distance measured from the top of the dam down to the bedrock'?",
+          "choices": [
+            "Dam height",
+            "Designed height",
+            "Finished height",
+            "Structural height"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 601"
+        },
+        {
+          "q": "Which term does PAES 601 define as 'the ratio of the horizontal to vertical dimension of the channel wall'?",
+          "choices": [
+            "Channel bed slope",
+            "Side slope",
+            "Hydraulic depth",
+            "Hydraulic radius"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 601"
+        },
+        {
+          "q": "According to PAES 601, which term refers to 'water escaping below or out from water conveyance facilities such as open ditches, canals, natural channels, and waterway'?",
+          "choices": [
+            "Percolation",
+            "Conveyance loss",
+            "Seepage",
+            "Leaching"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 601"
+        },
+        {
+          "q": "Under PAES 601, 'application efficiency' is best described as which of the following?",
+          "choices": [
+            "Ratio between water received at the inlet for a block of fields to that released at the project's headwork",
+            "Ratio of the particle size at 60% passing to that at 10% passing",
+            "Numerical value on the uniformity of application for agricultural irrigation systems",
+            "Ratio of the average depth of irrigation water infiltrated and stored in the root zone to the average depth of irrigation water applied"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 601"
+        },
+        {
+          "q": "In PAES 601, which canal structure is defined as a 'closed conduit designed to convey canal water in full and under pressure running condition, to convey canal water by gravity under roadways, railways, drainage channels and local depressions'?",
+          "choices": [
+            "Drop",
+            "Elevated flume",
+            "Equipment crossing",
+            "Inverted siphon"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 601"
+        },
+        {
+          "q": "Based on PAES 602 Table 4, what is the crop coefficient (Kc) for lowland rice during the 40-70% growth stage?",
+          "choices": [
+            "1.05",
+            "0.95",
+            "0.61",
+            "1.10"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "According to PAES 602 Table 5, what is the percolation rate for clay loam soil?",
+          "choices": [
+            "2 mm/day",
+            "1.75 mm/day",
+            "1.5 mm/day",
+            "1.25 mm/day"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "Per PAES 602 Table 6 (USDA values), what is the field application efficiency for light soils under surface irrigation?",
+          "choices": [
+            "0.60",
+            "0.55",
+            "0.70",
+            "0.32"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "According to PAES 602 Table 7, what conveyance efficiency value corresponds to a continuous water supply system with no substantial change in flow?",
+          "choices": [
+            "0.65",
+            "0.9",
+            "0.8",
+            "0.7"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "Per PAES 602 Table B.16, what is the diameter of a Class A evaporation pan?",
+          "choices": [
+            "46 cm",
+            "120.7 cm",
+            "100 cm",
+            "92 cm"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "According to PAES 602 Table B.16, what is the depth of a Class A pan?",
+          "choices": [
+            "92 cm",
+            "46 cm",
+            "25 cm",
+            "15 cm"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 602"
+        },
+        {
+          "q": "Per PAES 603 Table 1, what is the maximum permissible velocity for an unlined canal excavated in clay loam?",
+          "choices": [
+            "0.80 m/s",
+            "0.60 m/s",
+            "0.70 m/s",
+            "0.90 m/s"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 603"
+        },
+        {
+          "q": "According to PAES 603 Table 2, what is the mean roughness coefficient (Manning's n) for a concrete-lined canal?",
+          "choices": [
+            "0.0130",
+            "0.0300",
+            "0.0220",
+            "0.0320"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 603"
+        },
+        {
+          "q": "Based on PAES 603 Table 3, what is the recommended stable side slope for an unlined channel in cutting reaches through hard rock?",
+          "choices": [
+            "1:1 to 1.5:1",
+            "1/4:1 to 1/2:1",
+            "1/4:1 to 1:1",
+            "1.5:1 to 2:1"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 603"
+        },
+        {
+          "q": "For lined channels, what side slope does PAES 603 recommend (Section 5.4.1.1)?",
+          "choices": [
+            "1.5:1",
+            "2:1 to 3:1",
+            "2:1",
+            "1:1 to 1.5:1"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 603"
+        },
+        {
+          "q": "According to PAES 603 Table 4, for a channel discharge of 20 m3/s in an unlined channel, what is the recommended range of bed-width-to-depth (b/d) ratio?",
+          "choices": [
+            "2.00-4.00",
+            "3.00-5.50",
+            "3.75-6.50",
+            "4.00-7.00"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 603"
+        },
+        {
+          "q": "Per PAES 604 Table 1, what is the seepage and percolation value for silty clay loam soil?",
+          "choices": [
+            "1.5 mm/day",
+            "1.75 mm/day",
+            "1.25 mm/day",
+            "2 mm/day"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 604"
+        },
+        {
+          "q": "According to PAES 604, what is the minimum required length of the test section (pond) for the ponding method?",
+          "choices": [
+            "16.49 m",
+            "11 m",
+            "10 m",
+            "1.5 m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 604"
+        },
+        {
+          "q": "In PAES 604, what is the recommended buffer zone span provided at each end of the test section?",
+          "choices": [
+            "0.73 m",
+            "11 m",
+            "1.5 m",
+            "1.83 m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 604"
+        },
+        {
+          "q": "According to PAES 604, at what percentage of channel depth should the pond and buffer zones be filled with water (normal operating capacity)?",
+          "choices": [
+            "80%",
+            "55%",
+            "70%",
+            "40%"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 604"
+        },
+        {
+          "q": "In PAES 604, how is the change in water depth in the pond (deltaH) calculated?",
+          "choices": [
+            "deltaH = Hi + Hf",
+            "deltaH = Hi - Hf",
+            "deltaH = Hf - Hi",
+            "deltaH = (Hi+Hf)/2"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 604"
+        },
+        {
+          "q": "According to PAES 605, what is the minimum recommended length of channel section (with uniform cross-section and grade) between the inflow and outflow measuring points for determining conveyance loss?",
+          "choices": [
+            "50 m",
+            "75 m",
+            "150 m",
+            "100 m"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 605"
+        },
+        {
+          "q": "Per PAES 605, the seepage and percolation loss rate in the inflow-outflow method is computed as:",
+          "choices": [
+            "(Qi - Qo) / L",
+            "Qi x Qo / L",
+            "(Qo - Qi) / L",
+            "(Qi + Qo) / L"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 605"
+        },
+        {
+          "q": "What is the discharge equation for a Cipoletti weir according to PAES 605?",
+          "choices": [
+            "Q = C Ha^n",
+            "Q = 1.84 (L - 0.2H) H^(3/2)",
+            "Q = (8/15) sqrt(2gCd) H^(5/2)",
+            "Q = 1.86 L H^(3/2)"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 605"
+        },
+        {
+          "q": "Per PAES 605 Annex B, what is the free flow limit (Hb/Ha) for a Parshall flume with a throat width between 30.5 cm and 244 cm (1 ft to 8 ft)?",
+          "choices": [
+            "80%",
+            "60%",
+            "25%",
+            "70%"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 605"
+        },
+        {
+          "q": "According to PAES 605 Table B.7, what is the discharge coefficient (Cd) for free flow through a circular sharp-edged orifice with a diameter of 0.075 m or greater?",
+          "choices": [
+            "0.60",
+            "0.64",
+            "0.61",
+            "0.57"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 605"
+        },
+        {
+          "q": "What is the maximum allowable velocity for a box culvert conduit according to PAES 606 Table 2?",
+          "choices": [
+            "1.50 m/s",
+            "1.20 m/s",
+            "2.00 m/s",
+            "1.00 m/s"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 606"
+        },
+        {
+          "q": "According to PAES 606 Table 1, what is the actual diameter of an RCP with a nominal diameter of 60 cm (24 in)?",
+          "choices": [
+            "61 cm",
+            "45 cm",
+            "76 cm",
+            "46 cm"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 606"
+        },
+        {
+          "q": "What is the minimum recommended clearance between the road and culvert for a railroad or road crossing per PAES 606?",
+          "choices": [
+            "0.20 m",
+            "0.60 m",
+            "0.90 m",
+            "1.00 m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 606"
+        },
+        {
+          "q": "According to PAES 606, what is the recommended initial velocity in the flume section of an elevated flume?",
+          "choices": [
+            "1.5 m/s to 2.0 m/s",
+            "1.2 m/s to 1.5 m/s",
+            "1.00 m/s",
+            "1.20 m/s"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 606"
+        },
+        {
+          "q": "Per PAES 606, above what elevation difference must an inclined drop or chute be used instead of other drop structure types?",
+          "choices": [
+            "2.5 m",
+            "5 m",
+            "0.90 m",
+            "1 m"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 606"
+        },
+        {
+          "q": "According to PAES 607 Table 6, what is the recommended furrow spacing for coarse sand soil?",
+          "choices": [
+            "30 cm",
+            "60 cm",
+            "75 cm",
+            "150 cm"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 607"
+        },
+        {
+          "q": "According to PAES 607, what is the maximum flow rate assigned to a single outlet in basin irrigation?",
+          "choices": [
+            "0.21 m3/s",
+            "0.3 m3/s",
+            "0.4 m3/s",
+            "0.06 m3/s"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 607"
+        },
+        {
+          "q": "What is the minimum design application efficiency required for basin irrigation per PAES 607?",
+          "choices": [
+            "60%",
+            "80%",
+            "70%",
+            "25%"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 607"
+        },
+        {
+          "q": "Per PAES 607 Table 1, what is the recommended slope range for border irrigation?",
+          "choices": [
+            "<= 0.1%",
+            "0.05% to 3.0%",
+            "< 0.5%",
+            "2.0% to 5.0%"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 607"
+        },
+        {
+          "q": "According to PAES 607, what is the recommended default stream size for furrow irrigation when the furrows are not too long?",
+          "choices": [
+            "0.5 L/s",
+            "1.2 L/s",
+            "3.0 L/s",
+            "2.5 L/s"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 607"
+        },
+        {
+          "q": "According to PAES 608 Part A, what is the maximum allowable velocity in the main line of a sprinkler irrigation system?",
+          "choices": [
+            "3.0 m/s",
+            "2.0 m/s",
+            "2.5 m/s",
+            "1.5 m/s"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Per PAES 608 Part A, the allowable friction loss in the laterals of a sprinkler irrigation system shall not exceed what percentage of the average pressure?",
+          "choices": [
+            "30%",
+            "20%",
+            "10%",
+            "40%"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Per PAES 608 Part A, sprinkler irrigation is not suitable for soils with an intake rate below what value?",
+          "choices": [
+            "20 mm/hr",
+            "3 mm/hr",
+            "16 mm/hr",
+            "8 mm/hr"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Based on Table 3 of PAES 608 Part A, what is the sprinkler discharge (q) for a 4.0 mm nozzle operating at 300 kPa?",
+          "choices": [
+            "0.82 m3/h",
+            "1.32 m3/h",
+            "1.08 m3/h",
+            "0.57 m3/h"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "According to Annex B of PAES 608 Part A, what is the minimum working pressure (PN) for quick-coupling aluminum pipes used in sprinkler systems?",
+          "choices": [
+            "6.0 bars",
+            "4.0 bars",
+            "12.0 bars",
+            "7.0 bars"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Per PAES 608 Part B, what manufacturer's coefficient of variation (Cv) range is classified as 'excellent' for a point-source emitter?",
+          "choices": [
+            "0.05 to 0.07",
+            "Less than 0.05",
+            "Less than 0.10",
+            "0.07 to 0.11"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "According to PAES 608 Part B, which emitter type has a discharge exponent (x) of 0, making its flow least affected by pressure variation?",
+          "choices": [
+            "Long-path emitter",
+            "Orifice type emitter",
+            "Fully-compensating emitter",
+            "Tortuous-path emitter"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "In the design emission uniformity (EU) equation given in PAES 608 Part B, which symbol represents the number of emitters per plant?",
+          "choices": [
+            "qa",
+            "qm",
+            "Np",
+            "Cv"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Per Table 2 of PAES 608 Part B, what is the maximum EC_e (electrical conductivity of saturated soil extract, dS/m) value listed for cotton, at which crop yield is reduced to zero?",
+          "choices": [
+            "19 dS/m",
+            "24 dS/m",
+            "27 dS/m",
+            "13 dS/m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "According to Table 4 of PAES 608 Part B, what is the discharge exponent (x) range for a tortuous-path emitter?",
+          "choices": [
+            "0.4",
+            "0.5 to 0.7",
+            "0.7 to 0.8",
+            "0"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 608"
+        },
+        {
+          "q": "Per PAES 609, what is the minimum required reservoir area at normal water level for a small water impounding system?",
+          "choices": [
+            "25 ha",
+            "0.5 ha",
+            "1 ha",
+            "5 ha"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 609"
+        },
+        {
+          "q": "According to PAES 609, what is the maximum recommended slope for the watershed of a small water impounding system?",
+          "choices": [
+            "40%",
+            "18%",
+            "5%",
+            "10%"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 609"
+        },
+        {
+          "q": "Per PAES 609, the soil at a dam site shall be well-graded and shall contain at least what percentage of clay?",
+          "choices": [
+            "5%",
+            "70%",
+            "10%",
+            "30%"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 609"
+        },
+        {
+          "q": "Per PAES 609, dead storage volume in a small water impounding reservoir is computed based on how many years of sediment accumulation?",
+          "choices": [
+            "20 years",
+            "25 years",
+            "10 years",
+            "15 years"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 609"
+        },
+        {
+          "q": "According to PAES 609 Annex B, what riprap factor (C) is used for dumped riprap when sizing rock or stone for embankment slope protection?",
+          "choices": [
+            "0.80",
+            "0.70",
+            "0.54",
+            "0.90"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 609"
+        },
+        {
+          "q": "According to PAES 610, a small farm reservoir is defined as a system with an earth dam embankment height of less than what value?",
+          "choices": [
+            "4 m",
+            "35 m",
+            "15 m",
+            "5 m"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "What is the recommended inside slope (upstream face) of a small farm reservoir embankment, per PAES 610?",
+          "choices": [
+            "1:1.8 to 1:2 (H:V)",
+            "3:1 (H:V)",
+            "2:1 (H:V)",
+            "1:2.5 to 1:2.75 (H:V)"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "What is the required crest width range (Bt) for a small farm reservoir embankment under PAES 610?",
+          "choices": [
+            "1 m minimum",
+            "0.75 m minimum",
+            "2 m to 3 m",
+            "4 m minimum"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "Per PAES 610, what is the minimum required depth of the diversion channel around a small farm reservoir?",
+          "choices": [
+            "4 m",
+            "1 m",
+            "5 m",
+            "0.75 m"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "Per PAES 610 Table 2, what is the minimum size of catchment area required per 1000 m² of reservoir capacity for terraced land use?",
+          "choices": [
+            "1.0 ha",
+            "0.6 ha",
+            "0.2 ha",
+            "0.5 ha"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "Per PAES 610, what soil texture is required within 1.5 m of the soil profile at a small farm reservoir site?",
+          "choices": [
+            "Peat soils and heavy clays",
+            "Loam, sandy loam, clay loam, or sandy clay loam",
+            "Saline or alkaline soils",
+            "Sodic soils only"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 610"
+        },
+        {
+          "q": "According to PAES 611, what is the dam height range that defines a small reservoir irrigation system?",
+          "choices": [
+            "Less than 5 m",
+            "5 m to 15 m",
+            "15 m to 35 m",
+            "35 m to 50 m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "Per PAES 611, what is the minimum number of boreholes required along the dam axis, and the minimum number of drill holes required for the spillway and diversion outlet, respectively?",
+          "choices": [
+            "5 and 3",
+            "5 and 5",
+            "3 and 5",
+            "3 and 3"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "According to PAES 611 Annex B, what increase in seepage flow quantity (not related to rainfall) is considered unusual and must be reported to higher authorities?",
+          "choices": [
+            "0.05 percent",
+            "40 percent",
+            "20 percent",
+            "10 percent"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "Per PAES 611 Annex B, how frequently should total pressure cells and settlement/deflection instrumentation typically be read?",
+          "choices": [
+            "Daily",
+            "During a strong earthquake",
+            "Every six months",
+            "Monthly or weekly"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "According to PAES 611, which term is defined as 'the maximum average contact pressure between the foundation and the soil which should not produce shear failure in the soil'?",
+          "choices": [
+            "Design irrigable area",
+            "Permeability test",
+            "Seismicity",
+            "Bearing capacity"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "Per PAES 611 Annex B, which type of dam instrumentation measures internal settlements in an embankment dam and its foundation using horizontally placed cross-arms along a vertical tubing?",
+          "choices": [
+            "Seismic instruments",
+            "Total pressure cells",
+            "Piezometers",
+            "Cross-arm settlement devices"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 611"
+        },
+        {
+          "q": "Per PAES 612, what is the recommended minimum width of a rockfill dam crest?",
+          "choices": [
+            "1 m",
+            "4 m",
+            "5 m",
+            "2 m to 3 m"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "Per PAES 612 Table 1, which formula is used by the USBR method to determine dam crest width (W) in terms of dam height (H)?",
+          "choices": [
+            "3.6 H^(1/3) - 1.5",
+            "0.2 H + 1.5",
+            "1.1 H^(1/2) + 0.6",
+            "3.6 H^(1/3) - 3.0"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "Per PAES 612 Table 2, what is the recommended upstream slope range for a rockfill dam with a central earth-core?",
+          "choices": [
+            "1:1.6 to 1:1.7",
+            "1:1.3 to 1:1.4",
+            "1:1.8 to 1:2",
+            "1:2.5 to 1:2.75"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "According to PAES 612 Section 14, what is the acceptable leakage volume for the horizontal drain, expressed as a percentage of the reservoir's storage capacity?",
+          "choices": [
+            "0.05%",
+            "20%",
+            "10%",
+            "40%"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "Per PAES 612, for a sound rock foundation, what is the minimum required depth and width of the cutoff?",
+          "choices": [
+            "2 m to 3 m",
+            "4 m",
+            "0.75 m",
+            "1 m"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "Per PAES 612, which term is defined as 'internal erosion induced by regressive erosion of particles from downstream and along the upstream line towards an outside environment'?",
+          "choices": [
+            "Seepage",
+            "Rockfill dam",
+            "Filter zone",
+            "Piping"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 612"
+        },
+        {
+          "q": "Per PAES 613, what is the height range specified for a diversion dam?",
+          "choices": [
+            "3 m to 5 m",
+            "1.50 m to 4 m",
+            "5 m to 10 m",
+            "0.50 m to 1 m"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 613"
+        },
+        {
+          "q": "Which type of diversion dam is specifically suited for rivers or creeks with heavy sediment loads during floods that must be allowed to pass through gate openings, per PAES 613 Table 1?",
+          "choices": [
+            "Vertical Drop dam",
+            "Ogee dam",
+            "Trapezoidal dam",
+            "Gated dam"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 613"
+        },
+        {
+          "q": "According to PAES 613 Table 2, what is the allowable maximum flood concentration for a foundation of sand and gravel?",
+          "choices": [
+            "25 m3/s/m",
+            "5 m3/s/m",
+            "15 m3/s/m",
+            "10 m3/s/m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 613"
+        },
+        {
+          "q": "According to PAES 613 Table 3, what is the recommended formula for the length of the downstream apron when the Froude number is less than 4.5 (Type I basin with dentated end sills)?",
+          "choices": [
+            "La = 1.5(L - La)",
+            "La = 5(d2 - d1)",
+            "La = 3.5 d2",
+            "La = 4 d2"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 613"
+        },
+        {
+          "q": "What is the minimum length of riprap protection required downstream of a diversion dam, per PAES 613?",
+          "choices": [
+            "4 m",
+            "1.50 m",
+            "0.50 m",
+            "10 m"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 613"
+        },
+        {
+          "q": "In the spillway formula Q = CLD^(3/2), what value of coefficient C applies to gabion and cement masonry check dams, per PAES 614?",
+          "choices": [
+            "0.6",
+            "1.8",
+            "0.4",
+            "3.0"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 614"
+        },
+        {
+          "q": "Per PAES 614 Table 1, what is the maximum dam height allowed for a Brushwood check dam?",
+          "choices": [
+            "2 m",
+            "0.5 m",
+            "1.5 m",
+            "1 m"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 614"
+        },
+        {
+          "q": "Which formula does PAES 614 specify (the Hoffman formula) for the base thickness of a masonry check dam with a total height of 2 m to 6 m?",
+          "choices": [
+            "k = 0.4H",
+            "d = 0.462H",
+            "k = (1 + 10H)/10",
+            "d = 0.6H"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 614"
+        },
+        {
+          "q": "Per PAES 614, what is the minimum foundation depth required for the first masonry check dam if it is not built on solid rock?",
+          "choices": [
+            "0.6 m",
+            "1 m",
+            "0.4 m",
+            "0.5 m"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 614"
+        },
+        {
+          "q": "For 2 m long box gabions in a gabion check dam, per PAES 614, how many parallel ties should be placed between the inner and outer sides once the box is one-third full?",
+          "choices": [
+            "3",
+            "5",
+            "10",
+            "4"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 614"
+        },
+        {
+          "q": "Per PAES 615, what is the maximum depth generally used to classify a well as a shallow tubewell?",
+          "choices": [
+            "Less than 3 m",
+            "Less than 4.6 m",
+            "Less than 15 m",
+            "Less than 9 m"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 615"
+        },
+        {
+          "q": "According to PAES 615 Table 3, which design discharge requires a pipe diameter of 100 mm (4 in) as the sole recommended size in a rice-based cropping system?",
+          "choices": [
+            ">7.6 lps",
+            "<3.8 lps",
+            "3.8 lps",
+            "7.6 lps"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 615"
+        },
+        {
+          "q": "Which type of well requires Schedule 40 GI pipe material, per PAES 615 Table 4?",
+          "choices": [
+            "Naturally developed with a relatively soft confining layer",
+            "Naturally developed with a hard confining layer",
+            "Naturally developed with design depth of <= 9 m (30 ft)",
+            "Artificially developed"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 615"
+        },
+        {
+          "q": "What pump efficiency is assumed in the brake horsepower formula (BHP = TDH x Qd / (102 x Ep)), per PAES 615?",
+          "choices": [
+            "100%",
+            "55%",
+            "50%",
+            "15%"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 615"
+        },
+        {
+          "q": "Per PAES 615 Annex A, what is the minimum aquifer thickness for it to be considered a good confined aquifer during well logging?",
+          "choices": [
+            "15 m",
+            "9 m",
+            "4.6 m",
+            "3 m (10 ft)"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 615"
+        },
+        {
+          "q": "Per PAES 616 Table 1, what is the maximum allowable pH for treated wastewater used in irrigation?",
+          "choices": [
+            "8.0",
+            "4.0",
+            "8.5",
+            "5.5"
+          ],
+          "answer": 0,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 616"
+        },
+        {
+          "q": "Per PAES 616 Table 1, what is the maximum limit for Biochemical Oxygen Demand (BOD5) in treated wastewater used for irrigation?",
+          "choices": [
+            "140 mg/L",
+            "150 mg/L",
+            "30 mg/L",
+            "500 mg/L"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 616"
+        },
+        {
+          "q": "Per PAES 616 Table 2, what is the maximum concentration limit for Mercury as a trace element in irrigation water?",
+          "choices": [
+            "0.01 mg/L",
+            "0.75 mg/L",
+            "0.10 mg/L",
+            "0.002 mg/L"
+          ],
+          "answer": 3,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 616"
+        },
+        {
+          "q": "Per PAES 616 Table 4, what is the required setback distance from potable water supply wells when irrigating food crops eaten raw and not commercially processed?",
+          "choices": [
+            "1 m",
+            "25 m",
+            "30 m",
+            "90 m"
+          ],
+          "answer": 1,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 616"
+        },
+        {
+          "q": "Per PAES 616 Table 3, what is the intake rate range for silty clay soil when irrigating with re-used wastewater?",
+          "choices": [
+            "0.01 - 0.8 cm/h",
+            "2.0 - 6.0 cm/h",
+            "0.8 - 2.0 cm/h",
+            "6.0 - 12.0 cm/h"
+          ],
+          "answer": 2,
+          "diff": "medium",
+          "is_paes": true,
+          "paes_reference": "PAES 616"
+        }
+      ]
+    }
+  ]
+}
