@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type QuestionRow = {
   id: string;
@@ -19,23 +20,38 @@ function normalize(text: string) {
   return text.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
-export default async function AdminQualityPage() {
+const DEFAULT_SECTION_SIZE = 50;
+
+export default async function AdminQualityPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ topicId?: string }>;
+}) {
   await requireAdmin();
   const supabase = await createClient();
+  const { topicId: topicFilter } = await searchParams;
 
   // questions now has 2200+ rows — a plain `.select()` would silently cap at
   // PostgREST's 1000-row default, hiding quality issues (missing
   // explanation, no correct choice, duplicates) in everything past the cap.
   // Paginated.
-  const questions = await fetchAllRows<QuestionRow>((from, to) =>
-    supabase
-      .from("questions")
-      .select("id, topic_id, question_text, question_type, explanation, status, choices(is_correct)")
-      .order("created_at")
-      .range(from, to),
-  );
+  const [questions, { data: topics }] = await Promise.all([
+    fetchAllRows<QuestionRow>((from, to) =>
+      supabase
+        .from("questions")
+        .select("id, topic_id, question_text, question_type, explanation, status, choices(is_correct)")
+        .order("created_at")
+        .range(from, to),
+    ),
+    supabase.from("topics").select("id, name").order("name"),
+  ]);
 
-  const rows = questions;
+  // "No explanation" alone flags 1300+ questions — rendering every one
+  // unfiltered was the same slowness pattern fixed on /admin/reviewers.
+  // A topic filter (each row already links out to its topic's review page
+  // anyway) bypasses the per-section cap since it's already a narrowed ask.
+  const rows = topicFilter ? questions.filter((q) => q.topic_id === topicFilter) : questions;
+  const capSection = <T,>(list: T[]) => (topicFilter ? list : list.slice(0, DEFAULT_SECTION_SIZE));
 
   const noExplanation = rows.filter((q) => !q.explanation || !q.explanation.trim());
   const noCorrectChoice = rows.filter((q) => q.choices.every((c) => !c.is_correct));
@@ -56,17 +72,20 @@ export default async function AdminQualityPage() {
     {
       title: "No explanation",
       description: "Students won't get a real explanation after answering these.",
-      rows: noExplanation,
+      allRows: noExplanation,
+      rows: capSection(noExplanation),
     },
     {
       title: "No choice marked correct",
       description: "These can never be graded correctly — nothing to compare the student's answer against.",
-      rows: noCorrectChoice,
+      allRows: noCorrectChoice,
+      rows: capSection(noCorrectChoice),
     },
     {
       title: "Multiple correct choices on a single-choice question",
       description: "single_choice questions should have exactly one correct choice.",
-      rows: multipleCorrect,
+      allRows: multipleCorrect,
+      rows: capSection(multipleCorrect),
     },
   ];
 
@@ -85,12 +104,36 @@ export default async function AdminQualityPage() {
           this project&apos;s content pipeline.
         </p>
 
+        <form className="flex flex-wrap gap-2 rounded-md border border-border bg-muted/30 p-3">
+          <select name="topicId" defaultValue={topicFilter ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
+            <option value="">All topics</option>
+            {(topics ?? []).map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
+          <Button type="submit" size="sm">
+            Filter
+          </Button>
+          {topicFilter && (
+            <Link href="/admin/quality" className="self-center text-xs text-muted-foreground hover:underline">
+              Clear
+            </Link>
+          )}
+        </form>
+
         {sections.map((section) => (
           <div key={section.title}>
             <h2 className="text-sm font-semibold">
-              {section.title} <Badge variant="secondary" className="ml-1">{section.rows.length}</Badge>
+              {section.title} <Badge variant="secondary" className="ml-1">{section.allRows.length}</Badge>
             </h2>
             <p className="text-xs text-muted-foreground">{section.description}</p>
+            {!topicFilter && section.allRows.length > section.rows.length && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                Showing {section.rows.length} of {section.allRows.length} — filter by topic above to see the rest.
+              </p>
+            )}
             {section.rows.length > 0 ? (
               <div className="mt-2 space-y-2">
                 {section.rows.map((q) => (
@@ -121,9 +164,14 @@ export default async function AdminQualityPage() {
           <p className="text-xs text-muted-foreground">
             Exact text matches after trimming/case-folding — near-duplicates with rewording won&apos;t be caught.
           </p>
+          {!topicFilter && duplicateGroups.length > capSection(duplicateGroups).length && (
+            <p className="mt-1 text-xs text-muted-foreground">
+              Showing {capSection(duplicateGroups).length} of {duplicateGroups.length} — filter by topic above to see the rest.
+            </p>
+          )}
           {duplicateGroups.length > 0 ? (
             <div className="mt-2 space-y-3">
-              {duplicateGroups.map((group, i) => (
+              {capSection(duplicateGroups).map((group, i) => (
                 <Card key={i}>
                   <CardHeader>
                     <CardTitle className="text-sm font-normal">{group[0].question_text}</CardTitle>
