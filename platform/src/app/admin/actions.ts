@@ -98,3 +98,19 @@ export async function upgradeToSubscriber(userId: string) {
   await admin.from("profiles").update({ plan: "subscriber" }).eq("id", userId);
   revalidatePath("/admin/users");
 }
+
+/**
+ * The reverse of upgradeToSubscriber — one-click from the Subscribers list
+ * (per Gabriel's explicit "add a feature in free subscriber wherein i
+ * click 'move to free trial'", 2026-09-25). Resets trial_started_at to now
+ * rather than leaving whatever stale value the row had (e.g. a grandfathered
+ * pre-plan-feature account, or their original trial from before an earlier
+ * upgrade) — the 14-day clock always starts fresh from the moment of this
+ * specific demotion, not from some unrelated past timestamp.
+ */
+export async function downgradeToTrial(userId: string) {
+  await requireAdmin();
+  const admin = createAdminClient();
+  await admin.from("profiles").update({ plan: "trial", trial_started_at: new Date().toISOString() }).eq("id", userId);
+  revalidatePath("/admin/users");
+}

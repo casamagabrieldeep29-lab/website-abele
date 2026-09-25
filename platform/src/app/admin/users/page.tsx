@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InviteForm } from "../invite-form";
 import { RemoveUserForm } from "./remove-user-form";
-import { upgradeToSubscriber } from "../actions";
+import { upgradeToSubscriber, downgradeToTrial } from "../actions";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "remove-confirmation": "You must type REMOVE exactly to confirm.",
@@ -40,28 +40,36 @@ function UserRow({
   p,
   currentUserId,
   trialBadge,
+  showDowngrade,
 }: {
   p: Profile;
   currentUserId: string;
   trialBadge?: React.ReactNode;
+  showDowngrade?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-3 py-2.5 last:border-b-0">
+    <div className="flex min-w-0 flex-col gap-1.5 rounded-md border border-border p-3">
       <div className="min-w-0">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5">
           <p className="truncate text-sm font-medium">{p.display_name || "(no name set)"}</p>
           {p.role === "admin" && <Badge variant="secondary">Admin</Badge>}
           {trialBadge}
         </div>
-        <p className="truncate text-xs text-muted-foreground">
-          {p.email} · Joined {formatDate(p.created_at)}
-        </p>
+        <p className="truncate text-xs text-muted-foreground">{p.email}</p>
+        <p className="text-xs text-muted-foreground">Joined {formatDate(p.created_at)}</p>
       </div>
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="flex flex-wrap items-center gap-1.5 pt-1">
         {p.role !== "admin" && p.plan === "trial" && (
           <form action={upgradeToSubscriber.bind(null, p.id)}>
             <Button type="submit" size="sm" variant="outline">
               Make Subscriber
+            </Button>
+          </form>
+        )}
+        {showDowngrade && p.role !== "admin" && p.plan === "subscriber" && (
+          <form action={downgradeToTrial.bind(null, p.id)}>
+            <Button type="submit" size="sm" variant="outline">
+              Move to Free Trial
             </Button>
           </form>
         )}
@@ -94,7 +102,7 @@ export default async function AdminUsersPage({
   const trialUsers = profiles.filter((p) => p.plan === "trial" && p.role !== "admin");
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="mx-auto max-w-[1800px] space-y-6 px-4">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Users</h1>
@@ -113,7 +121,7 @@ export default async function AdminUsersPage({
         </p>
       )}
 
-      <Card>
+      <Card className="max-w-2xl">
         <CardHeader>
           <CardTitle className="text-base">Invite a reviewee</CardTitle>
           <CardDescription>
@@ -127,43 +135,39 @@ export default async function AdminUsersPage({
         </CardContent>
       </Card>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <h2 className="text-sm font-semibold">
-            Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
-          </h2>
-          <div className="mt-2 rounded-md border border-border">
-            {subscribers.map((p) => (
-              <UserRow key={p.id} p={p} currentUserId={currentUser.id} />
-            ))}
-            {subscribers.length === 0 && (
-              <p className="px-3 py-4 text-sm text-muted-foreground">No subscribers yet.</p>
-            )}
-          </div>
+      <div>
+        <h2 className="text-sm font-semibold">
+          Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
+        </h2>
+        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {subscribers.map((p) => (
+            <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
+          ))}
         </div>
+        {subscribers.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No subscribers yet.</p>}
+      </div>
 
-        <div>
-          <h2 className="text-sm font-semibold">
-            Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
-          </h2>
-          <div className="mt-2 rounded-md border border-border">
-            {trialUsers.map((p) => {
-              const left = daysLeft(p.trial_started_at);
-              const badge =
-                left <= 0 ? (
-                  <Badge variant="destructive">Expired</Badge>
-                ) : (
-                  <Badge variant={left <= 3 ? "destructive" : "outline"}>
-                    {left} {left === 1 ? "day" : "days"} left
-                  </Badge>
-                );
-              return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
-            })}
-            {trialUsers.length === 0 && (
-              <p className="px-3 py-4 text-sm text-muted-foreground">No free-trial users right now.</p>
-            )}
-          </div>
+      <div>
+        <h2 className="text-sm font-semibold">
+          Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
+        </h2>
+        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {trialUsers.map((p) => {
+            const left = daysLeft(p.trial_started_at);
+            const badge =
+              left <= 0 ? (
+                <Badge variant="destructive">Expired</Badge>
+              ) : (
+                <Badge variant={left <= 3 ? "destructive" : "outline"}>
+                  {left} {left === 1 ? "day" : "days"} left
+                </Badge>
+              );
+            return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
+          })}
         </div>
+        {trialUsers.length === 0 && (
+          <p className="mt-2 text-sm text-muted-foreground">No free-trial users right now.</p>
+        )}
       </div>
 
       {!profiles.length && <p className="text-sm text-muted-foreground">No users yet.</p>}
