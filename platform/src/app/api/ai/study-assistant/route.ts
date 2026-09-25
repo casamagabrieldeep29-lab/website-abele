@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { fetchAllAnsweredRows } from "@/lib/study-stats";
-import { getAIProvider, AIProviderError, AI_DAILY_LIMIT } from "@/lib/ai";
+import { getAIProvider, AIProviderError, AI_DAILY_LIMIT, AI_TRIAL_DAILY_LIMIT, buildAiLimitMessage } from "@/lib/ai";
 import { buildStudyAssistantPrompt, buildStudyAssistantSystemInstruction, type StudyAssistantContext } from "@/lib/ai/prompts";
 
 const FRIENDLY_ERROR = "AI explanation is temporarily unavailable. Please try again.";
@@ -40,16 +40,14 @@ export async function POST(req: NextRequest) {
 
   const { data: usage, error: usageError } = await supabase.rpc("check_and_log_ai_usage", {
     p_daily_limit: AI_DAILY_LIMIT,
+    p_trial_daily_limit: AI_TRIAL_DAILY_LIMIT,
   });
   if (usageError) {
     return NextResponse.json({ error: FRIENDLY_ERROR }, { status: 500 });
   }
   const usageRow = Array.isArray(usage) ? usage[0] : usage;
   if (!usageRow?.allowed) {
-    return NextResponse.json(
-      { error: `You've reached today's AI request limit (${AI_DAILY_LIMIT}/day). Try again tomorrow.` },
-      { status: 429 },
-    );
+    return NextResponse.json({ error: buildAiLimitMessage(usageRow?.limit_reason) }, { status: 429 });
   }
 
   const [{ data: masteryRows }, answeredRows, { data: mistakeRows }] = await Promise.all([
