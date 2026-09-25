@@ -219,12 +219,12 @@ export default async function DashboardPage() {
           </p>
         </div>
         {examDaysLeft >= 0 && (
-          <div className="shrink-0 rounded-lg border border-border/70 bg-muted/40 px-3 py-1.5 text-right leading-tight">
+          <div className="shrink-0 border-l border-border/70 pl-4 text-right leading-tight">
             <p className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">ABELE Countdown</p>
-            <p className="mt-0.5 text-lg font-bold tabular-nums text-primary sm:text-xl">
-              {examDaysLeft} <span className="text-xs font-medium text-muted-foreground">days</span>
+            <p className="mt-1 text-4xl font-bold tabular-nums text-primary sm:text-5xl">
+              {examDaysLeft} <span className="text-sm font-medium text-muted-foreground">days</span>
             </p>
-            <p className="text-[11px] text-muted-foreground italic">{BOARD_EXAM_DATE_LABEL}</p>
+            <p className="mt-0.5 text-xs text-muted-foreground italic">{BOARD_EXAM_DATE_LABEL}</p>
           </div>
         )}
       </div>
