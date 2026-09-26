@@ -76,6 +76,7 @@ export function GlobalSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<GlobalSearchResults>(EMPTY_RESULTS);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -101,6 +102,7 @@ export function GlobalSearch() {
     if (!next) {
       setQuery("");
       setResults(EMPTY_RESULTS);
+      setSuggestions([]);
       setLoading(false);
       setSelectedIndex(0);
     }
@@ -127,7 +129,8 @@ export function GlobalSearch() {
       const r = await globalSearch(trimmed);
       // Ignore stale responses from an earlier keystroke that resolved late.
       if (requestIdRef.current === thisRequestId) {
-        setResults(r);
+        setResults(r.results);
+        setSuggestions(r.suggestions);
         setLoading(false);
         setSelectedIndex(0);
       }
@@ -231,7 +234,25 @@ export function GlobalSearch() {
             ) : !hasAnyResults ? (
               <div className="px-3 py-10 text-center">
                 <p className="text-sm font-medium">No results found</p>
-                <p className="mt-1 text-xs text-muted-foreground">Try a different topic, subject, or keyword.</p>
+                {suggestions.length > 0 ? (
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Did you mean{" "}
+                    {suggestions.map((s, i) => (
+                      <span key={s}>
+                        <button
+                          type="button"
+                          className="text-primary hover:underline"
+                          onClick={() => setQuery(s)}
+                        >
+                          {s}
+                        </button>
+                        {i < suggestions.length - 1 ? ", " : "?"}
+                      </span>
+                    ))}
+                  </p>
+                ) : (
+                  <p className="mt-1 text-xs text-muted-foreground">Try a different topic, subject, or keyword.</p>
+                )}
               </div>
             ) : (
               CATEGORY_ORDER.map(({ key, heading }) => {
