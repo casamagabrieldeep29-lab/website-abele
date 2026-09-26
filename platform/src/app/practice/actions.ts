@@ -9,6 +9,29 @@ import { weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import type { MockArea } from "@/app/mock/actions";
 
+/**
+ * The set of question ids this user has ever answered. Deliberately NOT
+ * filtered by `.in("question_id", candidateIds)` — encoding a large
+ * candidate pool (Quick Practice pools all 1800+ published questions) into
+ * an `.in()` filter builds a URL long enough to get rejected outright by
+ * Supabase's gateway (a 414-style failure that surfaced as an unhandled
+ * crash on /quick, 2026-09-26). A user's own answered-question count is
+ * normally far smaller than the full candidate pool, so fetching it
+ * unfiltered and doing the set-difference in JS is both correct and safe
+ * at this scale either way.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function fetchAnsweredQuestionIds(supabase: SupabaseClient<any>, userId: string): Promise<Set<string>> {
+  const rows = await fetchAllRows<{ question_id: string }>((from, to) =>
+    supabase
+      .from("attempt_answers")
+      .select("question_id, attempts!inner(user_id)")
+      .eq("attempts.user_id", userId)
+      .range(from, to),
+  );
+  return new Set(rows.map((r) => r.question_id));
+}
+
 export async function startPracticeAttempt(topicId: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -247,12 +270,7 @@ export async function startRecalledQuiz(area: MockArea) {
     throw new Error("No recalled questions in this area yet.");
   }
 
-  const { data: answered } = await supabase
-    .from("attempt_answers")
-    .select("question_id, attempts!inner(user_id)")
-    .eq("attempts.user_id", user.id)
-    .in("question_id", candidates.map((c) => c.id));
-  const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+  const answeredIds = await fetchAnsweredQuestionIds(supabase, user.id);
   const unanswered = candidates.filter((c) => !answeredIds.has(c.id));
   const scoped = unanswered.length > 0 ? unanswered : candidates;
 
@@ -368,12 +386,7 @@ async function scopeToPracticeMode(
   }
 
   // unanswered
-  const { data: answered } = await supabase
-    .from("attempt_answers")
-    .select("question_id, attempts!inner(user_id)")
-    .eq("attempts.user_id", userId)
-    .in("question_id", candidates.map((c) => c.id));
-  const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+  const answeredIds = await fetchAnsweredQuestionIds(supabase, userId);
   const scoped = candidates.filter((c) => !answeredIds.has(c.id));
   return scoped.length > 0 ? scoped : candidates;
 }
@@ -478,12 +491,7 @@ export async function startCustomQuiz(formData: FormData) {
     const mistakeIds = new Set((mistakes ?? []).map((m: { question_id: string }) => m.question_id));
     candidates = candidates.filter((c) => mistakeIds.has(c.id));
   } else if (filters.source === "unanswered") {
-    const { data: answered } = await supabase
-      .from("attempt_answers")
-      .select("question_id, attempts!inner(user_id)")
-      .eq("attempts.user_id", user.id)
-      .in("question_id", candidates.length ? candidates.map((c) => c.id) : ["00000000-0000-0000-0000-000000000000"]);
-    const answeredIds = new Set((answered ?? []).map((a) => a.question_id));
+    const answeredIds = await fetchAnsweredQuestionIds(supabase, user.id);
     candidates = candidates.filter((c) => !answeredIds.has(c.id));
   }
 
