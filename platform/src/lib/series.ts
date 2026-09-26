@@ -136,20 +136,28 @@ export async function weighAndSampleCandidates(
   // student's answer history pooled together instead of just their own —
   // exactly the "keeps repeating questions I've already gotten right" problem
   // this weighting exists to prevent, just reappearing for admin accounts.
-  const candidateIds = candidates.map((c) => c.id);
+  //
+  // Deliberately NOT filtered by `.in("question_id", candidateIds)` — Quick
+  // Practice pools all 1800+ published questions, and encoding that many ids
+  // into a URL-based `.in()` filter builds a request long enough for
+  // Supabase's gateway to reject outright (surfaced as an unhandled crash on
+  // /quick, 2026-09-26). Filtering to just this candidate batch happens in
+  // JS below instead — a user's own answer history is normally far smaller
+  // than the full candidate pool either way.
+  const candidateIdSet = new Set(candidates.map((c) => c.id));
   const pastAnswers = await fetchAllRows<{ question_id: string; is_correct: boolean; answered_at: string }>(
     (from, to) =>
       supabase
         .from("attempt_answers")
         .select("question_id, is_correct, answered_at, attempts!inner(user_id)")
         .eq("attempts.user_id", userId)
-        .in("question_id", candidateIds)
         .order("answered_at", { ascending: false })
         .range(from, to),
   );
 
   const latestOutcome = new Map<string, boolean>();
   for (const a of pastAnswers) {
+    if (!candidateIdSet.has(a.question_id)) continue;
     if (!latestOutcome.has(a.question_id)) latestOutcome.set(a.question_id, a.is_correct);
   }
 
