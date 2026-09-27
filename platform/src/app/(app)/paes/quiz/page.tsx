@@ -68,9 +68,7 @@ export default async function PaesQuizPage({
           <CardHeader>
             <CardTitle>Quickfire</CardTitle>
             <CardDescription>
-              {disabled
-                ? "No published PAES questions available yet"
-                : `${Math.min(QUICKFIRE_COUNT, pool)} of ${pool} available · ${QUICKFIRE_SECONDS}s per question`}
+              {disabled ? "Not available yet" : `${QUICKFIRE_SECONDS}s per question`}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -86,9 +84,7 @@ export default async function PaesQuizPage({
           <CardHeader>
             <CardTitle>PAES 50</CardTitle>
             <CardDescription>
-              {disabled
-                ? "No published PAES questions available yet"
-                : `${Math.min(PAES_50_COUNT, pool)} of ${pool} available · untimed, volume recall`}
+              {disabled ? "Not available yet" : "Untimed, volume recall"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -111,13 +107,7 @@ export default async function PaesQuizPage({
             <Card key={n}>
               <CardHeader>
                 <CardTitle>PAES {n}</CardTitle>
-                <CardDescription>
-                  {disabled
-                    ? paesReference
-                      ? `No published questions for ${paesReference} yet`
-                      : "No published PAES questions available yet"
-                    : `${Math.min(n, pool)} of ${pool} available questions`}
-                </CardDescription>
+                <CardDescription>{disabled ? "Not available yet" : "Untimed, focused practice"}</CardDescription>
               </CardHeader>
               <CardContent>
                 <form action={startPaesQuizAttempt.bind(null, n, paesReference, undefined)}>
