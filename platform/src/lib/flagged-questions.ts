@@ -10,3 +10,9 @@
 // exclude every question that has no explanation at all — most of them.
 // explanation.is.null explicitly keeps those rows in.
 export const NOT_FLAGGED_FILTER = "explanation.is.null,explanation.not.ilike.%FLAGGED FOR REVIEW%";
+
+// Same pattern, same NULL-handling reasoning, applied to reviewer_entries —
+// its "FLAGGED FOR REVIEW" marker lives in `notes` instead of `explanation`
+// (used when the PAES source standard itself has a genuine anomaly, e.g. a
+// formula contradicting its own method text).
+export const NOT_FLAGGED_REVIEWER_FILTER = "notes.is.null,notes.not.ilike.%FLAGGED FOR REVIEW%";
