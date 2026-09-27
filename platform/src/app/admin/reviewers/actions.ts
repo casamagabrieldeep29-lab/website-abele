@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
+import { NOT_FLAGGED_REVIEWER_FILTER } from "@/lib/flagged-questions";
 
 function fieldsFromForm(formData: FormData) {
   const str = (name: string) => {
@@ -68,6 +69,13 @@ export async function unpublishReviewerEntry(entryId: string) {
   revalidatePath("/admin/reviewers");
 }
 
+/**
+ * Excludes flagged entries the same way publishAllInTopic (questions) does —
+ * "[FLAGGED FOR REVIEW: ...]" in `notes` means the source material itself
+ * had a genuine anomaly (e.g. a standard's own formula contradicting its own
+ * method text) that needs a human call before this goes live, not a bulk
+ * rubber-stamp.
+ */
 export async function publishAllReviewerDrafts(): Promise<{ published: number }> {
   await requireAdmin();
   const supabase = await createClient();
@@ -75,6 +83,7 @@ export async function publishAllReviewerDrafts(): Promise<{ published: number }>
     .from("reviewer_entries")
     .update({ status: "published" })
     .eq("status", "draft")
+    .or(NOT_FLAGGED_REVIEWER_FILTER)
     .select("id");
   if (error) throw new Error(error.message);
   revalidatePath("/admin/reviewers");

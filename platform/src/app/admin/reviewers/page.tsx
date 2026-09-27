@@ -4,71 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  createReviewerEntry,
-  deleteReviewerEntry,
-  publishReviewerEntry,
-  unpublishReviewerEntry,
-  updateReviewerEntry,
-} from "./actions";
+import { createReviewerEntry } from "./actions";
 import { PublishAllReviewerDraftsButton } from "./publish-all-drafts-button";
-
-const KIND_LABELS: Record<string, string> = { formula: "Formula", table: "Table", constant: "Constant" };
-
-type Topic = { id: string; name: string };
-type Subtopic = { id: string; name: string; topic_id: string };
-type ReviewerEntryRow = {
-  id: string;
-  kind: string;
-  title: string;
-  formula: string | null;
-  variables: string | null;
-  symbol: string | null;
-  value: string | null;
-  unit: string | null;
-  table_content: string | null;
-  description: string | null;
-  notes: string | null;
-  topic_id: string;
-  subtopic_id: string | null;
-  status: string;
-};
-
-function TopicSubtopicFields({
-  topics,
-  subtopics,
-  defaultTopicId,
-  defaultSubtopicId,
-}: {
-  topics: Topic[];
-  subtopics: Subtopic[];
-  defaultTopicId?: string;
-  defaultSubtopicId?: string | null;
-}) {
-  return (
-    <div className="grid grid-cols-2 gap-2">
-      <select name="topicId" defaultValue={defaultTopicId ?? ""} required className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
-        <option value="" disabled>
-          Topic…
-        </option>
-        {topics.map((t) => (
-          <option key={t.id} value={t.id}>
-            {t.name}
-          </option>
-        ))}
-      </select>
-      <select name="subtopicId" defaultValue={defaultSubtopicId ?? ""} className="rounded-md border border-border bg-background px-2 py-1.5 text-sm">
-        <option value="">(no subtopic / concept)</option>
-        {subtopics.map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
+import { ReviewerEntryCard, TopicSubtopicFields, type ReviewerEntryRow } from "./reviewer-entry-card";
 
 const DEFAULT_PAGE_SIZE = 50;
 
@@ -105,6 +43,7 @@ export default async function AdminReviewersPage({
   // Filtering (search/topic/status) bypasses the cap entirely, since a
   // filtered result set is already the size the admin actually asked for.
   const entries = hasFilter ? filtered : filtered.slice(0, DEFAULT_PAGE_SIZE);
+  const flaggedCount = allEntries.filter((e) => e.notes?.includes("FLAGGED FOR REVIEW")).length;
 
   return (
     <main className="min-h-screen bg-background">
@@ -121,9 +60,21 @@ export default async function AdminReviewersPage({
           enter verified content.
         </p>
 
-        <PublishAllReviewerDraftsButton
-          draftCount={allEntries.filter((e) => e.status === "draft").length}
-        />
+        <div className="flex flex-wrap items-center gap-3">
+          <PublishAllReviewerDraftsButton
+            draftCount={
+              allEntries.filter((e) => e.status === "draft" && !e.notes?.includes("FLAGGED FOR REVIEW")).length
+            }
+          />
+          {flaggedCount > 0 && (
+            <Link
+              href="/admin/reviewers/flagged"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-destructive hover:underline"
+            >
+              ⚑ {flaggedCount} flagged {flaggedCount === 1 ? "entry needs" : "entries need"} review →
+            </Link>
+          )}
+        </div>
 
         <form className="flex flex-wrap gap-2 rounded-md border border-border bg-muted/30 p-3" action="/admin/reviewers">
           <input
@@ -162,70 +113,7 @@ export default async function AdminReviewersPage({
         </p>
 
         {entries.map((e) => (
-          <Card key={e.id}>
-            <CardContent className="py-3">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium">{e.title}</p>
-                <div className="flex shrink-0 gap-2">
-                  <Badge variant="outline">{KIND_LABELS[e.kind]}</Badge>
-                  <Badge variant={e.status === "published" ? "default" : "secondary"}>{e.status}</Badge>
-                </div>
-              </div>
-
-              <details className="mt-2 border-t pt-2">
-                <summary className="cursor-pointer text-xs font-medium text-primary">Edit</summary>
-                <form action={updateReviewerEntry.bind(null, e.id)} className="mt-3 space-y-2">
-                  <select name="kind" defaultValue={e.kind} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm">
-                    <option value="formula">Formula</option>
-                    <option value="table">Table</option>
-                    <option value="constant">Constant</option>
-                  </select>
-                  <input name="title" defaultValue={e.title} placeholder="Title" required className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <TopicSubtopicFields topics={topics ?? []} subtopics={subtopics ?? []} defaultTopicId={e.topic_id} defaultSubtopicId={e.subtopic_id} />
-                  <input name="formula" defaultValue={e.formula ?? ""} placeholder="Formula (e.g. P = F × v)" className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-sm" />
-                  <input name="variables" defaultValue={e.variables ?? ""} placeholder="Variables (e.g. P = power (kW), F = force (N))" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <div className="grid grid-cols-3 gap-2">
-                    <input name="symbol" defaultValue={e.symbol ?? ""} placeholder="Symbol" className="rounded-md border border-border bg-background px-2 py-1.5 font-mono text-sm" />
-                    <input name="value" defaultValue={e.value ?? ""} placeholder="Value" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                    <input name="unit" defaultValue={e.unit ?? ""} placeholder="Unit" className="rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  </div>
-                  <textarea
-                    name="tableContent"
-                    defaultValue={e.table_content ?? ""}
-                    placeholder={"Renders as a table when formatted as markdown:\n| Property | Symbol | Value | Unit |\n|---|---|---|---|\n| Density | ρ | 998.2 | kg/m³ |"}
-                    rows={4}
-                    className="w-full rounded-md border border-border bg-background px-2 py-1.5 font-mono text-xs"
-                  />
-                  <textarea name="description" defaultValue={e.description ?? ""} placeholder="Description" rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <input name="notes" defaultValue={e.notes ?? ""} placeholder="Notes / important reminders" className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-                  <Button type="submit" size="sm">
-                    Save changes
-                  </Button>
-                </form>
-              </details>
-
-              <div className="mt-3 flex gap-2">
-                {e.status === "draft" ? (
-                  <form action={publishReviewerEntry.bind(null, e.id)}>
-                    <Button type="submit" size="sm">
-                      Publish
-                    </Button>
-                  </form>
-                ) : (
-                  <form action={unpublishReviewerEntry.bind(null, e.id)}>
-                    <Button type="submit" size="sm" variant="outline">
-                      Unpublish
-                    </Button>
-                  </form>
-                )}
-                <form action={deleteReviewerEntry.bind(null, e.id)}>
-                  <Button type="submit" size="sm" variant="ghost" className="text-destructive">
-                    Delete
-                  </Button>
-                </form>
-              </div>
-            </CardContent>
-          </Card>
+          <ReviewerEntryCard key={e.id} e={e} topics={topics ?? []} subtopics={subtopics ?? []} />
         ))}
         {entries.length === 0 && (
           <p className="text-sm text-muted-foreground">
