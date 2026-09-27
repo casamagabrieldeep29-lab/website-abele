@@ -30,11 +30,11 @@ export function InviteForm() {
         <select
           id="plan"
           name="plan"
-          defaultValue="trial"
+          defaultValue="subscriber"
           className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
         >
-          <option value="trial">Free Trial (14 days, starts now)</option>
           <option value="subscriber">Subscriber</option>
+          <option value="trial">Free Trial (14 days, starts now)</option>
         </select>
       </div>
 

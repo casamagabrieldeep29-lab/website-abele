@@ -61,7 +61,9 @@ export async function inviteUser(
     return { ok: false, message: "Enter a valid email address." };
   }
 
-  const plan = formData.get("plan") === "subscriber" ? "subscriber" : "trial";
+  // "subscriber" is the default at every layer now — only an explicit
+  // "trial" selection starts the 14-day clock.
+  const plan = formData.get("plan") === "trial" ? "trial" : "subscriber";
 
   const siteUrl = await getSiteUrl();
   const admin = createAdminClient();
@@ -74,10 +76,12 @@ export async function inviteUser(
     return { ok: false, message: error.message };
   }
 
-  // handle_new_user() already created the profiles row (default plan
-  // 'trial', trial_started_at = now() — i.e. the moment of this invite,
-  // per Gabriel's explicit "it starts from the moment they get invited").
-  // Only need a follow-up write when the admin picked "subscriber" instead.
+  // handle_new_user() already created the profiles row with the column's
+  // own default (plan 'trial', trial_started_at = now() — i.e. the moment
+  // of this invite, per Gabriel's explicit "it starts from the moment they
+  // get invited"). Subscriber is now the common case (the UI/action default
+  // — see the ternary above), so this write runs for most invites, not the
+  // exception.
   if (plan === "subscriber" && data.user) {
     await admin.from("profiles").update({ plan: "subscriber" }).eq("id", data.user.id);
   }
