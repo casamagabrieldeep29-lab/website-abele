@@ -36,8 +36,48 @@ function daysLeft(trialStartedAt: string): number {
   return Math.ceil((expiresAt - Date.now()) / (24 * 60 * 60 * 1000));
 }
 
+const MANILA_TZ = "Asia/Manila";
+
+// "Joined" always reads in Philippine time regardless of the server's own
+// timezone (Vercel runs in UTC) — same reasoning as the exam countdown's
+// todayInManila() in src/lib/board-exam.ts.
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+  return new Date(iso).toLocaleDateString("en-US", { timeZone: MANILA_TZ, year: "numeric", month: "short", day: "numeric" });
+}
+
+// YYYY-MM-DD in Philippine time — used to group users by the calendar day
+// they joined, independent of the server's own timezone.
+function dayKeyManila(iso: string): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(new Date(iso));
+}
+
+function dayLabelManila(dayKey: string): string {
+  const todayKey = new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(new Date());
+  const yesterdayKey = new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(
+    new Date(Date.now() - 24 * 60 * 60 * 1000),
+  );
+  if (dayKey === todayKey) return "Today";
+  if (dayKey === yesterdayKey) return "Yesterday";
+  return new Date(`${dayKey}T00:00:00Z`).toLocaleDateString("en-US", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+/** Groups an already newest-first list into per-day sections, newest day
+ * first — the input's own order is preserved within each day, so this
+ * relies on the caller having already sorted by created_at descending. */
+function groupByDay(list: Profile[]): { dayKey: string; label: string; items: Profile[] }[] {
+  const byDay = new Map<string, Profile[]>();
+  for (const p of list) {
+    const key = dayKeyManila(p.created_at);
+    const group = byDay.get(key) ?? [];
+    group.push(p);
+    byDay.set(key, group);
+  }
+  return [...byDay.entries()].map(([dayKey, items]) => ({ dayKey, label: dayLabelManila(dayKey), items }));
 }
 
 function isOnline(lastSeenAt: string | null): boolean {
@@ -158,15 +198,27 @@ export default async function AdminUsersPage({
       {/* Two main columns (Subscribers | Free-Trial) side by side from tablet
           width up, each with its own 2-column tile grid — 4 tiles across on
           a full desktop/tablet screen. Both collapse to a single stacked
-          column on mobile. */}
+          column on mobile. Within each column, users are grouped into
+          per-day sections (Philippine time), newest day first — the day
+          groups AND the users within each day both inherit the newest-
+          first order already established by the created_at desc query. */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <h2 className="text-sm font-semibold">
             Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
           </h2>
-          <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {subscribers.map((p) => (
-              <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
+          <div className="mt-2 space-y-4">
+            {groupByDay(subscribers).map((day) => (
+              <div key={day.dayKey}>
+                <p className="mb-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  {day.label} <span className="normal-case">({day.items.length})</span>
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {day.items.map((p) => (
+                    <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
           {subscribers.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No subscribers yet.</p>}
@@ -176,19 +228,28 @@ export default async function AdminUsersPage({
           <h2 className="text-sm font-semibold">
             Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
           </h2>
-          <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {trialUsers.map((p) => {
-              const left = daysLeft(p.trial_started_at);
-              const badge =
-                left <= 0 ? (
-                  <Badge variant="destructive">Expired</Badge>
-                ) : (
-                  <Badge variant={left <= 3 ? "destructive" : "outline"}>
-                    {left} {left === 1 ? "day" : "days"} left
-                  </Badge>
-                );
-              return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
-            })}
+          <div className="mt-2 space-y-4">
+            {groupByDay(trialUsers).map((day) => (
+              <div key={day.dayKey}>
+                <p className="mb-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                  {day.label} <span className="normal-case">({day.items.length})</span>
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  {day.items.map((p) => {
+                    const left = daysLeft(p.trial_started_at);
+                    const badge =
+                      left <= 0 ? (
+                        <Badge variant="destructive">Expired</Badge>
+                      ) : (
+                        <Badge variant={left <= 3 ? "destructive" : "outline"}>
+                          {left} {left === 1 ? "day" : "days"} left
+                        </Badge>
+                      );
+                    return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
           {trialUsers.length === 0 && (
             <p className="mt-2 text-sm text-muted-foreground">No free-trial users right now.</p>
