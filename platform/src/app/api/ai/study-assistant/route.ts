@@ -3,9 +3,15 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchAllAnsweredRows } from "@/lib/study-stats";
 import { getAIProvider, AIProviderError, AI_DAILY_LIMIT, AI_TRIAL_DAILY_LIMIT, buildAiLimitMessage } from "@/lib/ai";
 import { buildStudyAssistantPrompt, buildStudyAssistantSystemInstruction, type StudyAssistantContext } from "@/lib/ai/prompts";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { logError } from "@/lib/log-error";
 
 const FRIENDLY_ERROR = "AI explanation is temporarily unavailable. Please try again.";
 const MAX_QUESTION_LENGTH = 500;
+
+// Same burst cap as /api/ai/teach-me — see that file's comment.
+const AI_BURST_LIMIT = 8;
+const AI_BURST_WINDOW_SECONDS = 60;
 
 type TopicMasteryRow = {
   topic_name: string;
@@ -24,6 +30,11 @@ export async function POST(req: NextRequest) {
   const provider = getAIProvider();
   if (!provider) {
     return NextResponse.json({ error: FRIENDLY_ERROR }, { status: 503 });
+  }
+
+  const burstAllowed = await checkRateLimit(`ai-burst:${user.id}`, AI_BURST_LIMIT, AI_BURST_WINDOW_SECONDS);
+  if (!burstAllowed) {
+    return NextResponse.json({ error: "You're sending requests too quickly. Please wait a moment." }, { status: 429 });
   }
 
   let body: { question?: string };
@@ -82,7 +93,7 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ text, remaining: usageRow.remaining });
   } catch (err) {
-    console.error("[study-assistant] Gemini request failed:", err instanceof Error ? err.message : err);
+    await logError("study-assistant", err);
     if (err instanceof AIProviderError) {
       return NextResponse.json({ error: FRIENDLY_ERROR }, { status: 502 });
     }
