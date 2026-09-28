@@ -3,7 +3,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { approvePaymentRequest, rejectPaymentRequest, revokeAutoApproval } from "./actions";
+import { groupByWeek } from "@/lib/manila-week";
+import { approvePaymentRequest, confirmAutoApproval, rejectPaymentRequest, revokeAutoApproval } from "./actions";
 
 type RequestRow = {
   id: string;
@@ -20,7 +21,7 @@ type RequestRow = {
   profiles: { email: string; display_name: string | null } | null;
 };
 
-const RECENT_AUTO_APPROVED_LIMIT = 20;
+const RECENT_AUTO_APPROVED_LIMIT = 100;
 
 export default async function AdminPaymentsPage() {
   await requireAdmin();
@@ -42,6 +43,9 @@ export default async function AdminPaymentsPage() {
       .select("*, profiles!payment_requests_user_id_fkey(email, display_name)")
       .eq("auto_approved", true)
       .eq("status", "approved")
+      // Confirming an entry (spot-checked, legit) removes it from this list
+      // without touching status/plan — see confirmAutoApproval's doc comment.
+      .is("spot_checked_at", null)
       .order("submitted_at", { ascending: false })
       .limit(RECENT_AUTO_APPROVED_LIMIT),
   ]);
@@ -105,11 +109,18 @@ export default async function AdminPaymentsPage() {
                 </form>
               </>
             ) : (
-              <form action={revokeAutoApproval.bind(null, r.id, r.user_id)}>
-                <Button type="submit" size="sm" variant="destructive">
-                  Revoke (fake)
-                </Button>
-              </form>
+              <>
+                <form action={confirmAutoApproval.bind(null, r.id)}>
+                  <Button type="submit" size="sm" variant="outline">
+                    Confirm
+                  </Button>
+                </form>
+                <form action={revokeAutoApproval.bind(null, r.id, r.user_id)}>
+                  <Button type="submit" size="sm" variant="destructive">
+                    Revoke (fake)
+                  </Button>
+                </form>
+              </>
             )}
           </div>
         </CardContent>
@@ -148,14 +159,25 @@ export default async function AdminPaymentsPage() {
           Recently auto-approved ({autoRows.length})
         </h2>
         <p className="mb-3 text-xs text-muted-foreground">
-          Worth a quick spot-check — revoke any that don&apos;t actually check out.
+          Worth a quick spot-check — Confirm dismisses a legit one from this list (the student stays a Subscriber
+          either way); Revoke is for one that turns out to be fake.
         </p>
         {autoRows.length === 0 ? (
           <p className="text-sm text-muted-foreground">None yet.</p>
         ) : (
-          <div className="space-y-3">
-            {autoRows.map((r) => (
-              <RequestCard key={r.id} r={r} showActions="auto" />
+          <div className="space-y-2">
+            {groupByWeek(autoRows, (r) => r.submitted_at).map((week, i) => (
+              <details key={week.weekKey} open={i === 0} className="group rounded-md border border-border/60">
+                <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase select-none">
+                  <span className="mr-1 inline-block transition-transform group-open:rotate-90">›</span>
+                  {week.label} <span className="normal-case">({week.items.length})</span>
+                </summary>
+                <div className="space-y-3 border-t border-border/60 p-3">
+                  {week.items.map((r) => (
+                    <RequestCard key={r.id} r={r} showActions="auto" />
+                  ))}
+                </div>
+              </details>
             ))}
           </div>
         )}
