@@ -55,11 +55,13 @@ export function NotesList({ rows: initialRows }: { rows: NoteRow[] }) {
       {rows.map((row) => (
         <Card key={row.note_id}>
           <CardContent className="py-3">
-            <p className="text-xs text-muted-foreground">{row.topic_name}</p>
-            <p className="mt-1 text-sm">{row.question_text}</p>
+            <div className="max-w-3xl">
+              <p className="text-xs text-muted-foreground">{row.topic_name}</p>
+              <p className="mt-1 text-sm">{row.question_text}</p>
+            </div>
 
             {editingId === row.question_id ? (
-              <div className="mt-2 space-y-2">
+              <div className="mt-2 max-w-3xl space-y-2">
                 <textarea
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
@@ -90,7 +92,7 @@ export function NotesList({ rows: initialRows }: { rows: NoteRow[] }) {
               </div>
             ) : (
               <div className="mt-2 flex items-start justify-between gap-3">
-                <p className="flex items-start gap-1.5 text-sm text-primary">
+                <p className="flex max-w-3xl items-start gap-1.5 text-sm text-primary">
                   <StickyNote className="mt-0.5 size-3.5 shrink-0" />
                   {row.note_text}
                 </p>

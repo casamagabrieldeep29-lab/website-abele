@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { startCustomQuiz } from "../practice/actions";
 import { QuestionCountPicker } from "./question-count-picker";
@@ -31,25 +31,32 @@ export function QuizBuilderForm({
   errorCode: "no-match" | "no-topics" | null;
 }) {
   return (
-    <Card className="mt-6">
-      <CardContent className="pt-6">
-        <form action={startCustomQuiz} className="space-y-6">
-          <fieldset className="space-y-2">
-            <legend className="text-sm font-medium">
-              Topics <span className="text-muted-foreground">(select at least one)</span>
-            </legend>
-            <TopicPicker areas={areas} />
-            {errorCode === "no-topics" && (
-              <p className="text-sm text-destructive">Check at least one topic to generate a quiz.</p>
-            )}
-          </fieldset>
+    <form action={startCustomQuiz} className="mt-6 grid grid-cols-1 items-start gap-6 lg:grid-cols-[1fr_380px]">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            Topics <span className="font-normal text-muted-foreground">(select at least one)</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <TopicPicker areas={areas} />
+          {errorCode === "no-topics" && (
+            <p className="mt-2 text-sm text-destructive">Check at least one topic to generate a quiz.</p>
+          )}
+        </CardContent>
+      </Card>
 
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Quiz settings</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
           <fieldset className="space-y-2">
             <legend className="text-sm font-medium">
               Question type
               <span className="text-muted-foreground"> (untagged questions only show up under &ldquo;Both&rdquo;)</span>
             </legend>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               {CATEGORIES.map((c, i) => (
                 <label key={c.value} className="flex items-center gap-2 text-sm">
                   <input type="radio" name="category" value={c.value} defaultChecked={i === 0} className="h-4 w-4" />
@@ -63,7 +70,7 @@ export function QuizBuilderForm({
             <legend className="text-sm font-medium">
               Difficulty <span className="text-muted-foreground">(leave all unchecked for any)</span>
             </legend>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               {DIFFICULTIES.map((d) => (
                 <label key={d.value} className="flex items-center gap-2 text-sm">
                   <input type="checkbox" name="difficulties" value={d.value} className="h-4 w-4 rounded border-border" />
@@ -99,8 +106,8 @@ export function QuizBuilderForm({
           <Button type="submit" className="w-full">
             Generate quiz
           </Button>
-        </form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </form>
   );
 }
