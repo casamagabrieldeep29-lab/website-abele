@@ -22,6 +22,21 @@ type TopicMastery = {
   status: MasteryStatus;
 };
 
+// get_subtopic_mastery() (patch 039) — same shape as TopicMastery, one
+// level deeper. "Concept" in the product sense, "subtopic" in the schema —
+// the table already existed (Question Bank's innermost drill-down tier),
+// this just gives it its own mastery calculation.
+type SubtopicMastery = {
+  subtopic_id: string;
+  subtopic_name: string;
+  topic_id: string;
+  total_attempts: number;
+  overall_accuracy: number | null;
+  recent_accuracy: number | null;
+  mastery: number | null;
+  status: MasteryStatus;
+};
+
 type MockAttempt = {
   id: string;
   total_questions: number;
@@ -73,9 +88,10 @@ export default async function ProgressPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: masteryRows }, answeredRows, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
+  const [{ data: masteryRows }, { data: subtopicMasteryRows }, answeredRows, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
     await Promise.all([
       supabase.rpc("get_topic_mastery"),
+      supabase.rpc("get_subtopic_mastery"),
       // Paginated — a plain `.select()` here silently caps at 1000 rows once
       // total answered questions across the account passes 1000, which
       // would truncate the accuracy trend and Preparation Profile stats
@@ -101,6 +117,17 @@ export default async function ProgressPage() {
 
   const mastery = (masteryRows ?? []) as TopicMastery[];
   const answered = (answeredRows ?? []) as { answered_at: string; is_correct: boolean }[];
+
+  // Concept Mastery: subtopic-level rows grouped by their parent topic, so
+  // toTreeTopic can attach them below. Empty/absent (e.g. before patch 039
+  // is applied) just means no concept tier renders — not an error.
+  const subtopicMastery = (subtopicMasteryRows ?? []) as SubtopicMastery[];
+  const conceptsByTopic = new Map<string, SubtopicMastery[]>();
+  for (const sm of subtopicMastery) {
+    const list = conceptsByTopic.get(sm.topic_id) ?? [];
+    list.push(sm);
+    conceptsByTopic.set(sm.topic_id, list);
+  }
 
   // --- Mastery by TOS: same get_topic_mastery() rows, regrouped under the
   // official TOS -> Subject hierarchy instead of a flat list. A topic whose
@@ -130,6 +157,15 @@ export default async function ProgressPage() {
   }
 
   function toTreeTopic(m: TopicMastery) {
+    const concepts = (conceptsByTopic.get(m.topic_id) ?? []).map((c) => ({
+      id: c.subtopic_id,
+      name: c.subtopic_name,
+      mastery: c.mastery,
+      status: c.status,
+      totalAttempts: c.total_attempts,
+      overallAccuracy: c.overall_accuracy,
+      recentAccuracy: c.recent_accuracy,
+    }));
     return {
       id: m.topic_id,
       name: m.topic_name,
@@ -138,6 +174,7 @@ export default async function ProgressPage() {
       totalAttempts: m.total_attempts,
       overallAccuracy: m.overall_accuracy,
       recentAccuracy: m.recent_accuracy,
+      concepts,
     };
   }
 

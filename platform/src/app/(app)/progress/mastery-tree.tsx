@@ -5,13 +5,24 @@ import { ChevronRight } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { startAdaptivePracticeAttempt, startSubjectPracticeAttempt } from "@/app/practice/actions";
+import Link from "next/link";
+import { startAdaptivePracticeAttempt, startSubjectPracticeAttempt, startSubtopicPracticeAttempt } from "@/app/practice/actions";
 
 const SESSION_SIZE = 20;
 const MAX_WEIGHT_PERCENT = 18;
 const MIN_ATTEMPTS_FOR_MASTERY = 5;
 
 export type MasteryStatus = "insufficient_data" | "strong" | "developing" | "needs_review";
+
+export type MasteryConcept = {
+  id: string;
+  name: string;
+  mastery: number | null;
+  status: MasteryStatus;
+  totalAttempts: number;
+  overallAccuracy: number | null;
+  recentAccuracy: number | null;
+};
 
 export type MasteryTopic = {
   id: string;
@@ -21,6 +32,7 @@ export type MasteryTopic = {
   totalAttempts: number;
   overallAccuracy: number | null;
   recentAccuracy: number | null;
+  concepts: MasteryConcept[];
 };
 
 export type MasterySubject = {
@@ -67,7 +79,10 @@ export function MasteryTree({ tos }: { tos: MasteryTOS[] }) {
       ids.push(`tos:${t.id}`);
       for (const s of t.subjects) {
         ids.push(`subj:${s.id}`);
-        for (const topic of s.topics) ids.push(`topic:${topic.id}`);
+        for (const topic of s.topics) {
+        ids.push(`topic:${topic.id}`);
+        for (const concept of topic.concepts) ids.push(`concept:${concept.id}`);
+      }
       }
     }
     return ids;
@@ -231,6 +246,43 @@ export function MasteryTree({ tos }: { tos: MasteryTOS[] }) {
                                                 Practice This Topic →
                                               </Button>
                                             </form>
+
+                                            {topic.concepts.length > 0 && (
+                                              <div className="space-y-1 border-t border-border/40 pt-2">
+                                                <p className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">
+                                                  Concepts
+                                                </p>
+                                                {topic.concepts.map((concept) => {
+                                                  const conceptStyle = statusStyle(concept.status);
+                                                  return (
+                                                    <div
+                                                      key={concept.id}
+                                                      className="flex flex-wrap items-center justify-between gap-2 rounded px-1.5 py-1"
+                                                    >
+                                                      <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+                                                        {concept.name}
+                                                      </span>
+                                                      <div className="flex shrink-0 items-center gap-2">
+                                                        <span className={`text-xs font-medium ${conceptStyle.text}`}>
+                                                          {concept.mastery !== null ? `${concept.mastery}%` : "—"}
+                                                        </span>
+                                                        <form action={startSubtopicPracticeAttempt.bind(null, concept.id, SESSION_SIZE)}>
+                                                          <Button type="submit" size="sm" variant="ghost" className="h-6 px-2 text-[11px]">
+                                                            Practice →
+                                                          </Button>
+                                                        </form>
+                                                        <Link
+                                                          href={`/reviewers?q=${encodeURIComponent(concept.name)}`}
+                                                          className="text-[11px] text-primary hover:underline"
+                                                        >
+                                                          Review
+                                                        </Link>
+                                                      </div>
+                                                    </div>
+                                                  );
+                                                })}
+                                              </div>
+                                            )}
                                           </div>
                                         </CollapsibleContent>
                                       </Collapsible>
