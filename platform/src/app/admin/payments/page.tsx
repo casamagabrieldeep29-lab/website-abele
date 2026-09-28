@@ -26,15 +26,20 @@ export default async function AdminPaymentsPage() {
   await requireAdmin();
   const admin = createAdminClient();
 
+  // payment_requests has two FKs to profiles (user_id and reviewed_by), so
+  // the embed target must be disambiguated with the !constraint-name hint
+  // or PostgREST errors with PGRST201 "more than one relationship was
+  // found" — which was silently swallowed into an empty list here before
+  // this fix, since neither query's error was surfaced on the page.
   const [{ data: pending }, { data: recentAuto }] = await Promise.all([
     admin
       .from("payment_requests")
-      .select("*, profiles(email, display_name)")
+      .select("*, profiles!payment_requests_user_id_fkey(email, display_name)")
       .eq("status", "pending")
       .order("submitted_at", { ascending: true }),
     admin
       .from("payment_requests")
-      .select("*, profiles(email, display_name)")
+      .select("*, profiles!payment_requests_user_id_fkey(email, display_name)")
       .eq("auto_approved", true)
       .eq("status", "approved")
       .order("submitted_at", { ascending: false })

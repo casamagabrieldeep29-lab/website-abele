@@ -8,7 +8,7 @@ import "server-only";
  * these aren't secrets (they're exactly what a student needs to pay), but
  * there's no reason to bundle them into client JS either.
  */
-export const UPGRADE_PRICE_PHP = 699;
+export const UPGRADE_PRICE_PHP = 159;
 
 export type PaymentMethodKey = "gcash" | "maya" | "landbank";
 

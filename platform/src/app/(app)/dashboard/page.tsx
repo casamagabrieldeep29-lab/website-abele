@@ -8,6 +8,7 @@ import {
   Compass,
   Flame,
   GalleryVerticalEnd,
+  PlayCircle,
   Target,
   TrendingUp,
 } from "lucide-react";
@@ -66,6 +67,19 @@ function recommendationPriority(m: TopicMastery): number {
   return (100 - effectiveMastery) + recencyDays * 2 + insufficientBonus;
 }
 
+/**
+ * Turns the same numbers recommendationPriority() already used into one
+ * honest sentence — "Smart Practice" (world-class-audit Part 4) should
+ * explain itself, not just hand over a topic name with no reasoning.
+ */
+function recommendationReason(m: TopicMastery): string {
+  if (m.status === "insufficient_data") return "Not enough attempts yet — this builds your baseline.";
+  const days = daysSince(m.last_answered_at);
+  if ((m.mastery ?? 100) < 60) return `Your weakest scored area right now, at ${m.mastery}% mastery.`;
+  if (days >= 7) return `Overdue — you haven't practiced this in ${days} days.`;
+  return "Keeps your mastery fresh across the board.";
+}
+
 function statusLabel(status: TopicMastery["status"]) {
   switch (status) {
     case "strong":
@@ -109,6 +123,7 @@ export default async function DashboardPage() {
     { data: answeredRows },
     { count: mistakeCount },
     { data: recentAttempts },
+    { data: inProgressMock },
     { data: todaysDailyAttempt },
     { data: earnedAchievements },
     { data: studyPlan },
@@ -132,6 +147,18 @@ export default async function DashboardPage() {
       .eq("status", "completed")
       .order("completed_at", { ascending: false })
       .limit(3),
+    // "CONTINUE" — a mock exam started but not finished. Real signal, not
+    // a fabricated one: attempts.status already distinguishes in_progress
+    // from completed/abandoned (supabase/schema.sql).
+    supabase
+      .from("attempts")
+      .select("id, total_questions")
+      .eq("user_id", user.id)
+      .eq("mode", "mock")
+      .eq("status", "in_progress")
+      .order("started_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
     supabase
       .from("attempts")
       .select("id, status")
@@ -165,7 +192,7 @@ export default async function DashboardPage() {
     ? Math.round(scoredTopics.reduce((sum, m) => sum + (m.mastery ?? 0), 0) / scoredTopics.length)
     : null;
 
-  // --- Today's Recommendation ---
+  // --- Today's Recommendation ("Smart Practice") ---
   const eligibleForSession = mastery.filter(
     (m) => (publishedCountByTopic.get(m.topic_id) ?? 0) >= MIN_QUESTIONS_FOR_SESSION,
   );
@@ -174,6 +201,16 @@ export default async function DashboardPage() {
         recommendationPriority(m) > recommendationPriority(best) ? m : best,
       )
     : null;
+
+  // --- In-progress mock exam, answered-so-far count for the "34/50" style display ---
+  let inProgressAnswered = 0;
+  if (inProgressMock) {
+    const { count } = await supabase
+      .from("attempt_answers")
+      .select("id", { count: "exact", head: true })
+      .eq("attempt_id", inProgressMock.id);
+    inProgressAnswered = count ?? 0;
+  }
 
   // --- Least Mastered Areas ---
   const leastMastered = scoredTopics
@@ -229,6 +266,32 @@ export default async function DashboardPage() {
         )}
       </div>
 
+      {/* Preparation — a study-progress metric, explicitly not a pass
+          prediction (world-class-audit Part 10, scoped light: no per-area
+          breakdown yet, just the number this same avgMastery already
+          powered elsewhere on /progress). */}
+      <Card>
+        <CardContent className="flex flex-wrap items-center justify-between gap-3 py-3.5">
+          <div>
+            <p className="text-sm font-medium">Your ABELE Preparation</p>
+            <p className="text-xs text-muted-foreground">
+              A study-progress metric from your own mastery data — not a PRC score or a pass prediction.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-1.5 w-32 overflow-hidden rounded-full bg-muted sm:w-48">
+              <div
+                className="h-full rounded-full bg-primary transition-all"
+                style={{ width: `${Math.min(100, avgMastery ?? 0)}%` }}
+              />
+            </div>
+            <span className="text-xl font-bold tabular-nums text-primary">
+              {avgMastery !== null ? `${avgMastery}%` : "—"}
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Quick jump row */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {recommendation ? (
@@ -279,99 +342,125 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Question of the Day */}
-      {todaysQuestionId && (
-        <Card className="border-l-4 border-l-gold bg-gold/5">
-          <CardContent className="flex items-center justify-between gap-3 py-3.5">
-            <div className="flex items-center gap-3">
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
-                <Calendar className="size-4" />
-              </div>
-              <div>
-                <p className="text-sm font-medium">Question of the Day</p>
-                {dailyAnsweredToday ? (
-                  <p className="text-xs text-muted-foreground">
-                    You&apos;ve answered today&apos;s question.{" "}
-                    {dailyStats && dailyStats.total_answers >= MIN_RESPONSES_FOR_DAILY_STAT
-                      ? `${Math.round((100 * dailyStats.correct_count) / dailyStats.total_answers)}% of reviewees answered correctly.`
-                      : "Not enough responses yet for a group stat."}
-                  </p>
-                ) : (
-                  <p className="text-xs text-muted-foreground">One question, shared by everyone today.</p>
-                )}
-              </div>
-            </div>
-            {dailyAnsweredToday ? (
-              <Button render={<Link href={`/practice/${todaysDailyAttempt!.id}`}>Review →</Link>} nativeButton={false} size="sm" variant="outline" />
-            ) : (
-              <form action={startDailyQuestion}>
-                <Button type="submit" size="sm">
-                  Answer →
-                </Button>
-              </form>
-            )}
-          </CardContent>
-        </Card>
-      )}
+      {/* Today's Plan — recommendation, an in-progress mock to resume, and
+          the daily question, presented as one connected "what to do right
+          now" cluster instead of scattered independent cards. */}
+      <div>
+        <h2 className="text-sm font-semibold text-muted-foreground">Today&apos;s Plan</h2>
+        <div className="mt-2 space-y-3">
+          {recommendation ? (
+            <Card className="bg-surface-featured shadow-sm ring-2 ring-primary/25">
+              <CardContent className="py-5 xl:flex xl:items-start xl:justify-between xl:gap-8">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
+                    <Target className="size-3.5" />
+                    Recommended practice
+                  </div>
+                  <h2 className="mt-2 text-xl font-semibold xl:text-2xl">{recommendation.topic_name}</h2>
+                  <p className="text-sm text-muted-foreground">{recommendation.exam_area_name}</p>
+                  <p className="mt-2 text-sm text-foreground">{recommendationReason(recommendation)}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                    <span>
+                      Mastery:{" "}
+                      <strong className="text-foreground">
+                        {recommendation.mastery !== null ? `${recommendation.mastery}%` : "still gathering data"}
+                      </strong>
+                    </span>
+                    <span>
+                      Last practiced:{" "}
+                      <strong className="text-foreground">
+                        {recommendation.last_answered_at ? `${daysSince(recommendation.last_answered_at)}d ago` : "never"}
+                      </strong>
+                    </span>
+                    {/* Estimated from SESSION_SIZE, not the pool-clamped actual
+                        count, so a topic with fewer than 20 published questions
+                        never has that discrepancy shown to the student. */}
+                    <span>~{Math.round(SESSION_SIZE * 1.2)} min</span>
+                  </div>
+                </div>
+                <div className="mt-4 flex flex-wrap items-center gap-2 xl:mt-0 xl:shrink-0">
+                  <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)}>
+                    <Button type="submit" size="lg">
+                      Start session →
+                    </Button>
+                  </form>
+                  <form action={startFlashcardsByTopic.bind(null, recommendation.topic_id)}>
+                    <Button type="submit" variant="outline" size="sm">
+                      Flashcards
+                    </Button>
+                  </form>
+                  <Button
+                    render={<Link href={`/reviewers?q=${encodeURIComponent(recommendation.topic_name)}`}>Reviewers</Link>}
+                    nativeButton={false}
+                    variant="outline"
+                    size="sm"
+                  />
+                  <Button render={<Link href="/mistakes">My Mistakes</Link>} nativeButton={false} variant="outline" size="sm" />
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardContent className="py-5 text-sm text-muted-foreground">
+                Not enough published questions yet in any topic to recommend a session (need at least {MIN_QUESTIONS_FOR_SESSION}).
+              </CardContent>
+            </Card>
+          )}
 
-      {/* Today's Recommendation — the primary CTA */}
-      {recommendation ? (
-        <Card className="bg-surface-featured shadow-sm ring-2 ring-primary/25">
-          <CardContent className="py-5 xl:flex xl:items-start xl:justify-between xl:gap-8">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary">
-                <Target className="size-3.5" />
-                Your next study session
-              </div>
-              <h2 className="mt-2 text-xl font-semibold xl:text-2xl">{recommendation.topic_name}</h2>
-              <p className="text-sm text-muted-foreground">{recommendation.exam_area_name}</p>
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                <span>
-                  Mastery:{" "}
-                  <strong className="text-foreground">
-                    {recommendation.mastery !== null ? `${recommendation.mastery}%` : "still gathering data"}
-                  </strong>
-                </span>
-                <span>
-                  Last practiced:{" "}
-                  <strong className="text-foreground">
-                    {recommendation.last_answered_at ? `${daysSince(recommendation.last_answered_at)}d ago` : "never"}
-                  </strong>
-                </span>
-                {/* Estimated from SESSION_SIZE, not the pool-clamped actual
-                    count, so a topic with fewer than 20 published questions
-                    never has that discrepancy shown to the student. */}
-                <span>~{Math.round(SESSION_SIZE * 1.2)} min</span>
-              </div>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-2 xl:mt-0 xl:shrink-0">
-              <form action={startAdaptivePracticeAttempt.bind(null, recommendation.topic_id, SESSION_SIZE)}>
-                <Button type="submit" size="lg">
-                  Start session →
-                </Button>
-              </form>
-              <form action={startFlashcardsByTopic.bind(null, recommendation.topic_id)}>
-                <Button type="submit" variant="outline" size="sm">
-                  Flashcards
-                </Button>
-              </form>
-              <Button
-                render={<Link href={`/reviewers?q=${encodeURIComponent(recommendation.topic_name)}`}>Reviewers</Link>}
-                nativeButton={false}
-                variant="outline"
-                size="sm"
-              />
-              <Button render={<Link href="/mistakes">My Mistakes</Link>} nativeButton={false} variant="outline" size="sm" />
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card>
-          <CardContent className="py-5 text-sm text-muted-foreground">
-            Not enough published questions yet in any topic to recommend a session (need at least {MIN_QUESTIONS_FOR_SESSION}).
-          </CardContent>
-        </Card>
-      )}
+          {inProgressMock && (
+            <Card className="border-l-4 border-l-primary bg-primary/5">
+              <CardContent className="flex items-center justify-between gap-3 py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                    <PlayCircle className="size-4" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Continue Mock Exam</p>
+                    <p className="text-xs text-muted-foreground">
+                      {inProgressAnswered} / {inProgressMock.total_questions} answered
+                    </p>
+                  </div>
+                </div>
+                <Button render={<Link href={`/mock/${inProgressMock.id}`}>Resume →</Link>} nativeButton={false} size="sm" />
+              </CardContent>
+            </Card>
+          )}
+
+          {todaysQuestionId && (
+            <Card className="border-l-4 border-l-gold bg-gold/5">
+              <CardContent className="flex items-center justify-between gap-3 py-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold">
+                    <Calendar className="size-4" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">Question of the Day</p>
+                    {dailyAnsweredToday ? (
+                      <p className="text-xs text-muted-foreground">
+                        You&apos;ve answered today&apos;s question.{" "}
+                        {dailyStats && dailyStats.total_answers >= MIN_RESPONSES_FOR_DAILY_STAT
+                          ? `${Math.round((100 * dailyStats.correct_count) / dailyStats.total_answers)}% of reviewees answered correctly.`
+                          : "Not enough responses yet for a group stat."}
+                      </p>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">One question, shared by everyone today.</p>
+                    )}
+                  </div>
+                </div>
+                {dailyAnsweredToday ? (
+                  <Button render={<Link href={`/practice/${todaysDailyAttempt!.id}`}>Review →</Link>} nativeButton={false} size="sm" variant="outline" />
+                ) : (
+                  <form action={startDailyQuestion}>
+                    <Button type="submit" size="sm">
+                      Answer →
+                    </Button>
+                  </form>
+                )}
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
 
       {/* Compact progress row */}
       <div>
@@ -402,15 +491,17 @@ export default async function DashboardPage() {
         )}
       </div>
 
-      {/* Least Mastered Areas */}
+      {/* What to Review — weakest areas and the Mistake Bank together, since
+          both answer the same underlying question ("what should I go back
+          to?") instead of reading as two unrelated sections. */}
       <div>
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-muted-foreground">Needs Your Attention</h2>
+          <h2 className="text-sm font-semibold text-muted-foreground">What to Review</h2>
           <Link href="/progress" className="text-xs text-primary hover:underline">
             View all →
           </Link>
         </div>
-        {leastMastered.length > 0 ? (
+        {leastMastered.length > 0 || mistakeCount! > 0 ? (
           <div className="mt-2 grid gap-2 sm:grid-cols-3">
             {leastMastered.map((m) => {
               const label = statusLabel(m.status);
@@ -443,6 +534,22 @@ export default async function DashboardPage() {
                 </Card>
               );
             })}
+            {mistakeCount! > 0 && (
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="py-3">
+                  <span className="rounded-full bg-destructive/15 px-1.5 py-0.5 text-[10px] font-medium text-destructive">
+                    Mistake Bank
+                  </span>
+                  <p className="mt-1.5 text-sm font-medium">
+                    {mistakeCount} question{mistakeCount === 1 ? "" : "s"} to review
+                  </p>
+                  <p className="text-xs text-muted-foreground">Missed before — worth another look.</p>
+                  <div className="mt-2">
+                    <Button render={<Link href="/mistakes">Review →</Link>} nativeButton={false} size="sm" variant="outline" className="w-full" />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         ) : (
           <p className="mt-2 text-sm text-muted-foreground">
@@ -527,19 +634,6 @@ export default async function DashboardPage() {
               <p className="text-sm text-muted-foreground">
                 Your recent practice and mock exam sessions will show up here.
               </p>
-            )}
-            {mistakeCount! > 0 && (
-              <Card className="border-l-4 border-l-destructive bg-destructive/5">
-                <CardContent className="flex items-center justify-between gap-3 py-3">
-                  <div>
-                    <p className="text-sm font-medium">Mistake Bank</p>
-                    <p className="text-xs text-muted-foreground">
-                      {mistakeCount} question{mistakeCount === 1 ? "" : "s"} waiting for review
-                    </p>
-                  </div>
-                  <Button render={<Link href="/mistakes">Review →</Link>} nativeButton={false} size="sm" variant="outline" />
-                </CardContent>
-              </Card>
             )}
           </div>
         </div>

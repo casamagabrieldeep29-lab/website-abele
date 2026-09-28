@@ -12,7 +12,7 @@ create table if not exists public.payment_requests (
   method text not null check (method in ('gcash', 'maya', 'landbank')),
   reference_number text not null,
   payer_name text,
-  amount_php numeric(10, 2) not null default 699,
+  amount_php numeric(10, 2) not null default 159,
   status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   -- Set when a receipt image was uploaded and passed the AI verification
   -- check (src/lib/receipt-verification.ts) — the request was auto-approved
