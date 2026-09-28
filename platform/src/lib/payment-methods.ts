@@ -10,6 +10,12 @@ import "server-only";
  */
 export const UPGRADE_PRICE_PHP = 159;
 
+/** Gabriel's own contact info, offered on /upgrade for a faster manual approval than waiting for the review queue (his explicit request, 2026-09-28). Not a secret -- meant to be shown to students. */
+export const FASTER_APPROVAL_CONTACT = {
+  facebookUrl: "https://www.facebook.com/ggabdcc",
+  phoneNumber: "09606270621",
+};
+
 export type PaymentMethodKey = "gcash" | "maya" | "landbank";
 
 export type PaymentMethodInfo = {

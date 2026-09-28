@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getPaymentMethods, UPGRADE_PRICE_PHP, type PaymentMethodKey } from "@/lib/payment-methods";
+import { FASTER_APPROVAL_CONTACT, getPaymentMethods, UPGRADE_PRICE_PHP, type PaymentMethodKey } from "@/lib/payment-methods";
 import { UpgradeForm } from "./upgrade-form";
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
@@ -88,8 +88,21 @@ export default async function UpgradePage({
 
           {hasPending ? (
             <Card>
-              <CardContent className="py-6 text-center text-sm text-muted-foreground">
-                We&apos;ve received your submission and it&apos;s waiting for review. Check back soon.
+              <CardContent className="space-y-3 py-6 text-center text-sm text-muted-foreground">
+                <p>We&apos;ve received your submission and it&apos;s waiting for review. Check back soon.</p>
+                <p>
+                  Want it faster?{" "}
+                  <a
+                    href={FASTER_APPROVAL_CONTACT.facebookUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Message us on Facebook
+                  </a>{" "}
+                  or text{" "}
+                  <span className="font-mono text-foreground">{FASTER_APPROVAL_CONTACT.phoneNumber}</span>.
+                </p>
               </CardContent>
             </Card>
           ) : (
