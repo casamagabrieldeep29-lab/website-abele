@@ -25,15 +25,18 @@ export async function submitPaymentRequest(formData: FormData) {
     redirect("/upgrade?error=missing-fields");
   }
 
+  // A receipt is required (Gabriel's explicit "all must pay. and upload
+  // their reference. and the screenshot of receipt", 2026-09-28) — no more
+  // "submit without a receipt, wait for manual review" path.
+  if (!(receipt instanceof File) || receipt.size === 0) {
+    redirect("/upgrade?error=missing-fields");
+  }
+
   let receiptPath: string | null = null;
   let autoApproved = false;
   let adminNote: string | null = null;
 
-  // A receipt is optional — no receipt means the request just waits for
-  // manual review at /admin/payments, same as before this feature existed.
-  // A receipt is the ONLY path to auto-approval, and only when the AI check
-  // below actually confirms it (never on the mere presence of a file).
-  if (receipt instanceof File && receipt.size > 0) {
+  {
     const buffer = Buffer.from(await receipt.arrayBuffer());
     const ext = receipt.name.split(".").pop() || "jpg";
     const path = `${user.id}/${Date.now()}.${ext}`;

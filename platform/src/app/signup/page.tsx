@@ -20,9 +20,8 @@ export default async function SignupPage() {
           <p className="mt-2 text-sm text-muted-foreground">Be an ABELIEVER</p>
         </div>
 
-        {/* Leads with the one-time price, not the trial — the trial only
-            shows up as the "skip" option inside SignupForm's payment picker.
-            Real price, read from the same constant /upgrade already uses. */}
+        {/* Real price, read from the same constant /upgrade already uses —
+            every signup pays this before getting access, no free trial. */}
         <div className="mb-6 rounded-lg border border-primary/20 bg-primary/5 p-5">
           <p className="text-sm font-semibold">₱{UPGRADE_PRICE_PHP} one-time — no subscription</p>
           <ul className="mt-3 space-y-1.5">

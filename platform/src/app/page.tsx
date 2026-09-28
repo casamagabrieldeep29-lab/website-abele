@@ -540,7 +540,7 @@ export default async function Home() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-primary-foreground/70">
-              ₱{UPGRADE_PRICE_PHP} one-time — no subscription. Free trial available if you&apos;d rather try first.
+              ₱{UPGRADE_PRICE_PHP} one-time — no subscription, keep access for good.
             </p>
           </div>
         </section>
