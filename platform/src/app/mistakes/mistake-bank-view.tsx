@@ -1,10 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { startMistakeRetryAttempt } from "../practice/actions";
+import { TeachMeThis } from "@/components/teach-me-this";
+import { startMistakeRetryAttempt, startAdaptivePracticeAttempt } from "../practice/actions";
+import { getMistakeDetail, type MistakeDetail } from "./actions";
 
 export type MistakeRow = {
   question_id: string;
@@ -17,7 +21,10 @@ export type MistakeRow = {
   subject_name: string;
   times_missed: number;
   last_answered_at: string;
+  attempt_id: string;
 };
+
+const RETEST_SIZE = 15;
 
 type SortMode = "recent" | "most_repeated";
 
@@ -26,6 +33,7 @@ function RetryButton({ questionIds, label }: { questionIds: string[]; label: str
   return (
     <Button
       size="sm"
+      variant="outline"
       disabled={isPending || questionIds.length === 0}
       onClick={() => {
         setIsPending(true);
@@ -37,12 +45,100 @@ function RetryButton({ questionIds, label }: { questionIds: string[]; label: str
   );
 }
 
-export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
+/** Fresh, weighted question selection for the topic — deliberately NOT the
+ * exact missed questions (that's RetryButton above). "Retest this topic"
+ * per the spec: reuses startAdaptivePracticeAttempt's existing weighting
+ * (missed 3x, unattempted 1.5x, correct 1x) rather than building a second
+ * selection algorithm. */
+function RetestButton({ topicId }: { topicId: string }) {
+  const [isPending, setIsPending] = useState(false);
+  return (
+    <Button
+      size="sm"
+      disabled={isPending}
+      onClick={() => {
+        setIsPending(true);
+        void startAdaptivePracticeAttempt(topicId, RETEST_SIZE);
+      }}
+    >
+      {isPending ? "Starting…" : "Retest this topic →"}
+    </Button>
+  );
+}
+
+/** The "WHY YOU MISSED THIS" reveal — explanation + correct answer (free,
+ * instant, via getMistakeDetail), then <TeachMeThis> as the optional
+ * deeper AI layer on the same attempt/question pair. */
+function MistakeDetailPanel({ row }: { row: MistakeRow }) {
+  const [detail, setDetail] = useState<MistakeDetail | null | undefined>(undefined);
+
+  useEffect(() => {
+    let cancelled = false;
+    getMistakeDetail(row.attempt_id, row.question_id).then((result) => {
+      if (!cancelled) setDetail(result);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [row.attempt_id, row.question_id]);
+
+  if (detail === undefined) {
+    return <p className="px-3 py-3 text-xs text-muted-foreground">Loading…</p>;
+  }
+
+  if (detail === null) {
+    return <p className="px-3 py-3 text-xs text-muted-foreground">Couldn&apos;t load this question&apos;s detail.</p>;
+  }
+
+  return (
+    <div className="space-y-3 border-t border-destructive/20 px-3 py-3">
+      {detail.choices.length > 0 && (
+        <ul className="space-y-1">
+          {detail.choices.map((c, i) => (
+            <li
+              key={i}
+              className={`rounded-md px-2.5 py-1.5 text-sm ${
+                c.is_correct ? "bg-success/10 font-medium text-success" : "text-muted-foreground"
+              }`}
+            >
+              {c.is_correct && "✓ "}
+              {c.text}
+            </li>
+          ))}
+        </ul>
+      )}
+      {detail.explanation && (
+        <div>
+          <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Explanation</p>
+          <p className="mt-1 text-sm text-foreground">{detail.explanation}</p>
+        </div>
+      )}
+      <div className="flex flex-wrap items-center gap-3 pt-1">
+        <Link
+          href={`/reviewers?q=${encodeURIComponent(detail.topicName)}`}
+          className="text-xs font-medium text-primary hover:underline"
+        >
+          Related material →
+        </Link>
+      </div>
+      <TeachMeThis attemptId={row.attempt_id} questionId={row.question_id} />
+    </div>
+  );
+}
+
+export function MistakeBankView({
+  rows,
+  masteryByTopic,
+}: {
+  rows: MistakeRow[];
+  masteryByTopic: Record<string, number | null>;
+}) {
   const [areaId, setAreaId] = useState<string | null>(null);
   const [subjectId, setSubjectId] = useState<string | null>(null);
   const [topicId, setTopicId] = useState<string | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("recent");
   const [minMisses, setMinMisses] = useState(1);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const areas = useMemo(() => {
     const map = new Map<string, { id: string; name: string; count: number }>();
@@ -99,6 +195,7 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
   const selectedArea = areas.find((a) => a.id === areaId);
   const selectedSubject = subjectsInArea.find((s) => s.id === subjectId);
   const selectedTopic = topicsInSubject.find((t) => t.id === topicId);
+  const selectedTopicMastery = topicId ? masteryByTopic[topicId] : null;
 
   return (
     <div className="mt-6">
@@ -211,45 +308,76 @@ export function MistakeBankView({ rows }: { rows: MistakeRow[] }) {
 
       {topicId && (
         <>
-          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs">
-            <span className="text-muted-foreground">Sort:</span>
-            <button
-              type="button"
-              onClick={() => setSortMode("recent")}
-              className={`rounded-full px-2.5 py-1 font-medium ${sortMode === "recent" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
-            >
-              Most recent
-            </button>
-            <button
-              type="button"
-              onClick={() => setSortMode("most_repeated")}
-              className={`rounded-full px-2.5 py-1 font-medium ${sortMode === "most_repeated" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
-            >
-              Most repeated
-            </button>
-            <button
-              type="button"
-              onClick={() => setMinMisses(minMisses > 1 ? 1 : 2)}
-              className={`rounded-full px-2.5 py-1 font-medium ${minMisses > 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
-            >
-              Incorrect multiple times only
-            </button>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3 text-xs">
+              <span className="text-muted-foreground">Sort:</span>
+              <button
+                type="button"
+                onClick={() => setSortMode("recent")}
+                className={`rounded-full px-2.5 py-1 font-medium ${sortMode === "recent" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+              >
+                Most recent
+              </button>
+              <button
+                type="button"
+                onClick={() => setSortMode("most_repeated")}
+                className={`rounded-full px-2.5 py-1 font-medium ${sortMode === "most_repeated" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+              >
+                Most repeated
+              </button>
+              <button
+                type="button"
+                onClick={() => setMinMisses(minMisses > 1 ? 1 : 2)}
+                className={`rounded-full px-2.5 py-1 font-medium ${minMisses > 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
+              >
+                Incorrect multiple times only
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              {selectedTopicMastery !== null && selectedTopicMastery !== undefined && (
+                <span className="text-xs text-muted-foreground">
+                  Current mastery: <strong className="text-foreground">{selectedTopicMastery}%</strong>
+                </span>
+              )}
+              <RetestButton topicId={topicId} />
+            </div>
           </div>
 
           <div className="mt-3 space-y-2">
-            {questionsInTopic.map((r) => (
-              <Card key={r.question_id} className="border-l-4 border-l-destructive bg-destructive/5">
-                <CardContent className="flex items-center justify-between gap-3 py-3">
-                  <div>
-                    <p className="text-sm">{r.question_text}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {new Date(r.last_answered_at).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <Badge className="shrink-0 bg-destructive text-white">missed {r.times_missed}×</Badge>
-                </CardContent>
-              </Card>
-            ))}
+            {questionsInTopic.map((r) => {
+              const isExpanded = expandedId === r.question_id;
+              return (
+                <Card key={r.question_id} className="border-l-4 border-l-destructive bg-destructive/5">
+                  <button
+                    type="button"
+                    onClick={() => setExpandedId(isExpanded ? null : r.question_id)}
+                    className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+                  >
+                    <div className="flex min-w-0 items-start gap-2">
+                      <ChevronRight
+                        className={`mt-0.5 size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`}
+                      />
+                      <div className="min-w-0">
+                        <p className="text-sm">{r.question_text}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {new Date(r.last_answered_at).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+                    <Badge className="shrink-0 bg-destructive text-white">missed {r.times_missed}×</Badge>
+                  </button>
+                  {isExpanded && (
+                    <div className="px-1">
+                      <div className="flex items-center gap-1.5 px-3 pb-2 text-xs font-medium text-primary">
+                        <Sparkles className="size-3.5" />
+                        Why you missed this
+                      </div>
+                      <MistakeDetailPanel row={r} />
+                    </div>
+                  )}
+                </Card>
+              );
+            })}
             {questionsInTopic.length === 0 && (
               <p className="text-sm text-muted-foreground">No mistakes match this filter.</p>
             )}

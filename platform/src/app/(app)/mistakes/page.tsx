@@ -8,12 +8,17 @@ export default async function MistakesPage() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data, error }, { data: topics }, { data: examAreas }, { data: subjects }] = await Promise.all([
-    supabase.rpc("get_mistake_bank"),
-    supabase.from("topics").select("id, exam_area_id, subject_id"),
-    supabase.from("exam_areas").select("id, name").order("sort_order"),
-    supabase.from("subjects").select("id, name"),
-  ]);
+  const [{ data, error }, { data: topics }, { data: examAreas }, { data: subjects }, { data: masteryRows }] =
+    await Promise.all([
+      supabase.rpc("get_mistake_bank"),
+      supabase.from("topics").select("id, exam_area_id, subject_id"),
+      supabase.from("exam_areas").select("id, name").order("sort_order"),
+      supabase.from("subjects").select("id, name"),
+      // Powers the "current mastery" shown next to Retest — the same
+      // get_topic_mastery() rows Dashboard/Progress already use, not a
+      // separate calculation.
+      supabase.rpc("get_topic_mastery"),
+    ]);
 
   if (error) {
     return <p className="text-sm text-destructive">Couldn&apos;t load mistake bank: {error.message}</p>;
@@ -22,6 +27,9 @@ export default async function MistakesPage() {
   const topicById = new Map((topics ?? []).map((t) => [t.id, t]));
   const areaNameById = new Map((examAreas ?? []).map((a) => [a.id, a.name]));
   const subjectNameById = new Map((subjects ?? []).map((s) => [s.id, s.name]));
+  const masteryByTopic = new Map(
+    (masteryRows ?? []).map((m: { topic_id: string; mastery: number | null }) => [m.topic_id, m.mastery]),
+  );
 
   const rows: MistakeRow[] = (data ?? []).map(
     (r: Omit<MistakeRow, "exam_area_id" | "exam_area_name" | "subject_id" | "subject_name">) => {
@@ -45,7 +53,7 @@ export default async function MistakesPage() {
         description="Questions whose most recent answer was incorrect. Get one right on retry and it drops off this list."
       />
 
-      <MistakeBankView rows={rows} />
+      <MistakeBankView rows={rows} masteryByTopic={Object.fromEntries(masteryByTopic)} />
     </div>
   );
 }
