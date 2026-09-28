@@ -5,9 +5,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { sendMagicLink, verifyOtpCode, type SendMagicLinkResult, type VerifyOtpResult } from "./actions";
+import { verifyOtpCode, type VerifyOtpResult } from "@/app/login/actions";
+import { sendSignupMagicLink, type SendSignupLinkResult } from "./actions";
 
-const initialSendState: SendMagicLinkResult | null = null;
+const initialSendState: SendSignupLinkResult | null = null;
 const initialVerifyState: VerifyOtpResult = null;
 
 function CodeForm({ email }: { email: string }) {
@@ -17,7 +18,7 @@ function CodeForm({ email }: { email: string }) {
     <div className="rounded-lg border bg-card p-6">
       <p className="font-medium">Check your email</p>
       <p className="mt-1 text-sm text-muted-foreground">
-        We&apos;ve sent a login link to <strong>{email}</strong>. You can click it, or — if the
+        We&apos;ve sent a signup link to <strong>{email}</strong>. You can click it, or — if the
         link says it&apos;s expired (some email apps open links automatically to scan them) —
         enter the code from the same email instead.
       </p>
@@ -25,7 +26,7 @@ function CodeForm({ email }: { email: string }) {
       <form action={formAction} className="mt-4 space-y-3">
         <input type="hidden" name="email" value={email} />
         <div className="space-y-2">
-          <Label htmlFor="token">Login code</Label>
+          <Label htmlFor="token">Signup code</Label>
           <Input
             id="token"
             name="token"
@@ -48,8 +49,8 @@ function CodeForm({ email }: { email: string }) {
   );
 }
 
-export function LoginForm() {
-  const [result, formAction, isPending] = useActionState(sendMagicLink, initialSendState);
+export function SignupForm() {
+  const [result, formAction, isPending] = useActionState(sendSignupMagicLink, initialSendState);
 
   if (result?.ok) {
     return <CodeForm email={result.email} />;
@@ -74,13 +75,13 @@ export function LoginForm() {
       )}
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Sending link…" : "Send login link"}
+        {isPending ? "Sending link…" : "Start my free trial"}
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
-        Don&apos;t have an account yet?{" "}
-        <Link href="/signup" className="text-primary hover:underline">
-          Start a free trial
+        Already have an account?{" "}
+        <Link href="/login" className="text-primary hover:underline">
+          Sign in
         </Link>
       </p>
     </form>

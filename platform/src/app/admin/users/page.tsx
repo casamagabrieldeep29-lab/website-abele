@@ -184,9 +184,9 @@ export default async function AdminUsersPage({
         <CardHeader>
           <CardTitle className="text-base">Invite a reviewee</CardTitle>
           <CardDescription>
-            Access is invite-only. Inviting an email address lets that person sign in with a magic
-            link. They won&apos;t be able to request one until you&apos;ve invited them. Free-trial
-            accounts are blocked automatically {TRIAL_DAYS} days after the invite is sent unless upgraded.
+            Students can also sign themselves up at /signup — this is for manually granting access
+            (e.g. straight to Subscriber) without them going through that flow. Free-trial
+            accounts are blocked automatically {TRIAL_DAYS} days after the trial starts unless upgraded.
           </CardDescription>
         </CardHeader>
         <CardContent>

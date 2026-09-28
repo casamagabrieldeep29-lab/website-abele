@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
+import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
+import { TRIAL_DAYS } from "@/lib/trial";
 
 const EXAM_AREAS = [
   { name: "Agricultural and Biosystems Power, Energy and Machinery Engineering", weight: "18%" },
@@ -73,7 +75,10 @@ export default async function Home() {
       <header className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <span className="text-lg font-bold tracking-tight text-primary">ABELIEVER</span>
-          <Button render={<Link href="/login">Sign in</Link>} nativeButton={false} size="sm" />
+          <div className="flex items-center gap-2">
+            <Button render={<Link href="/login">Sign in</Link>} nativeButton={false} size="sm" variant="ghost" />
+            <Button render={<Link href="/signup">Sign up</Link>} nativeButton={false} size="sm" />
+          </div>
         </div>
       </header>
 
@@ -106,9 +111,12 @@ export default async function Home() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Button render={<Link href="/login">Sign in to ABELIEVER</Link>} nativeButton={false} size="lg" className="h-11 px-6 text-base" />
-                  <span className="text-sm text-muted-foreground">Trusted by 170+ future ABE engineers.</span>
+                  <Button render={<Link href="/signup">Start your free trial</Link>} nativeButton={false} size="lg" className="h-11 px-6 text-base" />
+                  <Link href="/login" className="text-sm font-medium text-foreground/80 hover:text-foreground hover:underline">
+                    Already have an account? Sign in
+                  </Link>
                 </div>
+                <p className="mt-3 text-sm text-muted-foreground">Trusted by 170+ future ABE engineers.</p>
 
                 {/* Product-proof row — every label here is a real, shipped feature or a real count pulled from the database, never an invented stat. */}
                 <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/70 pt-6">
@@ -511,16 +519,19 @@ export default async function Home() {
             <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/80 lg:text-lg">
               Practice with purpose. Find your weak areas. Build your confidence for the board exam.
             </p>
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button
-                render={<Link href="/login">Sign in to ABELIEVER</Link>}
+                render={<Link href="/signup">Start your free trial</Link>}
                 nativeButton={false}
                 size="lg"
                 className="h-11 bg-background px-7 text-base text-primary hover:bg-background/90"
               />
+              <Link href="/login" className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground hover:underline">
+                Already have an account? Sign in
+              </Link>
             </div>
             <p className="mt-4 text-xs text-primary-foreground/70">
-              ABELIEVER currently uses invite-only access.
+              {TRIAL_DAYS}-day free trial, then ₱{UPGRADE_PRICE_PHP} one-time — no subscription.
             </p>
           </div>
         </section>

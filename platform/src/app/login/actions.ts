@@ -32,7 +32,7 @@ export async function sendMagicLink(
     return {
       ok: false,
       message:
-        "We couldn't send a login link to that address. If you believe you should have access, contact your administrator for an invite.",
+        "We couldn't find an account for that address. If you're new here, start a free trial instead.",
     };
   }
 
