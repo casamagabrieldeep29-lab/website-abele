@@ -22,7 +22,7 @@ let cached: AIProvider | null = null;
  * change needed. Capped at 10 purely as a sanity bound, not a real limit
  * anyone should hit.
  */
-function collectApiKeys(envPrefix: string): string[] {
+export function collectApiKeys(envPrefix: string): string[] {
   const keys: string[] = [];
   const first = process.env[envPrefix];
   if (first) keys.push(first);
