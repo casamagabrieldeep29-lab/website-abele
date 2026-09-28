@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { isAuthRetryableFetchError } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
+import { trialMsFor } from "@/lib/trial";
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
@@ -108,10 +109,13 @@ export async function updateSession(request: NextRequest) {
 
     // Free-trial accounts are manually assigned by an admin at invite time
     // (no payment gateway — see patch 032_subscriber_plan.sql) and expire
-    // 14 days after trial_started_at unless moved to "subscriber". Admins
-    // are never gated by this, regardless of their own plan value.
+    // trialMsFor(trial_started_at) after trial_started_at unless moved to
+    // "subscriber" — see src/lib/trial.ts for why this isn't a flat
+    // constant (the 14->3 day policy change only applies to trials that
+    // started after it, never retroactively). Admins are never gated by
+    // this, regardless of their own plan value.
     if (profile && profile.role !== "admin" && profile.plan === "trial") {
-      const expiresAt = new Date(profile.trial_started_at).getTime() + 14 * 24 * 60 * 60 * 1000;
+      const expiresAt = new Date(profile.trial_started_at).getTime() + trialMsFor(profile.trial_started_at);
       if (Date.now() >= expiresAt) {
         return NextResponse.redirect(new URL("/trial-expired", request.url));
       }

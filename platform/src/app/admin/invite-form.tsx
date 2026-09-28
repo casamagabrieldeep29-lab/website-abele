@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { inviteUser, type InviteResult } from "./actions";
+import { TRIAL_DAYS } from "@/lib/trial";
 
 const initialState: InviteResult | null = null;
 
@@ -34,7 +35,7 @@ export function InviteForm() {
           className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
         >
           <option value="subscriber">Subscriber</option>
-          <option value="trial">Free Trial (14 days, starts now)</option>
+          <option value="trial">Free Trial ({TRIAL_DAYS} days, starts now)</option>
         </select>
       </div>
 

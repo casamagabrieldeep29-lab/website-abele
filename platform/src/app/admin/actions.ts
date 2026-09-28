@@ -62,7 +62,7 @@ export async function inviteUser(
   }
 
   // "subscriber" is the default at every layer now — only an explicit
-  // "trial" selection starts the 14-day clock.
+  // "trial" selection starts the trial clock (see TRIAL_DAYS, src/lib/trial.ts).
   const plan = formData.get("plan") === "trial" ? "trial" : "subscriber";
 
   const siteUrl = await getSiteUrl();
@@ -94,7 +94,7 @@ export async function inviteUser(
  * behind this, it's purely Gabriel manually recording that this reviewee
  * has actually paid (per his explicit "add a feature in free trial users
  * where in i can just click them and add them as subscriber", 2026-09-25).
- * Immediately lifts the 14-day proxy.ts block on their next request.
+ * Immediately lifts the proxy.ts trial block on their next request.
  */
 export async function upgradeToSubscriber(userId: string) {
   await requireAdmin();
@@ -109,7 +109,7 @@ export async function upgradeToSubscriber(userId: string) {
  * click 'move to free trial'", 2026-09-25). Resets trial_started_at to now
  * rather than leaving whatever stale value the row had (e.g. a grandfathered
  * pre-plan-feature account, or their original trial from before an earlier
- * upgrade) — the 14-day clock always starts fresh from the moment of this
+ * upgrade) — the trial clock always starts fresh from the moment of this
  * specific demotion, not from some unrelated past timestamp.
  */
 export async function downgradeToTrial(userId: string) {

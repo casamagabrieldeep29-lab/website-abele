@@ -136,6 +136,21 @@ export default async function AdminPage() {
               </Link>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Payment requests</CardTitle>
+              <CardDescription>
+                GCash/Maya/Landbank payments students submit on /upgrade. Receipts that pass the automatic check are
+                already approved — review everything else here, or revoke a fake.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/admin/payments" className="text-sm font-medium text-primary hover:underline">
+                Go to payment requests →
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </main>

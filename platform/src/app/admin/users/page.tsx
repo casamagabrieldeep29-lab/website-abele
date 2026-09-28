@@ -8,6 +8,7 @@ import { InviteForm } from "../invite-form";
 import { RemoveUserForm } from "./remove-user-form";
 import { upgradeToSubscriber, downgradeToTrial } from "../actions";
 import { AutoRefresh } from "../auto-refresh";
+import { TRIAL_DAYS, trialMsFor } from "@/lib/trial";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "remove-confirmation": "You must type REMOVE exactly to confirm.",
@@ -15,8 +16,6 @@ const ERROR_MESSAGES: Record<string, string> = {
   "remove-admin": "Another admin's account can't be removed from this panel.",
   "remove-failed": "Couldn't remove that account. Please try again.",
 };
-
-const TRIAL_DAYS = 14;
 
 const ONLINE_THRESHOLD_MS = 2 * 60 * 1000;
 
@@ -32,7 +31,7 @@ type Profile = {
 };
 
 function daysLeft(trialStartedAt: string): number {
-  const expiresAt = new Date(trialStartedAt).getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000;
+  const expiresAt = new Date(trialStartedAt).getTime() + trialMsFor(trialStartedAt);
   return Math.ceil((expiresAt - Date.now()) / (24 * 60 * 60 * 1000));
 }
 
@@ -187,7 +186,7 @@ export default async function AdminUsersPage({
           <CardDescription>
             Access is invite-only. Inviting an email address lets that person sign in with a magic
             link. They won&apos;t be able to request one until you&apos;ve invited them. Free-trial
-            accounts are blocked automatically 14 days after the invite is sent unless upgraded.
+            accounts are blocked automatically {TRIAL_DAYS} days after the invite is sent unless upgraded.
           </CardDescription>
         </CardHeader>
         <CardContent>
