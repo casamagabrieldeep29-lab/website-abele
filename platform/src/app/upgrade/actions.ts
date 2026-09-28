@@ -6,12 +6,22 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { verifyReceipt } from "@/lib/receipt-verification";
 import { UPGRADE_PRICE_PHP, type PaymentMethodKey } from "@/lib/payment-methods";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { logError } from "@/lib/log-error";
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 
+// Shared by both /upgrade and signup's own payment step — keyed by user id
+// since a session already exists by this point either way. Generous enough
+// for a few "wrong reference number" retries, tight enough to stop someone
+// scripting fake submissions against the AI verifier (flagged as a
+// public-launch blocker, 2026-09-28).
+const PAYMENT_SUBMIT_LIMIT = 8;
+const PAYMENT_SUBMIT_WINDOW_SECONDS = 60 * 60;
+
 export type SubmitPaymentResult =
   | { ok: true; autoApproved: boolean }
-  | { ok: false; error: "missing-fields" | "submit-failed" }
+  | { ok: false; error: "missing-fields" | "submit-failed" | "rate-limited" }
   | null;
 
 /**
@@ -33,6 +43,11 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const allowed = await checkRateLimit(`payment:${user.id}`, PAYMENT_SUBMIT_LIMIT, PAYMENT_SUBMIT_WINDOW_SECONDS);
+  if (!allowed) {
+    return { ok: false, error: "rate-limited" };
+  }
 
   const method = String(formData.get("method") ?? "");
   const referenceNumber = String(formData.get("referenceNumber") ?? "").trim();
@@ -71,6 +86,7 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
       adminNote = verification.reason;
     } else {
       adminNote = `Receipt upload failed: ${uploadError.message}`;
+      await logError("submitPaymentRequest.receiptUpload", uploadError);
     }
   }
 
@@ -92,6 +108,7 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
     .single();
 
   if (insertError || !inserted) {
+    await logError("submitPaymentRequest.insert", insertError ?? "insert returned no row");
     return { ok: false, error: "submit-failed" };
   }
 

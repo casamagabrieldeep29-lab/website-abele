@@ -2,8 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getAIProvider, AIProviderError, AI_DAILY_LIMIT, AI_TRIAL_DAILY_LIMIT, buildAiLimitMessage } from "@/lib/ai";
 import { buildTeachMePrompt, buildTeachMeSystemInstruction, type TeachMeContext } from "@/lib/ai/prompts";
+import { checkRateLimit } from "@/lib/rate-limit";
+import { logError } from "@/lib/log-error";
 
 const FRIENDLY_ERROR = "AI explanation is temporarily unavailable. Please try again.";
+
+// Short burst cap on top of the daily count check_and_log_ai_usage already
+// does — stops a script firing requests back-to-back from burning through
+// the free-tier providers' quota unusually fast within one otherwise-legit
+// day of usage (flagged as a public-launch blocker, 2026-09-28).
+const AI_BURST_LIMIT = 8;
+const AI_BURST_WINDOW_SECONDS = 60;
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -15,6 +24,11 @@ export async function POST(req: NextRequest) {
   const provider = getAIProvider();
   if (!provider) {
     return NextResponse.json({ error: FRIENDLY_ERROR }, { status: 503 });
+  }
+
+  const burstAllowed = await checkRateLimit(`ai-burst:${user.id}`, AI_BURST_LIMIT, AI_BURST_WINDOW_SECONDS);
+  if (!burstAllowed) {
+    return NextResponse.json({ error: "You're sending requests too quickly. Please wait a moment." }, { status: 429 });
   }
 
   let body: { attemptId?: string; questionId?: string; followUp?: string };
@@ -66,7 +80,7 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ text, remaining: usageRow.remaining });
   } catch (err) {
-    console.error("[teach-me] Gemini request failed:", err instanceof Error ? err.message : err);
+    await logError("teach-me", err);
     if (err instanceof AIProviderError) {
       return NextResponse.json({ error: FRIENDLY_ERROR }, { status: 502 });
     }

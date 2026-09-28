@@ -3,6 +3,20 @@
 import { redirect } from "next/navigation";
 import { clearAuthFlowCookies, createClient } from "@/lib/supabase/server";
 import { getSiteUrl } from "@/lib/site-url";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+
+// One shared budget per IP across both magic-link sends and password
+// attempts — covers OTP-email-bombing and password brute-forcing with a
+// single mechanism (flagged as a public-launch blocker, 2026-09-28).
+// Loose enough that a real person fumbling their password a few times
+// never sees it.
+const LOGIN_LIMIT = 15;
+const LOGIN_WINDOW_SECONDS = 15 * 60;
+
+async function checkLoginRateLimit(): Promise<boolean> {
+  const ip = await getClientIp();
+  return checkRateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_SECONDS);
+}
 
 export type SendMagicLinkResult = { ok: true; email: string } | { ok: false; message: string };
 
@@ -14,6 +28,10 @@ export async function sendMagicLink(
 
   if (!email || !email.includes("@")) {
     return { ok: false, message: "Enter a valid email address." };
+  }
+
+  if (!(await checkLoginRateLimit())) {
+    return { ok: false, message: "Too many attempts from your network. Please wait a bit and try again." };
   }
 
   const supabase = await createClient();
@@ -73,6 +91,10 @@ export async function signInWithPassword(
 ): Promise<SignInWithPasswordResult> {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+
+  if (!(await checkLoginRateLimit())) {
+    return { ok: false, message: "Too many attempts from your network. Please wait a bit and try again." };
+  }
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });

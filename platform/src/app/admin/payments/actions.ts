@@ -3,16 +3,20 @@
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { logError } from "@/lib/log-error";
 
 export async function approvePaymentRequest(requestId: string, userId: string) {
   const { user } = await requireAdmin();
   const admin = createAdminClient();
 
-  await admin
+  const { error: requestError } = await admin
     .from("payment_requests")
     .update({ status: "approved", reviewed_at: new Date().toISOString(), reviewed_by: user.id })
     .eq("id", requestId);
-  await admin.from("profiles").update({ plan: "subscriber" }).eq("id", userId);
+  if (requestError) await logError("approvePaymentRequest.payment_requests", requestError);
+
+  const { error: profileError } = await admin.from("profiles").update({ plan: "subscriber" }).eq("id", userId);
+  if (profileError) await logError("approvePaymentRequest.profiles", profileError);
 
   revalidatePath("/admin/payments");
 }
@@ -21,10 +25,11 @@ export async function rejectPaymentRequest(requestId: string) {
   const { user } = await requireAdmin();
   const admin = createAdminClient();
 
-  await admin
+  const { error } = await admin
     .from("payment_requests")
     .update({ status: "rejected", reviewed_at: new Date().toISOString(), reviewed_by: user.id })
     .eq("id", requestId);
+  if (error) await logError("rejectPaymentRequest", error);
 
   revalidatePath("/admin/payments");
 }
@@ -42,7 +47,7 @@ export async function revokeAutoApproval(requestId: string, userId: string) {
   const { user } = await requireAdmin();
   const admin = createAdminClient();
 
-  await admin
+  const { error: requestError } = await admin
     .from("payment_requests")
     .update({
       status: "rejected",
@@ -51,7 +56,10 @@ export async function revokeAutoApproval(requestId: string, userId: string) {
       reviewed_by: user.id,
     })
     .eq("id", requestId);
-  await admin.from("profiles").update({ plan: "pending" }).eq("id", userId);
+  if (requestError) await logError("revokeAutoApproval.payment_requests", requestError);
+
+  const { error: profileError } = await admin.from("profiles").update({ plan: "pending" }).eq("id", userId);
+  if (profileError) await logError("revokeAutoApproval.profiles", profileError);
 
   revalidatePath("/admin/payments");
 }
@@ -70,7 +78,11 @@ export async function confirmAutoApproval(requestId: string) {
   await requireAdmin();
   const admin = createAdminClient();
 
-  await admin.from("payment_requests").update({ spot_checked_at: new Date().toISOString() }).eq("id", requestId);
+  const { error } = await admin
+    .from("payment_requests")
+    .update({ spot_checked_at: new Date().toISOString() })
+    .eq("id", requestId);
+  if (error) await logError("confirmAutoApproval", error);
 
   revalidatePath("/admin/payments");
 }

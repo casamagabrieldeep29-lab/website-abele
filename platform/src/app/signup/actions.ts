@@ -4,6 +4,15 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { submitPaymentRequest } from "@/app/upgrade/actions";
 import type { PaymentMethodKey } from "@/lib/payment-methods";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+import { logError } from "@/lib/log-error";
+
+// Account creation has no CAPTCHA and is fully scriptable otherwise — caps
+// one IP to 5 new accounts/hour (flagged as a public-launch blocker,
+// 2026-09-28). Generous enough for a shared household/school connection,
+// tight enough to stop spam signups.
+const SIGNUP_LIMIT = 5;
+const SIGNUP_WINDOW_SECONDS = 60 * 60;
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 const VALID_ACADEMIC_STATUSES = ["student", "reviewee"] as const;
@@ -57,6 +66,12 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
     };
   }
 
+  const ip = await getClientIp();
+  const allowed = await checkRateLimit(`signup:${ip}`, SIGNUP_LIMIT, SIGNUP_WINDOW_SECONDS);
+  if (!allowed) {
+    return { ok: false, message: "Too many signup attempts from your network. Please wait a bit and try again." };
+  }
+
   const admin = createAdminClient();
   const { data: created, error: createError } = await admin.auth.admin.createUser({
     email,
@@ -77,12 +92,13 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
   const supabase = await createClient();
   const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
   if (signInError) {
-    console.error("[signUpAndSubmitPayment] signInWithPassword", signInError.status, signInError.message);
+    await logError("signUpAndSubmitPayment.signInWithPassword", signInError);
     return { ok: false, message: "Your account was created, but signing you in failed — try signing in manually." };
   }
 
   const paymentResult = await submitPaymentRequest(null, formData);
   if (!paymentResult?.ok) {
+    await logError("signUpAndSubmitPayment.submitPaymentRequest", paymentResult?.error ?? "no result returned");
     return {
       ok: false,
       message:

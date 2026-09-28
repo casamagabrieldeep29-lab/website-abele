@@ -1,6 +1,7 @@
 import "server-only";
 import { GoogleGenAI } from "@google/genai";
 import { collectApiKeys } from "./ai";
+import { logError } from "./log-error";
 
 export type ReceiptVerification = { verified: boolean; reason: string };
 
@@ -29,10 +30,14 @@ async function askGemini(
               "merely similar, a substring, or has even one digit different does NOT count as a match, and " +
               "neither does a reference number that is partially cut off or unreadable in the image).\n\n" +
               '(2) RECIPIENT NAME: the screenshot must show the RECIPIENT (the person being paid, not the ' +
-              'sender) as "Gabriel Deep C. Casama", or a partially-masked version of it (e.g. "GA***L D... ' +
-              'C*****A", "Gabriel D. C...", or initials "GDC") — payment apps commonly mask part of a name ' +
-              "with dots or asterisks. The visible characters must be consistent with this specific name, not " +
-              "just any name.\n\n" +
+              'sender) as "Gabriel Deep C. Casama", or a partially-masked/truncated version of it (e.g. ' +
+              '"GA***L D... C*****A", "Gabriel D. C...", "GA....L DE.P C.", or initials "GDC") — payment apps ' +
+              "commonly mask characters with dots/asterisks AND separately cut the display off partway through " +
+              "a long name for space, so the surname is frequently not shown at all even on a fully legitimate " +
+              "receipt. Treat a name that's simply cut short before the surname (no surname shown, nothing " +
+              "shown that conflicts with it) as a MATCH, not a mismatch — only answer no here if a visible " +
+              "character actively conflicts with this specific name (e.g. a different first name, or a surname " +
+              "that IS shown and doesn't match), not merely because part of the name wasn't displayed.\n\n" +
               "Both conditions must clearly hold for a yes. Reply with EXACTLY one line in this format: " +
               "VERIFIED: <yes|no> | REASON: <one short sentence>.",
           },
@@ -86,6 +91,10 @@ export async function verifyReceipt(
       lastErr = err;
     }
   }
+  // Every configured key failed — actionable (add another free account's
+  // key), unlike a single request's transient error, so this is worth an
+  // alert rather than just a console.error.
+  await logError(`receipt-verification (${apiKeys.length} key(s) tried)`, lastErr);
   return { verified: false, reason: describeVerificationError(lastErr) };
 }
 

@@ -90,7 +90,9 @@ export function UpgradeForm({ defaultMethod }: { defaultMethod: PaymentMethodKey
         <p className="text-sm text-destructive">
           {result.error === "missing-fields"
             ? "Pick a payment method, enter your reference number, and attach a receipt screenshot."
-            : "Couldn't submit that — please try again."}
+            : result.error === "rate-limited"
+              ? "Too many submissions — please wait a bit before trying again."
+              : "Couldn't submit that — please try again."}
         </p>
       )}
 
