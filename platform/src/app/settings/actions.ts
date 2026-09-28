@@ -8,6 +8,57 @@ import { isValidPracticeLength, isValidPracticeMode } from "@/lib/study-preferen
 
 export type SaveResult = { ok: true } | { ok: false; error: string };
 
+const VALID_ACADEMIC_STATUSES = ["student", "reviewee"] as const;
+
+/**
+ * Backs the "complete your profile" popup shown once to accounts missing
+ * school/academic_status (everyone who existed before the signup redesign
+ * shipped, plus anyone who skipped those optional fields at signup —
+ * src/components/profile-completion-modal.tsx decides when to show it).
+ * Password is genuinely optional here too: updateUser() only runs when one
+ * was actually typed, so a student can fill in just school/status and
+ * leave their existing sign-in method (or lack of a password) untouched.
+ */
+export async function saveProfileDetails(formData: FormData): Promise<SaveResult> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "Not signed in." };
+
+  const school = String(formData.get("school") ?? "").trim();
+  const academicStatusRaw = String(formData.get("academicStatus") ?? "");
+  const academicStatus = VALID_ACADEMIC_STATUSES.includes(academicStatusRaw as (typeof VALID_ACADEMIC_STATUSES)[number])
+    ? academicStatusRaw
+    : null;
+  const password = String(formData.get("password") ?? "");
+
+  if (password && password.length < 8) {
+    return { ok: false, error: "Password must be at least 8 characters." };
+  }
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ school: school || null, academic_status: academicStatus })
+    .eq("id", user.id);
+  if (error) return { ok: false, error: error.message };
+
+  if (password) {
+    const { error: pwError } = await supabase.auth.updateUser({ password });
+    if (pwError) return { ok: false, error: pwError.message };
+  }
+
+  revalidatePath("/", "layout");
+  return { ok: true };
+}
+
+export async function dismissProfilePrompt(): Promise<void> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  await supabase.from("profiles").update({ profile_prompt_dismissed_at: new Date().toISOString() }).eq("id", user.id);
+  revalidatePath("/", "layout");
+}
+
 export async function updateStudyPreferences(formData: FormData): Promise<SaveResult> {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

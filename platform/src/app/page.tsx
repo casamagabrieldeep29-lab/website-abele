@@ -539,6 +539,10 @@ export default async function Home() {
 
       <footer className="border-t px-6 py-6 text-center text-xs text-muted-foreground">
         ABELIEVER — private ABE Licensure Exam review platform.
+        {" · "}
+        <Link href="/privacy" className="hover:text-foreground hover:underline">
+          Privacy Policy
+        </Link>
       </footer>
     </div>
   );
