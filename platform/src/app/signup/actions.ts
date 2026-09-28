@@ -39,10 +39,14 @@ export type SignUpAndSubmitPaymentResult = { ok: false; message: string } | null
 export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUpAndSubmitPaymentResult> {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
+  const fullName = String(formData.get("fullName") ?? "").trim();
   const { school, academicStatus } = readAcademicFields(formData);
 
   if (!email || !email.includes("@")) {
     return { ok: false, message: "Enter a valid email address." };
+  }
+  if (!fullName) {
+    return { ok: false, message: "Enter your full name." };
   }
   if (password.length < 8) {
     return {
@@ -63,7 +67,7 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
     return { ok: false, message: createError?.message ?? "Couldn't create that account. Try again." };
   }
 
-  const profileUpdate: Record<string, string | null> = { plan: "pending" };
+  const profileUpdate: Record<string, string | null> = { plan: "pending", display_name: fullName };
   if (school) profileUpdate.school = school;
   if (academicStatus) profileUpdate.academic_status = academicStatus;
   await admin.from("profiles").update(profileUpdate).eq("id", created.user.id);
@@ -87,6 +91,10 @@ export async function submitSignup(_prev: SignupSubmitResult, formData: FormData
 
   if (!VALID_METHODS.includes(intent as PaymentMethodKey)) {
     return { kind: "error", message: "Pick a payment method to continue." };
+  }
+
+  if (!String(formData.get("fullName") ?? "").trim()) {
+    return { kind: "error", message: "Enter your full name." };
   }
 
   const referenceNumber = String(formData.get("referenceNumber") ?? "").trim();
