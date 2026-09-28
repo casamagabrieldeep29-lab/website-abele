@@ -22,5 +22,12 @@ jobs:
 
       - run: npm ci
       - run: npm run lint
+      # This Next.js version generates route-aware global types (LayoutProps,
+      # PageProps, etc.) into .next/types during `next dev`/`next build` —
+      # a fresh CI checkout has neither, so `tsc` needs `next typegen` first
+      # or it fails on every layout/page file. See next.config.ts's
+      # TypeScript doc: node_modules/next/dist/docs/01-app/03-api-reference/
+      # 06-cli/next.md.
+      - run: npx next typegen
       - run: npx tsc --noEmit -p .
       - run: npm test
