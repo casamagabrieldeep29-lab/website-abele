@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { groupByWeek } from "@/lib/manila-week";
+import { groupByWeek, formatDateTimeManila } from "@/lib/manila-week";
 import { approvePaymentRequest, confirmAutoApproval, rejectPaymentRequest, revokeAutoApproval } from "./actions";
 
 type RequestRow = {
@@ -90,7 +90,7 @@ export default async function AdminPaymentsPage() {
             {r.payer_name && <span className="text-muted-foreground"> — paid as &quot;{r.payer_name}&quot;</span>}
           </p>
           <p className="text-xs text-muted-foreground">
-            ₱{r.amount_php} · submitted {new Date(r.submitted_at).toLocaleString()}
+            ₱{r.amount_php} · submitted {formatDateTimeManila(r.submitted_at)}
           </p>
           {r.admin_note && <p className="text-xs text-muted-foreground italic">AI note: {r.admin_note}</p>}
           {receiptUrl && (

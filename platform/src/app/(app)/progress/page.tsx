@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { StudyAssistant } from "@/components/study-assistant";
 import { PageHeader } from "@/components/page-header";
 import { MasteryTree, type MasteryStatus, type MasteryTOS } from "./mastery-tree";
+import { formatDateManila } from "@/lib/manila-week";
 
 type TopicMastery = {
   topic_id: string;
@@ -379,7 +380,7 @@ export default async function ProgressPage() {
                         {a.correct_count}/{a.total_questions} correct ({pct}%)
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(a.completed_at).toLocaleDateString()}
+                        {formatDateManila(a.completed_at)}
                       </p>
                     </div>
                     <Button

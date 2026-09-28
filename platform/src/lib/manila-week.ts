@@ -21,6 +21,44 @@ export function weekKeyManila(iso: string): string {
   return d.toISOString().slice(0, 10);
 }
 
+/**
+ * Date-only formatting in Philippine time — used everywhere a timestamp is
+ * shown to a person (Gabriel's explicit "let's use Philippine time all
+ * across the website", 2026-09-28, after an admin page's raw
+ * `.toLocaleString()` silently rendered in Vercel's own UTC server time
+ * instead). Always pass explicit `timeZone: MANILA_TZ` rather than relying
+ * on a Server Component's ambient locale, which is never the viewer's.
+ */
+export function formatDateManila(iso: string, options?: Intl.DateTimeFormatOptions): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    timeZone: MANILA_TZ,
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    ...options,
+  });
+}
+
+/** The current hour of day (0-23) in Philippine time, regardless of the
+ * server's own timezone — e.g. for a time-of-day greeting that should never
+ * say "Good evening" because the server happens to be running in UTC. */
+export function currentHourManila(): number {
+  return Number(new Intl.DateTimeFormat("en-US", { timeZone: MANILA_TZ, hour: "numeric", hourCycle: "h23" }).format(new Date()));
+}
+
+/** Same as formatDateManila, but with the time of day included. */
+export function formatDateTimeManila(iso: string): string {
+  return new Date(iso).toLocaleString("en-US", {
+    timeZone: MANILA_TZ,
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export function weekLabelManila(weekKey: string): string {
   const start = new Date(`${weekKey}T00:00:00Z`);
   const end = new Date(start);
