@@ -4,7 +4,6 @@ import { CheckCircle2 } from "lucide-react";
 import { SignupForm } from "./signup-form";
 import { createClient } from "@/lib/supabase/server";
 import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
-import { TRIAL_DAYS } from "@/lib/trial";
 
 export default async function SignupPage() {
   const supabase = await createClient();
@@ -18,20 +17,16 @@ export default async function SignupPage() {
           <Link href="/" className="text-2xl font-bold tracking-tight text-primary">
             ABELIEVER
           </Link>
-          <p className="mt-2 text-sm text-muted-foreground">Start your free trial</p>
+          <p className="mt-2 text-sm text-muted-foreground">Be an ABELIEVER</p>
         </div>
 
-        {/* Pricing shown up front, before signup — same pattern most SaaS
-            signup pages use, so there's no surprise once the trial ends.
-            Real price/trial length, both read from the same constants the
-            rest of the app (trial.ts, payment-methods.ts) already uses. */}
+        {/* Leads with the one-time price, not the trial — the trial only
+            shows up as the "skip" option inside SignupForm's payment picker.
+            Real price, read from the same constant /upgrade already uses. */}
         <div className="mb-6 rounded-lg border border-primary/20 bg-primary/5 p-5">
-          <div className="flex items-baseline justify-between">
-            <p className="text-sm font-semibold">{TRIAL_DAYS}-day free trial</p>
-            <p className="text-sm text-muted-foreground">then ₱{UPGRADE_PRICE_PHP} one-time</p>
-          </div>
+          <p className="text-sm font-semibold">₱{UPGRADE_PRICE_PHP} one-time — no subscription</p>
           <ul className="mt-3 space-y-1.5">
-            {["Full access to practice, mock exams, and progress tracking", "No subscription — a single one-time payment after your trial", "Pay via GCash, Maya, or Landbank when you're ready"].map(
+            {["Full access to practice, mock exams, and progress tracking", "Pay once, keep access for good — no recurring fees"].map(
               (item) => (
                 <li key={item} className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
                   <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-primary" />

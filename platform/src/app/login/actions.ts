@@ -63,3 +63,50 @@ export async function verifyOtpCode(
   await clearAuthFlowCookies();
   redirect("/dashboard");
 }
+
+export type SignInWithPasswordResult = { ok: false; message: string } | null;
+
+/** Password-based alternative to the magic-link flow above, for anyone who set a password at signup. */
+export async function signInWithPassword(
+  _prev: SignInWithPasswordResult,
+  formData: FormData,
+): Promise<SignInWithPasswordResult> {
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    console.error("[signInWithPassword]", error.status, error.message);
+    return { ok: false, message: "Wrong email or password." };
+  }
+
+  redirect("/dashboard");
+}
+
+export type SubmitLoginResult =
+  | { kind: "magic_link"; email: string }
+  | { kind: "error"; message: string }
+  | null;
+
+/**
+ * Single entry point LoginForm's one form submits to — branches to
+ * signInWithPassword above when a password was entered, sendMagicLink
+ * otherwise. Mirrors signup's submitSignup for the same reason: one form,
+ * one useActionState hook, instead of juggling two independent action
+ * states in the same component.
+ */
+export async function submitLogin(_prev: SubmitLoginResult, formData: FormData): Promise<SubmitLoginResult> {
+  const password = String(formData.get("password") ?? "");
+
+  if (password) {
+    const result = await signInWithPassword(null, formData);
+    if (!result) return null;
+    return { kind: "error", message: result.message };
+  }
+
+  const result = await sendMagicLink(null, formData);
+  if (!result.ok) return { kind: "error", message: result.message };
+  return { kind: "magic_link", email: result.email };
+}

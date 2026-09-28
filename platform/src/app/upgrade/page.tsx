@@ -4,15 +4,17 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getPaymentMethods, UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
+import { getPaymentMethods, UPGRADE_PRICE_PHP, type PaymentMethodKey } from "@/lib/payment-methods";
 import { UpgradeForm } from "./upgrade-form";
+
+const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 
 export default async function UpgradePage({
   searchParams,
 }: {
-  searchParams: Promise<{ submitted?: string; approved?: string; error?: string }>;
+  searchParams: Promise<{ submitted?: string; approved?: string; error?: string; method?: string }>;
 }) {
-  const { submitted, approved, error } = await searchParams;
+  const { submitted, approved, error, method } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -30,6 +32,7 @@ export default async function UpgradePage({
 
   const hasPending = (requests ?? []).some((r) => r.status === "pending");
   const methods = getPaymentMethods();
+  const preselectedMethod = VALID_METHODS.includes(method as PaymentMethodKey) ? (method as PaymentMethodKey) : methods[0].key;
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-10">
@@ -92,7 +95,7 @@ export default async function UpgradePage({
           ) : (
             <div>
               <h2 className="mb-2 text-sm font-semibold">Step 2 — Tell us you paid</h2>
-              <UpgradeForm defaultMethod={methods[0].key} />
+              <UpgradeForm defaultMethod={preselectedMethod} />
             </div>
           )}
         </>

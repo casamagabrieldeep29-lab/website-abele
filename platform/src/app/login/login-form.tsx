@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { sendMagicLink, verifyOtpCode, type SendMagicLinkResult, type VerifyOtpResult } from "./actions";
+import { submitLogin, verifyOtpCode, type SubmitLoginResult, type VerifyOtpResult } from "./actions";
 
-const initialSendState: SendMagicLinkResult | null = null;
+const initialSubmitState: SubmitLoginResult = null;
 const initialVerifyState: VerifyOtpResult = null;
 
 function CodeForm({ email }: { email: string }) {
@@ -49,9 +49,9 @@ function CodeForm({ email }: { email: string }) {
 }
 
 export function LoginForm() {
-  const [result, formAction, isPending] = useActionState(sendMagicLink, initialSendState);
+  const [result, formAction, isPending] = useActionState(submitLogin, initialSubmitState);
 
-  if (result?.ok) {
+  if (result?.kind === "magic_link") {
     return <CodeForm email={result.email} />;
   }
 
@@ -69,18 +69,29 @@ export function LoginForm() {
         />
       </div>
 
-      {result && !result.ok && (
+      <div className="space-y-2">
+        <Label htmlFor="password">Password (optional)</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          placeholder="Leave blank to sign in with an emailed code instead"
+          autoComplete="current-password"
+        />
+      </div>
+
+      {result?.kind === "error" && (
         <p className="text-sm text-destructive">{result.message}</p>
       )}
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Sending link…" : "Send login link"}
+        {isPending ? "Signing in…" : "Sign in"}
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
         Don&apos;t have an account yet?{" "}
         <Link href="/signup" className="text-primary hover:underline">
-          Start a free trial
+          Sign up
         </Link>
       </p>
     </form>

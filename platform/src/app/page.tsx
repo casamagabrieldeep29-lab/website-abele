@@ -19,7 +19,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
-import { TRIAL_DAYS } from "@/lib/trial";
 
 const EXAM_AREAS = [
   { name: "Agricultural and Biosystems Power, Energy and Machinery Engineering", weight: "18%" },
@@ -112,7 +111,7 @@ export default async function Home() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Button render={<Link href="/signup">Start your free trial</Link>} nativeButton={false} size="lg" className="h-11 px-6 text-base" />
+                  <Button render={<Link href="/signup">Be an ABELIEVER</Link>} nativeButton={false} size="lg" className="h-11 px-6 text-base" />
                   <Link href="/login" className="text-sm font-medium text-foreground/80 hover:text-foreground hover:underline">
                     Already have an account? Sign in
                   </Link>
@@ -522,7 +521,7 @@ export default async function Home() {
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button
-                render={<Link href="/signup">Start your free trial</Link>}
+                render={<Link href="/signup">Be an ABELIEVER</Link>}
                 nativeButton={false}
                 size="lg"
                 className="h-11 bg-background px-7 text-base text-primary hover:bg-background/90"
@@ -532,7 +531,7 @@ export default async function Home() {
               </Link>
             </div>
             <p className="mt-4 text-xs text-primary-foreground/70">
-              {TRIAL_DAYS}-day free trial, then ₱{UPGRADE_PRICE_PHP} one-time — no subscription.
+              ₱{UPGRADE_PRICE_PHP} one-time — no subscription. Free trial available if you&apos;d rather try first.
             </p>
           </div>
         </section>
