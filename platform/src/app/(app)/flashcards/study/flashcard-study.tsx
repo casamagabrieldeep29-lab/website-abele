@@ -133,14 +133,17 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
     Number.isInteger(initialAt) && initialAt >= 0 && initialAt < cards.length ? initialAt : 0,
   );
 
+  // Resolves against `index` from closure rather than a setState functional
+  // updater — setIndex is only ever called from discrete event handlers
+  // (goNext/goPrev), never concurrently, and running router.replace() (a
+  // side effect) inside a setState updater is impure and throws "Cannot
+  // update a component while rendering a different component" in dev.
   function setIndex(next: number | ((i: number) => number)) {
-    setIndexState((prev) => {
-      const resolved = typeof next === "function" ? next(prev) : next;
-      const params = new URLSearchParams(searchParams);
-      params.set("at", String(resolved));
-      router.replace(`?${params.toString()}`, { scroll: false });
-      return resolved;
-    });
+    const resolved = typeof next === "function" ? next(index) : next;
+    setIndexState(resolved);
+    const params = new URLSearchParams(searchParams);
+    params.set("at", String(resolved));
+    router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   const [flipped, setFlipped] = useState(false);

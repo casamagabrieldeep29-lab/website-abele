@@ -481,3 +481,15 @@ Checked real content counts before building anything: `questions.question_type =
 
 **Testing performed:** logged in as the owner account via the local magic-link technique, ran a real Quick 10 Formula Trainer session (flipped a formula card, saw the real formula/variables/description render, self-graded, confirmed instant advance to card 2/10) and a real Quick 10 Number Bank Quiz session (flipped a table-kind card, saw real PAES 117:2000 content render, self-graded, confirmed instant advance). `npm run lint` and `npm run build` both clean.
 
+
+---
+
+## 2026-09-28 — Fix: setState-in-render error in the quiz/flashcard "next card" navigation
+
+Gabriel ran `040_reviewer_entry_quiz.sql` and confirmed Formula Trainer / Number Bank Quiz live. Live-testing a real self-grade session immediately surfaced a genuine React error via the dev overlay: `"Cannot update a component ('Router') while rendering a different component ('ReviewerQuiz')"`.
+
+**Root cause:** `setIndex()` (in both the new `ReviewerQuiz` and the pre-existing `FlashcardStudy`, which shares the same navigation code) called `router.replace(...)` — a side effect — from inside a `setState` functional updater (`setIndexState((prev) => { ...; router.replace(...); return resolved; })`). Functional updaters must be pure; React runs them during render and can invoke them more than once, so a side effect inside one is a real bug, not just a lint nitpick — it was silently working by accident until this session's live test caught it in dev mode.
+
+**Fix, applied to both components identically:** resolve the next index against `index` from closure instead of the updater's `prev` argument, call `setIndexState(resolved)` with a plain value, then call `router.replace(...)` afterward as an ordinary side effect — no functional updater involved. `setIndex` is only ever invoked from discrete event handlers (`goNext`/`goPrev`), never concurrently, so dropping the functional-updater form is safe.
+
+**Testing performed:** re-ran a real Quick 10 Formula Trainer session end-to-end — flipped a card, self-graded "Know it," confirmed instant advance with no error overlay, and confirmed via a direct read of `reviewer_entry_progress` that the row actually wrote correctly (`state: "know"`, `times_seen`/`times_known` incrementing). `npm run lint` and `npm run build` both clean.
