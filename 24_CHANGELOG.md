@@ -561,3 +561,13 @@ Two follow-ups after the signup redesign: (1) existing accounts (everyone invite
 **`src/app/privacy/page.tsx`** (new, public route): a real Privacy Policy, not a template — describes ABELIEVER's actual data practices (account/profile fields, study activity, payment verification details including receipt images, AI explanation usage) and actual sub-processors (Supabase, Google Gemini, Vercel) by name, the Data Privacy Act rights (access, correction, erasure, portability, objection, damages, complaint to the NPC), and a real contact address. Linked from the landing page footer and as a "you agree to our Privacy Policy" line on `/signup`.
 
 **Testing performed:** `npm run lint` and `npm run build` both clean. Live-verified `/privacy` renders the full policy correctly, and live-verified the profile-completion popup's graceful-degradation path (pre-migration) end to end via the owner account.
+
+---
+
+## 2026-09-28 — FAQ accordion on the landing page
+
+Added a collapsed-by-default FAQ section near the bottom of the landing page, right before the final CTA. `src/components/faq-accordion.tsx` (new, client component) reuses the existing `Collapsible` primitive (same one `mastery-tree.tsx` already uses) — 8 questions, each collapsed until clicked, only one visible answer at a time per row.
+
+Every answer matches real product behavior rather than separately-maintained marketing copy: price (₱159 one-time), the free trial (only mentioned as the skip-payment option, consistent with the rest of the page), payment methods and verification turnaround, an explicit "this is not official PRC material" disclaimer (matches the existing Table of Specifications disclaimer elsewhere on the page), a link to the new Privacy Policy, and that a password is optional.
+
+**Testing performed:** live-verified the section renders fully collapsed by default (confirmed via a full page text extraction — no answer text present until interacted with), then clicked the first question and confirmed only its answer expanded while the other 7 stayed collapsed. `npm run lint` and `npm run build` both clean.

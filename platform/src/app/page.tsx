@@ -17,6 +17,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FaqAccordion } from "@/components/faq-accordion";
 import { createClient } from "@/lib/supabase/server";
 import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
 
@@ -507,6 +508,14 @@ export default async function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="border-t border-border bg-background py-16 lg:py-24">
+          <div className="mx-auto max-w-3xl px-6">
+            <h2 className="text-3xl font-bold tracking-tight lg:text-4xl">Frequently asked questions.</h2>
+            <FaqAccordion />
           </div>
         </section>
 
