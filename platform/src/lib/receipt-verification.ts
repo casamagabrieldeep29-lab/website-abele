@@ -36,12 +36,19 @@ export async function verifyReceipt(
             { inlineData: { mimeType, data: imageBase64 } },
             {
               text:
-                "This is a screenshot of a GCash/Maya/bank payment confirmation. Check two things: " +
-                `(1) does it show a reference/transaction number that matches or contains "${referenceNumber}" ` +
-                "(ignore spacing/dashes/case differences), and (2) does it show the RECIPIENT's name as " +
-                '"Gabriel Deep C. Casama" or a partially-masked version of it (e.g. "GA***L D... C*****A", ' +
-                '"Gabriel D. C...", initials "GDC" — payment apps commonly mask part of the name with dots or ' +
-                "asterisks). Both conditions must hold for a yes. Reply with EXACTLY one line in this format: " +
+                "This is a screenshot of a GCash/Maya/bank payment confirmation. Check two things strictly — " +
+                "when in doubt, answer no rather than guessing yes:\n\n" +
+                `(1) REFERENCE NUMBER: the screenshot must show a reference/transaction number that is an EXACT ` +
+                `digit-for-digit match to "${referenceNumber}" (you may ignore spacing, dashes, and letter case ` +
+                "as pure formatting differences, but every digit must be present and correct — a number that is " +
+                "merely similar, a substring, or has even one digit different does NOT count as a match, and " +
+                "neither does a reference number that is partially cut off or unreadable in the image).\n\n" +
+                '(2) RECIPIENT NAME: the screenshot must show the RECIPIENT (the person being paid, not the ' +
+                'sender) as "Gabriel Deep C. Casama", or a partially-masked version of it (e.g. "GA***L D... ' +
+                'C*****A", "Gabriel D. C...", or initials "GDC") — payment apps commonly mask part of a name ' +
+                "with dots or asterisks. The visible characters must be consistent with this specific name, not " +
+                "just any name.\n\n" +
+                "Both conditions must clearly hold for a yes. Reply with EXACTLY one line in this format: " +
                 "VERIFIED: <yes|no> | REASON: <one short sentence>.",
             },
           ],
