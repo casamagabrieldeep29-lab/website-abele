@@ -73,6 +73,11 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
         {chosenMethod && <input type="hidden" name="method" value={chosenMethod.key} />}
 
         <div className="space-y-2">
+          <Label htmlFor="fullName">Full name</Label>
+          <Input id="fullName" name="fullName" placeholder="e.g. Juan Dela Cruz" required autoComplete="name" />
+        </div>
+
+        <div className="space-y-2">
           <Label htmlFor="school">School</Label>
           <Input
             id="school"
