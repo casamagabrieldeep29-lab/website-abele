@@ -34,7 +34,7 @@ export function BookmarksList({ rows: initialRows }: { rows: BookmarkRow[] }) {
       {rows.map((row) => (
         <Card key={row.bookmark_id}>
           <CardContent className="flex items-start justify-between gap-3 py-3">
-            <div>
+            <div className="max-w-3xl">
               <p className="text-xs text-muted-foreground">{row.topic_name}</p>
               <p className="mt-1 text-sm">{row.question_text}</p>
             </div>

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { QuizBuilderForm } from "@/app/quiz-builder/quiz-builder-form";
 import { PageHeader } from "@/components/page-header";
+import { PageContainer } from "@/components/page-container";
 import type { TopicPickerArea } from "@/app/quiz-builder/topic-picker";
 
 export default async function QuizBuilderPage({
@@ -64,10 +65,10 @@ export default async function QuizBuilderPage({
   });
 
   return (
-    <div className="mx-auto max-w-xl">
+    <PageContainer size="wide">
       <PageHeader title="Custom Quiz" description="Build a quiz exactly the way you want it." />
 
       <QuizBuilderForm areas={areas} errorCode={error === "no-match" || error === "no-topics" ? error : null} />
-    </div>
+    </PageContainer>
   );
 }

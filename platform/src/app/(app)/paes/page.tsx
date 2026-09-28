@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/page-header";
+import { PageContainer } from "@/components/page-container";
 
 type HubCard = {
   href: string;
@@ -73,38 +74,38 @@ export default async function PaesHubPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <PageContainer size="hub">
       <PageHeader
         title="PAES"
         description="Philippine Agricultural Engineering Standards — official technical standards content, separate from the general Reviewers and Practice pool."
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => {
           const Icon = card.icon;
           const body = (
             <Card
               className={
                 card.disabled
-                  ? "opacity-70"
-                  : "h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40"
+                  ? "h-full opacity-70"
+                  : "h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md hover:ring-primary/40"
               }
             >
-              <CardHeader>
+              <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex size-9 items-center justify-center rounded-md bg-primary/15 text-primary">
-                    <Icon className="size-5" />
+                  <div className="flex size-12 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                    <Icon className="size-6" />
                   </div>
                   {card.disabled && <Badge variant="secondary">Coming soon</Badge>}
                 </div>
-                <CardTitle className="mt-2 flex items-center gap-1.5">
+                <CardTitle className="mt-3 flex items-center gap-1.5 text-lg">
                   {card.title}
                   {!card.disabled && <ArrowRight className="size-4 text-muted-foreground" />}
                 </CardTitle>
-                <CardDescription>{card.description}</CardDescription>
+                <CardDescription className="text-sm leading-relaxed">{card.description}</CardDescription>
               </CardHeader>
               {card.stat && (
-                <CardContent>
+                <CardContent className="pt-0">
                   <p className="text-xs font-medium text-muted-foreground">{card.stat}</p>
                 </CardContent>
               )}
@@ -120,6 +121,6 @@ export default async function PaesHubPage() {
           );
         })}
       </div>
-    </div>
+    </PageContainer>
   );
 }
