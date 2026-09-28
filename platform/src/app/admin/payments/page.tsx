@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent } from "@/components/ui/card";
@@ -130,13 +131,18 @@ export default async function AdminPaymentsPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-8 px-4 py-10">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Payment Requests</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Manual GCash/Maya/Landbank payments students submit on /upgrade. A receipt that passes the automatic
-          reference + name check is approved instantly — this page is where you review everything else, and where
-          you can revoke an auto-approval that turns out to be fake.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Payment Requests</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manual GCash/Maya/Landbank payments students submit on /upgrade. A receipt that passes the automatic
+            reference + name check is approved instantly — this page is where you review everything else, and where
+            you can revoke an auto-approval that turns out to be fake.
+          </p>
+        </div>
+        <Link href="/admin" className="shrink-0 text-sm text-muted-foreground hover:underline">
+          ← Back to Admin
+        </Link>
       </div>
 
       <div>
