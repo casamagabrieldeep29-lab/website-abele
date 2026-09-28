@@ -18,7 +18,9 @@ function readAcademicFields(formData: FormData): { school: string | null; academ
   return { school: school || null, academicStatus };
 }
 
-export type SignUpAndSubmitPaymentResult = { ok: false; message: string } | null;
+export type SignUpAndSubmitPaymentResult =
+  | { ok: true; autoApproved: boolean }
+  | { ok: false; message: string };
 
 /**
  * The only self-serve signup path — per Gabriel's "let's not have free
@@ -79,13 +81,23 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
     return { ok: false, message: "Your account was created, but signing you in failed — try signing in manually." };
   }
 
-  await submitPaymentRequest(formData);
-  return null;
+  const paymentResult = await submitPaymentRequest(null, formData);
+  if (!paymentResult?.ok) {
+    return {
+      ok: false,
+      message:
+        "Your account was created, but submitting your payment failed — sign in and try again from /upgrade.",
+    };
+  }
+  return { ok: true, autoApproved: paymentResult.autoApproved };
 }
 
-export type SignupSubmitResult = { kind: "error"; message: string } | null;
+export type SignupSubmitResult =
+  | { kind: "error"; message: string }
+  | { kind: "payment_result"; autoApproved: boolean }
+  | null;
 
-/** Single entry point SignupForm's one form submits to — always a payment method + reference number + receipt, always through signUpAndSubmitPayment. May redirect() on success (a thrown Next.js signal, not a real exception), which propagates through this wrapper exactly like it would through a direct call. */
+/** Single entry point SignupForm's one form submits to — always a payment method + reference number + receipt, always through signUpAndSubmitPayment. Returns a "payment_result" on success (instead of redirecting itself) so the client can hold it behind the same delayed-reveal spinner as /upgrade's own form — see submitPaymentRequest's doc comment for why that delay can't live server-side. */
 export async function submitSignup(_prev: SignupSubmitResult, formData: FormData): Promise<SignupSubmitResult> {
   const intent = String(formData.get("intent") ?? "");
 
@@ -108,6 +120,6 @@ export async function submitSignup(_prev: SignupSubmitResult, formData: FormData
   }
 
   const result = await signUpAndSubmitPayment(formData);
-  if (!result) return null;
-  return { kind: "error", message: result.message };
+  if (!result.ok) return { kind: "error", message: result.message };
+  return { kind: "payment_result", autoApproved: result.autoApproved };
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +11,12 @@ import type { PaymentMethodInfo, PaymentMethodKey } from "@/lib/payment-methods"
 import { submitSignup, type SignupSubmitResult } from "./actions";
 
 const initialSubmitState: SignupSubmitResult = null;
+
+// Same reasoning as upgrade-form.tsx's identical constants: deliberately not
+// instant (Gabriel's explicit "autoapproval shouldnt be flash like 1
+// second. it should take 20 seconds to 1 minutes", 2026-09-28).
+const MIN_VERIFY_DELAY_MS = 20_000;
+const MAX_VERIFY_DELAY_MS = 60_000;
 
 const METHODS: { key: PaymentMethodKey; label: string }[] = [
   { key: "gcash", label: "GCash" },
@@ -31,6 +38,7 @@ function PaymentDetails({ method }: { method: PaymentMethodInfo }) {
 }
 
 export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodInfo[] }) {
+  const router = useRouter();
   const [result, formAction, isPending] = useActionState(submitSignup, initialSubmitState);
   // Nothing is pre-selected — the 3 payment methods are the encouraged path
   // and deliberately aren't pre-highlighted as if one were already chosen.
@@ -41,8 +49,23 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
   const [school, setSchool] = useState("");
   const [academicStatus, setAcademicStatus] = useState<AcademicStatus | "">("");
   const [fileName, setFileName] = useState<string | null>(null);
+  // Derived from `result`, not its own setState-in-effect -- the effect
+  // below only owns the side effect (the delayed navigation), not state
+  // that's already computable from render inputs.
+  const verifying = result?.kind === "payment_result";
 
   const chosenMethod = intent ? paymentMethods.find((m) => m.key === intent) ?? null : null;
+
+  useEffect(() => {
+    if (result?.kind !== "payment_result") return;
+    const delayMs = MIN_VERIFY_DELAY_MS + Math.random() * (MAX_VERIFY_DELAY_MS - MIN_VERIFY_DELAY_MS);
+    const timer = setTimeout(() => {
+      router.push(result.autoApproved ? "/upgrade?approved=1" : "/upgrade?submitted=1");
+    }, delayMs);
+    return () => clearTimeout(timer);
+  }, [result, router]);
+
+  const busy = isPending || verifying;
 
   return (
     <div className="space-y-5">
@@ -74,7 +97,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
 
         <div className="space-y-2">
           <Label htmlFor="fullName">Full name</Label>
-          <Input id="fullName" name="fullName" placeholder="e.g. Juan Dela Cruz" required autoComplete="name" />
+          <Input id="fullName" name="fullName" placeholder="e.g. Juan Dela Cruz" required autoComplete="name" disabled={busy} />
         </div>
 
         <div className="space-y-2">
@@ -86,6 +109,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             value={school}
             onChange={(e) => setSchool(e.target.value)}
             autoComplete="organization"
+            disabled={busy}
           />
         </div>
 
@@ -102,6 +126,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
                 key={opt.key}
                 type="button"
                 onClick={() => setAcademicStatus(opt.key)}
+                disabled={busy}
                 className={`rounded-lg border px-3 py-2 text-xs font-medium transition-colors ${
                   academicStatus === opt.key
                     ? "border-primary bg-primary/5 text-primary"
@@ -124,6 +149,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             placeholder="you@example.com"
             required
             autoComplete="email"
+            disabled={busy}
           />
         </div>
 
@@ -137,6 +163,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             autoComplete="new-password"
             minLength={8}
             required
+            disabled={busy}
           />
         </div>
 
@@ -144,12 +171,12 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
           <>
             <div className="space-y-2">
               <Label htmlFor="referenceNumber">Reference / transaction number</Label>
-              <Input id="referenceNumber" name="referenceNumber" required placeholder="e.g. 1234567890123" />
+              <Input id="referenceNumber" name="referenceNumber" required placeholder="e.g. 1234567890123" disabled={busy} />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="payerName">Your name on the payment (optional)</Label>
-              <Input id="payerName" name="payerName" placeholder="If different from your account name" />
+              <Input id="payerName" name="payerName" placeholder="If different from your account name" disabled={busy} />
             </div>
 
             <div className="space-y-2">
@@ -160,8 +187,9 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
                 type="file"
                 accept="image/*"
                 required
+                disabled={busy}
                 onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
-                className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border file:border-border file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-secondary-foreground"
+                className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border file:border-border file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-secondary-foreground disabled:opacity-60"
               />
               {fileName && <p className="text-xs text-muted-foreground">Selected: {fileName}</p>}
               <p className="text-xs text-muted-foreground">
@@ -176,9 +204,24 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
           <p className="text-sm text-destructive">{result.message}</p>
         )}
 
-        <Button type="submit" className="w-full" disabled={isPending || !chosenMethod}>
-          {isPending ? "Setting up…" : chosenMethod ? "I've paid — submit and continue" : "Pick a payment method above"}
+        <Button type="submit" className="w-full" disabled={busy || !chosenMethod}>
+          {busy ? (
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 className="size-4 animate-spin" />
+              {verifying ? "Verifying your receipt…" : "Setting up…"}
+            </span>
+          ) : chosenMethod ? (
+            "I've paid — submit and continue"
+          ) : (
+            "Pick a payment method above"
+          )}
         </Button>
+
+        {verifying && (
+          <p className="rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-center text-sm font-medium text-primary">
+            Please wait — do not close or exit this tab. This can take a few seconds to a minute.
+          </p>
+        )}
 
         <p className="text-center text-xs text-muted-foreground">
           By signing up, you agree to our{" "}

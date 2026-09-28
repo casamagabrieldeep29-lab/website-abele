@@ -42,19 +42,20 @@ export default async function UpgradePage({
       />
 
       {profile?.plan === "subscriber" ? (
-        <Card>
+        <Card className={approved ? "border-success/30 bg-success/5" : undefined}>
           <CardContent className="py-6 text-center">
-            <p className="text-sm font-medium">You&apos;re already a Subscriber — thanks!</p>
-            <Button render={<Link href="/dashboard">Back to dashboard</Link>} nativeButton={false} className="mt-4" />
+            <p className="text-sm font-medium">
+              {approved ? "Payment verified — you're a Subscriber now. Enjoy!" : "You're already a Subscriber — thanks!"}
+            </p>
+            <Button
+              render={<Link href="/dashboard">{approved ? "Explore ABELIEVER now" : "Back to dashboard"}</Link>}
+              nativeButton={false}
+              className="mt-4"
+            />
           </CardContent>
         </Card>
       ) : (
         <>
-          {approved && (
-            <p className="rounded-md border border-success/30 bg-success/5 px-3 py-2 text-sm text-success">
-              Payment verified — you&apos;re a Subscriber now. Enjoy!
-            </p>
-          )}
           {submitted && (
             <p className="rounded-md border border-border bg-secondary/40 px-3 py-2 text-sm">
               Got it — we&apos;ll verify this and upgrade your account, usually within a day.

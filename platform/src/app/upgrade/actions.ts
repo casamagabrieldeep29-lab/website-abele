@@ -9,7 +9,25 @@ import { UPGRADE_PRICE_PHP, type PaymentMethodKey } from "@/lib/payment-methods"
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 
-export async function submitPaymentRequest(formData: FormData) {
+export type SubmitPaymentResult =
+  | { ok: true; autoApproved: boolean }
+  | { ok: false; error: "missing-fields" | "submit-failed" }
+  | null;
+
+/**
+ * Deliberately returns a result instead of redirect()-ing on success/error —
+ * the actual verification here is fast, but Gabriel's explicit "autoapproval
+ * shouldnt be flash like 1 second. it should take 20 seconds to 1 minutes"
+ * (2026-09-28) means the CALLER (upgrade-form.tsx / signup-form.tsx) holds
+ * this result behind a client-side delay + spinner before navigating,
+ * rather than the user seeing an instant "approved" that looks unchecked.
+ * That delay has to live client-side, not as a server-side sleep here —
+ * a serverless function held open for up to a minute risks the platform's
+ * own execution timeout killing the request mid-way, which would be a much
+ * worse failure than "approval felt fast." Still takes (_prev, formData)
+ * so it can be driven by useActionState on both call sites.
+ */
+export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData: FormData): Promise<SubmitPaymentResult> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -22,14 +40,14 @@ export async function submitPaymentRequest(formData: FormData) {
   const receipt = formData.get("receipt");
 
   if (!VALID_METHODS.includes(method as PaymentMethodKey) || !referenceNumber) {
-    redirect("/upgrade?error=missing-fields");
+    return { ok: false, error: "missing-fields" };
   }
 
   // A receipt is required (Gabriel's explicit "all must pay. and upload
   // their reference. and the screenshot of receipt", 2026-09-28) — no more
   // "submit without a receipt, wait for manual review" path.
   if (!(receipt instanceof File) || receipt.size === 0) {
-    redirect("/upgrade?error=missing-fields");
+    return { ok: false, error: "missing-fields" };
   }
 
   let receiptPath: string | null = null;
@@ -74,7 +92,7 @@ export async function submitPaymentRequest(formData: FormData) {
     .single();
 
   if (insertError || !inserted) {
-    redirect("/upgrade?error=submit-failed");
+    return { ok: false, error: "submit-failed" };
   }
 
   if (autoApproved) {
@@ -87,5 +105,5 @@ export async function submitPaymentRequest(formData: FormData) {
   }
 
   revalidatePath("/upgrade");
-  redirect(autoApproved ? "/upgrade?approved=1" : "/upgrade?submitted=1");
+  return { ok: true, autoApproved };
 }
