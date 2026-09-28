@@ -169,13 +169,13 @@ export function FlashcardStudy({ cards }: { cards: StudyCard[] }) {
     setFlipped(false);
   }
 
-  async function handleReview(state: "know" | "learning" | "dont_know") {
+  function handleReview(state: "know" | "learning" | "dont_know") {
     setTally((t) => ({ ...t, [state]: t[state] + 1 }));
-    try {
-      await reviewFlashcard(card.id, state);
-    } catch {
+    // Advance immediately — the progress write happens in the background so
+    // a slow network never makes the next card feel like it needs a second tap.
+    void reviewFlashcard(card.id, state).catch(() => {
       // Non-fatal — the session still continues even if the progress write fails.
-    }
+    });
     goNext();
   }
 

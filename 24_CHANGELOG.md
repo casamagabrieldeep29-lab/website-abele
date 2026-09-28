@@ -460,3 +460,24 @@ Gabriel's 26-part "world-class platform" spec (audited first, phased — see the
 **Testing performed:** logged in as the owner account via the local magic-link technique, drilled down Area → Subject → Topic on "Design of Biomass Gasifier as Power Source of Various Farm Machinery and Equipment" (33% mastery, 6 real attempts) — confirmed the existing stats block and Practice button render correctly and **no Concepts block appears**, which is the expected graceful-degradation result since the migration hasn't been run yet (`get_subtopic_mastery()` doesn't exist on the live database, so the fetch returns empty and `topic.concepts` is `[]`). No crash, no console error tied to the app. `npm run lint` and `npm run build` both clean. The actual Concepts UI itself (not just its absence) still needs the migration run before it can be verified end-to-end.
 
 **Not done yet (by design):** spaced review, confidence signals, Formula Trainer, Number Bank quizzing, diagram questions, and the landing page redesign remain in later phases — none started.
+
+---
+
+## 2026-09-28 — Dashboard Phase 4a: Formula Trainer + Number Bank Quiz (active recall on top of existing reference content)
+
+Checked real content counts before building anything: `questions.question_type = 'numerical'` (the schema Section 17 already reserved for a future "Formula Trainer" quiz) has **zero** rows — building a quiz UI on top of it right now would have shipped a feature with nothing to serve. But `reviewer_entries` (the existing `/reviewers` and `/paes/numbers` reference pages) has 924 published formulas and 892 PAES-referenced constants/tables sitting there as pure browse-only content with no active-recall layer — that's the real leverage, so both quizzes are built on `reviewer_entries` instead.
+
+**`supabase/patches/040_reviewer_entry_quiz.sql`** (needs the Supabase SQL Editor): `reviewer_entry_progress` + `record_reviewer_entry_review()` — a mechanical mirror of `flashcard_progress` / `record_flashcard_review()` (patch 009), just keyed on `entry_id` instead of `flashcard_id`. Same state machine (`know`/`learning`/`dont_know`), same upsert-with-increment shape, same own-row RLS.
+
+**`src/components/reviewer-quiz.tsx`** (new, shared by both features): the same self-grade flip-card loop as `FlashcardStudy`, generalized to quiz over `ReviewerEntry` instead of a separate flashcards table. The reveal side reuses `FormulaCard`/`ConstantCard`/`TableEntryCard` verbatim — the exact same cards already rendered on `/reviewers` and `/paes/numbers` — so a quizzed formula looks identical to its reference-page card, just behind a "what's the formula?" prompt first.
+
+**Formula Trainer** (`/reviewers/quiz`, linked from `/reviewers`'s header): Quick 10/20/Random/Saved over the 924 published formulas.
+
+**Number Bank Quiz** (`/paes/numbers/quiz`, linked from `/paes/numbers`'s header): same shape, scoped to `constant`/`table` entries that carry a `paes_reference` — matching `/paes/numbers`'s own existing filter exactly, so "Number Bank" means the same 892 entries in both places, not a bigger unfiltered set. Caught and fixed during testing: the start page's "N published entries available" count wasn't applying that same filter, so it showed the outer 1050 instead of the actual 892 the quiz pulls from — fixed to match.
+
+**Two bugs caught live-testing, both fixed before shipping:**
+1. **Nested `<button>` hydration error.** The flip-card container was a `<button>`, but `FormulaCard`/`ConstantCard` each have their own Copy `<button>` — invalid HTML once reused inside the flip card (this bug is new to this feature; `FlashcardStudy`'s flipped side is plain text with no interactive children, so it never hit this). Fixed by making the flip container a `<div role="button" tabIndex={0}>` with an Enter/Space key handler instead, keeping it keyboard-accessible without the invalid nesting.
+2. **Self-grade felt like it needed a second tap.** Both here and in the pre-existing `FlashcardStudy`, clicking Know it/Still learning/Don't know awaited the progress-write network call before advancing to the next card — on a slower connection that reads as "nothing happened, I have to tap Skip." Fixed in both components: the card now advances immediately, and the progress write fires in the background (still non-fatal on failure, same as before).
+
+**Testing performed:** logged in as the owner account via the local magic-link technique, ran a real Quick 10 Formula Trainer session (flipped a formula card, saw the real formula/variables/description render, self-graded, confirmed instant advance to card 2/10) and a real Quick 10 Number Bank Quiz session (flipped a table-kind card, saw real PAES 117:2000 content render, self-graded, confirmed instant advance). `npm run lint` and `npm run build` both clean.
+

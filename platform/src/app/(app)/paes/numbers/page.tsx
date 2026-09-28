@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { PaesNumberBankBrowser, type PaesNumberBankEntry } from "./paes-number-bank-browser";
 import { PageHeader } from "@/components/page-header";
 import { derivePaesCategory } from "@/lib/paes-categories";
+import { Button } from "@/components/ui/button";
 
 // Constants are always "one number" (value + unit) — an obvious fit for a
 // number bank. Table entries can't be reduced to a single number, but the
@@ -68,6 +70,7 @@ export default async function PaesNumberBankPage() {
       <PageHeader
         title="PAES Number Bank"
         description="Scannable numeric quick-lookups — values, dimensions, and space requirements straight out of the PAES standards."
+        action={<Button render={<Link href="/paes/numbers/quiz">Quiz Me →</Link>} nativeButton={false} size="sm" variant="secondary" />}
       />
 
       <PaesNumberBankBrowser entries={rows} />

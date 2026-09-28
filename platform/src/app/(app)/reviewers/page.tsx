@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { ReviewersBrowser, type ReviewerEntry } from "./reviewers-browser";
 import { PageHeader } from "@/components/page-header";
 import { RequestTranscription } from "@/components/request-transcription";
+import { Button } from "@/components/ui/button";
 
 type ReviewerEntryRow = Pick<
   ReviewerEntry,
@@ -62,7 +64,12 @@ export default async function ReviewersPage({
       <PageHeader
         title="Reviewers"
         description="Quick-reference tables, formulas, and constants — filterable by area and topic."
-        action={<RequestTranscription />}
+        action={
+          <div className="flex flex-wrap items-center gap-2">
+            <Button render={<Link href="/reviewers/quiz">Formula Trainer →</Link>} nativeButton={false} size="sm" variant="secondary" />
+            <RequestTranscription />
+          </div>
+        }
       />
 
       <ReviewersBrowser entries={rows} initialSearch={q ?? ""} />
