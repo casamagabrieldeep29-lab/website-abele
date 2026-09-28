@@ -52,6 +52,38 @@ async function askGemini(
   return { verified: match[1].toLowerCase() === "yes", reason: match[2].trim() };
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+// A 503 ("model is currently experiencing high demand... temporary") is a
+// different failure mode from a 429 quota error — the SAME key usually
+// works again a couple seconds later, unlike an exhausted daily quota where
+// retrying that key is pointless and the next key should be tried instead.
+function isTransientOverload(err: unknown): boolean {
+  const message = err instanceof Error ? err.message : String(err);
+  return /"code":\s*503|UNAVAILABLE|overloaded|high demand/i.test(message);
+}
+
+const OVERLOAD_RETRY_DELAYS_MS = [1500, 3000];
+
+async function askGeminiWithRetry(
+  apiKey: string,
+  model: string,
+  imageBase64: string,
+  mimeType: string,
+  referenceNumber: string,
+): Promise<ReceiptVerification> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await askGemini(apiKey, model, imageBase64, mimeType, referenceNumber);
+    } catch (err) {
+      if (attempt >= OVERLOAD_RETRY_DELAYS_MS.length || !isTransientOverload(err)) throw err;
+      await sleep(OVERLOAD_RETRY_DELAYS_MS[attempt]);
+    }
+  }
+}
+
 /**
  * Asks Gemini's vision model whether an uploaded payment-receipt screenshot
  * plausibly shows the given reference number and Gabriel's name/initials as
@@ -67,6 +99,10 @@ async function askGemini(
  * the next account's separate allowance instead of failing the request.
  * Add more free accounts' keys as GEMINI_API_KEY_2, _3, ... in Vercel to
  * raise the effective ceiling further; no code change needed for each one.
+ * Separately, a transient "model overloaded" 503 (Gabriel's explicit report,
+ * 2026-09-28) gets a couple of short retries on the SAME key first — unlike
+ * a 429 quota error, an overload usually clears within seconds, so moving
+ * straight to the next key isn't necessary.
  *
  * Never throws, and never auto-approves on an inconclusive result: any
  * failure (no key configured, every key's API call failing, unparseable
@@ -86,7 +122,7 @@ export async function verifyReceipt(
   let lastErr: unknown = null;
   for (const apiKey of apiKeys) {
     try {
-      return await askGemini(apiKey, model, imageBase64, mimeType, referenceNumber);
+      return await askGeminiWithRetry(apiKey, model, imageBase64, mimeType, referenceNumber);
     } catch (err) {
       lastErr = err;
     }
@@ -105,7 +141,7 @@ export async function verifyReceipt(
 // fall back to a short, truncated message instead of the full blob.
 function describeVerificationError(err: unknown): string {
   const message = err instanceof Error ? err.message : String(err);
-  if (/RESOURCE_EXHAUSTED|"code":\s*429/.test(message)) {
+  if (/RESOURCE_EXHAUSTED|"code":\s*429/.test(message) || isTransientOverload(err)) {
     return "AI explanation is temporarily unavailable. Please try again.";
   }
   return `Receipt check failed: ${message.slice(0, 150)}`;
