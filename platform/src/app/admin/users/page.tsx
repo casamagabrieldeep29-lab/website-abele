@@ -50,33 +50,45 @@ function dayKeyManila(iso: string): string {
   return new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(new Date(iso));
 }
 
-function dayLabelManila(dayKey: string): string {
-  const todayKey = new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(new Date());
-  const yesterdayKey = new Intl.DateTimeFormat("en-CA", { timeZone: MANILA_TZ }).format(
-    new Date(Date.now() - 24 * 60 * 60 * 1000),
-  );
-  if (dayKey === todayKey) return "Today";
-  if (dayKey === yesterdayKey) return "Yesterday";
-  return new Date(`${dayKey}T00:00:00Z`).toLocaleDateString("en-US", {
-    timeZone: "UTC",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+// Monday's YYYY-MM-DD (UTC-safe, since dayKeyManila already collapsed away
+// the timezone) for the Manila-local week a timestamp falls in — used to
+// group users by week instead of by individual day (Gabriel's explicit
+// "this should be by week now collapsable", 2026-09-28).
+function weekKeyManila(iso: string): string {
+  const d = new Date(`${dayKeyManila(iso)}T00:00:00Z`);
+  const daysSinceMonday = (d.getUTCDay() + 6) % 7; // getUTCDay: 0=Sun..6=Sat
+  d.setUTCDate(d.getUTCDate() - daysSinceMonday);
+  return d.toISOString().slice(0, 10);
 }
 
-/** Groups an already newest-first list into per-day sections, newest day
- * first — the input's own order is preserved within each day, so this
- * relies on the caller having already sorted by created_at descending. */
-function groupByDay(list: Profile[]): { dayKey: string; label: string; items: Profile[] }[] {
-  const byDay = new Map<string, Profile[]>();
+function weekLabelManila(weekKey: string): string {
+  const start = new Date(`${weekKey}T00:00:00Z`);
+  const end = new Date(start);
+  end.setUTCDate(end.getUTCDate() + 6);
+  const fmt = (d: Date) => d.toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric" });
+  const range = `${fmt(start)} – ${fmt(end)}`;
+
+  const thisWeekKey = weekKeyManila(new Date().toISOString());
+  if (weekKey === thisWeekKey) return `This week (${range})`;
+  const lastWeekStart = new Date(`${thisWeekKey}T00:00:00Z`);
+  lastWeekStart.setUTCDate(lastWeekStart.getUTCDate() - 7);
+  if (weekKey === lastWeekStart.toISOString().slice(0, 10)) return `Last week (${range})`;
+  return range;
+}
+
+/** Groups an already newest-first list into per-week sections (Manila time,
+ * Monday-start), newest week first — the input's own order is preserved
+ * within each week, so this relies on the caller having already sorted by
+ * created_at descending. */
+function groupByWeek(list: Profile[]): { weekKey: string; label: string; items: Profile[] }[] {
+  const byWeek = new Map<string, Profile[]>();
   for (const p of list) {
-    const key = dayKeyManila(p.created_at);
-    const group = byDay.get(key) ?? [];
+    const key = weekKeyManila(p.created_at);
+    const group = byWeek.get(key) ?? [];
     group.push(p);
-    byDay.set(key, group);
+    byWeek.set(key, group);
   }
-  return [...byDay.entries()].map(([dayKey, items]) => ({ dayKey, label: dayLabelManila(dayKey), items }));
+  return [...byWeek.entries()].map(([weekKey, items]) => ({ weekKey, label: weekLabelManila(weekKey), items }));
 }
 
 function isOnline(lastSeenAt: string | null): boolean {
@@ -198,26 +210,32 @@ export default async function AdminUsersPage({
           width up, each with its own 2-column tile grid — 4 tiles across on
           a full desktop/tablet screen. Both collapse to a single stacked
           column on mobile. Within each column, users are grouped into
-          per-day sections (Philippine time), newest day first — the day
-          groups AND the users within each day both inherit the newest-
-          first order already established by the created_at desc query. */}
+          collapsible per-week sections (Philippine time, Monday-start),
+          newest week first — the week groups AND the users within each week
+          both inherit the newest-first order already established by the
+          created_at desc query. Only the newest week starts expanded (via
+          `open` on the first <details>), keeping a long user list scannable
+          instead of one huge unbroken wall. Plain <details>/<summary> since
+          this is a server component with no other interactivity — no client
+          JS needed for expand/collapse. */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <h2 className="text-sm font-semibold">
             Subscribers <span className="text-muted-foreground">({subscribers.length})</span>
           </h2>
-          <div className="mt-2 space-y-4">
-            {groupByDay(subscribers).map((day) => (
-              <div key={day.dayKey}>
-                <p className="mb-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  {day.label} <span className="normal-case">({day.items.length})</span>
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {day.items.map((p) => (
+          <div className="mt-2 space-y-2">
+            {groupByWeek(subscribers).map((week, i) => (
+              <details key={week.weekKey} open={i === 0} className="group rounded-md border border-border/60">
+                <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase select-none">
+                  <span className="mr-1 inline-block transition-transform group-open:rotate-90">›</span>
+                  {week.label} <span className="normal-case">({week.items.length})</span>
+                </summary>
+                <div className="grid grid-cols-1 gap-3 border-t border-border/60 p-3 sm:grid-cols-2">
+                  {week.items.map((p) => (
                     <UserRow key={p.id} p={p} currentUserId={currentUser.id} showDowngrade />
                   ))}
                 </div>
-              </div>
+              </details>
             ))}
           </div>
           {subscribers.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No subscribers yet.</p>}
@@ -227,14 +245,15 @@ export default async function AdminUsersPage({
           <h2 className="text-sm font-semibold">
             Free-Trial Users <span className="text-muted-foreground">({trialUsers.length})</span>
           </h2>
-          <div className="mt-2 space-y-4">
-            {groupByDay(trialUsers).map((day) => (
-              <div key={day.dayKey}>
-                <p className="mb-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  {day.label} <span className="normal-case">({day.items.length})</span>
-                </p>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {day.items.map((p) => {
+          <div className="mt-2 space-y-2">
+            {groupByWeek(trialUsers).map((week, i) => (
+              <details key={week.weekKey} open={i === 0} className="group rounded-md border border-border/60">
+                <summary className="cursor-pointer list-none px-3 py-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase select-none">
+                  <span className="mr-1 inline-block transition-transform group-open:rotate-90">›</span>
+                  {week.label} <span className="normal-case">({week.items.length})</span>
+                </summary>
+                <div className="grid grid-cols-1 gap-3 border-t border-border/60 p-3 sm:grid-cols-2">
+                  {week.items.map((p) => {
                     const left = daysLeft(p.trial_started_at);
                     const badge =
                       left <= 0 ? (
@@ -247,7 +266,7 @@ export default async function AdminUsersPage({
                     return <UserRow key={p.id} p={p} currentUserId={currentUser.id} trialBadge={badge} />;
                   })}
                 </div>
-              </div>
+              </details>
             ))}
           </div>
           {trialUsers.length === 0 && (
