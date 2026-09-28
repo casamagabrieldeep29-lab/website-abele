@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import { SignupForm } from "./signup-form";
 import { createClient } from "@/lib/supabase/server";
-import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
+import { getPaymentMethods, UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
 
 export default async function SignupPage() {
   const supabase = await createClient();
@@ -37,7 +37,7 @@ export default async function SignupPage() {
           </ul>
         </div>
 
-        <SignupForm />
+        <SignupForm paymentMethods={getPaymentMethods()} />
       </div>
     </main>
   );

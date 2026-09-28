@@ -571,3 +571,17 @@ Added a collapsed-by-default FAQ section near the bottom of the landing page, ri
 Every answer matches real product behavior rather than separately-maintained marketing copy: price (₱159 one-time), the free trial (only mentioned as the skip-payment option, consistent with the rest of the page), payment methods and verification turnaround, an explicit "this is not official PRC material" disclaimer (matches the existing Table of Specifications disclaimer elsewhere on the page), a link to the new Privacy Policy, and that a password is optional.
 
 **Testing performed:** live-verified the section renders fully collapsed by default (confirmed via a full page text extraction — no answer text present until interacted with), then clicked the first question and confirmed only its answer expanded while the other 7 stayed collapsed. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-09-28 — Signup: payment path skips the confirmation email entirely
+
+Gabriel's follow-up on the payment-options-first signup redesign: choosing a payment method was showing the real GCash/Maya/Landbank account details immediately (good), but submitting still sent a confirmation email before the student could actually tell us they'd paid. He wanted the opposite ordering — "only send the confirmation email after payment or they skip payment."
+
+**The actual fix goes further than just reordering** — the payment path now needs no email at all. `signup/actions.ts`'s new `signUpAndSubmitPayment()`: `admin.auth.admin.createUser({ email, password, email_confirm: true })` creates an already-confirmed account directly (Supabase never sends its own confirmation email for a user created this way), the student is signed in immediately with the password they just set, and their payment is submitted through the *exact same* `submitPaymentRequest()` `/upgrade` itself already uses — reused directly, not reimplemented, since a real session now exists for it to read. Password becomes required (not optional) only on this path, specifically because avoiding the email round trip is the whole point.
+
+**`submitSignup()`'s dispatcher** now checks `intent` first: a valid payment method always requires a reference number and always routes through the no-email path above, never falling through to the email-sending branches below it. Skip (`intent === ""`) is completely unchanged — still branches on whether a password was entered, still sends a magic-link or confirmation email exactly as before.
+
+**`signup-form.tsx`:** picking a method now reveals the real payment account details (name/number, same data `/upgrade` shows) plus the reference number / payer name / receipt fields inline, right there in the signup form — matching "give them my payment details." The submit button reads "I've paid — submit and continue" for this path.
+
+**Testing performed:** full live end-to-end test — picked GCash, saw the real account details, filled in school/status/email/password/reference number, submitted. Landed directly on `/upgrade?submitted=1` with no email step. Verified via direct database reads: `auth.users.email_confirmed_at` was set at account-creation time (no confirmation click ever needed), and a real `payment_requests` row existed with the correct method/reference number, `status: 'pending'` (correct, since no receipt was attached in this test). Cleaned up the test account afterward. `npm run lint` and `npm run build` both clean.

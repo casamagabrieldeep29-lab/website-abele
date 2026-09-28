@@ -6,7 +6,7 @@ import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { PaymentMethodKey } from "@/lib/payment-methods";
+import type { PaymentMethodInfo, PaymentMethodKey } from "@/lib/payment-methods";
 import { submitSignup, verifySignupOtpCode, type SignupSubmitResult, type VerifySignupOtpResult } from "./actions";
 
 const initialSubmitState: SignupSubmitResult = null;
@@ -19,6 +19,17 @@ const METHODS: { key: PaymentMethodKey; label: string }[] = [
 ];
 
 type AcademicStatus = "student" | "reviewee";
+
+/** The real GCash/Maya/Landbank account to pay, shown as soon as a method is chosen. Same account data /upgrade already shows. */
+function PaymentDetails({ method }: { method: PaymentMethodInfo }) {
+  return (
+    <div className="rounded-lg border border-border bg-background p-4 text-left">
+      <p className="text-sm font-semibold">{method.label}</p>
+      <p className="mt-1 text-sm">{method.accountName}</p>
+      <p className="font-mono text-sm">{method.accountNumber}</p>
+    </div>
+  );
+}
 
 function CodeForm({
   email,
@@ -71,18 +82,20 @@ function CodeForm({
   );
 }
 
-export function SignupForm() {
+export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodInfo[] }) {
   const [result, formAction, isPending] = useActionState(submitSignup, initialSubmitState);
   // Nothing is pre-selected — the 3 payment methods are the encouraged path
   // and deliberately aren't pre-highlighted as if one were already chosen.
   // null = no choice made yet, "" = explicitly skipped (free trial), a
-  // PaymentMethodKey = that method chosen. The submit button only mentions
-  // "free trial" once "" is chosen on purpose, never as the unstated
-  // default — picking a method just changes where the student lands after
-  // verifying (see actions.ts's redirectTargetFor); nothing is charged here.
+  // PaymentMethodKey = that method chosen. Choosing a method never sends any
+  // email on its own — see actions.ts's signUpAndSubmitPayment — only
+  // submitting an actual reference number (or explicitly skipping) does.
   const [intent, setIntent] = useState<PaymentMethodKey | "" | null>(null);
   const [school, setSchool] = useState("");
   const [academicStatus, setAcademicStatus] = useState<AcademicStatus | "">("");
+  const [fileName, setFileName] = useState<string | null>(null);
+
+  const chosenMethod = intent ? paymentMethods.find((m) => m.key === intent) ?? null : null;
 
   if (result?.kind === "magic_link") {
     return <CodeForm email={result.email} intent={result.intent} school={school} academicStatus={academicStatus} />;
@@ -121,6 +134,7 @@ export function SignupForm() {
             </button>
           ))}
         </div>
+        {chosenMethod && <div className="mt-3"><PaymentDetails method={chosenMethod} /></div>}
         <button
           type="button"
           onClick={() => setIntent("")}
@@ -134,6 +148,7 @@ export function SignupForm() {
 
       <form action={formAction} className="space-y-4">
         <input type="hidden" name="intent" value={intent ?? ""} />
+        {chosenMethod && <input type="hidden" name="method" value={chosenMethod.key} />}
 
         <div className="space-y-2">
           <Label htmlFor="school">School</Label>
@@ -186,16 +201,48 @@ export function SignupForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Password (optional)</Label>
+          <Label htmlFor="password">{chosenMethod ? "Password" : "Password (optional)"}</Label>
           <Input
             id="password"
             name="password"
             type="password"
-            placeholder="Leave blank to sign in with an emailed code instead"
+            placeholder={
+              chosenMethod
+                ? "At least 8 characters — needed to sign you in instantly"
+                : "Leave blank to sign in with an emailed code instead"
+            }
             autoComplete="new-password"
             minLength={8}
+            required={Boolean(chosenMethod)}
           />
         </div>
+
+        {chosenMethod && (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="referenceNumber">Reference / transaction number</Label>
+              <Input id="referenceNumber" name="referenceNumber" required placeholder="e.g. 1234567890123" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="payerName">Your name on the payment (optional)</Label>
+              <Input id="payerName" name="payerName" placeholder="If different from your account name" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="receipt">Receipt screenshot (optional, but gets you approved instantly)</Label>
+              <input
+                id="receipt"
+                name="receipt"
+                type="file"
+                accept="image/*"
+                onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
+                className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border file:border-border file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-secondary-foreground"
+              />
+              {fileName && <p className="text-xs text-muted-foreground">Selected: {fileName}</p>}
+            </div>
+          </>
+        )}
 
         {result?.kind === "error" && (
           <p className="text-sm text-destructive">{result.message}</p>
@@ -204,8 +251,8 @@ export function SignupForm() {
         <Button type="submit" className="w-full" disabled={isPending}>
           {isPending
             ? "Setting up…"
-            : intent
-              ? `Continue with ${METHODS.find((m) => m.key === intent)?.label}`
+            : chosenMethod
+              ? "I've paid — submit and continue"
               : intent === ""
                 ? "Start my free trial"
                 : "Continue"}
