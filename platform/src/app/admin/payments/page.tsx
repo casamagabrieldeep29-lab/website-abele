@@ -52,7 +52,12 @@ export default async function AdminPaymentsPage() {
   const allPaths = [...pendingRows, ...autoRows].map((r) => r.receipt_path).filter((p): p is string => Boolean(p));
   const signedUrlByPath = new Map<string, string>();
   if (allPaths.length > 0) {
-    const { data: signed } = await admin.storage.from("payment-receipts").createSignedUrls(allPaths, 60 * 60);
+    // Long-lived on purpose (Gabriel's explicit "make the pictures available
+    // until declined or approved", 2026-09-28) -- a fresh signed URL is
+    // generated on every page load anyway, but this keeps an already-open
+    // receipt tab (or a bookmarked link) working across a multi-day review
+    // instead of dying after an hour.
+    const { data: signed } = await admin.storage.from("payment-receipts").createSignedUrls(allPaths, 60 * 60 * 24 * 30);
     for (const s of signed ?? []) {
       if (s.signedUrl && s.path) signedUrlByPath.set(s.path, s.signedUrl);
     }
