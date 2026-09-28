@@ -73,7 +73,7 @@ export async function verifyReceipt(
 function describeVerificationError(err: unknown): string {
   const message = err instanceof Error ? err.message : String(err);
   if (/RESOURCE_EXHAUSTED|"code":\s*429/.test(message)) {
-    return "Receipt check failed: AI quota exceeded for now — needs manual review.";
+    return "AI explanation is temporarily unavailable. Please try again.";
   }
   return `Receipt check failed: ${message.slice(0, 150)}`;
 }
