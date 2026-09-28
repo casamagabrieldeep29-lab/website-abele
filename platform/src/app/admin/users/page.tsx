@@ -109,10 +109,15 @@ export default async function AdminUsersPage({
 
   // RLS's profiles_select_own_or_admin policy already lets an admin read
   // every row here — no service-role client needed just to list users.
+  // Capped rather than truly unbounded (flagged in the 2026-09-28
+  // public-launch audit) — 2000 is far above current scale, just a floor
+  // against this query growing unboundedly forever; a real "load more" UI
+  // is the next step if the user base actually approaches that.
   const { data } = await supabase
     .from("profiles")
     .select("id, email, display_name, role, created_at, plan, trial_started_at, last_seen_at")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(2000);
 
   const profiles = (data ?? []) as Profile[];
   const subscribers = profiles.filter((p) => p.plan === "subscriber" || p.role === "admin");

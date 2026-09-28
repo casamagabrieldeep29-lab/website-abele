@@ -38,7 +38,10 @@ export default async function AdminPaymentsPage() {
       .from("payment_requests")
       .select("*, profiles!payment_requests_user_id_fkey(email, display_name)")
       .eq("status", "pending")
-      .order("submitted_at", { ascending: true }),
+      .order("submitted_at", { ascending: true })
+      // Capped, not truly unbounded (2026-09-28 public-launch audit) — a
+      // pending backlog this deep would itself be the real problem to fix.
+      .limit(500),
     admin
       .from("payment_requests")
       .select("*, profiles!payment_requests_user_id_fkey(email, display_name)")
