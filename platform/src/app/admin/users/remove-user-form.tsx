@@ -29,6 +29,7 @@ export function RemoveUserForm({ userId, name }: { userId: string; name: string 
         Permanently deletes {name}&apos;s account and study data. This cannot be undone.
       </p>
       <Input
+        name="confirmation"
         value={confirmation}
         onChange={(e) => setConfirmation(e.target.value)}
         placeholder={`Type ${CONFIRM_TEXT} to confirm`}

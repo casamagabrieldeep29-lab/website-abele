@@ -585,3 +585,13 @@ Gabriel's follow-up on the payment-options-first signup redesign: choosing a pay
 **`signup-form.tsx`:** picking a method now reveals the real payment account details (name/number, same data `/upgrade` shows) plus the reference number / payer name / receipt fields inline, right there in the signup form — matching "give them my payment details." The submit button reads "I've paid — submit and continue" for this path.
 
 **Testing performed:** full live end-to-end test — picked GCash, saw the real account details, filled in school/status/email/password/reference number, submitted. Landed directly on `/upgrade?submitted=1` with no email step. Verified via direct database reads: `auth.users.email_confirmed_at` was set at account-creation time (no confirmation click ever needed), and a real `payment_requests` row existed with the correct method/reference number, `status: 'pending'` (correct, since no receipt was attached in this test). Cleaned up the test account afterward. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-09-28 — Fix: admin "Remove" on Subscribers/Free-Trial Users never actually worked
+
+Gabriel reported that removing a user from `/admin/users` just kept saying "type REMOVE" no matter what was typed. Real bug, found in `src/app/admin/users/remove-user-form.tsx`: the confirmation `<Input>` had `value`/`onChange` wired up (so the "Confirm remove" button correctly enabled once "REMOVE" was typed) but **no `name` attribute** — so when the form actually submitted, the browser's `FormData` never included that field at all. Server-side, `removeUser()` read `formData.get("confirmation")` as `null` → empty string → never equal to `"REMOVE"` → always redirected back with the confirmation error, regardless of what was typed. The identical pattern in Settings' "Delete Account" (`delete-account-form.tsx`) was checked too and was already correct — this was isolated to the one file.
+
+**Fix:** added `name="confirmation"` to the input.
+
+**Testing performed:** created a disposable test account directly against the database, logged in as the owner account, and used the real admin UI to remove it — confirmed the row disappeared from the Free-Trial Users list and, via a direct database read afterward, that the account was actually gone. `npm run lint` and `npm run build` both clean.
