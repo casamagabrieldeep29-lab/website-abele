@@ -107,13 +107,24 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
-    // Free-trial accounts are manually assigned by an admin at invite time
-    // (no payment gateway — see patch 032_subscriber_plan.sql) and expire
-    // trialMsFor(trial_started_at) after trial_started_at unless moved to
-    // "subscriber" — see src/lib/trial.ts for why this isn't a flat
-    // constant (the 14->3 day policy change only applies to trials that
-    // started after it, never retroactively). Admins are never gated by
-    // this, regardless of their own plan value.
+    // A self-serve signup lands on "pending" (patch 043_pending_plan.sql) —
+    // payment was already submitted at signup, just not yet approved (by an
+    // admin at /admin/payments, or instantly by the receipt AI check) — and
+    // stays gated unconditionally until it flips to "subscriber". This is
+    // unconditional (unlike the trial case below) because there's no grace
+    // period to wait out: nothing here becomes not-gated with time passing.
+    if (profile && profile.role !== "admin" && profile.plan === "pending") {
+      return NextResponse.redirect(new URL("/upgrade", request.url));
+    }
+
+    // Free-trial accounts are the deliberate admin-side override (invite
+    // someone with a free trial, or "downgrade to trial" from /admin/users
+    // — see patch 032_subscriber_plan.sql) and expire trialMsFor(trial_started_at)
+    // after trial_started_at unless moved to "subscriber" — see
+    // src/lib/trial.ts for why this isn't a flat constant (the 14->3->1 day
+    // policy changes only apply to trials that started after each cutover,
+    // never retroactively). Admins are never gated by this, regardless of
+    // their own plan value.
     if (profile && profile.role !== "admin" && profile.plan === "trial") {
       const expiresAt = new Date(profile.trial_started_at).getTime() + trialMsFor(profile.trial_started_at);
       if (Date.now() >= expiresAt) {

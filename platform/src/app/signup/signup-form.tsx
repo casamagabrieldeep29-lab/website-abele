@@ -7,10 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { PaymentMethodInfo, PaymentMethodKey } from "@/lib/payment-methods";
-import { submitSignup, verifySignupOtpCode, type SignupSubmitResult, type VerifySignupOtpResult } from "./actions";
+import { submitSignup, type SignupSubmitResult } from "./actions";
 
 const initialSubmitState: SignupSubmitResult = null;
-const initialVerifyState: VerifySignupOtpResult = null;
 
 const METHODS: { key: PaymentMethodKey; label: string }[] = [
   { key: "gcash", label: "GCash" },
@@ -31,87 +30,19 @@ function PaymentDetails({ method }: { method: PaymentMethodInfo }) {
   );
 }
 
-function CodeForm({
-  email,
-  intent,
-  school,
-  academicStatus,
-}: {
-  email: string;
-  intent: string;
-  school: string;
-  academicStatus: AcademicStatus | "";
-}) {
-  const [result, formAction, isPending] = useActionState(verifySignupOtpCode, initialVerifyState);
-
-  return (
-    <div className="rounded-lg border bg-card p-6">
-      <p className="font-medium">Check your email</p>
-      <p className="mt-1 text-sm text-muted-foreground">
-        We&apos;ve sent a signup link to <strong>{email}</strong>. You can click it, or — if the
-        link says it&apos;s expired (some email apps open links automatically to scan them) —
-        enter the code from the same email instead.
-      </p>
-
-      <form action={formAction} className="mt-4 space-y-3">
-        <input type="hidden" name="email" value={email} />
-        <input type="hidden" name="intent" value={intent} />
-        <input type="hidden" name="school" value={school} />
-        <input type="hidden" name="academicStatus" value={academicStatus} />
-        <div className="space-y-2">
-          <Label htmlFor="token">Signup code</Label>
-          <Input
-            id="token"
-            name="token"
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            placeholder="Code from your email"
-            required
-          />
-        </div>
-
-        {result && !result.ok && (
-          <p className="text-sm text-destructive">{result.message}</p>
-        )}
-
-        <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Verifying…" : "Verify code"}
-        </Button>
-      </form>
-    </div>
-  );
-}
-
 export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodInfo[] }) {
   const [result, formAction, isPending] = useActionState(submitSignup, initialSubmitState);
   // Nothing is pre-selected — the 3 payment methods are the encouraged path
   // and deliberately aren't pre-highlighted as if one were already chosen.
-  // null = no choice made yet, "" = explicitly skipped (free trial), a
-  // PaymentMethodKey = that method chosen. Choosing a method never sends any
-  // email on its own — see actions.ts's signUpAndSubmitPayment — only
-  // submitting an actual reference number (or explicitly skipping) does.
-  const [intent, setIntent] = useState<PaymentMethodKey | "" | null>(null);
+  // No more "skip payment" option — every account must pay, upload a
+  // reference number, and attach a receipt screenshot (Gabriel's explicit
+  // "let's not have free trial. all must pay", 2026-09-28).
+  const [intent, setIntent] = useState<PaymentMethodKey | null>(null);
   const [school, setSchool] = useState("");
   const [academicStatus, setAcademicStatus] = useState<AcademicStatus | "">("");
   const [fileName, setFileName] = useState<string | null>(null);
 
   const chosenMethod = intent ? paymentMethods.find((m) => m.key === intent) ?? null : null;
-
-  if (result?.kind === "magic_link") {
-    return <CodeForm email={result.email} intent={result.intent} school={school} academicStatus={academicStatus} />;
-  }
-
-  if (result?.kind === "password_confirm") {
-    return (
-      <div className="rounded-lg border bg-card p-6 text-center">
-        <p className="font-medium">Check your email</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          We&apos;ve sent a confirmation link to <strong>{result.email}</strong>. Click it to finish setting up your
-          account.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-5">
@@ -135,15 +66,6 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
           ))}
         </div>
         {chosenMethod && <div className="mt-3"><PaymentDetails method={chosenMethod} /></div>}
-        <button
-          type="button"
-          onClick={() => setIntent("")}
-          className={`mt-3 text-xs underline-offset-2 hover:underline ${
-            intent === "" ? "font-medium text-foreground" : "text-muted-foreground"
-          }`}
-        >
-          Skip — I&apos;ll pay later, start my free trial instead
-        </button>
       </div>
 
       <form action={formAction} className="space-y-4">
@@ -201,19 +123,15 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">{chosenMethod ? "Password" : "Password (optional)"}</Label>
+          <Label htmlFor="password">Password</Label>
           <Input
             id="password"
             name="password"
             type="password"
-            placeholder={
-              chosenMethod
-                ? "At least 8 characters — needed to sign you in instantly"
-                : "Leave blank to sign in with an emailed code instead"
-            }
+            placeholder="At least 8 characters — needed to sign you in instantly"
             autoComplete="new-password"
             minLength={8}
-            required={Boolean(chosenMethod)}
+            required
           />
         </div>
 
@@ -230,16 +148,21 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="receipt">Receipt screenshot (optional, but gets you approved instantly)</Label>
+              <Label htmlFor="receipt">Receipt screenshot</Label>
               <input
                 id="receipt"
                 name="receipt"
                 type="file"
                 accept="image/*"
+                required
                 onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
                 className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border file:border-border file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-secondary-foreground"
               />
               {fileName && <p className="text-xs text-muted-foreground">Selected: {fileName}</p>}
+              <p className="text-xs text-muted-foreground">
+                Must clearly show the reference number above and the recipient&apos;s name — we&apos;ll check it
+                automatically and approve you instantly if it matches, or verify it by hand within a day.
+              </p>
             </div>
           </>
         )}
@@ -248,14 +171,8 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
           <p className="text-sm text-destructive">{result.message}</p>
         )}
 
-        <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending
-            ? "Setting up…"
-            : chosenMethod
-              ? "I've paid — submit and continue"
-              : intent === ""
-                ? "Start my free trial"
-                : "Continue"}
+        <Button type="submit" className="w-full" disabled={isPending || !chosenMethod}>
+          {isPending ? "Setting up…" : chosenMethod ? "I've paid — submit and continue" : "Pick a payment method above"}
         </Button>
 
         <p className="text-center text-xs text-muted-foreground">

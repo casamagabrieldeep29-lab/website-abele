@@ -44,19 +44,20 @@ export function UpgradeForm({ defaultMethod }: { defaultMethod: PaymentMethodKey
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="receipt">Receipt screenshot (optional, but gets you approved instantly)</Label>
+        <Label htmlFor="receipt">Receipt screenshot</Label>
         <input
           id="receipt"
           name="receipt"
           type="file"
           accept="image/*"
+          required
           onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
           className="block w-full text-sm text-muted-foreground file:mr-3 file:rounded-md file:border file:border-border file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-secondary-foreground"
         />
         {fileName && <p className="text-xs text-muted-foreground">Selected: {fileName}</p>}
         <p className="text-xs text-muted-foreground">
-          Must clearly show the reference number above and the recipient&apos;s name — attach it and we&apos;ll check
-          it automatically. No receipt is fine too; we&apos;ll verify it by hand instead (usually within a day).
+          Must clearly show the reference number above and the recipient&apos;s name — we&apos;ll check it
+          automatically and approve you instantly if it matches, or verify it by hand within a day.
         </p>
       </div>
 

@@ -33,9 +33,10 @@ export async function rejectPaymentRequest(requestId: string) {
  * For an auto-approved request that turns out to be fake on manual
  * spot-check — the safety net for /upgrade's "auto-approve when the
  * receipt checks out" path (Gabriel's explicit request, 2026-09-28).
- * Resets trial_started_at to now, same reasoning as downgradeToTrial in
- * ../actions.ts: the trial clock starts fresh from this specific demotion,
- * not from some unrelated past timestamp.
+ * Demotes back to "pending" (gated unconditionally at /upgrade until a real
+ * payment is approved), not "trial" — there's no more free trial to fall
+ * back to (2026-09-28's "all must pay" policy), so a revoked fake payment
+ * must not hand out one by accident.
  */
 export async function revokeAutoApproval(requestId: string, userId: string) {
   const { user } = await requireAdmin();
@@ -50,10 +51,7 @@ export async function revokeAutoApproval(requestId: string, userId: string) {
       reviewed_by: user.id,
     })
     .eq("id", requestId);
-  await admin
-    .from("profiles")
-    .update({ plan: "trial", trial_started_at: new Date().toISOString() })
-    .eq("id", userId);
+  await admin.from("profiles").update({ plan: "pending" }).eq("id", userId);
 
   revalidatePath("/admin/payments");
 }
