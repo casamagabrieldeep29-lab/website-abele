@@ -55,3 +55,22 @@ export async function revokeAutoApproval(requestId: string, userId: string) {
 
   revalidatePath("/admin/payments");
 }
+
+/**
+ * The other outcome of a spot-check — "I looked, this one's legit." Only
+ * removes the request from the "Recently auto-approved" review list
+ * (patch 044_payment_spot_check.sql's spot_checked_at, filtered out of that
+ * query) — deliberately does NOT touch payment_requests.status or
+ * profiles.plan, since the student is already correctly a subscriber and
+ * this is just dismissing it from the queue (Gabriel's explicit "the
+ * autoapproved account will be deleted in the list. but not in the users
+ * subscriber", 2026-09-28).
+ */
+export async function confirmAutoApproval(requestId: string) {
+  await requireAdmin();
+  const admin = createAdminClient();
+
+  await admin.from("payment_requests").update({ spot_checked_at: new Date().toISOString() }).eq("id", requestId);
+
+  revalidatePath("/admin/payments");
+}
