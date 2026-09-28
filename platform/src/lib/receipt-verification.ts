@@ -61,9 +61,19 @@ export async function verifyReceipt(
     if (!match) return { verified: false, reason: `Unclear AI response: ${text.slice(0, 200)}` };
     return { verified: match[1].toLowerCase() === "yes", reason: match[2].trim() };
   } catch (err) {
-    return {
-      verified: false,
-      reason: `Receipt check failed: ${err instanceof Error ? err.message : "unknown error"}`,
-    };
+    return { verified: false, reason: describeVerificationError(err) };
   }
+}
+
+// Gemini's SDK throws with the raw HTTP error body as the message (a wall of
+// JSON) — showing that verbatim as the admin-facing note on /admin/payments
+// is unreadable, so recognize the common cases (namely the free-tier daily
+// quota, which is easy to hit and not actionable per-request) and otherwise
+// fall back to a short, truncated message instead of the full blob.
+function describeVerificationError(err: unknown): string {
+  const message = err instanceof Error ? err.message : String(err);
+  if (/RESOURCE_EXHAUSTED|"code":\s*429/.test(message)) {
+    return "Receipt check failed: AI quota exceeded for now — needs manual review.";
+  }
+  return `Receipt check failed: ${message.slice(0, 150)}`;
 }
