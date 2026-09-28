@@ -521,3 +521,13 @@ Gabriel's earlier answer ("invite-only by design") stood until he explicitly ask
 **Copy fixed elsewhere for the same reason:** `/login`'s "Access is invite-only, contact your administrator" became "Don't have an account yet? Start a free trial"; the failed-login error message now points to signup instead of an admin invite; `/admin/users`'s invite-panel description now explains that self-signup is the normal path and admin invites are for manually granting access (e.g. straight to Subscriber) without it.
 
 **Testing performed:** submitted a real signup through the live form with a disposable test address, confirmed via a direct database read that a real `profiles` row was created with `role: 'student'`, `plan: 'trial'`, `trial_started_at` set to the exact signup moment — the same shape as an admin-invited trial account — then deleted that test account via `auth.admin.deleteUser()` (cascades to `profiles`) so nothing test-only was left in the live user table. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-09-28 — Trial shortened again: 3 days -> 1 day for new signups (non-retroactive, same day as launch)
+
+Gabriel asked for the free trial to be 1 day for new users — same day the self-signup feature (and its 3-day trial) shipped. Two real students had already signed up through it and started real 3-day trials (`ggabdcc@gmail.com` at 10:34:51 UTC, `quiaprenren@gmail.com` at 10:34:18 UTC — checked directly against the database before changing anything) before this ask, so the same non-retroactive rule from the first trial-length change applies again: their trials keep running at 3 days, only trials that start after this point get 1 day.
+
+**`src/lib/trial.ts`:** extended from a 2-tier to a 3-tier policy — `trialLengthDaysFor()` now checks two cutover timestamps in order: before 2026-09-28T00:00:00Z stays 14 days (original policy), 2026-09-28T00:00:00Z through the new `SECOND_TRIAL_POLICY_CHANGE_AT` (2026-09-28T10:40:00Z, chosen a few minutes after the two real signups above) stays 3 days, and anything from that second cutover onward is the new `TRIAL_DAYS = 1`. Every call site already read `TRIAL_DAYS` from this module rather than a hardcoded number (from the first trial-length change's own cleanup), so the landing page, `/signup`'s pricing block, `/trial-expired`, and the admin invite panel all picked up "1 day" automatically — no other file needed editing for the number itself.
+
+**Testing performed:** re-queried the database after the change and confirmed both real trial users' `trial_started_at` still falls before the new cutover (so `trialLengthDaysFor` still returns 3 for them), and confirmed `/signup`'s pricing block now reads "1-day free trial" live. `npm run lint` and `npm run build` both clean.
