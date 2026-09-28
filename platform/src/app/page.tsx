@@ -43,11 +43,12 @@ function coverageTier(weightPercent: number): { label: string; className: string
   return { label: "Foundational Topic", className: "bg-muted text-muted-foreground", featured: false };
 }
 
-// Every number here was pulled from the live database before writing this
-// page (published questions / reviewer entries / real student profiles) —
-// never estimated. Rounded DOWN to the nearest clean figure so the number on
-// the page always understates reality rather than risking an overstatement.
-const PRODUCT_PROOF = ["3,500+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
+// The rest of this page's numbers are pulled from the live database and
+// rounded down, never estimated (see the hero's "170+" line below). The
+// question count is the one deliberate exception — Gabriel asked for it to
+// read "7,000+" after being told the real published count is 3,530, so this
+// is a chosen marketing figure, not a database read.
+const PRODUCT_PROOF = ["7,000+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
 
 const WORKFLOW_STEPS = [
   { title: "Practice", description: "Answer focused ABE questions, organized by the official exam coverage." },
