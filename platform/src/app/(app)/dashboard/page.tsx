@@ -22,6 +22,7 @@ import { ACHIEVEMENTS } from "@/lib/achievements";
 import { computeStudyStats, fetchAllAnsweredRows, type TopicMasteryRow } from "@/lib/study-stats";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { BOARD_EXAM_DATE_LABEL, daysUntilBoardExam } from "@/lib/board-exam";
+import { formatDateManila, currentHourManila } from "@/lib/manila-week";
 import { StatCard } from "@/components/stat-card";
 import type { PlanDay } from "@/app/study-plan/actions";
 
@@ -47,7 +48,7 @@ function daysSince(iso: string | null): number {
 }
 
 function greeting(): string {
-  const hour = new Date().getHours();
+  const hour = currentHourManila();
   if (hour < 12) return "Good morning";
   if (hour < 18) return "Good afternoon";
   return "Good evening";
@@ -577,7 +578,7 @@ export default async function DashboardPage() {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(d.date).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}
+                        {formatDateManila(d.date, { weekday: "short", year: undefined })}
                       </p>
                       <p className="text-sm font-medium">{d.activity}</p>
                     </div>

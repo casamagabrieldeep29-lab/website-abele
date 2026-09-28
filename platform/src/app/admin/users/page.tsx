@@ -9,7 +9,7 @@ import { RemoveUserForm } from "./remove-user-form";
 import { upgradeToSubscriber, downgradeToTrial } from "../actions";
 import { AutoRefresh } from "../auto-refresh";
 import { TRIAL_DAYS, trialMsFor } from "@/lib/trial";
-import { MANILA_TZ, groupByWeek } from "@/lib/manila-week";
+import { groupByWeek, formatDateManila as formatDate } from "@/lib/manila-week";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "remove-confirmation": "You must type REMOVE exactly to confirm.",
@@ -34,13 +34,6 @@ type Profile = {
 function daysLeft(trialStartedAt: string): number {
   const expiresAt = new Date(trialStartedAt).getTime() + trialMsFor(trialStartedAt);
   return Math.ceil((expiresAt - Date.now()) / (24 * 60 * 60 * 1000));
-}
-
-// "Joined" always reads in Philippine time regardless of the server's own
-// timezone (Vercel runs in UTC) — same reasoning as the exam countdown's
-// todayInManila() in src/lib/board-exam.ts.
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", { timeZone: MANILA_TZ, year: "numeric", month: "short", day: "numeric" });
 }
 
 function isOnline(lastSeenAt: string | null): boolean {

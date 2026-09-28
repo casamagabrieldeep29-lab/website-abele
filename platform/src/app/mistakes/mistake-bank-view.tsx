@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { TeachMeThis } from "@/components/teach-me-this";
 import { startMistakeRetryAttempt, startAdaptivePracticeAttempt } from "../practice/actions";
 import { getMistakeDetail, type MistakeDetail } from "./actions";
+import { formatDateManila } from "@/lib/manila-week";
 
 export type MistakeRow = {
   question_id: string;
@@ -360,7 +361,7 @@ export function MistakeBankView({
                       <div className="min-w-0">
                         <p className="text-sm">{r.question_text}</p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          {new Date(r.last_answered_at).toLocaleDateString()}
+                          {formatDateManila(r.last_answered_at)}
                         </p>
                       </div>
                     </div>

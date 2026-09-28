@@ -9,6 +9,7 @@ import { startAdaptivePracticeAttempt } from "@/app/practice/actions";
 import { getUserSettings } from "@/lib/study-preferences";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
+import { formatDateManila } from "@/lib/manila-week";
 
 const WEEKDAY_OPTIONS = [
   { value: "mon", label: "Mon" },
@@ -136,7 +137,7 @@ export default async function StudyPlanPage({
                 <div>
                   <p className="text-xs text-muted-foreground">Target exam date</p>
                   <p className="mt-1 text-lg font-semibold">
-                    {new Date(plan.target_exam_date).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                    {formatDateManila(plan.target_exam_date)}
                   </p>
                   {daysUntilExam !== null && (
                     <p className="text-xs text-muted-foreground">
@@ -175,7 +176,7 @@ export default async function StudyPlanPage({
                 <CardContent className="flex items-center justify-between gap-3 py-3">
                   <div className="min-w-0">
                     <p className="text-xs text-muted-foreground">
-                      {new Date(d.date).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" })}
+                      {formatDateManila(d.date, { weekday: "short", year: undefined })}
                     </p>
                     <p className="truncate text-sm font-medium">{d.activity}</p>
                   </div>
