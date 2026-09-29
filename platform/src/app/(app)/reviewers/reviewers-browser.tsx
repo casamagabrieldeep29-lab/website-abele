@@ -28,6 +28,16 @@ export type ReviewerEntry = {
   subtopic_name: string | null;
 };
 
+// A chunk of the source content authored a bare "-" in a field to mean "not
+// applicable" (62 of 118 constant entries with a non-null symbol, e.g. a
+// compost pile's dimensions have no meaningful mathematical symbol) instead
+// of leaving the column null — rendering that literally produces a
+// meaningless lone dash line. Treat it the same as null wherever a field is
+// checked before rendering.
+function isPlaceholder(value: string | null): boolean {
+  return value === null || value.trim() === "-" || value.trim() === "—";
+}
+
 const KIND_LABELS: Record<ReviewerEntry["kind"], string> = {
   formula: "Formulas",
   table: "Tables",
@@ -270,7 +280,7 @@ export function ConstantCard({ entry }: { entry: ReviewerEntry }) {
         {copyValue && <CopyButton value={copyValue} />}
       </div>
 
-      {entry.symbol && <p className="mt-1 font-mono text-sm text-primary/80">{renderFormula(entry.symbol)}</p>}
+      {!isPlaceholder(entry.symbol) && <p className="mt-1 font-mono text-sm text-primary/80">{renderFormula(entry.symbol!)}</p>}
 
       {entry.value && (
         <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5">
@@ -321,7 +331,12 @@ function parseMarkdownTable(text: string): ParsedTable | null {
   if (separator.length !== headers.length || !separator.every((c) => /^:?-{2,}:?$/.test(c))) return null;
 
   const rows = lines.slice(2).map(splitRow);
-  if (rows.some((r) => r.length !== headers.length)) return null;
+  // A row with FEWER cells than the header is a deliberate spanning row
+  // (e.g. "| Warranty | one value that applies to every column |" instead
+  // of repeating it under each scale) — kept at its authored width and
+  // rendered with colSpan below, not rejected as malformed. A row with
+  // MORE cells than the header is genuinely ambiguous, so that still bails.
+  if (rows.some((r) => r.length > headers.length || r.length < 2)) return null;
 
   return { headers, rows };
 }
@@ -353,7 +368,9 @@ function parseLooseTable(text: string): ParsedTable | null {
 
   const allRows = lines.map((l) => l.split("|").map((c) => c.trim()));
   const colCount = allRows[0].length;
-  if (colCount < 2 || allRows.some((r) => r.length !== colCount)) return null;
+  // Same spanning-row allowance as parseMarkdownTable above: fewer cells
+  // than the widest row is a deliberate merge, more is ambiguous.
+  if (colCount < 2 || allRows.some((r) => r.length > colCount || r.length < 2)) return null;
 
   let firstRowIsHeader = false;
   if (allRows.length > 1) {
@@ -464,12 +481,18 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
                   {row.map((cell, ci) => {
                     // Short value-like cells stay on one line; longer prose
                     // (a glossary's "description" column) wraps instead of
-                    // forcing the whole table absurdly wide.
+                    // forcing the whole table absurdly wide. A row authored
+                    // shorter than the header (see parseMarkdownTable) has
+                    // its last cell span the remaining columns — always
+                    // prose, so it wraps and never right-aligns as numeric.
+                    const spanning = ci === row.length - 1 && row.length < parsed.headers.length;
+                    const span = spanning ? parsed.headers.length - row.length + 1 : 1;
                     const long = cell.length > 28;
                     return (
                       <td
                         key={ci}
-                        className={`px-3 py-2 text-foreground ${long ? "min-w-[16rem] whitespace-normal" : "whitespace-nowrap"} ${numericCols[ci] ? "text-right tabular-nums" : ""}`}
+                        colSpan={span}
+                        className={`px-3 py-2 text-foreground ${long || spanning ? "min-w-[16rem] whitespace-normal" : "whitespace-nowrap"} ${!spanning && numericCols[ci] ? "text-right tabular-nums" : ""}`}
                       >
                         {renderFormula(cell)}
                       </td>
