@@ -5,6 +5,8 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Separator } from "@/components/ui/separator";
 import { GlobalSearch } from "@/components/global-search/global-search";
 import { ProfileCompletionModal } from "@/components/profile-completion-modal";
+import { NoticeCampaignModal } from "@/components/notice-campaign-modal";
+import { getActiveNoticeCampaignForUser, type ActiveNoticeCampaign } from "@/lib/notice-campaigns";
 import { signOut } from "@/app/dashboard/actions";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
@@ -28,6 +30,23 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     // Migration not applied yet, or some other read failure — just skip the popup.
   }
 
+  // Only one popup at a time — the one-shot profile prompt above takes
+  // priority (it's a smaller, one-time ask), so a scheduled notice campaign
+  // never stacks a second dialog on top of it.
+  let activeCampaign: ActiveNoticeCampaign | null = null;
+  if (!showProfilePrompt) {
+    try {
+      const { data } = await supabase
+        .from("profiles")
+        .select("address, school, has_password")
+        .eq("id", user.id)
+        .single();
+      if (data) activeCampaign = await getActiveNoticeCampaignForUser(supabase, user.id, data);
+    } catch {
+      // Migration not applied yet, or some other read failure — just skip the popup.
+    }
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar
@@ -48,6 +67,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <div className="flex-1 p-4 sm:p-6 lg:px-8 2xl:px-10">{children}</div>
       </SidebarInset>
       {showProfilePrompt && <ProfileCompletionModal />}
+      {activeCampaign && <NoticeCampaignModal campaign={activeCampaign} />}
     </SidebarProvider>
   );
 }

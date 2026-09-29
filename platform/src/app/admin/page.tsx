@@ -151,6 +151,21 @@ export default async function AdminPage() {
               </Link>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Notice campaigns</CardTitle>
+              <CardDescription>
+                Recurring popups shown to existing users on login, asking them to fill in missing profile fields
+                (address, school, password) for a scheduled window.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Link href="/admin/announcements" className="text-sm font-medium text-primary hover:underline">
+                Go to notice campaigns →
+              </Link>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </main>
