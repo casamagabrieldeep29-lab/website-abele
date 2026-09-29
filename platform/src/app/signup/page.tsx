@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import { SignupForm } from "./signup-form";
 import { createClient } from "@/lib/supabase/server";
-import { getPaymentMethods, UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
+import { FASTER_APPROVAL_CONTACT, getPaymentMethods, UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
 
 export default async function SignupPage() {
   const supabase = await createClient();
@@ -37,6 +37,28 @@ export default async function SignupPage() {
         </div>
 
         <SignupForm paymentMethods={getPaymentMethods()} />
+
+        <p className="mt-6 text-center text-xs text-muted-foreground">
+          Need help or want faster approval? Message us on{" "}
+          <a
+            href={FASTER_APPROVAL_CONTACT.facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            Facebook
+          </a>{" "}
+          or{" "}
+          <a
+            href={FASTER_APPROVAL_CONTACT.tiktokUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            TikTok
+          </a>
+          , or text <span className="font-mono text-foreground">{FASTER_APPROVAL_CONTACT.phoneNumber}</span>.
+        </p>
       </div>
     </main>
   );
