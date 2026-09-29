@@ -101,7 +101,16 @@ export default async function UpgradePage({
                   >
                     Message us on Facebook
                   </a>{" "}
-                  or text{" "}
+                  or{" "}
+                  <a
+                    href={FASTER_APPROVAL_CONTACT.tiktokUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    TikTok
+                  </a>
+                  , or text{" "}
                   <span className="font-mono text-foreground">{FASTER_APPROVAL_CONTACT.phoneNumber}</span>.
                 </p>
               </CardContent>
