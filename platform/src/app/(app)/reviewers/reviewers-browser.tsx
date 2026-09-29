@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
@@ -425,6 +425,55 @@ function parseFormulaGroups(text: string): FormulaGroup[] {
     });
 }
 
+// A wide table's horizontal overflow-auto scrollbar is easy to miss on a
+// touch screen (no hover cue, and some browsers only draw a native scrollbar
+// while actively scrolling), so a table with columns off the visible edge can
+// look like data is simply missing rather than one swipe away. This shows an
+// explicit chevron + edge fade on whichever side still has unseen content,
+// updating live as the user scrolls, and disappearing once nothing is cut off
+// (including when the table already fits and never needed to scroll at all).
+function HorizontalScrollHint({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function update() {
+      if (!el) return;
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    }
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className={`relative ${className}`}>
+      <div ref={scrollRef} className="max-h-96 overflow-auto rounded-md border border-border/60">
+        {children}
+      </div>
+      {canScrollLeft && (
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex w-7 items-center rounded-l-md bg-gradient-to-r from-card to-transparent">
+          <ChevronLeft className="size-4 text-muted-foreground" />
+        </div>
+      )}
+      {canScrollRight && (
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex w-7 items-center justify-end rounded-r-md bg-gradient-to-l from-card to-transparent">
+          <ChevronRight className="size-4 text-muted-foreground" />
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** Dense, full-width reference table optimized for scanning, not a card grid. */
 export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
   const parsed = entry.table_content
@@ -461,7 +510,7 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
       {entry.description && <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{entry.description}</p>}
 
       {parsed ? (
-        <div className="mt-2.5 max-h-96 overflow-auto rounded-md border border-border/60">
+        <HorizontalScrollHint className="mt-2.5">
           <table className="w-full min-w-max border-collapse text-sm">
             <thead className="sticky top-0 bg-muted">
               <tr>
@@ -502,7 +551,7 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
               ))}
             </tbody>
           </table>
-        </div>
+        </HorizontalScrollHint>
       ) : formulaGroups ? (
         <div className="mt-2.5 space-y-2 rounded-md bg-primary/5 px-3 py-2.5">
           {formulaGroups.map((group, gi) => (

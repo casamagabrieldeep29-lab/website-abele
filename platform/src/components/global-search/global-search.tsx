@@ -186,11 +186,11 @@ export function GlobalSearch() {
         type="button"
         variant="outline"
         onClick={() => setOpen(true)}
-        className="hidden h-8 w-full max-w-sm justify-start gap-2 text-muted-foreground sm:inline-flex"
+        className="hidden h-8 min-w-0 max-w-sm flex-1 justify-start gap-2 text-muted-foreground sm:inline-flex"
       >
-        <Search className="size-3.5" />
-        <span className="flex-1 text-left">Search topics, subjects, questions, materials…</span>
-        <kbd className="hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground md:inline">
+        <Search className="size-3.5 shrink-0" />
+        <span className="min-w-0 flex-1 truncate text-left">Search topics, subjects, questions, materials…</span>
+        <kbd className="hidden shrink-0 rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground md:inline">
           ⌘K
         </kbd>
       </Button>

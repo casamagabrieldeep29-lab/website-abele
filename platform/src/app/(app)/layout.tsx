@@ -41,7 +41,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <span className="hidden text-sm font-medium text-muted-foreground sm:inline">ABELIEVER</span>
-          <div className="ml-auto flex items-center sm:ml-4">
+          <div className="ml-auto flex min-w-0 items-center sm:ml-4">
             <GlobalSearch />
           </div>
         </header>
