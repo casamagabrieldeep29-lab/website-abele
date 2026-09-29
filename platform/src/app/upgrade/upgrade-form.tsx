@@ -60,6 +60,9 @@ export function UpgradeForm({ defaultMethod }: { defaultMethod: PaymentMethodKey
       <div className="space-y-2">
         <Label htmlFor="referenceNumber">Reference / transaction number</Label>
         <Input id="referenceNumber" name="referenceNumber" required disabled={busy} placeholder="e.g. 1234567890123" />
+        <p className="text-xs text-muted-foreground">
+          Type it exactly as shown on your receipt (same spacing and digits) for the fastest approval.
+        </p>
       </div>
 
       <div className="space-y-2">
@@ -92,7 +95,9 @@ export function UpgradeForm({ defaultMethod }: { defaultMethod: PaymentMethodKey
             ? "Pick a payment method, enter your reference number, and attach a receipt screenshot."
             : result.error === "rate-limited"
               ? "Too many submissions — please wait a bit before trying again."
-              : "Couldn't submit that — please try again."}
+              : result.error === "duplicate-reference"
+                ? "That reference number has already been used for another account. Double-check what you typed, or message us if you believe this is a mistake."
+                : "Couldn't submit that — please try again."}
         </p>
       )}
 
