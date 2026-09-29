@@ -216,19 +216,13 @@ export function PracticeSession({
         </p>
       )}
 
-      {/* Two columns from xl (question left, solution right); a third column
-          for Teach Me This opens up from 2xl once the screen is wide enough
-          to fit all three without cramping (Gabriel's explicit "maximize
-          space... teach me this should appear beside the solution",
-          2026-09-29) — it spans the full row at xl (stacked below the first
-          two) and only becomes a true third column at 2xl. Stacked on
-          mobile AND tablet. Deliberately xl: (1280px), not lg: (1024px) —
-          1024px is exactly iPad landscape width, and a sticky side-by-side
-          panel at that width has caused unresponsive answer buttons on
-          older iPadOS Safari (position: sticky rendering glitch overlapping
-          the choice buttons). Stacking avoids sticky positioning entirely
-          on any tablet, not just the reported device. */}
-      <div className="mt-4 grid grid-cols-1 items-start gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+      {/* Two columns on wide desktop only (question left, solution right); stacked on
+          mobile AND tablet. Deliberately xl: (1280px), not lg: (1024px) — 1024px is
+          exactly iPad landscape width, and a sticky side-by-side panel at that width
+          has caused unresponsive answer buttons on older iPadOS Safari (position:
+          sticky rendering glitch overlapping the choice buttons). Stacking avoids
+          sticky positioning entirely on any tablet, not just the reported device. */}
+      <div className="mt-4 grid grid-cols-1 items-start gap-4 xl:grid-cols-2">
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between gap-3">
@@ -351,34 +345,24 @@ export function PracticeSession({
                     <ExplanationDisplay text={feedback.explanation} />
                   </div>
                 )}
+                <TeachMeThis
+                  attemptId={attemptId}
+                  questionId={question.id}
+                  // Only auto-fires for problem-solving questions — a term/
+                  // concept question's answer is usually self-evident from
+                  // the choice itself, so auto-spending a scarce shared AI
+                  // quota call on every one of those (per Gabriel's
+                  // 2026-09-25 request) isn't worth it. Uncategorized
+                  // questions (category null) don't auto-fire either, same
+                  // as "term".
+                  autoStart={!feedback.explanation && question.category === "solving"}
+                />
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">Submit an answer to see the explanation here.</p>
             )}
           </CardContent>
         </Card>
-
-        {/* Own column from 2xl (spans the full row at xl, stacked below the
-            first two) so Teach Me This gets real space instead of being
-            squeezed under the Solution panel's own explanation. */}
-        {feedback && (
-          <Card className="xl:col-span-2 2xl:col-span-1 2xl:sticky 2xl:top-4 2xl:max-h-[calc(100vh-2rem)] 2xl:overflow-y-auto">
-            <CardContent className="pt-6">
-              <TeachMeThis
-                attemptId={attemptId}
-                questionId={question.id}
-                // Only auto-fires for problem-solving questions — a term/
-                // concept question's answer is usually self-evident from
-                // the choice itself, so auto-spending a scarce shared AI
-                // quota call on every one of those (per Gabriel's
-                // 2026-09-25 request) isn't worth it. Uncategorized
-                // questions (category null) don't auto-fire either, same
-                // as "term".
-                autoStart={!feedback.explanation && question.category === "solving"}
-              />
-            </CardContent>
-          </Card>
-        )}
       </div>
     </div>
   );
