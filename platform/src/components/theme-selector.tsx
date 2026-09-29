@@ -82,6 +82,23 @@ const THEME_DEFS: ThemeDef[] = [
       track: "#24402c",
     },
   },
+  {
+    id: "pink",
+    name: "Blossom",
+    description: "Soft rose and blush pink — a gentle glow just for you.",
+    palette: ["#2a0e1c", "#e05e93", "#ff8fab", "#f0c9db", "#f7e4ec"],
+    locked: true,
+    preview: {
+      background: "#2a0e1c",
+      sidebar: "#2a0e1c",
+      card: "#3a1526",
+      primary: "#e05e93",
+      primaryForeground: "#ffffff",
+      text: "#f7e4ec",
+      textMuted: "#c891a8",
+      track: "#4a1d30",
+    },
+  },
 ];
 
 function ThemeMiniPreview({ preview }: { preview: ThemeDef["preview"] }) {
