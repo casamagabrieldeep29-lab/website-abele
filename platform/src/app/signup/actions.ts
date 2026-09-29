@@ -18,13 +18,18 @@ const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 const VALID_ACADEMIC_STATUSES = ["student", "reviewee"] as const;
 type AcademicStatus = (typeof VALID_ACADEMIC_STATUSES)[number];
 
-function readAcademicFields(formData: FormData): { school: string | null; academicStatus: AcademicStatus | null } {
+function readOptionalProfileFields(formData: FormData): {
+  school: string | null;
+  academicStatus: AcademicStatus | null;
+  address: string | null;
+} {
   const school = String(formData.get("school") ?? "").trim();
   const academicStatusRaw = String(formData.get("academicStatus") ?? "");
   const academicStatus = VALID_ACADEMIC_STATUSES.includes(academicStatusRaw as AcademicStatus)
     ? (academicStatusRaw as AcademicStatus)
     : null;
-  return { school: school || null, academicStatus };
+  const address = String(formData.get("address") ?? "").trim();
+  return { school: school || null, academicStatus, address: address || null };
 }
 
 export type SignUpAndSubmitPaymentResult =
@@ -51,7 +56,7 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
   const fullName = String(formData.get("fullName") ?? "").trim();
-  const { school, academicStatus } = readAcademicFields(formData);
+  const { school, academicStatus, address } = readOptionalProfileFields(formData);
 
   if (!email || !email.includes("@")) {
     return { ok: false, message: "Enter a valid email address." };
@@ -87,6 +92,7 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
   const profileUpdate: Record<string, string | null> = { plan: "pending", display_name: fullName };
   if (school) profileUpdate.school = school;
   if (academicStatus) profileUpdate.academic_status = academicStatus;
+  if (address) profileUpdate.address = address;
   await admin.from("profiles").update(profileUpdate).eq("id", created.user.id);
 
   const supabase = await createClient();

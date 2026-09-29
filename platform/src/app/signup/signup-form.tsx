@@ -48,6 +48,7 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
   const [intent, setIntent] = useState<PaymentMethodKey | null>(null);
   const [school, setSchool] = useState("");
   const [academicStatus, setAcademicStatus] = useState<AcademicStatus | "">("");
+  const [address, setAddress] = useState("");
   const [fileName, setFileName] = useState<string | null>(null);
   // Derived from `result`, not its own setState-in-effect -- the effect
   // below only owns the side effect (the delayed navigation), not state
@@ -138,6 +139,19 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             ))}
           </div>
           <input type="hidden" name="academicStatus" value={academicStatus} />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="address">Address</Label>
+          <Input
+            id="address"
+            name="address"
+            placeholder="e.g. Brgy. San Isidro, General Santos City"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            autoComplete="street-address"
+            disabled={busy}
+          />
         </div>
 
         <div className="space-y-2">
