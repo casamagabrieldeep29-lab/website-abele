@@ -11,6 +11,14 @@ import { logError } from "@/lib/log-error";
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 
+// Same tolerance the AI receipt check itself already applies ("ignore
+// spacing, dashes, and letter case as pure formatting differences") — so
+// "9045 541 281026", "9045-541-281026", and "9045541281026" are all
+// recognized as the same reference number for duplicate detection.
+function normalizeReferenceNumber(ref: string): string {
+  return ref.replace(/[^a-zA-Z0-9]/g, "").toUpperCase();
+}
+
 // Shared by both /upgrade and signup's own payment step — keyed by user id
 // since a session already exists by this point either way. Generous enough
 // for a few "wrong reference number" retries, tight enough to stop someone
@@ -21,7 +29,7 @@ const PAYMENT_SUBMIT_WINDOW_SECONDS = 60 * 60;
 
 export type SubmitPaymentResult =
   | { ok: true; autoApproved: boolean }
-  | { ok: false; error: "missing-fields" | "submit-failed" | "rate-limited" }
+  | { ok: false; error: "missing-fields" | "submit-failed" | "rate-limited" | "duplicate-reference" }
   | null;
 
 /**
@@ -56,6 +64,27 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
 
   if (!VALID_METHODS.includes(method as PaymentMethodKey) || !referenceNumber) {
     return { ok: false, error: "missing-fields" };
+  }
+
+  // Reject a reference number someone's already been credited for (or has a
+  // submission still awaiting review) — the same real receipt/reference
+  // must not be able to unlock two accounts (Gabriel's explicit "take note
+  // of all the reference[s] used... let's [not] allow a double reference
+  // entry", 2026-09-29). A prior REJECTED submission doesn't count — that
+  // reference is free to resubmit. Uses the admin client since this must
+  // see every user's submissions, not just the caller's own (RLS normally
+  // restricts payment_requests to its owner).
+  {
+    const admin = createAdminClient();
+    const { data: existing } = await admin
+      .from("payment_requests")
+      .select("reference_number")
+      .in("status", ["pending", "approved"]);
+    const normalizedIncoming = normalizeReferenceNumber(referenceNumber);
+    const isDuplicate = (existing ?? []).some((r) => normalizeReferenceNumber(r.reference_number) === normalizedIncoming);
+    if (isDuplicate) {
+      return { ok: false, error: "duplicate-reference" };
+    }
   }
 
   // A receipt is required (Gabriel's explicit "all must pay. and upload

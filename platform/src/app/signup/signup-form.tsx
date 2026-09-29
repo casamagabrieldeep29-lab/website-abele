@@ -172,6 +172,9 @@ export function SignupForm({ paymentMethods }: { paymentMethods: PaymentMethodIn
             <div className="space-y-2">
               <Label htmlFor="referenceNumber">Reference / transaction number</Label>
               <Input id="referenceNumber" name="referenceNumber" required placeholder="e.g. 1234567890123" disabled={busy} />
+              <p className="text-xs text-muted-foreground">
+                Type it exactly as shown on your receipt (same spacing and digits) for the fastest approval.
+              </p>
             </div>
 
             <div className="space-y-2">

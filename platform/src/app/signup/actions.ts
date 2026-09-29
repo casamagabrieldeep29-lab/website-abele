@@ -98,6 +98,13 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
 
   const paymentResult = await submitPaymentRequest(null, formData);
   if (!paymentResult?.ok) {
+    if (paymentResult?.error === "duplicate-reference") {
+      return {
+        ok: false,
+        message:
+          "That reference number has already been used for another account. Double-check what you typed, or message us if you believe this is a mistake.",
+      };
+    }
     await logError("signUpAndSubmitPayment.submitPaymentRequest", paymentResult?.error ?? "no result returned");
     return {
       ok: false,
