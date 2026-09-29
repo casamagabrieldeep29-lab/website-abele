@@ -3,7 +3,7 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react";
 
 type Theme = "light" | "dark" | "system";
-export type ColorTheme = "default" | "ocean" | "forest";
+export type ColorTheme = "default" | "ocean" | "forest" | "pink";
 
 const STORAGE_KEY = "abeliever-theme";
 const COLOR_THEME_STORAGE_KEY = "abeliever-color-theme";
@@ -11,6 +11,7 @@ const COLOR_THEME_CLASSES: Record<ColorTheme, string | null> = {
   default: null,
   ocean: "theme-ocean",
   forest: "theme-forest",
+  pink: "theme-pink",
 };
 
 type ThemeContextValue = {
@@ -36,7 +37,7 @@ function readStoredColorTheme(): ColorTheme {
   if (typeof window === "undefined") return "default";
   try {
     const stored = localStorage.getItem(COLOR_THEME_STORAGE_KEY);
-    return stored === "ocean" || stored === "forest" ? stored : "default";
+    return stored === "ocean" || stored === "forest" || stored === "pink" ? stored : "default";
   } catch {
     return "default";
   }
