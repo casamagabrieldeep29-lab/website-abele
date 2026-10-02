@@ -607,3 +607,28 @@ Gabriel reported every user getting logged out / unable to sign in, which then c
 **`src/app/login/actions.ts` and `src/app/signup/actions.ts`:** both moved from a single IP-keyed bucket to two tiers — a tight `login:<ip>:<email>` / `signup:<ip>:<email>` pair (real brute-force/spam protection, scoped to one specific account) plus a much looser `login-ip:<ip>` / `signup-ip:<ip>` ceiling (100/15min and 30/hour respectively) that exists only to catch genuine scripted volumetric abuse, wide enough that a realistic burst of organic traffic from one shared network never trips it. Different people sharing a carrier IP no longer share a login/signup budget with each other.
 
 **Testing performed:** `npm run lint` and `npm run build` both clean. No schema change — reuses the existing `rate_limits` table/RPC with different key strings, so this ships with the next deploy, no migration needed.
+
+---
+
+## 2026-10-02 — Security review: patched a critical Next.js RCE, closed a receipt-upload gap, audited the rest
+
+Gabriel asked to "enhance the security level to highest level." Did a real audit rather than vague hardening — here's what was actually checked, what was found, and what wasn't touched because it was already solid.
+
+**Fixed:**
+- **Critical: Next.js RCE (GHSA-vcvr-r3jv-pc5j)**, affecting the exact installed range (16.2.0–16.3.5, pinned at 16.3.5). `next/og`/`ImageResponse` isn't used anywhere in this codebase, but a framework-level RCE isn't something to leave sitting on a public-launch app regardless of whether the obviously-affected export is imported. Updated to 16.3.8 (also the current latest stable — smallest possible safe bump). `npm audit --omit=dev` now reports zero vulnerabilities. Verified lint/build/test all still pass after the bump.
+- **Payment receipt upload had no size or type limit** — only checked non-empty. One submission could upload an arbitrarily large or non-image file; the existing per-user rate limit (8/hour) bounds frequency, not size. Added an 8MB cap (comfortably covers a phone screenshot) and an image-MIME check in `submitPaymentRequest()` — shared by both `/upgrade` and signup's payment step, since signup reuses this same function.
+
+**Audited, found solid, left alone:**
+- Every table created across `schema.sql` and every patch has RLS enabled — cross-referenced table-by-table, no gaps.
+- No overly-permissive policies — the only `using (true)` reads are on read-only taxonomy tables (exam_areas/topics/subtopics), correctly paired with admin-only write policies.
+- `is_admin()` and the `prevent_role_self_escalation` trigger are both correctly implemented — a non-admin genuinely cannot grant themselves admin through the app's normal path.
+- Every file under `src/app/admin/` (every `page.tsx` and `actions.ts`) calls `requireAdmin()` — checked each one individually, no gaps.
+- Every `createAdminClient()` (service-role, bypasses RLS) usage outside `/admin` is scoped to the caller's own server-verified `user.id`, never anything client-supplied.
+- No raw SQL string construction anywhere — everything goes through the Supabase query builder or parameterized RPCs, no injection surface.
+- Secrets never exposed to the client — only the Supabase URL and anon key are `NEXT_PUBLIC_*` (by design; RLS is the real boundary, not anon-key secrecy), `.env.local` stays untracked and gitignored.
+- Security headers (`next.config.ts`) are already comprehensive: CSP, `X-Frame-Options: DENY`, `nosniff`, a real Referrer-Policy, a locked-down Permissions-Policy, and HSTS with preload — nothing to add here.
+- Rate limiting now covers login, signup, payment submission, and AI calls (the shared-bucket scoping bug from earlier today is the one already-shipped fix in this area).
+
+**Not done:** two moderate Vitest/`@vitest/mocker` advisories remain — dev-only (the test runner itself, never shipped to production), and the fix is a major-version breaking bump Gabriel didn't ask to force through right now. Left as-is; revisit if it ever matters for a dev-environment threat model.
+
+**Testing performed:** `npm run lint`, `npm run build`, and `npm test` (14/14) all clean after both fixes.
