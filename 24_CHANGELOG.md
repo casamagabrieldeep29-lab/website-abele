@@ -632,3 +632,13 @@ Gabriel asked to "enhance the security level to highest level." Did a real audit
 **Not done:** two moderate Vitest/`@vitest/mocker` advisories remain — dev-only (the test runner itself, never shipped to production), and the fix is a major-version breaking bump Gabriel didn't ask to force through right now. Left as-is; revisit if it ever matters for a dev-environment threat model.
 
 **Testing performed:** `npm run lint`, `npm run build`, and `npm test` (14/14) all clean after both fixes.
+
+---
+
+## 2026-10-02 — Content Quality audit: flag questions with the wrong number of choices
+
+A student reported a real content bug (forwarded screenshot): a question showing only 3 answer choices, none of which was the actual correct answer ("3-5 days" wasn't even listed). Checked the real distribution before building anything — 4 choices is overwhelmingly standard (4,425 of 4,452 questions), with 25 at fewer than 4 (9 with just 2, 16 with 3) and 2 with 5.
+
+**`admin/quality/page.tsx`:** two new sections, same exact pattern as the existing "No explanation" / "No choice marked correct" / "Multiple correct choices" checks — "Fewer than 4 choices" (25 flagged) and "More than 4 choices" (2 flagged). Purely a structural count check; it can't verify the marked-correct choice is actually the right answer, only that the choice count itself is non-standard.
+
+**Testing performed:** ran it live against the real database — the reported question ("The storage area of a processing plant shall have a capacity for temporary storage of raw materials for how many processing days?") shows up correctly in the new "Fewer than 4 choices" section, and also in the existing duplicate-detection section alongside what's very likely the correct, complete 4-choice version — suggesting the fix is probably just removing the broken 3-choice duplicate rather than reconstructing it from scratch. `npm run lint` and `npm run build` both clean.

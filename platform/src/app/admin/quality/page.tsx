@@ -58,6 +58,13 @@ export default async function AdminQualityPage({
   const multipleCorrect = rows.filter(
     (q) => q.question_type === "single_choice" && q.choices.filter((c) => c.is_correct).length > 1,
   );
+  // 4 choices is the overwhelming standard across the bank (4425 of 4452
+  // questions, checked directly 2026-10-02) — found from a real student
+  // report of a 3-choice question whose correct answer wasn't even among
+  // the options. Structural count only; doesn't (and can't) check whether
+  // the marked-correct choice is actually the right answer.
+  const tooFewChoices = rows.filter((q) => q.choices.length < 4);
+  const tooManyChoices = rows.filter((q) => q.choices.length > 4);
 
   const byNormalizedText = new Map<string, QuestionRow[]>();
   for (const q of rows) {
@@ -86,6 +93,18 @@ export default async function AdminQualityPage({
       description: "single_choice questions should have exactly one correct choice.",
       allRows: multipleCorrect,
       rows: capSection(multipleCorrect),
+    },
+    {
+      title: "Fewer than 4 choices",
+      description: "4 choices is the standard across the bank — a question with fewer may be missing the actual correct answer entirely, not just mismarked.",
+      allRows: tooFewChoices,
+      rows: capSection(tooFewChoices),
+    },
+    {
+      title: "More than 4 choices",
+      description: "Non-standard choice count — worth a quick look in case an extra/duplicate choice snuck in during import.",
+      allRows: tooManyChoices,
+      rows: capSection(tooManyChoices),
     },
   ];
 
