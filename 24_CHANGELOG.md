@@ -642,3 +642,22 @@ A student reported a real content bug (forwarded screenshot): a question showing
 **`admin/quality/page.tsx`:** two new sections, same exact pattern as the existing "No explanation" / "No choice marked correct" / "Multiple correct choices" checks — "Fewer than 4 choices" (25 flagged) and "More than 4 choices" (2 flagged). Purely a structural count check; it can't verify the marked-correct choice is actually the right answer, only that the choice count itself is non-standard.
 
 **Testing performed:** ran it live against the real database — the reported question ("The storage area of a processing plant shall have a capacity for temporary storage of raw materials for how many processing days?") shows up correctly in the new "Fewer than 4 choices" section, and also in the existing duplicate-detection section alongside what's very likely the correct, complete 4-choice version — suggesting the fix is probably just removing the broken 3-choice duplicate rather than reconstructing it from scratch. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-10-02 — Content import: 102 new questions across 5 zero-coverage topics
+
+Gabriel's goal for the day: "hit 100 questions today," prioritizing topics with zero published questions, authored strictly from the ABELE TOP 1 reference materials ("use the reference materials strongly and strictly" — no fabricated facts, every number/fact traced back to a source document read in full before writing any question).
+
+**New seed files (all idempotent `DO $$ ... END $$` blocks, matching the existing `paes-601-616-irrigation-import.sql` pattern exactly — draft status, no source attribution stored, safe to re-run):**
+- `platform/supabase/seed/content/paes-101-safety-import.sql` — 25 questions, topic "Philippine National Standards on Technical Means for Ensuring Safety," from PAES 101:2000.
+- `platform/supabase/seed/content/paes-118-four-wheel-tractor-import.sql` — 25 questions, topic "Four-Wheel Tractors Methods of Test," from PAES 118:2001.
+- `platform/supabase/seed/content/paes-114-centrifugal-pump-import.sql` — 25 questions, topic "Pumps," from PAES 114:2000.
+- `platform/supabase/seed/content/rural-electrification-import.sql` — 17 questions, topic "Rural Electrification" (lighting design, illumination/luminance, transformers, generators, motor power factor — general EE review problems, not a PAES standard, so `is_paes=false`).
+- `platform/supabase/seed/content/surveying-import.sql` — 10 questions, topic "Surveying" (definitions, instrument history, error theory, taping corrections).
+
+**Total: 102 questions, all 5 topics previously had zero published questions.** Every question inserted as `status='draft'` — none of these are visible to students until reviewed and published through `/admin/content`, same as every prior content batch this project has shipped.
+
+**Not yet done:** these `.sql` files are written but have NOT been run against the live Supabase project yet — still need to be pasted into the Supabase SQL Editor and executed (same manual-apply pattern as every other migration/seed file in this project), then reviewed and published via `/admin/content` before students see them. Five more zero-count topics remain (Fluid Mechanics, Operator's Manual for AB Power and Machinery, Design and Specifications of Coffee Processing Facility, Marketing and Management, Environmental Engineering and Science) — not attempted yet today.
+
+**Testing performed:** each file's structure verified directly (question/choice INSERT counts matched, balanced `DO $$...END $$` blocks, apostrophes correctly escaped in question text). Not yet run against the database — no live-query verification possible until Gabriel executes them.
