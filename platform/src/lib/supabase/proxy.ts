@@ -23,8 +23,29 @@ const PROTECTED_PREFIXES = [
   "/topics",
 ];
 
+// Supabase stores the session in `sb-<ref>-auth-token` (optionally chunked as
+// `.0`, `.1`, ...). The PKCE `...-code-verifier` cookie deliberately doesn't
+// match — it exists before sign-in completes and is not a session.
+const AUTH_COOKIE = /^sb-.+-auth-token(\.\d+)?$/;
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
+
+  // No session cookie at all means no user, so skip the Supabase round trip
+  // entirely. This is what keeps anonymous visitors, link-preview crawlers
+  // and bots from costing a network call to Supabase on every request.
+  const hasSessionCookie = request.cookies.getAll().some((c) => AUTH_COOKIE.test(c.name));
+  if (!hasSessionCookie) {
+    const isProtectedPath = PROTECTED_PREFIXES.some((prefix) =>
+      request.nextUrl.pathname.startsWith(prefix),
+    );
+    if (isProtectedPath) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("next", request.nextUrl.pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return response;
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -78,6 +99,12 @@ export async function updateSession(request: NextRequest) {
   if (error && isAuthRetryableFetchError(error)) {
     console.warn("[proxy] Transient auth fetch error, not forcing logout:", error.message);
     return response;
+  }
+
+  // Signed-in visitors never need the marketing page. Done here (instead of
+  // in app/page.tsx) so the landing page itself can be fully static.
+  if (user && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>

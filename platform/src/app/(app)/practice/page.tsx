@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SlidersHorizontal } from "lucide-react";
 import { getAuthContext } from "@/lib/auth/session";
-import { fetchAllRows } from "@/lib/supabase/paginate";
+import { getPublishedSnapshot } from "@/lib/published-counts";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { PracticeAreaTabs, type PracticeTopic } from "./practice-area-tabs";
@@ -14,22 +14,17 @@ export default async function PracticePage() {
 
   // PostgREST can't embed through a view via a topics(...) join, so fetch
   // topics and published-question counts separately and merge in JS.
-  const [{ data: topics }, publishedQuestions, { data: subjects }, { data: examAreas }] = await Promise.all([
+  const [{ data: topics }, snapshot, { data: subjects }, { data: examAreas }] = await Promise.all([
     supabase.from("topics").select("id, name, mock_area, exam_area_id, subject_id, exam_areas(name)").order("name"),
-    // student_questions now has 1800+ published rows — a plain `.select()`
-    // would silently cap at PostgREST's 1000-row default and understate
-    // per-topic published-question counts shown here. Paginated.
-    fetchAllRows<{ id: string; topic_id: string }>((from, to) =>
-      supabase.from("student_questions").select("id, topic_id").range(from, to),
-    ),
+    // Per-topic counts come from a shared, cached snapshot (see
+    // src/lib/published-counts.ts) instead of paging through every
+    // published row on each page view.
+    getPublishedSnapshot(),
     supabase.from("subjects").select("id, name, sort_order"),
     supabase.from("exam_areas").select("id, sort_order"),
   ]);
 
-  const countByTopic = new Map<string, number>();
-  for (const q of publishedQuestions) {
-    countByTopic.set(q.topic_id, (countByTopic.get(q.topic_id) ?? 0) + 1);
-  }
+  const countByTopic = new Map<string, number>(Object.entries(snapshot.byTopic));
 
   const subjectById = new Map((subjects ?? []).map((s) => [s.id, s]));
   const examAreaSortById = new Map((examAreas ?? []).map((a) => [a.id, a.sort_order]));

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import {
   ArrowRight,
   BarChart3,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/faq-accordion";
-import { createClient } from "@/lib/supabase/server";
 import { UPGRADE_PRICE_PHP } from "@/lib/payment-methods";
 
 const EXAM_AREAS = [
@@ -66,11 +64,9 @@ const ECOSYSTEM_ITEMS = [
   { icon: Brain, title: "AI Explanations", description: "\"Teach Me This\" breaks down a question when the answer key isn't enough." },
 ];
 
-export default async function Home() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user) redirect("/dashboard");
-
+// Fully static: the signed-in -> /dashboard redirect lives in src/proxy.ts, so
+// this page needs no per-request auth lookup and is served from the CDN.
+export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-sm">

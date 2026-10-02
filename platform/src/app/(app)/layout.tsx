@@ -13,35 +13,39 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const { supabase, user, profile } = await getAuthContext();
   if (!user) redirect("/login");
 
-  // Deliberately a separate, isolated query rather than folded into
+  // Deliberately separate, isolated queries rather than folded into
   // getAuthContext's shared select — that one is cached and used by nearly
-  // every page (sidebar name, admin gate, streak), so if these two columns
+  // every page (sidebar name, admin gate, streak), so if these columns
   // aren't migrated in yet on some deploy, a query error there would break
-  // the whole app shell. Here, a failure just means the popup doesn't show.
-  let showProfilePrompt = false;
-  try {
-    const { data } = await supabase
+  // the whole app shell. Here, a failure just means that popup doesn't show.
+  // The two reads are independent, so they run in parallel (one round trip of
+  // latency instead of two).
+  const [promptRow, campaignRow] = await Promise.all([
+    supabase
       .from("profiles")
       .select("academic_status, profile_prompt_dismissed_at")
       .eq("id", user.id)
-      .single();
-    showProfilePrompt = Boolean(data && !data.academic_status && !data.profile_prompt_dismissed_at);
-  } catch {
-    // Migration not applied yet, or some other read failure — just skip the popup.
-  }
+      .single()
+      .then((r) => r.data, () => null),
+    supabase
+      .from("profiles")
+      .select("address, school, has_password")
+      .eq("id", user.id)
+      .single()
+      .then((r) => r.data, () => null),
+  ]);
+
+  const showProfilePrompt = Boolean(
+    promptRow && !promptRow.academic_status && !promptRow.profile_prompt_dismissed_at,
+  );
 
   // Only one popup at a time — the one-shot profile prompt above takes
   // priority (it's a smaller, one-time ask), so a scheduled notice campaign
   // never stacks a second dialog on top of it.
   let activeCampaign: ActiveNoticeCampaign | null = null;
-  if (!showProfilePrompt) {
+  if (!showProfilePrompt && campaignRow) {
     try {
-      const { data } = await supabase
-        .from("profiles")
-        .select("address, school, has_password")
-        .eq("id", user.id)
-        .single();
-      if (data) activeCampaign = await getActiveNoticeCampaignForUser(supabase, user.id, data);
+      activeCampaign = await getActiveNoticeCampaignForUser(supabase, user.id, campaignRow);
     } catch {
       // Migration not applied yet, or some other read failure — just skip the popup.
     }
