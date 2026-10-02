@@ -661,3 +661,25 @@ Gabriel's goal for the day: "hit 100 questions today," prioritizing topics with 
 **Not yet done:** these `.sql` files are written but have NOT been run against the live Supabase project yet — still need to be pasted into the Supabase SQL Editor and executed (same manual-apply pattern as every other migration/seed file in this project), then reviewed and published via `/admin/content` before students see them. Five more zero-count topics remain (Fluid Mechanics, Operator's Manual for AB Power and Machinery, Design and Specifications of Coffee Processing Facility, Marketing and Management, Environmental Engineering and Science) — not attempted yet today.
 
 **Testing performed:** each file's structure verified directly (question/choice INSERT counts matched, balanced `DO $$...END $$` blocks, apostrophes correctly escaped in question text). Not yet run against the database — no live-query verification possible until Gabriel executes them.
+
+---
+
+## 2026-10-02 — Share-preview image + Vercel usage reduction
+
+**Share preview:** links shared on Facebook/Messenger showed Vercel's default image because the site had no `og:image`. Added `opengraph-image.tsx`/`twitter-image.tsx` (built once at build time, no runtime cost), `icon.tsx`/`apple-icon.tsx` (replacing the default `favicon.ico`), full Open Graph/Twitter/canonical metadata in `app/layout.tsx`, plus `robots.ts` and `sitemap.ts`. `robots.ts` is a disallow-list of private routes, not `Disallow: /`, because Facebook's crawler obeys robots.txt and would otherwise be blocked from fetching the image. The origin comes from `lib/public-origin.ts`, deliberately not `NEXT_PUBLIC_SITE_URL` (which drives auth redirects). The image recreates the logo in code; dropping the real artwork at `app/opengraph-image.png` (and deleting the `.tsx`) would use it instead. Facebook caches old previews — re-scrape at its Sharing Debugger after deploy.
+
+**Usage:**
+- Presence heartbeat was a server action every 60s per open tab (including logged-out visitors), each running the auth proxy plus ~4 Supabase calls. Now a direct browser-to-Supabase own-row update under the same RLS — zero Vercel invocations. Verified `last_seen_at` still updates.
+- Practice, Mock, Question Bank and Dashboard each paged through all ~4,155 published questions on every view just to count per topic. Now one cached snapshot (`lib/published-counts.ts`, 10-minute revalidate, service-role read of the published-only view); admin publish/unpublish actions expire it immediately.
+- Proxy: skips Supabase entirely when there is no session cookie, skips link prefetches and metadata/icon/crawler paths, and now owns the signed-in `/` → `/dashboard` redirect so the landing page is static. Cookie-name check verified against a real local login.
+- Sidebar links no longer prefetch authenticated routes; `(app)` layout's two independent profile queries run in parallel.
+
+**Testing:** `tsc`, `lint`, and `next build` clean (`/`, `/login`, `/privacy`, OG/icon/robots/sitemap routes static); local logged-in walkthrough (dashboard, practice, mock counts, redirect from `/`, heartbeat write).
+
+---
+
+## 2026-10-02 — Content import: 570 more draft questions across 16 low-coverage topics
+
+Authored from the ABELE TOP 1 reference library by parallel agents, one topic each, ordered by lowest published count: Fluid Mechanics (66), Marketing and Management (50), Renewable and Alternative Farm Power Sources (48), Process Control (42), Operator's Manual / PAES 102 (41), GIS (40), Engineering Metrology (37), Agricultural Project Planning (33), Coffee Processing Facility (31, equipment-spec standards only — no facility layout source exists), Tractor Selection (30), Aquaculture (27), Math and Basic Engineering Sciences (26), Internal Combustion Engine (26), After-Sales Service/Sampling (25), Fuels and Lubricants (25), Biomass Gasifier (23). Files are `platform/supabase/seed/content/*-import.sql`, same idempotent draft-only pattern as before.
+
+**Not yet done:** none of these (nor the earlier 102) have been run in the Supabase SQL Editor; all land as `draft` and need review/publish at `/admin/content`. Six agents died at a session limit after writing their file and never sent a source report, so those files (Fluid Mechanics, Marketing, Renewable Power, Process Control, Aquaculture, Fuels) were structure-checked and header-checked only — answers have not been individually spot-checked.
