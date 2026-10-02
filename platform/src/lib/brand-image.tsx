@@ -66,6 +66,7 @@ function LogoBadge({ size }: { size: number }) {
 }
 
 export function renderShareImage(width: number, height: number) {
+  const chips = ["7,000+ Questions", "Mock Exams", "Mistake Bank", "AI Explanations"];
   return new ImageResponse(
     (
       <div
@@ -74,28 +75,66 @@ export function renderShareImage(width: number, height: number) {
           height: "100%",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          background: `radial-gradient(circle at 28% 50%, ${BG_GLOW} 0%, ${BG} 70%)`,
-          padding: "0 70px",
+          background: `radial-gradient(circle at 24% 50%, ${BG_GLOW} 0%, ${BG} 62%)`,
+          padding: "0 64px",
+          position: "relative",
         }}
       >
-        <LogoBadge size={470} />
-        <div style={{ display: "flex", flexDirection: "column", marginLeft: 70, flex: 1 }}>
+        <div style={{ display: "flex", flexShrink: 0 }}>
+          <LogoBadge size={410} />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", marginLeft: 64, flex: 1 }}>
           <div
             style={{
-              fontSize: 92,
-              lineHeight: 1,
-              color: GREEN_LIGHT,
-              letterSpacing: 2,
-              WebkitTextStroke: `2px ${GREEN_LIGHT}`,
+              fontSize: 22,
+              letterSpacing: 3,
+              color: GREEN,
+              textTransform: "uppercase",
+              display: "flex",
             }}
           >
-            {SITE_NAME}
+            ABE Licensure Exam Review
           </div>
-          <div style={{ fontSize: 44, color: "#d6efc4", marginTop: 22, lineHeight: 1.15 }}>
-            Prepare smarter for the PRC ABE Board Exam
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: 22,
+              fontSize: 64,
+              lineHeight: 1.04,
+              color: "#eef9e4",
+              WebkitTextStroke: "2px #eef9e4",
+            }}
+          >
+            <span>Ready to get your</span>
+            <span>shit together,</span>
+            <span style={{ color: GREEN_LIGHT, WebkitTextStroke: `2px ${GREEN_LIGHT}` }}>BAYAW?</span>
           </div>
-          <div style={{ fontSize: 30, color: GREEN, marginTop: 30 }}>www.abeliever.dev</div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", marginTop: 34 }}>
+            {chips.map((c) => (
+              <div
+                key={c}
+                style={{
+                  display: "flex",
+                  fontSize: 22,
+                  color: "#d6efc4",
+                  border: `2px solid ${GREEN}88`,
+                  background: "#0e2d1966",
+                  borderRadius: 999,
+                  padding: "8px 20px",
+                  marginRight: 12,
+                  marginBottom: 12,
+                }}
+              >
+                {c}
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", fontSize: 28, color: GREEN, marginTop: 10 }}>www.abeliever.dev</div>
         </div>
       </div>
     ),
