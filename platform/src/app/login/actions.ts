@@ -5,17 +5,37 @@ import { clearAuthFlowCookies, createClient } from "@/lib/supabase/server";
 import { getSiteUrl } from "@/lib/site-url";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
-// One shared budget per IP across both magic-link sends and password
-// attempts — covers OTP-email-bombing and password brute-forcing with a
-// single mechanism (flagged as a public-launch blocker, 2026-09-28).
-// Loose enough that a real person fumbling their password a few times
-// never sees it.
-const LOGIN_LIMIT = 15;
-const LOGIN_WINDOW_SECONDS = 15 * 60;
+// Two-tier budget, covering both OTP-email-bombing and password
+// brute-forcing (flagged as a public-launch blocker, 2026-09-28):
+//
+//   1. Tight per (IP, email) pair — stops someone hammering ONE account's
+//      password or OTP from one source.
+//   2. Loose per IP alone — a backstop against pure volumetric abuse
+//      (scripted spam across many emails from one source), set high enough
+//      that it should never fire on real traffic.
+//
+// FIXED 2026-10-02: this used to be a single `login:${ip}` bucket at 15/15min
+// shared by EVERY login attempt from that IP regardless of whose account —
+// caused a real incident where every user got logged out together, because
+// Philippine mobile carriers commonly put thousands of distinct real users
+// behind one carrier-grade-NAT IP (and getClientIp()'s old "unknown" string
+// fallback made it worse by sharing one bucket across every caller the
+// x-forwarded-for header was missing for, see rate-limit.ts). Keying by
+// (ip, email) means different people's accounts on the same shared IP no
+// longer share a budget; the pure-IP bucket is now wide enough to absorb a
+// realistic burst of organic logins from one campus/carrier network.
+const LOGIN_PAIR_LIMIT = 10;
+const LOGIN_PAIR_WINDOW_SECONDS = 15 * 60;
+const LOGIN_IP_LIMIT = 100;
+const LOGIN_IP_WINDOW_SECONDS = 15 * 60;
 
-async function checkLoginRateLimit(): Promise<boolean> {
+async function checkLoginRateLimit(email: string): Promise<boolean> {
   const ip = await getClientIp();
-  return checkRateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_SECONDS);
+  const [pairAllowed, ipAllowed] = await Promise.all([
+    checkRateLimit(`login:${ip}:${email.toLowerCase()}`, LOGIN_PAIR_LIMIT, LOGIN_PAIR_WINDOW_SECONDS),
+    checkRateLimit(`login-ip:${ip}`, LOGIN_IP_LIMIT, LOGIN_IP_WINDOW_SECONDS),
+  ]);
+  return pairAllowed && ipAllowed;
 }
 
 export type SendMagicLinkResult = { ok: true; email: string } | { ok: false; message: string };
@@ -30,8 +50,8 @@ export async function sendMagicLink(
     return { ok: false, message: "Enter a valid email address." };
   }
 
-  if (!(await checkLoginRateLimit())) {
-    return { ok: false, message: "Too many attempts from your network. Please wait a bit and try again." };
+  if (!(await checkLoginRateLimit(email))) {
+    return { ok: false, message: "Too many attempts for that account. Please wait a bit and try again." };
   }
 
   const supabase = await createClient();
@@ -92,8 +112,8 @@ export async function signInWithPassword(
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
-  if (!(await checkLoginRateLimit())) {
-    return { ok: false, message: "Too many attempts from your network. Please wait a bit and try again." };
+  if (!(await checkLoginRateLimit(email))) {
+    return { ok: false, message: "Too many attempts for that account. Please wait a bit and try again." };
   }
 
   const supabase = await createClient();

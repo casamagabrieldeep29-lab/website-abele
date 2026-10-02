@@ -595,3 +595,15 @@ Gabriel reported that removing a user from `/admin/users` just kept saying "type
 **Fix:** added `name="confirmation"` to the input.
 
 **Testing performed:** created a disposable test account directly against the database, logged in as the owner account, and used the real admin UI to remove it — confirmed the row disappeared from the Free-Trial Users list and, via a direct database read afterward, that the account was actually gone. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-10-02 — Fix: site-wide login lockout ("all users can't sign in")
+
+Gabriel reported every user getting logged out / unable to sign in, which then cleared on its own a short while later. Checked the real `rate_limits` table directly: several distinct real IPs were already sitting at 3-9 hits each well below the old 15-per-15-minute cap on a single shared `login:<ip>` bucket — consistent with Philippine mobile carrier-grade NAT, where thousands of genuinely different users share one public IP. Once enough of them tried to sign in within the same 15-minute window, every one of them shared the same counter and got rejected together with "Too many attempts from your network" — which looks exactly like "all users can't sign in," and self-clears once the fixed window rolls over, matching "it's working again now."
+
+**`src/lib/rate-limit.ts`:** `getClientIp()`'s fallback for a missing `x-forwarded-for` header used to be the literal constant `"unknown"` — meaning every caller that header was missing for *also* shared one global bucket, on top of the carrier-NAT problem. Changed to a fresh `unknown:<uuid>` per call instead, so an unresolvable IP now gets its own one-off (functionally unlimited) bucket rather than piling into a shared one — matches `checkRateLimit`'s own "fail open beats breaking everyone" philosophy.
+
+**`src/app/login/actions.ts` and `src/app/signup/actions.ts`:** both moved from a single IP-keyed bucket to two tiers — a tight `login:<ip>:<email>` / `signup:<ip>:<email>` pair (real brute-force/spam protection, scoped to one specific account) plus a much looser `login-ip:<ip>` / `signup-ip:<ip>` ceiling (100/15min and 30/hour respectively) that exists only to catch genuine scripted volumetric abuse, wide enough that a realistic burst of organic traffic from one shared network never trips it. Different people sharing a carrier IP no longer share a login/signup budget with each other.
+
+**Testing performed:** `npm run lint` and `npm run build` both clean. No schema change — reuses the existing `rate_limits` table/RPC with different key strings, so this ships with the next deploy, no migration needed.
