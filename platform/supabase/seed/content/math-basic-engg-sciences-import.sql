@@ -142,7 +142,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Glenn can paint a house in 9 hours while Stewart can paint the same house in 16 hours. They work together for 4 hours, then Stewart leaves and Glenn finishes the job alone. How many more hours does Glenn need to finish the job?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Glenn can paint a house in 9 hours while Stewart can paint the same house in 16 hours. They work together for 4 hours, then Stewart leaves and Glenn finishes the job alone. How many more hours does Glenn need to finish the job?', 'single_choice', 'medium', 'Work done together in 4 hours = 4(1/9 + 1/16) = 4(25/144) = 25/36 of the job. Remaining work = 1 − 25/36 = 11/36. Glenn's rate is 1/9 per hour, so the time = (11/36) / (1/9) = 2.75 hours.', NULL, NULL, 'draft', false, NULL, false, NULL)
+    VALUES (v_topic_id, NULL, 'Glenn can paint a house in 9 hours while Stewart can paint the same house in 16 hours. They work together for 4 hours, then Stewart leaves and Glenn finishes the job alone. How many more hours does Glenn need to finish the job?', 'single_choice', 'medium', 'Work done together in 4 hours = 4(1/9 + 1/16) = 4(25/144) = 25/36 of the job. Remaining work = 1 − 25/36 = 11/36. Glenn''s rate is 1/9 per hour, so the time = (11/36) / (1/9) = 2.75 hours.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, '1.50 hours', false, 0),
@@ -181,7 +181,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Jojo bought a second-hand VCR and sold it to Rudy at a profit of 40%. Rudy then sold it to Noel at a profit of 20%. If Noel paid P2,856 more than Jojo paid, how much did Jojo pay for the unit?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Jojo bought a second-hand VCR and sold it to Rudy at a profit of 40%. Rudy then sold it to Noel at a profit of 20%. If Noel paid P2,856 more than Jojo paid, how much did Jojo pay for the unit?', 'single_choice', 'medium', 'Let x be Jojo's cost. Rudy paid 1.4x and Noel paid 1.2(1.4x) = 1.68x. Then 1.68x = x + 2,856, so 0.68x = 2,856 and x = P4,200.', NULL, NULL, 'draft', false, NULL, false, NULL)
+    VALUES (v_topic_id, NULL, 'Jojo bought a second-hand VCR and sold it to Rudy at a profit of 40%. Rudy then sold it to Noel at a profit of 20%. If Noel paid P2,856 more than Jojo paid, how much did Jojo pay for the unit?', 'single_choice', 'medium', 'Let x be Jojo''s cost. Rudy paid 1.4x and Noel paid 1.2(1.4x) = 1.68x. Then 1.68x = x + 2,856, so 0.68x = 2,856 and x = P4,200.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, 'P2,856', false, 0),
@@ -246,7 +246,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'The sides of a triangle are 8 cm, 10 cm and 14 cm. Determine the radius of the inscribed circle.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'The sides of a triangle are 8 cm, 10 cm and 14 cm. Determine the radius of the inscribed circle.', 'single_choice', 'medium', 'Semi-perimeter s = (8 + 10 + 14) / 2 = 16 cm. By Heron's formula, A = sqrt[16(16 − 8)(16 − 10)(16 − 14)] = sqrt(1,536) = 39.19 cm². Since A = r·s, r = 39.19 / 16 = 2.45 cm.', NULL, NULL, 'draft', false, NULL, false, NULL)
+    VALUES (v_topic_id, NULL, 'The sides of a triangle are 8 cm, 10 cm and 14 cm. Determine the radius of the inscribed circle.', 'single_choice', 'medium', 'Semi-perimeter s = (8 + 10 + 14) / 2 = 16 cm. By Heron''s formula, A = sqrt[16(16 − 8)(16 − 10)(16 − 14)] = sqrt(1,536) = 39.19 cm². Since A = r·s, r = 39.19 / 16 = 2.45 cm.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, '2.45 cm', true, 0),
@@ -272,7 +272,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Pedro can paint a fence 50% faster than Juan and 20% faster than Pilar. Together, the three can paint the fence in 4 hours. How long would it take Pedro to paint the same fence working alone?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Pedro can paint a fence 50% faster than Juan and 20% faster than Pilar. Together, the three can paint the fence in 4 hours. How long would it take Pedro to paint the same fence working alone?', 'single_choice', 'hard', 'Let Pedro's rate be 1/A. Juan's rate = (1/A)/1.5 = 0.6667(1/A) and Pilar's rate = (1/A)/1.2 = 0.8333(1/A). Together: (1/A)(1 + 0.6667 + 0.8333) = 2.5/A = 1/4, so A = 10 hours.', NULL, NULL, 'draft', false, NULL, false, NULL)
+    VALUES (v_topic_id, NULL, 'Pedro can paint a fence 50% faster than Juan and 20% faster than Pilar. Together, the three can paint the fence in 4 hours. How long would it take Pedro to paint the same fence working alone?', 'single_choice', 'hard', 'Let Pedro''s rate be 1/A. Juan''s rate = (1/A)/1.5 = 0.6667(1/A) and Pilar''s rate = (1/A)/1.2 = 0.8333(1/A). Together: (1/A)(1 + 0.6667 + 0.8333) = 2.5/A = 1/4, so A = 10 hours.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, '7.5 hours', false, 0),
