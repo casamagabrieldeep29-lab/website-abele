@@ -105,3 +105,21 @@ export function expireReviewerContent() {
 export function expireTaxonomy() {
   revalidateTag(TAXONOMY_TAG, { expire: 0 });
 }
+
+/**
+ * Drops the three heavy fields (full table text, variable definitions, notes —
+ * about a third of the payload) from an entry before it is sent to the browser.
+ * The browser asks for them when a group is opened (getReviewerDetails), so a
+ * student who never expands most groups never downloads them.
+ */
+export function toLightEntry<T extends { table_content: string | null; variables: string | null; notes: string | null }>(
+  e: T,
+): Omit<T, "table_content" | "variables" | "notes"> & {
+  table_content: null;
+  variables: null;
+  notes: null;
+  has_details: boolean;
+} {
+  const { table_content, variables, notes, ...rest } = e;
+  return { ...rest, table_content: null, variables: null, notes: null, has_details: Boolean(table_content || variables || notes) };
+}

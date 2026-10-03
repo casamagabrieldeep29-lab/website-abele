@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import type { ReviewerEntry } from "../../reviewers/reviewers-browser";
 import { FormulaCard, ConstantCard, TableEntryCard } from "../../reviewers/reviewers-browser";
+import { useEntryDetails } from "../../reviewers/use-entry-details";
+import { expandEntry, type EntryLookup } from "../../reviewers/entry-lookup";
+import { derivePaesCategory } from "@/lib/paes-categories";
 import type { PaesCategory } from "@/lib/paes-categories";
 import { PAES_STANDARD_TITLES, PAES_SERIES_ORDER, derivePaesSeries, stripPaesStandardPrefix } from "@/lib/paes-standard-titles";
 
@@ -29,20 +32,72 @@ function withSubtitle(entry: PaesLibraryEntry): PaesLibraryEntry {
 }
 
 /** One PAES standard's "page": a collapsible section headed by the standard's real official title, its Quick Reference entries (as subtitled cards), and a link into a quiz scoped to just this standard. */
+/** Mounted only while its standard is open: asks for the heavy fields, then draws the cards. */
+function PaesGroupBody({ entries, details }: { entries: PaesLibraryEntry[]; details: ReturnType<typeof useEntryDetails> }) {
+  const { request, ready, merge, failed } = details;
+  useEffect(() => {
+    request(entries);
+  }, [entries, request]);
+
+  if (!ready(entries)) {
+    return (
+      <div className="p-4 pt-3">
+        <p className="text-sm text-muted-foreground">
+          {failed ? "Couldn't load these entries. Close and reopen this standard to try again." : "Loading…"}
+        </p>
+      </div>
+    );
+  }
+
+  const full = merge(entries);
+  const tables = full.filter((e) => e.kind === "table").map(withSubtitle);
+  const constants = full.filter((e) => e.kind === "constant").map(withSubtitle);
+  const formulas = full.filter((e) => e.kind === "formula").map(withSubtitle);
+
+  return (
+    <div className="p-4 pt-3">
+      <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Reference</p>
+
+      {constants.length > 0 && (
+        <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
+          {constants.map((entry) => (
+            <ConstantCard key={entry.id} entry={entry} />
+          ))}
+        </div>
+      )}
+
+      {formulas.length > 0 && (
+        <div className="mt-2 grid grid-cols-1 items-start gap-2.5 sm:grid-cols-2">
+          {formulas.map((entry) => (
+            <FormulaCard key={entry.id} entry={entry} />
+          ))}
+        </div>
+      )}
+
+      {tables.length > 0 && (
+        <div className="mt-2 space-y-3">
+          {tables.map((entry) => (
+            <TableEntryCard key={entry.id} entry={entry} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PaesStandardGroup({
   paesReference,
   entries,
   defaultOpen,
+  details,
 }: {
   paesReference: string;
   entries: PaesLibraryEntry[];
   defaultOpen: boolean;
+  details: ReturnType<typeof useEntryDetails>;
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
-  const tables = entries.filter((e) => e.kind === "table").map(withSubtitle);
-  const constants = entries.filter((e) => e.kind === "constant").map(withSubtitle);
-  const formulas = entries.filter((e) => e.kind === "formula").map(withSubtitle);
   const officialTitle = PAES_STANDARD_TITLES[paesReference];
 
   return (
@@ -71,48 +126,39 @@ function PaesStandardGroup({
         </div>
 
         <CollapsibleContent open={open}>
-          <div className="p-4 pt-3">
-            <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Reference</p>
-
-            {constants.length > 0 && (
-              <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
-                {constants.map((entry) => (
-                  <ConstantCard key={entry.id} entry={entry} />
-                ))}
-              </div>
-            )}
-
-            {formulas.length > 0 && (
-              <div className="mt-2 grid grid-cols-1 items-start gap-2.5 sm:grid-cols-2">
-                {formulas.map((entry) => (
-                  <FormulaCard key={entry.id} entry={entry} />
-                ))}
-              </div>
-            )}
-
-            {tables.length > 0 && (
-              <div className="mt-2 space-y-3">
-                {tables.map((entry) => (
-                  <TableEntryCard key={entry.id} entry={entry} />
-                ))}
-              </div>
-            )}
-          </div>
+          <PaesGroupBody entries={entries} details={details} />
         </CollapsibleContent>
       </Collapsible>
     </div>
   );
 }
 
+/** What the server sends per entry: no topic/area/subject names and no category — the browser derives those. */
+export type LightPaesLibraryEntry = Omit<
+  PaesLibraryEntry,
+  "topic_name" | "exam_area_id" | "exam_area_name" | "subject_name" | "subtopic_name" | "category"
+>;
+
 export function PaesLibraryBrowser({
-  entries,
+  entries: lightEntries,
+  lookup,
   initialSearch = "",
 }: {
-  entries: PaesLibraryEntry[];
+  entries: LightPaesLibraryEntry[];
+  lookup: EntryLookup;
   initialSearch?: string;
 }) {
   const [search, setSearch] = useState(initialSearch);
+  const entries: PaesLibraryEntry[] = useMemo(
+    () =>
+      lightEntries.map((e) => ({
+        ...expandEntry(e, lookup),
+        category: derivePaesCategory(e.paes_reference, e.title),
+      })),
+    [lightEntries, lookup],
+  );
   const [series, setSeries] = useState<(typeof PAES_SERIES_ORDER)[number] | "all">("all");
+  const details = useEntryDetails();
 
   // Filter by the PAES standard's own numbering series (100s, 200s, ...),
   // not the subject-area category we derive for Mastery — this is the
@@ -198,6 +244,7 @@ export function PaesLibraryBrowser({
               paesReference={g.paesReference}
               entries={g.entries}
               defaultOpen={isFiltering}
+              details={details}
             />
           ))
         )}

@@ -5,6 +5,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Input } from "@/components/ui/input";
+import { useEntryDetails } from "./use-entry-details";
+import { expandEntry, type EntryLookup } from "./entry-lookup";
 
 export type ReviewerEntry = {
   id: string;
@@ -16,6 +18,8 @@ export type ReviewerEntry = {
   value: string | null;
   unit: string | null;
   table_content: string | null;
+  /** True when table_content / variables / notes were left out of the page payload and must be loaded on demand (see detail-actions.ts). */
+  has_details?: boolean;
   description: string | null;
   notes: string | null;
   source: string | null;
@@ -579,6 +583,53 @@ export function TableEntryCard({ entry }: { entry: ReviewerEntry }) {
 }
 
 /** Groups one kind's filtered entries under their TOS, collapsed by default — a search match auto-expands only the TOS group(s) it's actually in. */
+type DetailsApi = ReturnType<typeof useEntryDetails>;
+
+/** Mounted only while its group is open: asks for the heavy fields, then draws the cards. */
+function GroupBody({
+  entries,
+  kind,
+  details,
+}: {
+  entries: ReviewerEntry[];
+  kind: ReviewerEntry["kind"];
+  details: DetailsApi;
+}) {
+  const { request, ready, merge, failed } = details;
+  useEffect(() => {
+    request(entries);
+  }, [entries, request]);
+
+  if (!ready(entries)) {
+    return (
+      <p className="px-3 pb-3 text-sm text-muted-foreground">
+        {failed ? "Couldn't load these entries. Close and reopen this group to try again." : "Loading…"}
+      </p>
+    );
+  }
+  const full = merge(entries);
+
+  return kind === "table" ? (
+    <div className="space-y-3 px-3 pb-3">
+      {full.map((entry) => (
+        <TableEntryCard key={entry.id} entry={entry} />
+      ))}
+    </div>
+  ) : kind === "constant" ? (
+    <div className="grid grid-cols-1 gap-2.5 px-3 pb-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      {full.map((entry) => (
+        <ConstantCard key={entry.id} entry={entry} />
+      ))}
+    </div>
+  ) : (
+    <div className="grid grid-cols-1 items-start gap-2.5 px-3 pb-3 sm:grid-cols-2">
+      {full.map((entry) => (
+        <FormulaCard key={entry.id} entry={entry} />
+      ))}
+    </div>
+  );
+}
+
 function TosGroupedEntries({
   entries,
   isSearching,
@@ -589,6 +640,7 @@ function TosGroupedEntries({
   kind: ReviewerEntry["kind"];
 }) {
   const [openIds, setOpenIds] = useState<Set<string>>(new Set());
+  const details = useEntryDetails();
 
   const groups = useMemo(() => {
     const byArea = new Map<string, { name: string; entries: ReviewerEntry[] }>();
@@ -628,25 +680,7 @@ function TosGroupedEntries({
                 </span>
               </CollapsibleTrigger>
               <CollapsibleContent open={open}>
-                {kind === "table" ? (
-                  <div className="space-y-3 px-3 pb-3">
-                    {group.entries.map((entry) => (
-                      <TableEntryCard key={entry.id} entry={entry} />
-                    ))}
-                  </div>
-                ) : kind === "constant" ? (
-                  <div className="grid grid-cols-1 gap-2.5 px-3 pb-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                    {group.entries.map((entry) => (
-                      <ConstantCard key={entry.id} entry={entry} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 items-start gap-2.5 px-3 pb-3 sm:grid-cols-2">
-                    {group.entries.map((entry) => (
-                      <FormulaCard key={entry.id} entry={entry} />
-                    ))}
-                  </div>
-                )}
+                <GroupBody entries={group.entries} kind={kind} details={details} />
               </CollapsibleContent>
             </Collapsible>
           </div>
@@ -656,8 +690,23 @@ function TosGroupedEntries({
   );
 }
 
-export function ReviewersBrowser({ entries, initialSearch = "" }: { entries: ReviewerEntry[]; initialSearch?: string }) {
+/** What the server sends per entry: everything except the names, which come from the shared lookup. */
+export type LightReviewerEntry = Omit<
+  ReviewerEntry,
+  "topic_name" | "exam_area_id" | "exam_area_name" | "subject_name" | "subtopic_name"
+>;
+
+export function ReviewersBrowser({
+  entries: lightEntries,
+  lookup,
+  initialSearch = "",
+}: {
+  entries: LightReviewerEntry[];
+  lookup: EntryLookup;
+  initialSearch?: string;
+}) {
   const [search, setSearch] = useState(initialSearch);
+  const entries: ReviewerEntry[] = useMemo(() => lightEntries.map((e) => expandEntry(e, lookup)), [lightEntries, lookup]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
