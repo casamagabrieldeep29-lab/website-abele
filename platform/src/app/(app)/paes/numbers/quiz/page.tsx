@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
 import { startNumberBankQuiz, startSavedNumberBankQuiz } from "@/app/reviewers/quiz-actions";
+import { getSessionUser } from "@/lib/auth/session";
 
 export default async function NumberBankQuizPage({
   searchParams,
@@ -12,7 +13,7 @@ export default async function NumberBankQuizPage({
 }) {
   const { empty } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const { count: totalPublished, error } = await supabase

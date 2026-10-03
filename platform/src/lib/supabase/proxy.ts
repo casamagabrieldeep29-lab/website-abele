@@ -85,7 +85,29 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const { data: { user }, error } = await supabase.auth.getUser();
+  // If Supabase is slow or down, a hung getUser() must not be read as "signed
+  // out": that bounced every user to /login (looking like a mass logout) and
+  // left them retrying sign-in against a backend that couldn't answer. Give it
+  // a few seconds, then let the request through so the page can show its own
+  // error/retry state while the session cookie stays intact.
+  //
+  // getClaims() verifies the session JWT locally against cached signing keys, so
+  // a normal page view costs NO request to Supabase Auth (getUser() cost one per
+  // request and was the service that failed under load). It still refreshes an
+  // expired access token with the refresh token, which is the only time it calls
+  // Auth. A session revoked server-side is noticed when the token next expires
+  // (<= 1 hour) or by any server action, which keeps the strict getUser().
+  const AUTH_TIMEOUT_MS = 4000;
+  const authResult = await Promise.race([
+    supabase.auth.getClaims(),
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), AUTH_TIMEOUT_MS)),
+  ]);
+  if (authResult === null) {
+    console.warn("[proxy] Supabase auth timed out, not forcing logout.");
+    return response;
+  }
+  const { data: claimsData, error } = authResult;
+  const user = claimsData?.claims?.sub ? { id: claimsData.claims.sub } : null;
 
   // A failed refresh attempt because of a transient network problem talking
   // to Supabase is NOT the same as an actually-invalid session, but without

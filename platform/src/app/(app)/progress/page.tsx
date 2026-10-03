@@ -1,13 +1,15 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { fetchAllAnsweredRows } from "@/lib/study-stats";
+import { fetchAnswerSummary, weeklyAccuracyFromDays } from "@/lib/study-stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StudyAssistant } from "@/components/study-assistant";
 import { PageHeader } from "@/components/page-header";
 import { MasteryTree, type MasteryStatus, type MasteryTOS } from "./mastery-tree";
 import { formatDateManila } from "@/lib/manila-week";
+import { getSessionUser } from "@/lib/auth/session";
+import { fetchTopicMastery, fetchSubtopicMastery } from "@/lib/mastery";
 
 type TopicMastery = {
   topic_id: string;
@@ -55,49 +57,20 @@ function avgMastery(rows: { mastery: number | null }[]): number | null {
 }
 
 /** Buckets already-fetched answer rows into the last N ISO weeks and computes accuracy per week. No new query, no charting dependency. */
-function weeklyAccuracy(
-  rows: { answered_at: string; is_correct: boolean }[],
-  weeks: number,
-): { label: string; accuracy: number | null; count: number }[] {
-  const now = new Date();
-  const buckets: { start: Date; end: Date }[] = [];
-  for (let i = weeks - 1; i >= 0; i--) {
-    const end = new Date(now);
-    end.setDate(end.getDate() - i * 7);
-    const start = new Date(end);
-    start.setDate(start.getDate() - 6);
-    buckets.push({ start, end });
-  }
-
-  return buckets.map(({ start, end }) => {
-    const inRange = rows.filter((r) => {
-      const d = new Date(r.answered_at);
-      return d >= start && d <= end;
-    });
-    return {
-      label: `${start.getMonth() + 1}/${start.getDate()}`,
-      accuracy: inRange.length ? Math.round((100 * inRange.filter((r) => r.is_correct).length) / inRange.length) : null,
-      count: inRange.length,
-    };
-  });
-}
 
 const RECENT_WINDOW = 30;
 
 export default async function ProgressPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: masteryRows }, { data: subtopicMasteryRows }, answeredRows, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
+  const [{ data: masteryRows }, { data: subtopicMasteryRows }, answerSummary, { data: mockAttempts }, { data: allMocks }, { data: examAreas }, { data: subjects }] =
     await Promise.all([
-      supabase.rpc("get_topic_mastery"),
-      supabase.rpc("get_subtopic_mastery"),
-      // Paginated — a plain `.select()` here silently caps at 1000 rows once
-      // total answered questions across the account passes 1000, which
-      // would truncate the accuracy trend and Preparation Profile stats
-      // below. See study-stats.ts.
-      fetchAllAnsweredRows(supabase, user.id),
+      fetchTopicMastery(supabase),
+      fetchSubtopicMastery(supabase),
+      // Compact aggregates instead of the whole answer history. See study-stats.ts.
+      fetchAnswerSummary(supabase, user.id, RECENT_WINDOW),
       supabase
         .from("attempts")
         .select("id, total_questions, correct_count, completed_at")
@@ -117,7 +90,6 @@ export default async function ProgressPage() {
     ]);
 
   const mastery = (masteryRows ?? []) as TopicMastery[];
-  const answered = (answeredRows ?? []) as { answered_at: string; is_correct: boolean }[];
 
   // Concept Mastery: subtopic-level rows grouped by their parent topic, so
   // toTreeTopic can attach them below. Empty/absent (e.g. before patch 039
@@ -202,20 +174,14 @@ export default async function ProgressPage() {
   });
   const mocks = (mockAttempts ?? []) as MockAttempt[];
 
-  const trend = weeklyAccuracy(answered, WEEKS_OF_HISTORY);
-  const hasEnoughTrendData = answered.length >= 10;
+  const trend = weeklyAccuracyFromDays(answerSummary.days, WEEKS_OF_HISTORY);
+  const hasEnoughTrendData = answerSummary.total >= 10;
 
   // --- Preparation Profile: objective coverage summary, never a pass/fail prediction ---
-  const questionsCompleted = answered.length;
-  const overallAccuracy = questionsCompleted
-    ? Math.round((100 * answered.filter((a) => a.is_correct).length) / questionsCompleted)
-    : null;
-  const sortedByRecent = [...answered].sort(
-    (a, b) => new Date(b.answered_at).getTime() - new Date(a.answered_at).getTime(),
-  );
-  const recentSlice = sortedByRecent.slice(0, RECENT_WINDOW);
-  const recentAccuracy = recentSlice.length
-    ? Math.round((100 * recentSlice.filter((a) => a.is_correct).length) / recentSlice.length)
+  const questionsCompleted = answerSummary.total;
+  const overallAccuracy = questionsCompleted ? Math.round((100 * answerSummary.correct) / questionsCompleted) : null;
+  const recentAccuracy = answerSummary.recentTotal
+    ? Math.round((100 * answerSummary.recentCorrect) / answerSummary.recentTotal)
     : null;
 
   const mockTotals = (allMocks ?? []) as { total_questions: number; correct_count: number }[];

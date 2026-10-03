@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 const MAX_SESSION_SIZE = 50;
 
@@ -71,7 +72,7 @@ export async function startWeakAreaFlashcards(areaTopicId: string) {
 
   const [{ data: areaTopic }, { data: mastery }] = await Promise.all([
     supabase.from("topics").select("mock_area").eq("id", areaTopicId).single(),
-    supabase.rpc("get_topic_mastery"),
+    fetchTopicMastery(supabase),
   ]);
   const weakTopicIds = (mastery ?? [])
     .filter((m: { status: string }) => m.status === "needs_review" || m.status === "developing")

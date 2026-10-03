@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { fetchAllAnsweredRows } from "@/lib/study-stats";
+import { fetchAnswerSummary } from "@/lib/study-stats";
 import { getAIProvider, AIProviderError, AI_DAILY_LIMIT, AI_TRIAL_DAILY_LIMIT, buildAiLimitMessage } from "@/lib/ai";
 import { buildStudyAssistantPrompt, buildStudyAssistantSystemInstruction, type StudyAssistantContext } from "@/lib/ai/prompts";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { logError } from "@/lib/log-error";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 const FRIENDLY_ERROR = "AI explanation is temporarily unavailable. Please try again.";
 const MAX_QUESTION_LENGTH = 500;
@@ -61,23 +62,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: buildAiLimitMessage(usageRow?.limit_reason) }, { status: 429 });
   }
 
-  const [{ data: masteryRows }, answeredRows, { data: mistakeRows }] = await Promise.all([
-    supabase.rpc("get_topic_mastery"),
-    // Paginated — a plain `.select()` here silently caps at 1000 rows once a
-    // student passes 1000 answered questions, understating questionsAnswered/
-    // overallAccuracy in the AI's context. See study-stats.ts.
-    fetchAllAnsweredRows(supabase, user.id),
-    supabase.rpc("get_mistake_bank"),
+  const [{ data: masteryRows }, answerSummary, { count: mistakeTotal }] = await Promise.all([
+    fetchTopicMastery(supabase),
+    fetchAnswerSummary(supabase, user.id),
+    // Only the count is used — HEAD + exact count avoids downloading every mistake's text.
+    supabase.rpc("get_mistake_bank", undefined, { head: true, count: "exact" }),
   ]);
 
   const mastery = (masteryRows ?? []) as TopicMasteryRow[];
-  const answered = answeredRows;
   const context: StudyAssistantContext = {
-    questionsAnswered: answered.length,
-    overallAccuracy: answered.length
-      ? Math.round((100 * answered.filter((a) => a.is_correct).length) / answered.length)
-      : null,
-    mistakeCount: mistakeRows?.length ?? 0,
+    questionsAnswered: answerSummary.total,
+    overallAccuracy: answerSummary.total ? Math.round((100 * answerSummary.correct) / answerSummary.total) : null,
+    mistakeCount: mistakeTotal ?? 0,
     topicMastery: mastery.map((m) => ({
       topicName: m.topic_name,
       examAreaName: m.exam_area_name,

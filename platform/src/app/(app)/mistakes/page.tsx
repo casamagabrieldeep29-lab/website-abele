@@ -2,10 +2,12 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { MistakeBankView, type MistakeRow } from "@/app/mistakes/mistake-bank-view";
 import { PageHeader } from "@/components/page-header";
+import { getSessionUser } from "@/lib/auth/session";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 export default async function MistakesPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ data, error }, { data: topics }, { data: examAreas }, { data: subjects }, { data: masteryRows }] =
@@ -17,7 +19,7 @@ export default async function MistakesPage() {
       // Powers the "current mastery" shown next to Retest — the same
       // get_topic_mastery() rows Dashboard/Progress already use, not a
       // separate calculation.
-      supabase.rpc("get_topic_mastery"),
+      fetchTopicMastery(supabase),
     ]);
 
   if (error) {

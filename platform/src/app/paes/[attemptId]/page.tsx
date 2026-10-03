@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PaesQuizSession, type PaesChoice, type PaesQuestion } from "./paes-quiz-session";
+import { getSessionUser } from "@/lib/auth/session";
 
 /**
  * Phase 2 PAES Quiz session route — a standalone, distraction-free page
@@ -22,7 +23,7 @@ export default async function PaesQuizAttemptPage({
 }) {
   const { attemptId } = await params;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const { data: attempt } = await supabase

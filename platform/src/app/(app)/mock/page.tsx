@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getPublishedSnapshot } from "@/lib/published-counts";
+import { getTaxonomy } from "@/lib/shared-content";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { startAreaMockExam, type MockArea } from "@/app/mock/actions";
 import { PageHeader } from "@/components/page-header";
 import { MockTosList, type MockSubject } from "./mock-tos-list";
+import { getSessionUser } from "@/lib/auth/session";
 
 const ITEM_COUNT = 100;
 const TIME_LIMIT_HOURS = 3;
@@ -22,18 +24,13 @@ const AREA_ORDER: MockArea[] = ["area_1", "area_2", "area_3"];
 
 export default async function MockExamSetupPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: topics }, snapshot, { data: examAreas }, { data: subjects }] = await Promise.all([
-    supabase.from("topics").select("id, name, mock_area, exam_area_id, subject_id").order("name"),
-    // Per-area availability comes from a shared, cached snapshot (see
-    // src/lib/published-counts.ts) instead of paging through every
-    // published row on each page view.
-    getPublishedSnapshot(),
-    supabase.from("exam_areas").select("id, name, sort_order").order("sort_order"),
-    supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
-  ]);
+  // Per-area availability and the topic/subject/area lists are identical for every
+  // student — shared caches, not a per-view download (see shared-content.ts).
+  const [snapshot, taxonomy] = await Promise.all([getPublishedSnapshot(), getTaxonomy()]);
+  const { topics, examAreas, subjects } = taxonomy;
 
   const areaCount: Record<MockArea, number> = { ...snapshot.byMockArea };
 

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
+import { getSessionUser } from "@/lib/auth/session";
 
 type HubCard = {
   href: string;
@@ -18,7 +19,7 @@ type HubCard = {
 
 export default async function PaesHubPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ count: questionCount }, libraryResult, masteryResult] = await Promise.all([
@@ -35,13 +36,13 @@ export default async function PaesHubPage() {
     // 029 migration — same degrade-gracefully treatment as the Library count
     // above, just for a lightweight "how many standards have any tracked
     // mastery" stat rather than the full mastery breakdown.
-    supabase.rpc("get_paes_mastery"),
+    // Only the NUMBER of tracked standards is shown here — a HEAD + exact-count
+    // request returns just the count instead of every standard's mastery row.
+    supabase.rpc("get_paes_mastery", undefined, { head: true, count: "exact" }),
   ]);
   const libraryCount = libraryResult.error ? null : libraryResult.count;
   const masteryAvailable = !masteryResult.error;
-  const masteryTrackedCount = masteryResult.error
-    ? 0
-    : (masteryResult.data ?? []).filter((m: { total_attempts: number }) => m.total_attempts > 0).length;
+  const masteryTrackedCount = masteryResult.error ? 0 : (masteryResult.count ?? 0);
 
   const cards: HubCard[] = [
     {

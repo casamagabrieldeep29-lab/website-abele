@@ -7,25 +7,25 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { StatCard } from "@/components/stat-card";
 import { SettingsForm } from "@/components/settings-form";
-import { computeStudyStats, fetchAllAnsweredRows } from "@/lib/study-stats";
+import { computeStudyStats, fetchAnswerSummary } from "@/lib/study-stats";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import { updateDisplayName } from "@/app/profile/actions";
 import { PageHeader } from "@/components/page-header";
+import { getSessionUser } from "@/lib/auth/session";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { data: masteryRows }, answeredRows] = await Promise.all([
+  const [{ data: profile }, { data: masteryRows }, answerSummary] = await Promise.all([
     supabase.from("profiles").select("display_name, email, created_at, current_streak").eq("id", user.id).single(),
-    supabase.rpc("get_topic_mastery"),
-    // Paginated — a plain `.select()` here silently caps at 1000 rows once a
-    // student passes 1000 answered questions. See study-stats.ts.
-    fetchAllAnsweredRows(supabase, user.id),
+    fetchTopicMastery(supabase),
+    fetchAnswerSummary(supabase, user.id),
   ]);
 
-  const stats = computeStudyStats(masteryRows ?? [], answeredRows ?? [], profile?.current_streak ?? 0);
+  const stats = computeStudyStats(masteryRows ?? [], answerSummary, profile?.current_streak ?? 0);
   const displayName = profile?.display_name || user.email?.split("@")[0] || "Student";
   const initial = displayName.charAt(0).toUpperCase();
   const accent = getHarmonizedAccent(user.id);

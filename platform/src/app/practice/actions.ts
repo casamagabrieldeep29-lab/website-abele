@@ -5,9 +5,10 @@ import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
-import { weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
-import { fetchAllRows } from "@/lib/supabase/paginate";
+import { fetchLatestOutcomes, weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
+import { getCandidatePool, getPublishedSnapshot } from "@/lib/published-counts";
 import type { MockArea } from "@/app/mock/actions";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 /**
  * The set of question ids this user has ever answered. Deliberately NOT
@@ -22,14 +23,8 @@ import type { MockArea } from "@/app/mock/actions";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function fetchAnsweredQuestionIds(supabase: SupabaseClient<any>, userId: string): Promise<Set<string>> {
-  const rows = await fetchAllRows<{ question_id: string }>((from, to) =>
-    supabase
-      .from("attempt_answers")
-      .select("question_id, attempts!inner(user_id)")
-      .eq("attempts.user_id", userId)
-      .range(from, to),
-  );
-  return new Set(rows.map((r) => r.question_id));
+  const outcomes = await fetchLatestOutcomes(supabase, userId);
+  return new Set([...outcomes.correct, ...outcomes.incorrect]);
 }
 
 export async function startPracticeAttempt(topicId: string) {
@@ -368,7 +363,7 @@ async function scopeToPracticeMode(
   if (mode === "mixed") return candidates;
 
   if (mode === "weak_areas") {
-    const { data: masteryRows } = await supabase.rpc("get_topic_mastery");
+    const { data: masteryRows } = await fetchTopicMastery(supabase);
     const weakTopicIds = new Set(
       (masteryRows ?? [])
         .filter((m: { status: string }) => m.status === "developing" || m.status === "needs_review")
@@ -409,10 +404,9 @@ export async function startQuickPractice(count: number, mode?: PracticeMode) {
   // Pools EVERY published question (1800+ rows now) — a plain `.select()`
   // here would silently cap at 1000 via PostgREST's default max-rows,
   // quietly shrinking Quick Practice's candidate pool. Paginated.
-  const candidates = await fetchAllRows<{ id: string; topic_id: string; series_key: string | null; series_position: number | null }>(
-    (from, to) =>
-      supabase.from("student_questions").select("id, topic_id, series_key, series_position").range(from, to),
-  );
+  // Shared, cached pool of every published question (see published-counts.ts)
+  // instead of re-downloading ~4,000 rows from Supabase per session start.
+  const candidates = await getCandidatePool();
   if (!candidates || candidates.length === 0) {
     throw new Error("No published questions yet.");
   }
@@ -628,10 +622,7 @@ export async function startDailyQuestion() {
   // daily id — a plain `.select()` would silently cap at 1000 via
   // PostgREST's default max-rows, shrinking the eligible pool and skewing
   // which id gets picked. Paginated.
-  const candidates = await fetchAllRows<{ id: string }>((from, to) =>
-    supabase.from("student_questions").select("id").order("id").range(from, to),
-  );
-  const candidateIds = candidates.map((c) => c.id);
+  const { ids: candidateIds } = await getPublishedSnapshot();
   const questionId = pickDailyQuestionId(candidateIds);
   if (!questionId) {
     throw new Error("No published questions yet.");

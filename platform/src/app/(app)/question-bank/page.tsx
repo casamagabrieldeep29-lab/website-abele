@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getAuthContext } from "@/lib/auth/session";
 import { getPublishedSnapshot } from "@/lib/published-counts";
+import { getTaxonomy } from "@/lib/shared-content";
 import { PageHeader } from "@/components/page-header";
 import {
   QuestionBankBrowser,
@@ -15,19 +16,13 @@ export default async function QuestionBankPage({
   searchParams: Promise<{ areaId?: string; subjectId?: string; topicId?: string; subtopicId?: string; questionId?: string }>;
 }) {
   const { areaId, subjectId, topicId, subtopicId, questionId } = await searchParams;
-  const { supabase, user } = await getAuthContext();
+  const { user } = await getAuthContext();
   if (!user) redirect("/login");
 
-  const [{ data: examAreas }, { data: officialSubjects }, { data: topics }, { data: subtopics }, snapshot] =
-    await Promise.all([
-      supabase.from("exam_areas").select("id, name, weight_percent, sort_order").order("sort_order"),
-      supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
-      supabase.from("topics").select("id, name, exam_area_id, subject_id").order("name"),
-      supabase.from("subtopics").select("id, name, topic_id").order("name"),
-      // Per-topic/per-subtopic counts come from a shared, cached snapshot
-      // (see src/lib/published-counts.ts), not a full-view scan per page view.
-      getPublishedSnapshot(),
-    ]);
+  // Taxonomy and per-topic/per-subtopic counts are identical for every student —
+  // shared caches (shared-content.ts / published-counts.ts), not a per-view download.
+  const [snapshot, taxonomy] = await Promise.all([getPublishedSnapshot(), getTaxonomy()]);
+  const { examAreas, subjects: officialSubjects, topics, subtopics } = taxonomy;
 
   const topicCount = new Map<string, number>(Object.entries(snapshot.byTopic));
   const subtopicCount = new Map<string, number>(Object.entries(snapshot.bySubtopic));

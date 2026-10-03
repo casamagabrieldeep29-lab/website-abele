@@ -4,10 +4,11 @@ import { NotesList, type NoteRow } from "@/app/notes/notes-list";
 import { BookmarksList, type BookmarkRow } from "@/app/notes/bookmarks-list";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
+import { getSessionUser } from "@/lib/auth/session";
 
 export default async function NotesPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ data, error }, { data: bookmarkData, error: bookmarkError }] = await Promise.all([

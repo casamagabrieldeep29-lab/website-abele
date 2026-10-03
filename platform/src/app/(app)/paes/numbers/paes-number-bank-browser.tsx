@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Hash } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { ReviewerEntry } from "../../reviewers/reviewers-browser";
 import { ConstantCard, TableEntryCard } from "../../reviewers/reviewers-browser";
 import type { PaesCategory } from "@/lib/paes-categories";
@@ -25,10 +26,17 @@ function ReferenceBadge({ paesReference }: { paesReference: string }) {
   );
 }
 
+// Drawing every card at once made this page ~5 MB of HTML (and slow on a phone).
+// Cards are shown in pages; search and filters still cover every entry, and any
+// change to them starts back at the first page.
+const CONSTANTS_PAGE_SIZE = 24;
+const TABLES_PAGE_SIZE = 12;
+
 export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntry[] }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<PaesCategory | "all">("all");
   const [reference, setReference] = useState<string | "all">("all");
+  const [shown, setShown] = useState({ key: "", constants: CONSTANTS_PAGE_SIZE, tables: TABLES_PAGE_SIZE });
 
   const availableCategories = useMemo(() => {
     const present = new Set(entries.map((e) => e.category));
@@ -63,6 +71,10 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
   const withSubtitle = (e: PaesNumberBankEntry): PaesNumberBankEntry => ({ ...e, title: stripPaesStandardPrefix(e.title) });
   const constants = filtered.filter((e) => e.kind === "constant").map(withSubtitle);
   const tables = filtered.filter((e) => e.kind === "table").map(withSubtitle);
+
+  const filterKey = `${search}|${category}|${reference}`;
+  const limits =
+    shown.key === filterKey ? shown : { key: filterKey, constants: CONSTANTS_PAGE_SIZE, tables: TABLES_PAGE_SIZE };
 
   return (
     <div className="mt-6">
@@ -115,13 +127,24 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
             <div>
               <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Values</p>
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-                {constants.map((entry) => (
+                {constants.slice(0, limits.constants).map((entry) => (
                   <div key={entry.id} className="relative pt-2">
                     <ReferenceBadge paesReference={entry.paes_reference} />
                     <ConstantCard entry={entry} />
                   </div>
                 ))}
               </div>
+              {constants.length > limits.constants && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-4"
+                  onClick={() => setShown({ ...limits, key: filterKey, constants: limits.constants + CONSTANTS_PAGE_SIZE })}
+                >
+                  Show more values ({constants.length - limits.constants} more)
+                </Button>
+              )}
             </div>
           )}
 
@@ -129,13 +152,24 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
             <div>
               <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Reference Tables</p>
               <div className="mt-4 space-y-4">
-                {tables.map((entry) => (
+                {tables.slice(0, limits.tables).map((entry) => (
                   <div key={entry.id} className="relative pt-2">
                     <ReferenceBadge paesReference={entry.paes_reference} />
                     <TableEntryCard entry={entry} />
                   </div>
                 ))}
               </div>
+              {tables.length > limits.tables && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-4"
+                  onClick={() => setShown({ ...limits, key: filterKey, tables: limits.tables + TABLES_PAGE_SIZE })}
+                >
+                  Show more tables ({tables.length - limits.tables} more)
+                </Button>
+              )}
             </div>
           )}
         </div>

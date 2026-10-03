@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { MockExamSession, type MockChoice, type MockQuestion } from "./mock-exam-session";
+import { getSessionUser } from "@/lib/auth/session";
 
 const AREA_LABELS: Record<string, string> = { area_1: "Area 1", area_2: "Area 2", area_3: "Area 3" };
 
@@ -12,7 +13,7 @@ export default async function MockExamAttemptPage({
 }) {
   const { attemptId } = await params;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const { data: attempt } = await supabase

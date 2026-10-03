@@ -114,6 +114,43 @@ function weightedSampleUnits<T>(units: WeightedUnit<T>[], count: number): T[] {
  * making it likely, while still never leaving a session short if the
  * needs-practice pool alone can't fill it.
  */
+/**
+ * The latest result (correct / incorrect) for every question this student has
+ * answered, as two id lists. One small RPC (patch 048) instead of downloading
+ * the student's entire answer history (~130 bytes per answer) at every session
+ * start. Falls back to the old full-history read only if the function is not
+ * installed yet, so deploying before running the SQL cannot break session start.
+ */
+export async function fetchLatestOutcomes(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: SupabaseClient<any>,
+  userId: string,
+): Promise<{ correct: Set<string>; incorrect: Set<string> }> {
+  const { data, error } = await supabase.rpc("get_latest_outcomes");
+  if (!error && data && typeof data === "object") {
+    const d = data as { correct?: string[]; incorrect?: string[] };
+    return { correct: new Set(d.correct ?? []), incorrect: new Set(d.incorrect ?? []) };
+  }
+
+  const pastAnswers = await fetchAllRows<{ question_id: string; is_correct: boolean | null; answered_at: string | null }>(
+    (from, to) =>
+      supabase
+        .from("attempt_answers")
+        .select("question_id, is_correct, answered_at, attempts!inner(user_id)")
+        .eq("attempts.user_id", userId)
+        .not("answered_at", "is", null)
+        .order("answered_at", { ascending: false })
+        .range(from, to),
+  );
+  const correct = new Set<string>();
+  const incorrect = new Set<string>();
+  for (const a of pastAnswers) {
+    if (a.is_correct === null || correct.has(a.question_id) || incorrect.has(a.question_id)) continue;
+    (a.is_correct ? correct : incorrect).add(a.question_id);
+  }
+  return { correct, incorrect };
+}
+
 export async function weighAndSampleCandidates(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   supabase: SupabaseClient<any>,
@@ -144,26 +181,12 @@ export async function weighAndSampleCandidates(
   // /quick, 2026-09-26). Filtering to just this candidate batch happens in
   // JS below instead — a user's own answer history is normally far smaller
   // than the full candidate pool either way.
-  const candidateIdSet = new Set(candidates.map((c) => c.id));
-  const pastAnswers = await fetchAllRows<{ question_id: string; is_correct: boolean; answered_at: string }>(
-    (from, to) =>
-      supabase
-        .from("attempt_answers")
-        .select("question_id, is_correct, answered_at, attempts!inner(user_id)")
-        .eq("attempts.user_id", userId)
-        .order("answered_at", { ascending: false })
-        .range(from, to),
-  );
-
-  const latestOutcome = new Map<string, boolean>();
-  for (const a of pastAnswers) {
-    if (!candidateIdSet.has(a.question_id)) continue;
-    if (!latestOutcome.has(a.question_id)) latestOutcome.set(a.question_id, a.is_correct);
-  }
+  const outcomes = await fetchLatestOutcomes(supabase, userId);
 
   function weightOf(id: string): number {
-    const outcome = latestOutcome.get(id);
-    return outcome === undefined ? 1.5 : outcome === false ? 3 : 1;
+    if (outcomes.incorrect.has(id)) return 3;
+    if (outcomes.correct.has(id)) return 1;
+    return 1.5;
   }
 
   const units = groupIntoUnits(candidates).map((members) => ({

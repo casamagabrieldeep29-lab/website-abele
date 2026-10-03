@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { fetchAllRows } from "@/lib/supabase/paginate";
+import { getPublishedReviewerEntries, getTaxonomy } from "@/lib/shared-content";
 import { PaesLibraryBrowser, type PaesLibraryEntry } from "./paes-library-browser";
 import { PageHeader } from "@/components/page-header";
 import { derivePaesCategory } from "@/lib/paes-categories";
+import { getSessionUser } from "@/lib/auth/session";
 
 type PaesLibraryRow = Pick<
   PaesLibraryEntry,
@@ -17,7 +18,7 @@ export default async function PaesLibraryPage({
 }) {
   const { q } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   // Same shape as /reviewers, plus paes_reference — this is what tells
@@ -28,24 +29,11 @@ export default async function PaesLibraryPage({
   // since "PAES 6xx" titles sort late among the ~1100+ rows that pass this
   // filter, higher-numbered series (500/600) were the ones getting cut off.
   // Paginated, same as /reviewers and /admin/reviewers.
-  const [entries, { data: topics }, { data: examAreas }, { data: subtopics }, { data: subjects }] =
-    await Promise.all([
-      fetchAllRows<PaesLibraryRow>((from, to) =>
-        supabase
-          .from("reviewer_entries")
-          .select(
-            "id, kind, title, formula, variables, symbol, value, unit, table_content, description, notes, source, topic_id, subtopic_id, paes_reference",
-          )
-          .eq("status", "published")
-          .not("paes_reference", "is", null)
-          .order("title")
-          .range(from, to),
-      ),
-      supabase.from("topics").select("id, name, exam_area_id, subject_id"),
-      supabase.from("exam_areas").select("id, name, sort_order"),
-      supabase.from("subtopics").select("id, name"),
-      supabase.from("subjects").select("id, name"),
-    ]);
+  // Same shared, cached snapshot the Reviewers page uses (one download for
+  // everyone, not ~1 MB per visit) — the PAES subset is filtered here.
+  const [allEntries, taxonomy] = await Promise.all([getPublishedReviewerEntries(), getTaxonomy()]);
+  const entries = allEntries.filter((e) => e.paes_reference !== null) as PaesLibraryRow[];
+  const { topics, examAreas, subtopics, subjects } = taxonomy;
 
   const topicById = new Map((topics ?? []).map((t) => [t.id, t]));
   const areaById = new Map((examAreas ?? []).map((a) => [a.id, a.name]));

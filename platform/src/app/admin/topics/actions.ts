@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { expireTaxonomy } from "@/lib/shared-content";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -22,6 +23,7 @@ export async function createTopic(examAreaId: string, formData: FormData) {
     .from("topics")
     .insert({ exam_area_id: examAreaId, name, mock_area: mockArea });
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }
 
@@ -37,6 +39,7 @@ export async function renameTopic(topicId: string, formData: FormData) {
     .update({ name, mock_area: mockArea })
     .eq("id", topicId);
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }
 
@@ -45,6 +48,7 @@ export async function deleteTopic(topicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("topics").delete().eq("id", topicId);
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }
 
@@ -56,6 +60,7 @@ export async function createSubtopic(topicId: string, formData: FormData) {
 
   const { error } = await supabase.from("subtopics").insert({ topic_id: topicId, name });
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }
 
@@ -67,6 +72,7 @@ export async function renameSubtopic(subtopicId: string, formData: FormData) {
 
   const { error } = await supabase.from("subtopics").update({ name }).eq("id", subtopicId);
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }
 
@@ -75,5 +81,6 @@ export async function deleteSubtopic(subtopicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("subtopics").delete().eq("id", subtopicId);
   if (error) throw new Error(friendlyError(error));
+  expireTaxonomy();
   revalidatePath("/admin/topics");
 }

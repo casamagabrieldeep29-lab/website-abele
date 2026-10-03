@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { supabaseFetch } from "./egress-log";
 
 /**
  * Each PKCE sign-in attempt (magic link, resend, etc.) sets its own
@@ -25,6 +26,7 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      global: supabaseFetch ? { fetch: supabaseFetch } : undefined,
       cookies: {
         getAll() {
           return cookieStore.getAll();

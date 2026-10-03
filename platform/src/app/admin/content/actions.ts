@@ -228,6 +228,7 @@ export async function archiveQuestion(questionId: string, topicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("questions").update({ status: "archived" }).eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -236,6 +237,7 @@ export async function unarchiveQuestion(questionId: string, topicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("questions").update({ status: "draft" }).eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -296,5 +298,6 @@ export async function createQuestion(topicId: string, formData: FormData) {
     if (cErr) throw new Error(cErr.message);
   }
 
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
