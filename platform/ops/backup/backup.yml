@@ -1,0 +1,68 @@
+# ABELIEVER database backup — runs in a PRIVATE repo, never in the public one.
+# Copy this file to  .github/workflows/backup.yml  of the private backup repo.
+# See README.md in this folder for the one-time setup.
+name: Database backup
+
+on:
+  schedule:
+    # Weekly (Sunday 19:00 UTC = Monday 03:00 Manila) while Supabase egress is tight.
+    # Each run downloads roughly the size of the database from Supabase (counts toward egress).
+    # To go nightly once the monthly egress has headroom, change to: "0 19 * * *"
+    - cron: "0 19 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Install PostgreSQL 17 client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common gnupg
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+
+      - name: Dump public schema + auth users
+        env:
+          SOURCE_DB_URL: ${{ secrets.SOURCE_DB_URL }}
+        run: |
+          set -euo pipefail
+          mkdir out
+          # Everything the app owns (tables, functions, policies, data)...
+          pg_dump "$SOURCE_DB_URL" --format=custom --no-owner --no-privileges \
+            --schema=public --file=out/public.dump
+          # ...plus the login accounts, so students keep their passwords after a restore.
+          pg_dump "$SOURCE_DB_URL" --format=custom --no-owner --no-privileges \
+            --data-only --table=auth.users --table=auth.identities --file=out/auth.dump
+          ls -l out
+
+      - name: Sanity check (fail loudly on an empty or broken dump)
+        run: |
+          set -euo pipefail
+          pg_restore --list out/public.dump > /dev/null
+          pg_restore --list out/auth.dump > /dev/null
+          size=$(stat -c %s out/public.dump)
+          echo "public.dump = $size bytes"
+          test "$size" -gt 200000   # a healthy ABELIEVER dump is far larger than 200 KB
+
+      - name: Encrypt (AES-256)
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          tar -C out -cf - public.dump auth.dump | gpg --batch --yes --symmetric --cipher-algo AES256 \
+            --passphrase "$BACKUP_PASSPHRASE" --output "abeliever-$(date -u +%F).tar.gpg"
+          rm -rf out
+          ls -l
+
+      - name: Keep for 30 days
+        uses: actions/upload-artifact@v4
+        with:
+          name: abeliever-backup-${{ github.run_id }}
+          path: abeliever-*.tar.gpg
+          retention-days: 30
+          if-no-files-found: error
