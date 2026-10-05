@@ -684,10 +684,10 @@ BEGIN
       (v_question_id, 'Evaluation', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A solar bubble dryer investment is expected to generate an incremental net benefit at the end of Year 4. Compute the present value of that benefit at the stated discount rate.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A solar bubble dryer investment is expected to generate an incremental net benefit of PHP 250,000 at the end of Year 4. Using a discount rate of 12% per year and Year 0 as the base year, compute the present value of that benefit.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'A solar bubble dryer investment is expected to generate an incremental net benefit at the end of Year 4. Compute the present value of that benefit at the stated discount rate.', 'single_choice', 'hard', 'Given: B4 = PHP 250,000; r = 12%/year; base year = Year 0. DF = 1/(1.12)^4 = 1/1.5735 = 0.6355; PV = 250,000 × 0.6355 = PHP 158,879.52 ≈ PHP 158,880', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'A solar bubble dryer investment is expected to generate an incremental net benefit of PHP 250,000 at the end of Year 4. Using a discount rate of 12% per year and Year 0 as the base year, compute the present value of that benefit.', 'single_choice', 'hard', 'Given: B4 = PHP 250,000; r = 12%/year; base year = Year 0. DF = 1/(1.12)^4 = 1/1.5735 = 0.6355; PV = 250,000 × 0.6355 = PHP 158,879.52 ≈ PHP 158,880', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -697,10 +697,10 @@ BEGIN
       (v_question_id, 'PHP 393,380', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Evaluate the financial worth of a small mechanized drying facility using the net present value criterion, and state whether the investment should be accepted.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A small mechanized drying facility requires an initial investment of PHP 500,000 in Year 0 and is expected to generate incremental net benefits of PHP 150,000 in Year 1, PHP 250,000 in Year 2, and PHP 300,000 in Year 3. Using a discount rate of 10% per year, evaluate its financial worth by the net present value criterion and state whether the investment should be accepted.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'Evaluate the financial worth of a small mechanized drying facility using the net present value criterion, and state whether the investment should be accepted.', 'single_choice', 'hard', 'Given: Initial investment (Year 0) = PHP 500,000; incremental net benefits Year 1-3 = 150,000/250,000/300,000; r = 10%. PV of benefits = 136,363.64+206,611.57+225,394.44 = 568,369.65; NPV = 568,369.65 − 500,000 = PHP 68,370 (>0, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'A small mechanized drying facility requires an initial investment of PHP 500,000 in Year 0 and is expected to generate incremental net benefits of PHP 150,000 in Year 1, PHP 250,000 in Year 2, and PHP 300,000 in Year 3. Using a discount rate of 10% per year, evaluate its financial worth by the net present value criterion and state whether the investment should be accepted.', 'single_choice', 'hard', 'Given: Initial investment (Year 0) = PHP 500,000; incremental net benefits Year 1-3 = 150,000/250,000/300,000; r = 10%. PV of benefits = 136,363.64+206,611.57+225,394.44 = 568,369.65; NPV = 568,369.65 − 500,000 = PHP 68,370 (>0, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -710,10 +710,10 @@ BEGIN
       (v_question_id, 'PHP 568,370; accept the project', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A rural farm-to-market road project has the cost and benefit streams shown. Compute the benefit-cost ratio and apply the selection principle.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A rural farm-to-market road project has costs of PHP 800,000 in Year 0 and PHP 200,000 in Year 1, and gross benefits of PHP 400,000 in Year 1, PHP 600,000 in Year 2, and PHP 500,000 in Year 3. Using a discount rate of 10% per year, compute the benefit-cost ratio and apply the selection principle.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'A rural farm-to-market road project has the cost and benefit streams shown. Compute the benefit-cost ratio and apply the selection principle.', 'single_choice', 'hard', 'Given: Cost Year0=800,000, Year1=200,000; Gross benefit Year1=400,000, Year2=600,000, Year3=500,000; r=10%. PV of benefits = 363,636.36+495,867.77+375,657.40 = 1,235,161.53; PV of costs = 800,000+181,818.18 = 981,818.18; B/C = 1,235,161.53/981,818.18 = 1.258 ≈ 1.26 (>1, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'A rural farm-to-market road project has costs of PHP 800,000 in Year 0 and PHP 200,000 in Year 1, and gross benefits of PHP 400,000 in Year 1, PHP 600,000 in Year 2, and PHP 500,000 in Year 3. Using a discount rate of 10% per year, compute the benefit-cost ratio and apply the selection principle.', 'single_choice', 'hard', 'Given: Cost Year0=800,000, Year1=200,000; Gross benefit Year1=400,000, Year2=600,000, Year3=500,000; r=10%. PV of benefits = 363,636.36+495,867.77+375,657.40 = 1,235,161.53; PV of costs = 800,000+181,818.18 = 981,818.18; B/C = 1,235,161.53/981,818.18 = 1.258 ≈ 1.26 (>1, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -723,10 +723,10 @@ BEGIN
       (v_question_id, '0.26; reject the project', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates. Estimate the internal rate of return by linear interpolation.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. Estimate the internal rate of return by linear interpolation.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates. Estimate the internal rate of return by linear interpolation.', 'single_choice', 'hard', 'Given: at r=12%, NPV=+84,000; at r=16%, NPV=−28,000; STP rate=10%. IRR ≈ rL + (rh−rL)×[NPVL/(NPVL+|NPVh|)] = 12% + (4×0.75) = 12%+3.0% = 15.0% (IRR>STP, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. Estimate the internal rate of return by linear interpolation.', 'single_choice', 'hard', 'Given: at r=12%, NPV=+84,000; at r=16%, NPV=−28,000; STP rate=10%. IRR ≈ rL + (rh−rL)×[NPVL/(NPVL+|NPVh|)] = 12% + (4×0.75) = 12%+3.0% = 15.0% (IRR>STP, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -749,10 +749,10 @@ BEGIN
       (v_question_id, 'Only the import duties are excluded; interest and the study remain economic costs', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A research activity in an agricultural R&D project has uncertain duration, so the planner applies the three-time probabilistic model. Compute the expected activity duration.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A research activity in an agricultural R&D project has uncertain duration, so the planner applies the three-time probabilistic model with an optimistic time of 6 days, a most likely time of 10 days, and a pessimistic time of 20 days. Compute the expected activity duration.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'A research activity in an agricultural R&D project has uncertain duration, so the planner applies the three-time probabilistic model. Compute the expected activity duration.', 'single_choice', 'hard', 'Given: to=6 days, tm=10 days, tp=20 days. te = (to+4tm+tp)/6 = (6+40+20)/6 = 66/6 = 11 days. PERT weights the most likely estimate four times and each extreme once, for research with a range of durations; CPM by contrast is deterministic.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'A research activity in an agricultural R&D project has uncertain duration, so the planner applies the three-time probabilistic model with an optimistic time of 6 days, a most likely time of 10 days, and a pessimistic time of 20 days. Compute the expected activity duration.', 'single_choice', 'hard', 'Given: to=6 days, tm=10 days, tp=20 days. te = (to+4tm+tp)/6 = (6+40+20)/6 = 66/6 = 11 days. PERT weights the most likely estimate four times and each extreme once, for research with a range of durations; CPM by contrast is deterministic.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -762,10 +762,10 @@ BEGIN
       (v_question_id, '16 days', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'An appraised watershed rehabilitation project shows the discounted streams below. Determine the switching value for gross benefits.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'An appraised watershed rehabilitation project has a present value of gross benefits of PHP 8.4 million and a present value of gross costs of PHP 7.0 million, with the discount rate held constant. Determine the switching value for gross benefits.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'An appraised watershed rehabilitation project shows the discounted streams below. Determine the switching value for gross benefits.', 'single_choice', 'hard', 'Given: PV of gross benefits = PHP 8.4 million; PV of gross costs = PHP 7.0 million; discount rate held constant. NPV = 8.4−7.0 = PHP 1.4 million; acceptability limit is where NPV=0; switching value = NPV/PV of benefits × 100 = (1.4/8.4)×100 = 16.67% ≈ 16.7%. A switching value shows how far one element must move unfavorably before the project no longer meets minimum acceptability.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'An appraised watershed rehabilitation project has a present value of gross benefits of PHP 8.4 million and a present value of gross costs of PHP 7.0 million, with the discount rate held constant. Determine the switching value for gross benefits.', 'single_choice', 'hard', 'Given: PV of gross benefits = PHP 8.4 million; PV of gross costs = PHP 7.0 million; discount rate held constant. NPV = 8.4−7.0 = PHP 1.4 million; acceptability limit is where NPV=0; switching value = NPV/PV of benefits × 100 = (1.4/8.4)×100 = 16.67% ≈ 16.7%. A switching value shows how far one element must move unfavorably before the project no longer meets minimum acceptability.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES

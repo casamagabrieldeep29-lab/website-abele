@@ -1,5 +1,11 @@
 @AGENTS.md
 
+# Question content rules (hard rules)
+
+- **Every given value goes in the question text.** A computation problem must state all its data (numbers, units, rates, years, table values) in `question_text`, so a student can solve it from the question alone. The explanation may restate them as "Given: ...", but it must never be the only place they appear. "...the streams shown" with nothing shown is a defect.
+- Applies to all new content (seed JSON/SQL, admin editor, AI-authored batches) and to anything edited. `src/lib/question-givens.ts` flags the pattern (admin card warning) and `question-givens.test.ts` fails CI if a seed file in `supabase/seed/content/` breaks it.
+- New questions stay `status = 'draft'`; no source attribution is ever shown or stored in student/admin UI.
+
 # Supabase egress budget (hard rule)
 
 The Supabase project is on the **Free plan: 5 GB egress per month**. In Oct 2026 pages that re-downloaded whole tables on every view used the entire allowance and took the site down for every student. Do not repeat it.
