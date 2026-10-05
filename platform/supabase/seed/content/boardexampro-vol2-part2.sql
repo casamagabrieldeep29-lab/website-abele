@@ -1743,10 +1743,10 @@ BEGIN
       (v_question_id, '7.40 m²', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A combined roasting, grinding, and packaging area measures 17 m² with a ceiling height of 2.6 m. Since it contains machinery, what is the minimum ventilation rate that mechanical ventilation must deliver?';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A combined roasting, grinding, and packaging area measures 17 m² with a ceiling height of 2.6 m. Since it contains machinery, mechanical ventilation must provide not less than 3 air changes per hour (Section 811 of PD 1096). What is the minimum ventilation rate that mechanical ventilation must deliver?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'A combined roasting, grinding, and packaging area measures 17 m² with a ceiling height of 2.6 m. Since it contains machinery, what is the minimum ventilation rate that mechanical ventilation must deliver?', 'single_choice', 'hard', 'Given: A_RGP = 17 m²; H_c = 2.6 m; ACH = 3 per hour. Required: V_min, the minimum ventilation rate. Solution: Section VIII-F, citing Section 811 of PD 1096, requires not less than three air changes per hour for rooms with machinery. V_min = A_RGP x H_c x ACH = (17 m²)(2.6 m)(3 h⁻¹) = 132.6 m³/h ≈ 133 m³/h.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 71-136)', 'draft')
+    VALUES (v_topic_id, NULL, 'A combined roasting, grinding, and packaging area measures 17 m² with a ceiling height of 2.6 m. Since it contains machinery, mechanical ventilation must provide not less than 3 air changes per hour (Section 811 of PD 1096). What is the minimum ventilation rate that mechanical ventilation must deliver?', 'single_choice', 'hard', 'Given: A_RGP = 17 m²; H_c = 2.6 m; ACH = 3 per hour. Required: V_min, the minimum ventilation rate. Solution: Section VIII-F, citing Section 811 of PD 1096, requires not less than three air changes per hour for rooms with machinery. V_min = A_RGP x H_c x ACH = (17 m²)(2.6 m)(3 h⁻¹) = 132.6 m³/h ≈ 133 m³/h.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 71-136)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES

@@ -327,10 +327,10 @@ BEGIN
       (v_question_id, 'n = 32, with 3 permissible defectives', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A lot of 100 units is to be sampled for visual and dimensional testing. What is the value of r?';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A lot of 100 units is to be sampled for visual and dimensional testing. Table 1 specifies a visual/dimensional sample size of n = 5 for lot sizes of 51 to 100 units. What is the value of r?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, v_sub_sampling, 'A lot of 100 units is to be sampled for visual and dimensional testing. What is the value of r?', 'single_choice', 'hard', 'Given: N = 100 units; from Table 1, lot sizes 51-100 require a visual/dimensional sample size of n = 5. Solution: r = N/n = 100/5 = 20. A number z is drawn at random from 1 to r; the unit corresponding to z becomes the first sample, and every rth unit thereafter is withdrawn until the required sample size is obtained.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, v_sub_sampling, 'A lot of 100 units is to be sampled for visual and dimensional testing. Table 1 specifies a visual/dimensional sample size of n = 5 for lot sizes of 51 to 100 units. What is the value of r?', 'single_choice', 'hard', 'Given: N = 100 units; from Table 1, lot sizes 51-100 require a visual/dimensional sample size of n = 5. Solution: r = N/n = 100/5 = 20. A number z is drawn at random from 1 to r; the unit corresponding to z becomes the first sample, and every rth unit thereafter is withdrawn until the required sample size is obtained.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -723,10 +723,10 @@ BEGIN
       (v_question_id, '0.26; reject the project', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. Estimate the internal rate of return by linear interpolation.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. The social time preference (STP) rate is 10%. Estimate the internal rate of return by linear interpolation.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. Estimate the internal rate of return by linear interpolation.', 'single_choice', 'hard', 'Given: at r=12%, NPV=+84,000; at r=16%, NPV=−28,000; STP rate=10%. IRR ≈ rL + (rh−rL)×[NPVL/(NPVL+|NPVh|)] = 12% + (4×0.75) = 12%+3.0% = 15.0% (IRR>STP, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, 'During appraisal of an irrigation project, the analyst computes the net present value at two trial discount rates: NPV = +84,000 at r = 12% and NPV = -28,000 at r = 16%. The social time preference (STP) rate is 10%. Estimate the internal rate of return by linear interpolation.', 'single_choice', 'hard', 'Given: at r=12%, NPV=+84,000; at r=16%, NPV=−28,000; STP rate=10%. IRR ≈ rL + (rh−rL)×[NPVL/(NPVL+|NPVh|)] = 12% + (4×0.75) = 12%+3.0% = 15.0% (IRR>STP, therefore accept).', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
@@ -2481,10 +2481,10 @@ BEGIN
       (v_question_id, 'potential pressure', false, 3);
   END IF;
 
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = '(Fluid Mechanics) Water flows through an 80-mm diameter pipe under a gauge pressure of 4.0 bar at a mean velocity of 2.0 m/s. Neglecting friction, determine the total head if the pipe lies 6 meters above the datum line.';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = '(Fluid Mechanics) Water flows through an 80-mm diameter pipe under a gauge pressure of 4.0 bar at a mean velocity of 2.0 m/s. Taking the unit weight of water as 9,810 N/m³ and neglecting friction, determine the total head if the pipe lies 6 meters above the datum line.';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status)
-    VALUES (v_topic_id, NULL, '(Fluid Mechanics) Water flows through an 80-mm diameter pipe under a gauge pressure of 4.0 bar at a mean velocity of 2.0 m/s. Neglecting friction, determine the total head if the pipe lies 6 meters above the datum line.', 'single_choice', 'hard', 'Given: D=80mm; p=4.0 bar=4.0×10^5 N/m²; v=2.0 m/s; Z=6 m; γ=9,810 N/m³. By Bernoulli''s equation: H = Z + v²/2g + p/γ = 6 + (2.0)²/(2×9.81) + (4.0×10^5)/9,810 = 6 + 0.204 + 40.775 = 46.98 m. The velocity head is small compared with the pressure head; pipe diameter is extraneous since velocity is already given.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
+    VALUES (v_topic_id, NULL, '(Fluid Mechanics) Water flows through an 80-mm diameter pipe under a gauge pressure of 4.0 bar at a mean velocity of 2.0 m/s. Taking the unit weight of water as 9,810 N/m³ and neglecting friction, determine the total head if the pipe lies 6 meters above the datum line.', 'single_choice', 'hard', 'Given: D=80mm; p=4.0 bar=4.0×10^5 N/m²; v=2.0 m/s; Z=6 m; γ=9,810 N/m³. By Bernoulli''s equation: H = Z + v²/2g + p/γ = 6 + (2.0)²/(2×9.81) + (4.0×10^5)/9,810 = 6 + 0.204 + 40.775 = 46.98 m. The velocity head is small compared with the pressure head; pipe diameter is extraneous since velocity is already given.', 'Board Exam Pro', 'ABELE 1st Ed Vol II Answer Key.pdf (pages 1-70)', 'draft')
     RETURNING id INTO v_question_id;
 
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
