@@ -2,9 +2,21 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { fillUnitsToTarget, groupIntoUnits } from "@/lib/series";
+import { groupIntoUnits } from "@/lib/series";
+import { pickSubjectItems } from "@/lib/mock-selection";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
+
+// A real board exam is mostly board-style problems and definitions, with only
+// a few items that hinge on a PAES/PNS standard's spec or test method.
+// Gabriel's 2026-10-06 request: "do not put so much PAES... it should be board
+// exam level." This caps standards items per subject; Machinery Specifications,
+// Testing and Evaluation is the one subject that is inherently about
+// standards' test methods, so it gets a larger allowance.
+const MAX_STANDARDS_SHARE = 0.15;
+const SUBJECT_STANDARDS_SHARE: Record<string, number> = {
+  "Agricultural and Biosystems Machinery Specifications, Testing and Evaluation": 0.3,
+};
 
 const MOCK_EXAM_TIME_LIMIT_MINUTES = 180; // 3 hours per area, matching the real board exam.
 
@@ -96,7 +108,7 @@ export async function startAreaMockExam(formData: FormData) {
     await Promise.all([
       supabase
         .from("student_questions")
-        .select("id, topic_id, series_key, series_position, question_text")
+        .select("id, topic_id, series_key, series_position, question_text, is_paes, paes_reference, is_recalled")
         .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`),
       supabase.from("topics").select("id, subject_id"),
       supabase.from("subjects").select("id, name"),
@@ -128,7 +140,7 @@ export async function startAreaMockExam(formData: FormData) {
     // Connected multi-part questions (same series_key) are never split
     // across a subject's cap — see src/lib/series.ts. A subject may land
     // slightly under its target rather than ever breaking a series apart.
-    return fillUnitsToTarget(groupIntoUnits(subjectCandidates), target);
+    return pickSubjectItems(groupIntoUnits(subjectCandidates), target, SUBJECT_STANDARDS_SHARE[name] ?? MAX_STANDARDS_SHARE);
   });
   if (selected.length === 0) {
     throw new Error("No published questions in this area yet.");
