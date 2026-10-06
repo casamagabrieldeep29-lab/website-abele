@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
 
@@ -85,7 +86,7 @@ export async function generateStudyPlan(formData: FormData) {
     redirect("/study-plan?error=missing-fields");
   }
 
-  const { data: masteryRows } = await supabase.rpc("get_topic_mastery");
+  const { data: masteryRows } = await fetchTopicMastery(supabase);
   const leastMastered = ((masteryRows ?? []) as TopicMastery[])
     .filter((m) => m.status !== "insufficient_data")
     .slice()

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { FlashcardStudy, type StudyCard } from "./flashcard-study";
+import { getSessionUser } from "@/lib/auth/session";
 
 export default async function FlashcardStudyPage({
   searchParams,
@@ -10,7 +11,7 @@ export default async function FlashcardStudyPage({
 }) {
   const { ids } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const idList = (ids ?? "").split(",").filter(Boolean);

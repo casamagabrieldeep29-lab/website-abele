@@ -89,8 +89,21 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
 
   // A receipt is required (Gabriel's explicit "all must pay. and upload
   // their reference. and the screenshot of receipt", 2026-09-28) — no more
-  // "submit without a receipt, wait for manual review" path.
+  // "submit without a receipt, wait for manual review" path. Size/type
+  // bounds added 2026-10-02 (security review): previously only checked
+  // non-empty, so one submission could upload an arbitrarily large or
+  // non-image file — the per-user submit rate limit above bounds how often,
+  // not how big. 8MB comfortably covers a phone screenshot; MIME check is
+  // client-supplied and spoofable but still filters the common-mistake case
+  // (wrong file picked) cheaply, before spending a real AI verification call.
+  const MAX_RECEIPT_BYTES = 8 * 1024 * 1024;
   if (!(receipt instanceof File) || receipt.size === 0) {
+    return { ok: false, error: "missing-fields" };
+  }
+  if (receipt.size > MAX_RECEIPT_BYTES) {
+    return { ok: false, error: "missing-fields" };
+  }
+  if (receipt.type && !receipt.type.startsWith("image/")) {
     return { ok: false, error: "missing-fields" };
   }
 

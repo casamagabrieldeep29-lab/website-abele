@@ -149,6 +149,9 @@ export default async function AdminTopicContentPage({
                   rows={2}
                   className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
                 />
+                <p className="text-xs text-muted-foreground">
+                  For computation problems, state every given value here. The solution may repeat them, but must never be the only place they appear.
+                </p>
               </div>
               <div className="space-y-1">
                 <label className="text-xs font-medium text-muted-foreground">Choices (check the correct one)</label>

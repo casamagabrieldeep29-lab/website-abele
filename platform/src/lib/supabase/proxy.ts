@@ -23,8 +23,29 @@ const PROTECTED_PREFIXES = [
   "/topics",
 ];
 
+// Supabase stores the session in `sb-<ref>-auth-token` (optionally chunked as
+// `.0`, `.1`, ...). The PKCE `...-code-verifier` cookie deliberately doesn't
+// match — it exists before sign-in completes and is not a session.
+const AUTH_COOKIE = /^sb-.+-auth-token(\.\d+)?$/;
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
+
+  // No session cookie at all means no user, so skip the Supabase round trip
+  // entirely. This is what keeps anonymous visitors, link-preview crawlers
+  // and bots from costing a network call to Supabase on every request.
+  const hasSessionCookie = request.cookies.getAll().some((c) => AUTH_COOKIE.test(c.name));
+  if (!hasSessionCookie) {
+    const isProtectedPath = PROTECTED_PREFIXES.some((prefix) =>
+      request.nextUrl.pathname.startsWith(prefix),
+    );
+    if (isProtectedPath) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("next", request.nextUrl.pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+    return response;
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -64,7 +85,29 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  const { data: { user }, error } = await supabase.auth.getUser();
+  // If Supabase is slow or down, a hung getUser() must not be read as "signed
+  // out": that bounced every user to /login (looking like a mass logout) and
+  // left them retrying sign-in against a backend that couldn't answer. Give it
+  // a few seconds, then let the request through so the page can show its own
+  // error/retry state while the session cookie stays intact.
+  //
+  // getClaims() verifies the session JWT locally against cached signing keys, so
+  // a normal page view costs NO request to Supabase Auth (getUser() cost one per
+  // request and was the service that failed under load). It still refreshes an
+  // expired access token with the refresh token, which is the only time it calls
+  // Auth. A session revoked server-side is noticed when the token next expires
+  // (<= 1 hour) or by any server action, which keeps the strict getUser().
+  const AUTH_TIMEOUT_MS = 4000;
+  const authResult = await Promise.race([
+    supabase.auth.getClaims(),
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), AUTH_TIMEOUT_MS)),
+  ]);
+  if (authResult === null) {
+    console.warn("[proxy] Supabase auth timed out, not forcing logout.");
+    return response;
+  }
+  const { data: claimsData, error } = authResult;
+  const user = claimsData?.claims?.sub ? { id: claimsData.claims.sub } : null;
 
   // A failed refresh attempt because of a transient network problem talking
   // to Supabase is NOT the same as an actually-invalid session, but without
@@ -78,6 +121,12 @@ export async function updateSession(request: NextRequest) {
   if (error && isAuthRetryableFetchError(error)) {
     console.warn("[proxy] Transient auth fetch error, not forcing logout:", error.message);
     return response;
+  }
+
+  // Signed-in visitors never need the marketing page. Done here (instead of
+  // in app/page.tsx) so the landing page itself can be fully static.
+  if (user && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>

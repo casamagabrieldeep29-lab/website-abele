@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { TeachMeThis } from "@/components/teach-me-this";
 import { ExplanationDisplay } from "@/components/explanation-display";
 import { studentFacingExplanation } from "@/lib/explanation";
+import { getSessionUser } from "@/lib/auth/session";
 
 type ReviewRow = {
   question_id: string;
@@ -31,7 +32,7 @@ export default async function MockExamResultsPage({
 }) {
   const { attemptId } = await params;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const { data: attempt } = await supabase

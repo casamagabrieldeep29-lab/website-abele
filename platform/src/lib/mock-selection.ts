@@ -1,6 +1,6 @@
 export type MockCandidate = {
   id: string;
-  question_text: string | null;
+  question_text?: string | null;
   is_paes?: boolean | null;
   paes_reference?: string | null;
   is_recalled?: boolean | null;

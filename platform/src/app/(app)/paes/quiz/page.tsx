@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
 import { startPaesQuizAttempt } from "@/app/practice/actions";
 import { PRACTICE_LENGTH_OPTIONS } from "@/lib/study-preferences";
+import { getSessionUser } from "@/lib/auth/session";
 
 const QUICKFIRE_COUNT = 10;
 const QUICKFIRE_SECONDS = 18;
@@ -30,7 +31,7 @@ export default async function PaesQuizPage({
   const paesReference = paes?.trim() || undefined;
 
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   let query = supabase.from("student_questions").select("id", { count: "exact", head: true }).eq("is_paes", true);

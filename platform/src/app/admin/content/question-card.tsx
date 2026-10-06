@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { questionMissingGivens } from "@/lib/question-givens";
 import {
   archiveQuestion,
   publishQuestion,
@@ -63,6 +64,11 @@ export function QuestionCard({
               </Link>
             )}
             <CardTitle className="text-base font-medium">{q.question_text}</CardTitle>
+            {questionMissingGivens(q.question_text, q.explanation) && (
+              <p className="mt-1 text-xs font-medium text-destructive">
+                Missing givens: the numbers appear only in the solution. Put every given value in the question text.
+              </p>
+            )}
           </div>
           <div className="flex shrink-0 gap-2">
             {q.is_recalled && (
@@ -117,6 +123,9 @@ export function QuestionCard({
                 rows={2}
                 className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm"
               />
+              <p className="text-xs text-muted-foreground">
+                For computation problems, state every given value here. The solution may repeat them, but must never be the only place they appear.
+              </p>
             </div>
             <div className="space-y-1">
               <label className="text-xs font-medium text-muted-foreground">Choices (check the correct one)</label>

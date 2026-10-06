@@ -133,7 +133,7 @@ export function AppSidebar({
                     <SidebarMenuButton
                       isActive={isActive}
                       render={
-                        <Link href={item.href}>
+                        <Link href={item.href} prefetch={false}>
                           <item.icon />
                           <span>{item.label}</span>
                         </Link>
@@ -157,7 +157,7 @@ export function AppSidebar({
                     <SidebarMenuButton
                       isActive={isActive}
                       render={
-                        <Link href={item.href}>
+                        <Link href={item.href} prefetch={false}>
                           <item.icon />
                           <span>{item.label}</span>
                         </Link>
@@ -179,7 +179,7 @@ export function AppSidebar({
                   <SidebarMenuButton
                     isActive={pathname.startsWith("/admin")}
                     render={
-                      <Link href="/admin">
+                      <Link href="/admin" prefetch={false}>
                         <Layers />
                         <span>Admin</span>
                       </Link>
@@ -206,7 +206,7 @@ export function AppSidebar({
           <DropdownMenuContent align="start" className="w-56">
             <DropdownMenuItem
               render={
-                <Link href="/profile" className="flex w-full items-center gap-2">
+                <Link href="/profile" prefetch={false} className="flex w-full items-center gap-2">
                   <User className="size-4" />
                   Profile
                 </Link>
@@ -214,7 +214,7 @@ export function AppSidebar({
             />
             <DropdownMenuItem
               render={
-                <Link href="/settings" className="flex w-full items-center gap-2">
+                <Link href="/settings" prefetch={false} className="flex w-full items-center gap-2">
                   <Settings className="size-4" />
                   Settings
                 </Link>

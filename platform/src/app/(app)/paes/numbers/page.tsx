@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getPublishedReviewerEntries, getTaxonomy } from "@/lib/shared-content";
 import { PaesNumberBankBrowser, type PaesNumberBankEntry } from "./paes-number-bank-browser";
 import { PageHeader } from "@/components/page-header";
 import { derivePaesCategory } from "@/lib/paes-categories";
 import { Button } from "@/components/ui/button";
+import { getSessionUser } from "@/lib/auth/session";
 
 // Constants are always "one number" (value + unit) — an obvious fit for a
 // number bank. Table entries can't be reduced to a single number, but the
@@ -16,33 +18,16 @@ const NUMBER_BANK_KINDS = ["constant", "table"] as const;
 
 export default async function PaesNumberBankPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: entries, error }, { data: topics }, { data: examAreas }, { data: subtopics }, { data: subjects }] =
-    await Promise.all([
-      supabase
-        .from("reviewer_entries")
-        .select(
-          "id, kind, title, formula, variables, symbol, value, unit, table_content, description, notes, source, topic_id, subtopic_id, paes_reference",
-        )
-        .eq("status", "published")
-        .not("paes_reference", "is", null)
-        .in("kind", NUMBER_BANK_KINDS)
-        .order("title"),
-      supabase.from("topics").select("id, name, exam_area_id, subject_id"),
-      supabase.from("exam_areas").select("id, name, sort_order"),
-      supabase.from("subtopics").select("id, name"),
-      supabase.from("subjects").select("id, name"),
-    ]);
-
-  if (error) {
-    return (
-      <p className="text-sm text-destructive">
-        Couldn&apos;t load PAES Number Bank: {error.message}
-      </p>
-    );
-  }
+  // The same shared, cached reviewer snapshot as /reviewers and the PAES Library
+  // (this page used to re-download ~750 KB from Supabase on every visit).
+  const [allEntries, taxonomy] = await Promise.all([getPublishedReviewerEntries(), getTaxonomy()]);
+  const entries = allEntries.filter(
+    (e) => e.paes_reference !== null && (NUMBER_BANK_KINDS as readonly string[]).includes(e.kind),
+  );
+  const { topics, examAreas, subtopics, subjects } = taxonomy;
 
   const topicById = new Map((topics ?? []).map((t) => [t.id, t]));
   const areaById = new Map((examAreas ?? []).map((a) => [a.id, a.name]));

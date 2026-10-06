@@ -595,3 +595,114 @@ Gabriel reported that removing a user from `/admin/users` just kept saying "type
 **Fix:** added `name="confirmation"` to the input.
 
 **Testing performed:** created a disposable test account directly against the database, logged in as the owner account, and used the real admin UI to remove it — confirmed the row disappeared from the Free-Trial Users list and, via a direct database read afterward, that the account was actually gone. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-10-02 — Fix: site-wide login lockout ("all users can't sign in")
+
+Gabriel reported every user getting logged out / unable to sign in, which then cleared on its own a short while later. Checked the real `rate_limits` table directly: several distinct real IPs were already sitting at 3-9 hits each well below the old 15-per-15-minute cap on a single shared `login:<ip>` bucket — consistent with Philippine mobile carrier-grade NAT, where thousands of genuinely different users share one public IP. Once enough of them tried to sign in within the same 15-minute window, every one of them shared the same counter and got rejected together with "Too many attempts from your network" — which looks exactly like "all users can't sign in," and self-clears once the fixed window rolls over, matching "it's working again now."
+
+**`src/lib/rate-limit.ts`:** `getClientIp()`'s fallback for a missing `x-forwarded-for` header used to be the literal constant `"unknown"` — meaning every caller that header was missing for *also* shared one global bucket, on top of the carrier-NAT problem. Changed to a fresh `unknown:<uuid>` per call instead, so an unresolvable IP now gets its own one-off (functionally unlimited) bucket rather than piling into a shared one — matches `checkRateLimit`'s own "fail open beats breaking everyone" philosophy.
+
+**`src/app/login/actions.ts` and `src/app/signup/actions.ts`:** both moved from a single IP-keyed bucket to two tiers — a tight `login:<ip>:<email>` / `signup:<ip>:<email>` pair (real brute-force/spam protection, scoped to one specific account) plus a much looser `login-ip:<ip>` / `signup-ip:<ip>` ceiling (100/15min and 30/hour respectively) that exists only to catch genuine scripted volumetric abuse, wide enough that a realistic burst of organic traffic from one shared network never trips it. Different people sharing a carrier IP no longer share a login/signup budget with each other.
+
+**Testing performed:** `npm run lint` and `npm run build` both clean. No schema change — reuses the existing `rate_limits` table/RPC with different key strings, so this ships with the next deploy, no migration needed.
+
+---
+
+## 2026-10-02 — Security review: patched a critical Next.js RCE, closed a receipt-upload gap, audited the rest
+
+Gabriel asked to "enhance the security level to highest level." Did a real audit rather than vague hardening — here's what was actually checked, what was found, and what wasn't touched because it was already solid.
+
+**Fixed:**
+- **Critical: Next.js RCE (GHSA-vcvr-r3jv-pc5j)**, affecting the exact installed range (16.2.0–16.3.5, pinned at 16.3.5). `next/og`/`ImageResponse` isn't used anywhere in this codebase, but a framework-level RCE isn't something to leave sitting on a public-launch app regardless of whether the obviously-affected export is imported. Updated to 16.3.8 (also the current latest stable — smallest possible safe bump). `npm audit --omit=dev` now reports zero vulnerabilities. Verified lint/build/test all still pass after the bump.
+- **Payment receipt upload had no size or type limit** — only checked non-empty. One submission could upload an arbitrarily large or non-image file; the existing per-user rate limit (8/hour) bounds frequency, not size. Added an 8MB cap (comfortably covers a phone screenshot) and an image-MIME check in `submitPaymentRequest()` — shared by both `/upgrade` and signup's payment step, since signup reuses this same function.
+
+**Audited, found solid, left alone:**
+- Every table created across `schema.sql` and every patch has RLS enabled — cross-referenced table-by-table, no gaps.
+- No overly-permissive policies — the only `using (true)` reads are on read-only taxonomy tables (exam_areas/topics/subtopics), correctly paired with admin-only write policies.
+- `is_admin()` and the `prevent_role_self_escalation` trigger are both correctly implemented — a non-admin genuinely cannot grant themselves admin through the app's normal path.
+- Every file under `src/app/admin/` (every `page.tsx` and `actions.ts`) calls `requireAdmin()` — checked each one individually, no gaps.
+- Every `createAdminClient()` (service-role, bypasses RLS) usage outside `/admin` is scoped to the caller's own server-verified `user.id`, never anything client-supplied.
+- No raw SQL string construction anywhere — everything goes through the Supabase query builder or parameterized RPCs, no injection surface.
+- Secrets never exposed to the client — only the Supabase URL and anon key are `NEXT_PUBLIC_*` (by design; RLS is the real boundary, not anon-key secrecy), `.env.local` stays untracked and gitignored.
+- Security headers (`next.config.ts`) are already comprehensive: CSP, `X-Frame-Options: DENY`, `nosniff`, a real Referrer-Policy, a locked-down Permissions-Policy, and HSTS with preload — nothing to add here.
+- Rate limiting now covers login, signup, payment submission, and AI calls (the shared-bucket scoping bug from earlier today is the one already-shipped fix in this area).
+
+**Not done:** two moderate Vitest/`@vitest/mocker` advisories remain — dev-only (the test runner itself, never shipped to production), and the fix is a major-version breaking bump Gabriel didn't ask to force through right now. Left as-is; revisit if it ever matters for a dev-environment threat model.
+
+**Testing performed:** `npm run lint`, `npm run build`, and `npm test` (14/14) all clean after both fixes.
+
+---
+
+## 2026-10-02 — Content Quality audit: flag questions with the wrong number of choices
+
+A student reported a real content bug (forwarded screenshot): a question showing only 3 answer choices, none of which was the actual correct answer ("3-5 days" wasn't even listed). Checked the real distribution before building anything — 4 choices is overwhelmingly standard (4,425 of 4,452 questions), with 25 at fewer than 4 (9 with just 2, 16 with 3) and 2 with 5.
+
+**`admin/quality/page.tsx`:** two new sections, same exact pattern as the existing "No explanation" / "No choice marked correct" / "Multiple correct choices" checks — "Fewer than 4 choices" (25 flagged) and "More than 4 choices" (2 flagged). Purely a structural count check; it can't verify the marked-correct choice is actually the right answer, only that the choice count itself is non-standard.
+
+**Testing performed:** ran it live against the real database — the reported question ("The storage area of a processing plant shall have a capacity for temporary storage of raw materials for how many processing days?") shows up correctly in the new "Fewer than 4 choices" section, and also in the existing duplicate-detection section alongside what's very likely the correct, complete 4-choice version — suggesting the fix is probably just removing the broken 3-choice duplicate rather than reconstructing it from scratch. `npm run lint` and `npm run build` both clean.
+
+---
+
+## 2026-10-02 — Content import: 102 new questions across 5 zero-coverage topics
+
+Gabriel's goal for the day: "hit 100 questions today," prioritizing topics with zero published questions, authored strictly from the ABELE TOP 1 reference materials ("use the reference materials strongly and strictly" — no fabricated facts, every number/fact traced back to a source document read in full before writing any question).
+
+**New seed files (all idempotent `DO $$ ... END $$` blocks, matching the existing `paes-601-616-irrigation-import.sql` pattern exactly — draft status, no source attribution stored, safe to re-run):**
+- `platform/supabase/seed/content/paes-101-safety-import.sql` — 25 questions, topic "Philippine National Standards on Technical Means for Ensuring Safety," from PAES 101:2000.
+- `platform/supabase/seed/content/paes-118-four-wheel-tractor-import.sql` — 25 questions, topic "Four-Wheel Tractors Methods of Test," from PAES 118:2001.
+- `platform/supabase/seed/content/paes-114-centrifugal-pump-import.sql` — 25 questions, topic "Pumps," from PAES 114:2000.
+- `platform/supabase/seed/content/rural-electrification-import.sql` — 17 questions, topic "Rural Electrification" (lighting design, illumination/luminance, transformers, generators, motor power factor — general EE review problems, not a PAES standard, so `is_paes=false`).
+- `platform/supabase/seed/content/surveying-import.sql` — 10 questions, topic "Surveying" (definitions, instrument history, error theory, taping corrections).
+
+**Total: 102 questions, all 5 topics previously had zero published questions.** Every question inserted as `status='draft'` — none of these are visible to students until reviewed and published through `/admin/content`, same as every prior content batch this project has shipped.
+
+**Not yet done:** these `.sql` files are written but have NOT been run against the live Supabase project yet — still need to be pasted into the Supabase SQL Editor and executed (same manual-apply pattern as every other migration/seed file in this project), then reviewed and published via `/admin/content` before students see them. Five more zero-count topics remain (Fluid Mechanics, Operator's Manual for AB Power and Machinery, Design and Specifications of Coffee Processing Facility, Marketing and Management, Environmental Engineering and Science) — not attempted yet today.
+
+**Testing performed:** each file's structure verified directly (question/choice INSERT counts matched, balanced `DO $$...END $$` blocks, apostrophes correctly escaped in question text). Not yet run against the database — no live-query verification possible until Gabriel executes them.
+
+---
+
+## 2026-10-02 — Share-preview image + Vercel usage reduction
+
+**Share preview:** links shared on Facebook/Messenger showed Vercel's default image because the site had no `og:image`. Added `opengraph-image.tsx`/`twitter-image.tsx` (built once at build time, no runtime cost), `icon.tsx`/`apple-icon.tsx` (replacing the default `favicon.ico`), full Open Graph/Twitter/canonical metadata in `app/layout.tsx`, plus `robots.ts` and `sitemap.ts`. `robots.ts` is a disallow-list of private routes, not `Disallow: /`, because Facebook's crawler obeys robots.txt and would otherwise be blocked from fetching the image. The origin comes from `lib/public-origin.ts`, deliberately not `NEXT_PUBLIC_SITE_URL` (which drives auth redirects). The image recreates the logo in code; dropping the real artwork at `app/opengraph-image.png` (and deleting the `.tsx`) would use it instead. Facebook caches old previews — re-scrape at its Sharing Debugger after deploy.
+
+**Usage:**
+- Presence heartbeat was a server action every 60s per open tab (including logged-out visitors), each running the auth proxy plus ~4 Supabase calls. Now a direct browser-to-Supabase own-row update under the same RLS — zero Vercel invocations. Verified `last_seen_at` still updates.
+- Practice, Mock, Question Bank and Dashboard each paged through all ~4,155 published questions on every view just to count per topic. Now one cached snapshot (`lib/published-counts.ts`, 10-minute revalidate, service-role read of the published-only view); admin publish/unpublish actions expire it immediately.
+- Proxy: skips Supabase entirely when there is no session cookie, skips link prefetches and metadata/icon/crawler paths, and now owns the signed-in `/` → `/dashboard` redirect so the landing page is static. Cookie-name check verified against a real local login.
+- Sidebar links no longer prefetch authenticated routes; `(app)` layout's two independent profile queries run in parallel.
+
+**Testing:** `tsc`, `lint`, and `next build` clean (`/`, `/login`, `/privacy`, OG/icon/robots/sitemap routes static); local logged-in walkthrough (dashboard, practice, mock counts, redirect from `/`, heartbeat write).
+
+---
+
+## 2026-10-02 — Content import: 570 more draft questions across 16 low-coverage topics
+
+Authored from the ABELE TOP 1 reference library by parallel agents, one topic each, ordered by lowest published count: Fluid Mechanics (66), Marketing and Management (50), Renewable and Alternative Farm Power Sources (48), Process Control (42), Operator's Manual / PAES 102 (41), GIS (40), Engineering Metrology (37), Agricultural Project Planning (33), Coffee Processing Facility (31, equipment-spec standards only — no facility layout source exists), Tractor Selection (30), Aquaculture (27), Math and Basic Engineering Sciences (26), Internal Combustion Engine (26), After-Sales Service/Sampling (25), Fuels and Lubricants (25), Biomass Gasifier (23). Files are `platform/supabase/seed/content/*-import.sql`, same idempotent draft-only pattern as before.
+
+**Not yet done:** none of these (nor the earlier 102) have been run in the Supabase SQL Editor; all land as `draft` and need review/publish at `/admin/content`. Six agents died at a session limit after writing their file and never sent a source report, so those files (Fluid Mechanics, Marketing, Renewable Power, Process Control, Aquaculture, Fuels) were structure-checked and header-checked only — answers have not been individually spot-checked.
+
+---
+
+## 2026-10-02 — Outage: Supabase Free egress cap exhausted; app now fits in the Free plan
+
+**What happened:** around 10pm every student was logged out and the site stopped working. Supabase's database API returned 503 (`PGRST002`) and Auth failed over half its requests. The project is on the **Free plan (5 GB egress/month)** and had used ~4.8 GB with the cycle running to 17 Oct. Daily egress had grown to ~820 MB (83% PostgREST responses, 17% Auth). A project restart brought the database back.
+
+**Root cause (in our code):** pages re-downloaded whole tables on every view — the 4,155-row published question list on Practice/Mock/Question Bank/Dashboard, ~1.3 MB of reviewer text on Reviewers and ~1 MB on the PAES Library, every student's entire answer history on Dashboard/Progress/Profile/AI assistant, every mistake's full text just to count mistakes, ~1 MB of candidates + history per practice/mock session start, plus ~3 Auth requests per page view.
+
+**Fixes (all measured with the new egress logger):**
+- Shared caches (`lib/published-counts.ts`, `lib/shared-content.ts`): question counts, candidate pool, mock pool, daily-question ids, reviewer entries and the topic/subject taxonomy are fetched once per 24h (expired immediately by the admin publish/archive/create/reviewer/topic actions) instead of per view. Repeat page views now download none of it.
+- Patch `048_answer_summary.sql` (**must be run in the Supabase SQL Editor**): `get_answer_summary()` and `get_latest_outcomes()` replace the full answer-history downloads with a few KB. Code falls back to the old path if the SQL isn't installed yet, so deploying first is safe but saves nothing until it is run.
+- Mistake count uses a HEAD/exact-count request (no rows).
+- Login checks: read-only pages and the proxy verify the session JWT locally (`getClaims` / `getSessionUser`) instead of calling Supabase Auth on every request; actions that change data keep strict `getUser()`. The proxy also gives up after 4 s instead of treating a hung Auth as "logged out".
+- Heartbeat writes straight from the browser; sidebar links no longer prefetch.
+
+**Never again:** `SUPABASE_EGRESS_LOG=1` logs the size of every Supabase response; `lib/egress-guard.test.ts` fails CI on whole-table reads in student code; the rules and the budget (~10 MB/user/month → 500 users ≈ 5 GB) are in `platform/CLAUDE.md`.
+
+**Tested:** local logged-in walkthrough of 12 pages, a real mock exam start (95 distinct published, unflagged questions across the official subjects), tsc/lint/17 tests/production build clean.
+
+**Not done / open:** the 2 MB HTML the Reviewers and PAES Library pages send to the browser (mobile data, not Supabase); `get_topic_mastery` (20 KB) and `get_subtopic_mastery` (29 KB) are still downloaded per view and could be compacted; cycle allowance is nearly spent until 17 Oct regardless of these fixes.
+
+**Addendum (same day) — full audit with measured numbers.** With `SUPABASE_EGRESS_LOG` + `SUPABASE_EGRESS_LOG_FILE` I walked 22 student pages and totalled the Supabase bytes each pulled. Before the second round: 1,302 KB for the set (e.g. `/paes/numbers` 768 KB, `/recalled` 255 KB, `/paes` + `/paes/mastery` 32 KB each, `/quiz-builder` 12.5 KB). After: 255 KB; those pages are now ~0.5 KB per repeat view. Fixes: PAES Number Bank and Reviewers quiz sessions use the shared reviewer cache; Recalled Questions is a shared cached document (`getRecalledQuestions`); the PAES hub asks for a count only; Quiz Builder and quiz sessions read the cached taxonomy; mock-exam start uses a cached pool (`getMockPool`, no question text); topic/subtopic mastery come from `get_topic_mastery_compact` / `get_subtopic_mastery_compact` (in patch 048, with automatic fallback). Verified again against a production build (`next start`): first visit fills each shared cache once, every later visit ~0.5 KB. With patch 048 installed, estimated per-view cost: Dashboard ~10 KB, Progress ~15 KB, Profile ~5 KB, Mistakes ~30 KB (down from 38 / 67 / 34 / 47). Still open: the Mistakes page downloads the full mistake list (needed for display); `/paes/mastery` is proportional to PAES activity.

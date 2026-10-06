@@ -4,6 +4,8 @@ import { QuizBuilderForm } from "@/app/quiz-builder/quiz-builder-form";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
 import type { TopicPickerArea } from "@/app/quiz-builder/topic-picker";
+import { getSessionUser } from "@/lib/auth/session";
+import { getTaxonomy } from "@/lib/shared-content";
 
 export default async function QuizBuilderPage({
   searchParams,
@@ -12,14 +14,11 @@ export default async function QuizBuilderPage({
 }) {
   const { error } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: examAreas }, { data: subjects }, { data: topics }] = await Promise.all([
-    supabase.from("exam_areas").select("id, name, sort_order").order("sort_order"),
-    supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
-    supabase.from("topics").select("id, name, exam_area_id, subject_id").order("name"),
-  ]);
+  // Topic/subject/area lists are identical for everyone — shared cache, not a per-view download.
+  const { examAreas, subjects, topics } = await getTaxonomy();
 
   // Same TOS Area -> official Subject grouping used by Question Bank/Progress
   // (supabase/patches/013_official_subjects.sql) — a topic without a

@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { expireReviewerContent } from "@/lib/shared-content";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
 import { NOT_FLAGGED_REVIEWER_FILTER } from "@/lib/flagged-questions";
@@ -36,6 +37,7 @@ export async function createReviewerEntry(formData: FormData) {
 
   const { error } = await supabase.from("reviewer_entries").insert({ ...fields, status: "draft", created_by: user?.id });
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
 }
 
@@ -50,6 +52,7 @@ export async function updateReviewerEntry(entryId: string, formData: FormData) {
     .update({ ...fields, updated_at: new Date().toISOString() })
     .eq("id", entryId);
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
 }
 
@@ -58,6 +61,7 @@ export async function publishReviewerEntry(entryId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("reviewer_entries").update({ status: "published" }).eq("id", entryId);
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
 }
 
@@ -66,6 +70,7 @@ export async function unpublishReviewerEntry(entryId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("reviewer_entries").update({ status: "draft" }).eq("id", entryId);
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
 }
 
@@ -86,6 +91,7 @@ export async function publishAllReviewerDrafts(): Promise<{ published: number }>
     .or(NOT_FLAGGED_REVIEWER_FILTER)
     .select("id");
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
   return { published: data?.length ?? 0 };
 }
@@ -95,5 +101,6 @@ export async function deleteReviewerEntry(entryId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("reviewer_entries").delete().eq("id", entryId);
   if (error) throw new Error(error.message);
+  expireReviewerContent();
   revalidatePath("/admin/reviewers");
 }

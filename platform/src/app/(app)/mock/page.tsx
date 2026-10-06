@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { fetchAllRows } from "@/lib/supabase/paginate";
+import { getPublishedSnapshot } from "@/lib/published-counts";
+import { getTaxonomy } from "@/lib/shared-content";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { startAreaMockExam, type MockArea } from "@/app/mock/actions";
 import { PageHeader } from "@/components/page-header";
 import { MockTosList, type MockSubject } from "./mock-tos-list";
+import { getSessionUser } from "@/lib/auth/session";
 
 const ITEM_COUNT = 100;
 const TIME_LIMIT_HOURS = 3;
@@ -22,27 +24,15 @@ const AREA_ORDER: MockArea[] = ["area_1", "area_2", "area_3"];
 
 export default async function MockExamSetupPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
-  const [{ data: topics }, published, { data: examAreas }, { data: subjects }] = await Promise.all([
-    supabase.from("topics").select("id, name, mock_area, exam_area_id, subject_id").order("name"),
-    // student_questions now has 1800+ published rows — a plain `.select()`
-    // would silently cap at PostgREST's 1000-row default and understate
-    // each area's available-question count, potentially disabling an area
-    // that actually has plenty of published questions. Paginated.
-    fetchAllRows<{ id: string; topic_mock_area: string; additional_mock_areas: string[] | null }>((from, to) =>
-      supabase.from("student_questions").select("id, topic_mock_area, additional_mock_areas").range(from, to),
-    ),
-    supabase.from("exam_areas").select("id, name, sort_order").order("sort_order"),
-    supabase.from("subjects").select("id, exam_area_id, name, sort_order").order("sort_order"),
-  ]);
+  // Per-area availability and the topic/subject/area lists are identical for every
+  // student — shared caches, not a per-view download (see shared-content.ts).
+  const [snapshot, taxonomy] = await Promise.all([getPublishedSnapshot(), getTaxonomy()]);
+  const { topics, examAreas, subjects } = taxonomy;
 
-  const areaCount: Record<MockArea, number> = { area_1: 0, area_2: 0, area_3: 0 };
-  for (const q of published) {
-    const areas = new Set<MockArea>([q.topic_mock_area as MockArea, ...((q.additional_mock_areas ?? []) as MockArea[])]);
-    for (const a of areas) areaCount[a] += 1;
-  }
+  const areaCount: Record<MockArea, number> = { ...snapshot.byMockArea };
 
   const topicsByArea = new Map<MockArea, { id: string; name: string; exam_area_id: string; subject_id: string | null }[]>();
   for (const t of topics ?? []) {

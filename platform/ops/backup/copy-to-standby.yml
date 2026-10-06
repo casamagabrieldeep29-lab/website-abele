@@ -1,0 +1,94 @@
+# Copies the whole ABELIEVER database into the STANDBY Supabase project.
+# Runs in the PRIVATE backup repo (copy to .github/workflows/copy-to-standby.yml).
+# Manual only: Actions → "Copy to standby" → Run workflow → type COPY.
+# Also runs weekly so the standby never gets far behind.
+name: Copy to standby
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type COPY to overwrite the STANDBY database with a fresh copy of production"
+        required: true
+  schedule:
+    - cron: "30 19 * * 0"   # right after the weekly backup
+
+permissions:
+  contents: read
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: github.event_name == 'schedule' || github.event.inputs.confirm == 'COPY'
+    steps:
+      - name: Install PostgreSQL 17 client
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+
+      - name: Safety check - source and standby must be different databases
+        env:
+          SOURCE_DB_URL: ${{ secrets.SOURCE_DB_URL }}
+          TARGET_DB_URL: ${{ secrets.TARGET_DB_URL }}
+        run: |
+          set -euo pipefail
+          # pooler URLs look like  postgres.<project-ref>:password@...pooler.supabase.com
+          ref() { echo "$1" | sed -E 's#^[a-z]+://([^:@/]+)(:.*)?@.*#\1#' ; }
+          s=$(ref "$SOURCE_DB_URL"); t=$(ref "$TARGET_DB_URL")
+          echo "source user: ${s%%.*}.<hidden>   target user: ${t%%.*}.<hidden>"
+          if [ -z "$s" ] || [ -z "$t" ] || [ "$s" = "$t" ]; then
+            echo "::error::SOURCE and TARGET look the same (or unreadable). Refusing to continue so production is never overwritten."
+            exit 1
+          fi
+
+      - name: Dump production (read-only)
+        env:
+          SOURCE_DB_URL: ${{ secrets.SOURCE_DB_URL }}
+        run: |
+          set -euo pipefail
+          pg_dump "$SOURCE_DB_URL" --format=custom --no-owner --no-privileges --schema=public --file=public.dump
+          pg_dump "$SOURCE_DB_URL" --format=custom --no-owner --no-privileges --data-only \
+            --table=auth.users --table=auth.identities --file=auth.dump
+          test "$(stat -c %s public.dump)" -gt 200000
+
+      - name: Restore into standby
+        env:
+          TARGET_DB_URL: ${{ secrets.TARGET_DB_URL }}
+        run: |
+          set -euo pipefail
+          psql "$TARGET_DB_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          create extension if not exists pg_trgm;
+          -- wipe the standby's copy so this is a clean replace
+          truncate auth.users cascade;
+          drop trigger if exists on_auth_user_created on auth.users;
+          SQL
+          # login accounts first (profiles point at them), then the app data
+          pg_restore --no-owner --data-only -d "$TARGET_DB_URL" auth.dump
+          pg_restore --no-owner --clean --if-exists -d "$TARGET_DB_URL" public.dump || echo "pg_restore reported warnings (see above)"
+          psql "$TARGET_DB_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          -- same things the original setup scripts put outside the public schema
+          drop trigger if exists on_auth_user_created on auth.users;
+          create trigger on_auth_user_created
+            after insert on auth.users
+            for each row execute function public.handle_new_user();
+          insert into storage.buckets (id, name, public)
+            values ('payment-receipts', 'payment-receipts', false)
+            on conflict (id) do nothing;
+          SQL
+
+      - name: Check the copy
+        env:
+          SOURCE_DB_URL: ${{ secrets.SOURCE_DB_URL }}
+          TARGET_DB_URL: ${{ secrets.TARGET_DB_URL }}
+        run: |
+          set -euo pipefail
+          q="select (select count(*) from auth.users) users, (select count(*) from public.profiles) profiles, (select count(*) from public.questions) questions"
+          echo "production:"; psql "$SOURCE_DB_URL" -c "$q"
+          echo "standby:";    psql "$TARGET_DB_URL" -c "$q"
+          a=$(psql "$SOURCE_DB_URL" -Atc "select count(*) from public.questions")
+          b=$(psql "$TARGET_DB_URL" -Atc "select count(*) from public.questions")
+          [ "$a" = "$b" ] || { echo "::error::question counts differ ($a vs $b)"; exit 1; }

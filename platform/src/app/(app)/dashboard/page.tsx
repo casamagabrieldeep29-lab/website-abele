@@ -19,12 +19,13 @@ import { startAdaptivePracticeAttempt, startDailyQuestion } from "@/app/practice
 import { startFlashcardsByTopic } from "@/app/flashcards/actions";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { ACHIEVEMENTS } from "@/lib/achievements";
-import { computeStudyStats, fetchAllAnsweredRows, type TopicMasteryRow } from "@/lib/study-stats";
-import { fetchAllRows } from "@/lib/supabase/paginate";
+import { computeStudyStats, fetchAnswerSummary, type TopicMasteryRow } from "@/lib/study-stats";
+import { getPublishedSnapshot } from "@/lib/published-counts";
 import { BOARD_EXAM_DATE_LABEL, daysUntilBoardExam } from "@/lib/board-exam";
 import { formatDateManila, currentHourManila } from "@/lib/manila-week";
 import { StatCard } from "@/components/stat-card";
 import type { PlanDay } from "@/app/study-plan/actions";
+import { fetchTopicMastery } from "@/lib/mastery";
 
 type TopicMastery = TopicMasteryRow;
 
@@ -120,8 +121,8 @@ export default async function DashboardPage() {
 
   const [
     { data: masteryRows },
-    { data: publishedQuestions },
-    { data: answeredRows },
+    publishedSnapshot,
+    answerSummary,
     { count: mistakeCount },
     { data: recentAttempts },
     { data: inProgressMock },
@@ -129,18 +130,18 @@ export default async function DashboardPage() {
     { data: earnedAchievements },
     { data: studyPlan },
   ] = await Promise.all([
-    supabase.rpc("get_topic_mastery"),
-    // student_questions now has 1800+ published rows — a plain `.select()`
-    // would silently cap at PostgREST's 1000-row default and truncate the
-    // per-topic published-question-count map below. Paginated via
-    // fetchAllRows, same reasoning as fetchAllAnsweredRows in study-stats.ts.
-    fetchAllRows<{ id: string; topic_id: string }>((from, to) =>
-      supabase.from("student_questions").select("id, topic_id").order("id").range(from, to),
-    ).then((data) => ({ data })),
+    fetchTopicMastery(supabase),
+    // Published-question counts + ids are identical for every user, so they
+    // come from a shared cached snapshot (src/lib/published-counts.ts)
+    // rather than a full paginated scan of the view on every dashboard load.
+    getPublishedSnapshot(),
     // attempt_answers grows unbounded per active user — same 1000-row cap
     // risk, already fixed for this exact query in study-stats.ts.
-    fetchAllAnsweredRows(supabase, user.id).then((data) => ({ data })),
-    supabase.rpc("get_mistake_bank").then((r) => ({ count: r.data?.length ?? 0, error: r.error })),
+    fetchAnswerSummary(supabase, user.id),
+    // Only the NUMBER of mistakes is shown here, but get_mistake_bank returns every
+    // mistake with its full question text. A HEAD request with an exact count returns
+    // just the count header — no rows over the wire.
+    supabase.rpc("get_mistake_bank", undefined, { head: true, count: "exact" }),
     supabase
       .from("attempts")
       .select("id, mode, status, total_questions, correct_count, completed_at, topics(name)")
@@ -174,17 +175,13 @@ export default async function DashboardPage() {
   const mastery = (masteryRows ?? []) as TopicMastery[];
   const recent = (recentAttempts ?? []) as unknown as RecentAttempt[];
 
-  const publishedCountByTopic = new Map<string, number>();
-  for (const q of publishedQuestions ?? []) {
-    publishedCountByTopic.set(q.topic_id, (publishedCountByTopic.get(q.topic_id) ?? 0) + 1);
-  }
+  const publishedCountByTopic = new Map<string, number>(Object.entries(publishedSnapshot.byTopic));
 
   // --- Real analytics — shared calculation, see src/lib/study-stats.ts.
   // Profile shows the same numbers from the same computeStudyStats() call. ---
-  const answered = answeredRows ?? [];
   const { questionsAnswered, overallAccuracy, streak, studiedLast7 } = computeStudyStats(
     mastery,
-    answered,
+    answerSummary,
     profile?.current_streak ?? 0,
   );
 
@@ -220,7 +217,7 @@ export default async function DashboardPage() {
     .slice(0, 3);
 
   // --- Question of the Day ---
-  const todaysQuestionId = pickDailyQuestionId((publishedQuestions ?? []).map((q) => q.id));
+  const todaysQuestionId = pickDailyQuestionId(publishedSnapshot.ids);
   const dailyAnsweredToday = todaysDailyAttempt?.status === "completed";
   let dailyStats: { total_answers: number; correct_count: number } | null = null;
   if (dailyAnsweredToday && todaysQuestionId) {

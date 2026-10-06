@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import { startQuickPractice } from "@/app/practice/actions";
 import { getUserSettings, PRACTICE_LENGTH_OPTIONS, PRACTICE_MODE_OPTIONS } from "@/lib/study-preferences";
 import { PageHeader } from "@/components/page-header";
+import { getSessionUser } from "@/lib/auth/session";
 
 const MINUTES_PER_QUESTION = 1.2; // rough board-exam pace estimate, not a hard timer
 
 export default async function QuickPracticePage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ count: totalPublished }, settings] = await Promise.all([

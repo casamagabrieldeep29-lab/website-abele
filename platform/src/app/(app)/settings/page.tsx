@@ -14,6 +14,7 @@ import { updateDisplayName, updateTargetExamDate, clearTargetExamDate } from "@/
 import { updateStudyPreferences, deleteAccount } from "@/app/settings/actions";
 import { getUserSettings, PRACTICE_LENGTH_OPTIONS, PRACTICE_MODE_OPTIONS } from "@/lib/study-preferences";
 import { PageHeader } from "@/components/page-header";
+import { getSessionUser } from "@/lib/auth/session";
 
 const ERROR_MESSAGES: Record<string, string> = {
   "delete-confirmation": "You must type DELETE exactly to confirm account deletion.",
@@ -27,7 +28,7 @@ export default async function SettingsPage({
 }) {
   const { error } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ data: profile }, settings] = await Promise.all([

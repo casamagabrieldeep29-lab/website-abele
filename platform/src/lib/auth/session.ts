@@ -2,6 +2,27 @@ import "server-only";
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 
+export type SessionUser = { id: string; email: string | undefined };
+
+/**
+ * Who is signed in, verified LOCALLY from the session JWT's signature
+ * (signing keys are cached in-process) instead of asking Supabase Auth over the
+ * network. getUser() costs one Auth request on every page view — three per view
+ * before this — and Auth traffic counts against Supabase's egress and was the
+ * service that fell over under load. Use this for read-only page rendering; the
+ * database still enforces row-level security off the same JWT. Anything that
+ * CHANGES data (server actions, API routes) keeps the stricter auth.getUser(),
+ * which also notices a session that was revoked server-side.
+ */
+export async function getSessionUser(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+): Promise<SessionUser | null> {
+  const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+  if (!claims?.sub) return null;
+  return { id: claims.sub, email: typeof claims.email === "string" ? claims.email : undefined };
+}
+
 export type SessionProfile = { role: string; display_name: string | null; current_streak: number };
 
 /**
@@ -15,9 +36,7 @@ export type SessionProfile = { role: string; display_name: string | null; curren
  */
 export const getAuthContext = cache(async () => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
 
   if (!user) {
     return { supabase, user: null, profile: null as SessionProfile | null };

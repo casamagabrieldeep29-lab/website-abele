@@ -1,6 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { PUBLISHED_COUNTS_TAG } from "@/lib/published-counts";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
 import { getAIProvider } from "@/lib/ai";
@@ -19,6 +20,12 @@ const CATEGORIZE_BATCH_SIZE = 25;
  * doesn't go through check_and_log_ai_usage (that's the per-student daily
  * Teach-Me/Study-Assistant quota, unrelated to this).
  */
+// Publish/unpublish changes the shared per-topic counts cached in
+// src/lib/published-counts.ts — expire it now instead of waiting out its TTL.
+function expirePublishedCounts() {
+  revalidateTag(PUBLISHED_COUNTS_TAG, { expire: 0 });
+}
+
 export async function autoCategorizeBatch(): Promise<{ processed: number; remaining: number; error?: string }> {
   await requireAdmin();
   const supabase = await createClient();
@@ -88,6 +95,7 @@ export async function publishQuestion(questionId: string) {
     .update({ status: "published" })
     .eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath("/admin/content");
 }
 
@@ -99,6 +107,7 @@ export async function unpublishQuestion(questionId: string) {
     .update({ status: "draft" })
     .eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath("/admin/content");
 }
 
@@ -117,6 +126,7 @@ export async function publishAllInTopic(topicId: string) {
     .eq("status", "draft")
     .or(NOT_FLAGGED_FILTER);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath("/admin/content");
 }
 
@@ -138,6 +148,7 @@ export async function publishAllDrafts(): Promise<{ published: number }> {
     .or(NOT_FLAGGED_FILTER)
     .select("id");
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath("/admin/content");
   return { published: data?.length ?? 0 };
 }
@@ -217,6 +228,7 @@ export async function archiveQuestion(questionId: string, topicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("questions").update({ status: "archived" }).eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -225,6 +237,7 @@ export async function unarchiveQuestion(questionId: string, topicId: string) {
   const supabase = await createClient();
   const { error } = await supabase.from("questions").update({ status: "draft" }).eq("id", questionId);
   if (error) throw new Error(error.message);
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -285,5 +298,6 @@ export async function createQuestion(topicId: string, formData: FormData) {
     if (cErr) throw new Error(cErr.message);
   }
 
+  expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }

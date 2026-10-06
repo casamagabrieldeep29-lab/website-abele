@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { groupIntoUnits } from "@/lib/series";
 import { pickSubjectItems } from "@/lib/mock-selection";
+import { getMockPool } from "@/lib/published-counts";
+import { getTaxonomy } from "@/lib/shared-content";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -104,21 +106,13 @@ export async function startAreaMockExam(formData: FormData) {
     throw new Error("Invalid exam area.");
   }
 
-  const [{ data: rawCandidates, error: qErr }, { data: topics }, { data: subjects }, { data: flaggedRows }] =
-    await Promise.all([
-      supabase
-        .from("student_questions")
-        .select("id, topic_id, series_key, series_position, question_text, is_paes, paes_reference, is_recalled")
-        .or(`topic_mock_area.eq.${area},additional_mock_areas.cs.{${area}}`),
-      supabase.from("topics").select("id, subject_id"),
-      supabase.from("subjects").select("id, name"),
-      supabase.from("questions").select("id").ilike("explanation", "%FLAGGED FOR REVIEW%"),
-    ]);
-  if (qErr) throw new Error(qErr.message);
-
-  const flaggedIds = new Set((flaggedRows ?? []).map((r) => r.id));
-  const candidates = (rawCandidates ?? []).filter(
-    (c) => !flaggedIds.has(c.id) && (c.question_text ?? "").trim().split(/\s+/).length >= MIN_MOCK_QUESTION_WORDS,
+  // Shared, cached pool (flagged questions already removed, word counts and
+  // the standards/recalled flags precomputed) instead of downloading every
+  // question's full text per start — see getMockPool in
+  // src/lib/published-counts.ts.
+  const [pool, { topics, subjects }] = await Promise.all([getMockPool(), getTaxonomy()]);
+  const candidates = pool.filter(
+    (c) => (c.mock_area === area || c.extra_areas.includes(area)) && c.words >= MIN_MOCK_QUESTION_WORDS,
   );
 
   const subjectIdByTopicId = new Map((topics ?? []).map((t) => [t.id, t.subject_id]));

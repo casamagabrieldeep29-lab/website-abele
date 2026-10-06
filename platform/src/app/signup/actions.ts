@@ -7,12 +7,17 @@ import type { PaymentMethodKey } from "@/lib/payment-methods";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { logError } from "@/lib/log-error";
 
-// Account creation has no CAPTCHA and is fully scriptable otherwise — caps
-// one IP to 5 new accounts/hour (flagged as a public-launch blocker,
-// 2026-09-28). Generous enough for a shared household/school connection,
-// tight enough to stop spam signups.
-const SIGNUP_LIMIT = 5;
-const SIGNUP_WINDOW_SECONDS = 60 * 60;
+// Account creation has no CAPTCHA and is fully scriptable otherwise — two
+// tiers, same reasoning as login/actions.ts's checkLoginRateLimit (fixed
+// 2026-10-02 after the same single-IP-bucket design locked out real users
+// sharing a carrier-NAT IP): a tight per (IP, email) pair stops repeat
+// signup spam for the one address, and a much looser per-IP ceiling is a
+// backstop against pure scripted mass account creation, wide enough to
+// absorb a real burst of organic signups from one shared network.
+const SIGNUP_PAIR_LIMIT = 3;
+const SIGNUP_PAIR_WINDOW_SECONDS = 60 * 60;
+const SIGNUP_IP_LIMIT = 30;
+const SIGNUP_IP_WINDOW_SECONDS = 60 * 60;
 
 const VALID_METHODS: PaymentMethodKey[] = ["gcash", "maya", "landbank"];
 const VALID_ACADEMIC_STATUSES = ["student", "reviewee"] as const;
@@ -72,8 +77,14 @@ export async function signUpAndSubmitPayment(formData: FormData): Promise<SignUp
   }
 
   const ip = await getClientIp();
-  const allowed = await checkRateLimit(`signup:${ip}`, SIGNUP_LIMIT, SIGNUP_WINDOW_SECONDS);
-  if (!allowed) {
+  const [pairAllowed, ipAllowed] = await Promise.all([
+    checkRateLimit(`signup:${ip}:${email.toLowerCase()}`, SIGNUP_PAIR_LIMIT, SIGNUP_PAIR_WINDOW_SECONDS),
+    checkRateLimit(`signup-ip:${ip}`, SIGNUP_IP_LIMIT, SIGNUP_IP_WINDOW_SECONDS),
+  ]);
+  if (!pairAllowed) {
+    return { ok: false, message: "Too many signup attempts for that address. Please wait a bit and try again." };
+  }
+  if (!ipAllowed) {
     return { ok: false, message: "Too many signup attempts from your network. Please wait a bit and try again." };
   }
 

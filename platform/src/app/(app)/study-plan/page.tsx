@@ -10,6 +10,7 @@ import { getUserSettings } from "@/lib/study-preferences";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
 import { formatDateManila } from "@/lib/manila-week";
+import { getSessionUser } from "@/lib/auth/session";
 
 const WEEKDAY_OPTIONS = [
   { value: "mon", label: "Mon" },
@@ -34,7 +35,7 @@ export default async function StudyPlanPage({
 }) {
   const { error } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const [{ data: plan }, settings] = await Promise.all([

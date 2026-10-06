@@ -50,6 +50,113 @@ export async function fetchAllAnsweredRows(
   return all;
 }
 
+/**
+ * Compact stand-in for "every answer this student ever gave". Dashboard,
+ * Progress, Profile and the AI assistant only ever needed totals, the accuracy
+ * of the latest few answers, and per-day counts — so they read this (a few KB,
+ * from the get_answer_summary() SQL function, patch 048) instead of downloading
+ * the whole answer history (~130 bytes/row) on every page view. Days are UTC.
+ */
+export type AnswerDay = { d: string; n: number; c: number };
+export type AnswerSummary = {
+  total: number;
+  correct: number;
+  recentTotal: number;
+  recentCorrect: number;
+  days: AnswerDay[];
+};
+
+const SUMMARY_DAYS = 120;
+
+function summaryFromRows(rows: AnsweredRow[], recentWindow: number): AnswerSummary {
+  const dated = rows.filter((r): r is { answered_at: string; is_correct: boolean } => Boolean(r.answered_at));
+  const byDay = new Map<string, AnswerDay>();
+  const cutoff = Date.now() - SUMMARY_DAYS * 86_400_000;
+  for (const r of dated) {
+    if (new Date(r.answered_at).getTime() < cutoff) continue;
+    const d = new Date(r.answered_at).toISOString().slice(0, 10);
+    const e = byDay.get(d) ?? { d, n: 0, c: 0 };
+    e.n += 1;
+    if (r.is_correct) e.c += 1;
+    byDay.set(d, e);
+  }
+  const recent = [...dated]
+    .sort((a, b) => new Date(b.answered_at).getTime() - new Date(a.answered_at).getTime())
+    .slice(0, recentWindow);
+  return {
+    total: dated.length,
+    correct: dated.filter((r) => r.is_correct).length,
+    recentTotal: recent.length,
+    recentCorrect: recent.filter((r) => r.is_correct).length,
+    days: [...byDay.values()].sort((a, b) => a.d.localeCompare(b.d)),
+  };
+}
+
+/**
+ * Preferred path: one small RPC. Falls back to the old full-history download
+ * only if the function is not installed yet (patch 048 not applied), so
+ * deploying this code before running the SQL never breaks a page — it just
+ * does not save bandwidth until the SQL is run.
+ */
+export async function fetchAnswerSummary(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  recentWindow = 30,
+): Promise<AnswerSummary> {
+  const { data, error } = await supabase.rpc("get_answer_summary", {
+    p_recent_window: recentWindow,
+    p_days: SUMMARY_DAYS,
+  });
+  if (!error && data && typeof data === "object") {
+    const r = data as {
+      total: number;
+      correct: number;
+      recent_total: number;
+      recent_correct: number;
+      days: AnswerDay[];
+    };
+    return {
+      total: Number(r.total) || 0,
+      correct: Number(r.correct) || 0,
+      recentTotal: Number(r.recent_total) || 0,
+      recentCorrect: Number(r.recent_correct) || 0,
+      days: r.days ?? [],
+    };
+  }
+  return summaryFromRows(await fetchAllAnsweredRows(supabase, userId), recentWindow);
+}
+
+/** Weekly accuracy buckets from per-day counts (same windows the old per-row version used). */
+export function weeklyAccuracyFromDays(
+  days: AnswerDay[],
+  weeks: number,
+): { label: string; accuracy: number | null; count: number }[] {
+  const now = new Date();
+  const out: { label: string; accuracy: number | null; count: number }[] = [];
+  for (let i = weeks - 1; i >= 0; i--) {
+    const end = new Date(now);
+    end.setDate(end.getDate() - i * 7);
+    const start = new Date(end);
+    start.setDate(start.getDate() - 6);
+    const from = start.toISOString().slice(0, 10);
+    const to = end.toISOString().slice(0, 10);
+    let n = 0;
+    let c = 0;
+    for (const d of days) {
+      if (d.d >= from && d.d <= to) {
+        n += d.n;
+        c += d.c;
+      }
+    }
+    out.push({
+      label: `${start.getMonth() + 1}/${start.getDate()}`,
+      accuracy: n ? Math.round((100 * c) / n) : null,
+      count: n,
+    });
+  }
+  return out;
+}
+
 export type StudyStats = {
   questionsAnswered: number;
   overallAccuracy: number | null;
@@ -75,18 +182,16 @@ export type StudyStats = {
  */
 export function computeStudyStats(
   mastery: TopicMasteryRow[],
-  answered: AnsweredRow[],
+  summary: AnswerSummary,
   currentStreak: number,
 ): StudyStats {
-  const questionsAnswered = answered.length;
-  const overallAccuracy = questionsAnswered
-    ? Math.round((100 * answered.filter((a) => a.is_correct).length) / questionsAnswered)
-    : null;
+  const questionsAnswered = summary.total;
+  const overallAccuracy = questionsAnswered ? Math.round((100 * summary.correct) / questionsAnswered) : null;
 
   const topicsStudied = mastery.filter((m) => m.total_attempts > 0).length;
   const topicsMastered = mastery.filter((m) => m.status === "strong").length;
 
-  const studyDates = new Set(answered.map((a) => new Date(a.answered_at!).toISOString().slice(0, 10)));
+  const studyDates = new Set(summary.days.map((d) => d.d));
   let studiedLast7 = 0;
   const check = new Date();
   for (let i = 0; i < 7; i++) {

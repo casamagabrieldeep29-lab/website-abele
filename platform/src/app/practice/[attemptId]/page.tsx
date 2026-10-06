@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PracticeSession, type PracticeChoice, type PracticeQuestion } from "./practice-session";
+import { getSessionUser } from "@/lib/auth/session";
 
 const SESSION_LABELS: Record<string, string> = {
   quick: "Quick Practice",
@@ -20,7 +21,7 @@ export default async function PracticeAttemptPage({
   const { attemptId } = await params;
   const { requested } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const { data: attempt } = await supabase

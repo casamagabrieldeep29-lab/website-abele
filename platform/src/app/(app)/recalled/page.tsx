@@ -3,28 +3,17 @@ import { getAuthContext } from "@/lib/auth/session";
 import { PageHeader } from "@/components/page-header";
 import { RecalledBrowser, type RecalledQuestion } from "./recalled-browser";
 import type { MockArea } from "@/app/mock/actions";
+import { getRecalledQuestions } from "@/lib/published-counts";
 
 export default async function RecalledQuestionsPage() {
   const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
 
-  const [{ data, error }, { data: mistakes }] = await Promise.all([
-    supabase.rpc("get_recalled_questions"),
-    supabase.rpc("get_mistake_bank"),
-  ]);
-  if (error) throw new Error(error.message);
+  // The recalled-questions document is the same for everyone — shared cache
+  // (~240 KB saved per visit); only the student's own mistakes are fetched live.
+  const [data, { data: mistakes }] = await Promise.all([getRecalledQuestions(), supabase.rpc("get_mistake_bank")]);
 
-  type RecalledQuestionRow = {
-    question_id: string;
-    question_text: string;
-    explanation: string | null;
-    recalled_batch: string | null;
-    topic_name: string;
-    mock_area: string;
-    choices: { text: string; is_correct: boolean }[] | null;
-  };
-
-  const questions: RecalledQuestion[] = ((data ?? []) as RecalledQuestionRow[]).map((row) => ({
+  const questions: RecalledQuestion[] = data.map((row) => ({
     questionId: row.question_id,
     questionText: row.question_text,
     explanation: row.explanation,

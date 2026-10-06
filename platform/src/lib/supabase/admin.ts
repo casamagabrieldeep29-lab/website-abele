@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { supabaseFetch } from "./egress-log";
 
 /**
  * Service-role Supabase client. Bypasses RLS entirely — never import this
@@ -12,6 +13,7 @@ export function createAdminClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
+      global: supabaseFetch ? { fetch: supabaseFetch } : undefined,
       auth: {
         autoRefreshToken: false,
         persistSession: false,

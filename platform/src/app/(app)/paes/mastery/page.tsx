@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { PageHeader } from "@/components/page-header";
 import { derivePaesCategory, PAES_CATEGORY_ORDER } from "@/lib/paes-categories";
 import { PaesMasteryView, type PaesMasteryCategory, type PaesMasteryReference } from "./paes-mastery-view";
+import { getSessionUser } from "@/lib/auth/session";
 
 type PaesMasteryRow = {
   paes_reference: string;
@@ -24,7 +25,7 @@ function avgMastery(rows: { mastery: number | null }[]): number | null {
 
 export default async function PaesMasteryPage() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   // get_paes_mastery() ships in supabase/patches/029_paes_mastery.sql — a

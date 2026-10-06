@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewerQuiz, type QuizEntry } from "@/components/reviewer-quiz";
 import type { ReviewerEntry } from "@/app/(app)/reviewers/reviewers-browser";
+import { getSessionUser } from "@/lib/auth/session";
+import { getTaxonomy } from "@/lib/shared-content";
 
 export default async function NumberBankQuizSessionPage({
   searchParams,
@@ -11,19 +13,18 @@ export default async function NumberBankQuizSessionPage({
 }) {
   const { ids } = await searchParams;
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const user = await getSessionUser(supabase);
   if (!user) redirect("/login");
 
   const idList = (ids ?? "").split(",").filter(Boolean);
   if (idList.length === 0) redirect("/paes/numbers/quiz");
 
-  const [{ data: entries }, { data: topics }, { data: subtopics }, { data: progress }] = await Promise.all([
+  const [{ data: entries }, { topics, subtopics }, { data: progress }] = await Promise.all([
     supabase
       .from("reviewer_entries")
       .select("id, kind, title, formula, variables, symbol, value, unit, table_content, description, notes, source, topic_id, subtopic_id")
       .in("id", idList),
-    supabase.from("topics").select("id, name"),
-    supabase.from("subtopics").select("id, name"),
+    getTaxonomy(),
     supabase.from("reviewer_entry_progress").select("entry_id, is_saved").eq("user_id", user.id).in("entry_id", idList),
   ]);
 
