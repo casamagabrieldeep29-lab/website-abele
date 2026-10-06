@@ -1,6 +1,5 @@
 -- Aquaculture Engineering batch 3 (33 questions, 1 topic). Facts are drawn from
 -- the Philippine Fisheries Code (RA 8550) text and aquaculture review material,
--- plus recalled-exam items on shrimp culture and mariculture parks.
 -- Computation items state every given in the question text.
 -- Idempotent: safe to re-run; skips questions that already exist (matched by
 -- topic_id + question_text).
@@ -364,58 +363,6 @@ BEGIN
       (v_question_id, '6 km', false, 1),
       (v_question_id, '15 km', false, 2),
       (v_question_id, '12 km', true, 3);
-  END IF;
-
-  -- 27. Mariculture parks
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Breeding and growout production of commercially important marine species in zonified marine cages is referred to by the Bureau of Fisheries and Aquatic Resources as:';
-  IF v_question_id IS NULL THEN
-    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Breeding and growout production of commercially important marine species in zonified marine cages is referred to by the Bureau of Fisheries and Aquatic Resources as:', 'single_choice', 'medium', 'The Bureau of Fisheries and Aquatic Resources (BFAR) refers to zonified marine cage areas used for the breeding and growout of commercially important marine species as mariculture parks.', NULL, NULL, 'draft', false, NULL, false, NULL)
-    RETURNING id INTO v_question_id;
-    INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
-      (v_question_id, 'Seawater cage farms', false, 0),
-      (v_question_id, 'Mariculture parks', true, 1),
-      (v_question_id, 'Ocean cage parks', false, 2),
-      (v_question_id, 'Industrial cage parks', false, 3);
-  END IF;
-
-  -- 28. Eye ablation
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Eye ablation is a technique used to induce females to spawn in which cultured species?';
-  IF v_question_id IS NULL THEN
-    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Eye ablation is a technique used to induce females to spawn in which cultured species?', 'single_choice', 'easy', 'Eye ablation, the removal or crushing of an eyestalk, is used to induce spawning in female shrimp (penaeid broodstock). It is not used for milkfish, oysters or mussels.', NULL, NULL, 'draft', false, NULL, false, NULL)
-    RETURNING id INTO v_question_id;
-    INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
-      (v_question_id, 'Milkfish', false, 0),
-      (v_question_id, 'Oysters', false, 1),
-      (v_question_id, 'Shrimp', true, 2),
-      (v_question_id, 'Mussels', false, 3);
-  END IF;
-
-  -- 29. Penaeid larval stages
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Penaeid shrimps pass through which larval stages, in sequence, before they become post larvae?';
-  IF v_question_id IS NULL THEN
-    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Penaeid shrimps pass through which larval stages, in sequence, before they become post larvae?', 'single_choice', 'medium', 'Penaeid shrimps develop through nauplius, then zoea, then mysis before reaching the post larval stage. The other sequences listed use stages that belong to other crustaceans or place the stages in the wrong order.', NULL, NULL, 'draft', false, NULL, false, NULL)
-    RETURNING id INTO v_question_id;
-    INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
-      (v_question_id, 'Zoea, megalopa, instar', false, 0),
-      (v_question_id, 'Nauplius, megalopa, instar', false, 1),
-      (v_question_id, 'Nauplius, mysis, zoea', false, 2),
-      (v_question_id, 'Nauplius, zoea, mysis', true, 3);
-  END IF;
-
-  -- 30. Dominant brackishwater species
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Which pair of species is the most dominant in brackishwater culture in the Philippines?';
-  IF v_question_id IS NULL THEN
-    INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Which pair of species is the most dominant in brackishwater culture in the Philippines?', 'single_choice', 'easy', 'Milkfish and shrimp are the most dominant species cultured in brackishwater ponds in the Philippines. Oysters and mussels are grown in marine shallow areas, and tilapia is mainly a freshwater species.', NULL, NULL, 'draft', false, NULL, false, NULL)
-    RETURNING id INTO v_question_id;
-    INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
-      (v_question_id, 'Mudcrab and grouper', false, 0),
-      (v_question_id, 'Milkfish and shrimp', true, 1),
-      (v_question_id, 'Tilapia and carp', false, 2),
-      (v_question_id, 'Oysters and mussels', false, 3);
   END IF;
 
   -- 31. Top aquaculture species by volume

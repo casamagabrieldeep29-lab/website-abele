@@ -5,7 +5,7 @@
 -- plant, structural-load and beam computations, and farm-building materials
 -- (concrete, lumber, plywood, reinforcing bars). Every fact, number and formula
 -- is drawn from the PAES 415, 416, 417, 418 and 419 standards, the silo
--- standard (PNS/BAFS PAES 270), the wood-based panel standard (PAES 320) and
+-- standard , the wood-based panel standard (PAES 320) and
 -- the solved structures problem sets in the reference library, all read in
 -- full - no invented facts. Livestock and poultry housing is deliberately
 -- excluded. Angles differ from the questions already in this topic.
@@ -388,10 +388,10 @@ BEGIN
   END IF;
 
   -- 28. Silo slenderness classification
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Under the Philippine National Standard for steel silos (PNS/BAFS PAES 270:2019), slenderness (aspect ratio) is the ratio of the equivalent height of the grain to the silo diameter. A silo has an inside diameter of 8 m and an equivalent grain height of 18 m. How is it classified?';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Under the Philippine National Standard for steel silos, slenderness (aspect ratio) is the ratio of the equivalent height of the grain to the silo diameter. A silo has an inside diameter of 8 m and an equivalent grain height of 18 m. How is it classified?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Under the Philippine National Standard for steel silos (PNS/BAFS PAES 270:2019), slenderness (aspect ratio) is the ratio of the equivalent height of the grain to the silo diameter. A silo has an inside diameter of 8 m and an equivalent grain height of 18 m. How is it classified?', 'single_choice', 'medium', 'Given: h = 18 m; d = 8 m. Aspect ratio h/d = 18/8 = 2.25. The standard classifies a silo with h/d >= 2.0 as slender (intermediate is 1.0 < h/d < 2.0, squat is 0.4 < h/d <= 1.0, and retaining is h/d <= 0.4 with a flat bottom).', NULL, NULL, 'draft', false, NULL, true, 'PNS/BAFS PAES 270:2019')
+    VALUES (v_topic_id, NULL, 'Under the Philippine National Standard for steel silos, slenderness (aspect ratio) is the ratio of the equivalent height of the grain to the silo diameter. A silo has an inside diameter of 8 m and an equivalent grain height of 18 m. How is it classified?', 'single_choice', 'medium', 'Given: h = 18 m; d = 8 m. Aspect ratio h/d = 18/8 = 2.25. The standard classifies a silo with h/d >= 2.0 as slender (intermediate is 1.0 < h/d < 2.0, squat is 0.4 < h/d <= 1.0, and retaining is h/d <= 0.4 with a flat bottom).', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, 'Intermediate', false, 0),
@@ -401,10 +401,10 @@ BEGIN
   END IF;
 
   -- 29. Squat silo with hopper
-  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A steel silo with a hopper bottom has an aspect ratio (h/d) of 0.35. How does the Philippine National Standard for silos (PNS/BAFS PAES 270:2019) classify it?';
+  SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'A steel silo with a hopper bottom has an aspect ratio (h/d) of 0.35. How does the Philippine National Standard for silos classify it?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'A steel silo with a hopper bottom has an aspect ratio (h/d) of 0.35. How does the Philippine National Standard for silos (PNS/BAFS PAES 270:2019) classify it?', 'single_choice', 'hard', 'The standard classifies a flat-bottom silo with h/d <= 0.4 as retaining. However, a silo with h/d <= 0.4 that has a hopper is classified as squat, the same class as silos with 0.4 < h/d <= 1.0.', NULL, NULL, 'draft', false, NULL, true, 'PNS/BAFS PAES 270:2019')
+    VALUES (v_topic_id, NULL, 'A steel silo with a hopper bottom has an aspect ratio (h/d) of 0.35. How does the Philippine National Standard for silos classify it?', 'single_choice', 'hard', 'The standard classifies a flat-bottom silo with h/d <= 0.4 as retaining. However, a silo with h/d <= 0.4 that has a hopper is classified as squat, the same class as silos with 0.4 < h/d <= 1.0.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, 'Slender', false, 0),
@@ -417,7 +417,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'The coefficient of friction of a stored grain on the hopper wall of a steel silo is 0.50. The angle of friction is arctan of the coefficient of friction, and the standard requires the sloping sides of a hopper bottom to be at least 10 degrees greater than the grain angle of friction. What is the minimum hopper wall angle?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'The coefficient of friction of a stored grain on the hopper wall of a steel silo is 0.50. The angle of friction is arctan of the coefficient of friction, and the standard requires the sloping sides of a hopper bottom to be at least 10 degrees greater than the grain angle of friction. What is the minimum hopper wall angle?', 'single_choice', 'hard', 'Given: coefficient of friction = 0.50. Angle of friction = arctan(0.50) = 26.6 degrees. Minimum hopper wall angle = 26.6 + 10 = 36.6 degrees, so that the grain flows by gravity.', NULL, NULL, 'draft', false, NULL, true, 'PNS/BAFS PAES 270:2019')
+    VALUES (v_topic_id, NULL, 'The coefficient of friction of a stored grain on the hopper wall of a steel silo is 0.50. The angle of friction is arctan of the coefficient of friction, and the standard requires the sloping sides of a hopper bottom to be at least 10 degrees greater than the grain angle of friction. What is the minimum hopper wall angle?', 'single_choice', 'hard', 'Given: coefficient of friction = 0.50. Angle of friction = arctan(0.50) = 26.6 degrees. Minimum hopper wall angle = 26.6 + 10 = 36.6 degrees, so that the grain flows by gravity.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, '46.6 degrees', false, 0),
@@ -443,7 +443,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'For the flooring of a flat-bottom steel silo, the Philippine National Standard for silos requires the net area of perforations (round or slatted) to be at least what percent of the gross floor area, so that the minimum aeration requirement is achieved?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'For the flooring of a flat-bottom steel silo, the Philippine National Standard for silos requires the net area of perforations (round or slatted) to be at least what percent of the gross floor area, so that the minimum aeration requirement is achieved?', 'single_choice', 'easy', 'The standard requires, for flat-bottom silo flooring, a net area of perforations of at least 15 percent of the gross floor area. The perforations may be round or slatted.', NULL, NULL, 'draft', false, NULL, true, 'PNS/BAFS PAES 270:2019')
+    VALUES (v_topic_id, NULL, 'For the flooring of a flat-bottom steel silo, the Philippine National Standard for silos requires the net area of perforations (round or slatted) to be at least what percent of the gross floor area, so that the minimum aeration requirement is achieved?', 'single_choice', 'easy', 'The standard requires, for flat-bottom silo flooring, a net area of perforations of at least 15 percent of the gross floor area. The perforations may be round or slatted.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, '5 percent', false, 0),
@@ -456,7 +456,7 @@ BEGIN
   SELECT id INTO v_question_id FROM public.questions WHERE topic_id = v_topic_id AND question_text = 'Which statement about the walls of a steel grain silo is correct under the Philippine National Standard for silos?';
   IF v_question_id IS NULL THEN
     INSERT INTO public.questions (topic_id, subtopic_id, question_text, question_type, difficulty, explanation, source, source_reference, status, is_recalled, recalled_batch, is_paes, paes_reference)
-    VALUES (v_topic_id, NULL, 'Which statement about the walls of a steel grain silo is correct under the Philippine National Standard for silos?', 'single_choice', 'medium', 'The standard requires wall materials to be corrosion resistant and not painted; rivets or bolts and nuts shall be used to join wall materials and they shall not be welded. Overlaps of wall sheets shall not coincide with those of the adjacent levels, and walls should be installed with stiffeners.', NULL, NULL, 'draft', false, NULL, true, 'PNS/BAFS PAES 270:2019')
+    VALUES (v_topic_id, NULL, 'Which statement about the walls of a steel grain silo is correct under the Philippine National Standard for silos?', 'single_choice', 'medium', 'The standard requires wall materials to be corrosion resistant and not painted; rivets or bolts and nuts shall be used to join wall materials and they shall not be welded. Overlaps of wall sheets shall not coincide with those of the adjacent levels, and walls should be installed with stiffeners.', NULL, NULL, 'draft', false, NULL, false, NULL)
     RETURNING id INTO v_question_id;
     INSERT INTO public.choices (question_id, choice_text, is_correct, sort_order) VALUES
       (v_question_id, 'Wall sheets are welded to make the silo airtight, and the inside surface is painted to protect the grain', false, 0),
