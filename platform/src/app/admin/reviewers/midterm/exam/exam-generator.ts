@@ -170,32 +170,41 @@ function collect(sections: SectionGroup[], topicKeys: Set<string>) {
   return { terms, formulas };
 }
 
+type Placed = { topicKey: string; section: string };
+
+/** 0 = same topic, 1 = same section, 2 = anywhere else in the selection. */
+function tierOf(x: Placed, y: Placed): number {
+  return x.topicKey === y.topicKey ? 0 : x.section === y.section ? 1 : 2;
+}
+
+/**
+ * Wrong choices that look like they belong: take them from the same topic
+ * first, then the same section, and only then from the rest of the selection.
+ * Inside a tier, prefer candidates of a similar length so the right answer is
+ * not given away by being the longest or the shortest.
+ */
 function pickDistractors<T>(
   pool: T[],
   key: (t: T) => string,
   correct: string,
-  sameFirst: (t: T) => boolean,
+  tier: (t: T) => number,
   rng: Rng,
   n = 3,
 ): string[] | null {
   const seen = new Set<string>([correct]);
-  const out: string[] = [];
-  for (const group of [
-    shuffle(pool.filter(sameFirst), rng),
-    shuffle(
-      pool.filter((p) => !sameFirst(p)),
-      rng,
-    ),
-  ]) {
-    for (const item of group) {
-      const k = key(item);
-      if (!k || seen.has(k)) continue;
-      seen.add(k);
-      out.push(k);
-      if (out.length === n) return out;
-    }
+  const cands: { k: string; tier: number; bucket: number }[] = [];
+  for (const item of shuffle(pool, rng)) {
+    const k = key(item);
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    cands.push({
+      k,
+      tier: tier(item),
+      bucket: Math.floor(Math.abs(k.length - correct.length) / 25),
+    });
   }
-  return null;
+  cands.sort((x, y) => x.tier - y.tier || x.bucket - y.bucket);
+  return cands.length >= n ? cands.slice(0, n).map((c) => c.k) : null;
 }
 
 function place(
@@ -250,7 +259,7 @@ export function buildExam(
         terms,
         (x) => x.def,
         t.def,
-        (x) => x.section === t.section,
+        (x) => tierOf(x, t),
         rng,
       );
       if (!d) continue;
@@ -272,7 +281,7 @@ export function buildExam(
         terms,
         (x) => x.term,
         t.term,
-        (x) => x.section === t.section,
+        (x) => tierOf(x, t),
         rng,
       );
       if (!d) continue;
@@ -293,7 +302,7 @@ export function buildExam(
         formulas,
         (x) => x.formula,
         f.formula,
-        (x) => x.section === f.section,
+        (x) => tierOf(x, f),
         rng,
       );
       if (!d) continue;

@@ -34,7 +34,8 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
   );
 
   const [phase, setPhase] = useState<Phase>("setup");
-  const [selected, setSelected] = useState<Set<string>>(() => new Set(allKeys));
+  const [selected, setSelected] = useState<Set<string>>(() => new Set());
+  const [topicSearch, setTopicSearch] = useState("");
   const [kinds, setKinds] = useState<Set<QuestionKind>>(
     () => new Set(ALL_KINDS),
   );
@@ -50,6 +51,22 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
   const [wrongOnly, setWrongOnly] = useState(false);
   const deadline = useRef<number | null>(null);
 
+  const tq = topicSearch.trim().toLowerCase();
+  const shownSections = useMemo(
+    () =>
+      sections
+        .map((s) => ({
+          ...s,
+          topics: s.topics.filter(
+            (t) =>
+              !tq ||
+              t.topic.toLowerCase().includes(tq) ||
+              s.section.toLowerCase().includes(tq),
+          ),
+        }))
+        .filter((s) => s.topics.length > 0),
+    [sections, tq],
+  );
   const counts = useMemo(
     () => availableCounts(rows, selected),
     [rows, selected],
@@ -166,13 +183,30 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
               </button>
             </div>
           </div>
+          <input
+            value={topicSearch}
+            onChange={(e) => setTopicSearch(e.target.value)}
+            placeholder="Find a topic…"
+            className="mt-2 w-full max-w-sm rounded-md border border-border bg-background px-2 py-1.5 text-sm"
+          />
+          {selected.size > 0 && selected.size <= 6 && (
+            <p className="mt-2 text-xs text-muted-foreground">
+              Selected:{" "}
+              {sections
+                .flatMap((x) => x.topics)
+                .filter((t) => selected.has(t.key))
+                .map((t) => t.topic)
+                .join(" · ")}
+            </p>
+          )}
           <div className="mt-2 space-y-2">
-            {sections.map((s) => {
+            {shownSections.map((s) => {
               const keys = s.topics.map((t) => t.key);
               const on = keys.filter((k) => selected.has(k)).length;
               return (
                 <details
                   key={s.section}
+                  open={topicSearch.trim() ? true : undefined}
                   className="rounded-lg border border-border"
                 >
                   <summary className="flex cursor-pointer select-none items-center gap-2 rounded-lg bg-muted/40 px-3 py-2 text-sm font-semibold">

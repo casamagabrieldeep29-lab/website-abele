@@ -131,4 +131,18 @@ describe("buildExam", () => {
       exam.every((q) => q.topic === "Topic 1" || q.topic === "Topic 2"),
     ).toBe(true);
   });
+
+  it("draws wrong choices from the same topic when it has enough items", () => {
+    const exam = buildExam(rows, {
+      topicKeys: all,
+      kinds: ["term"],
+      count: 12,
+    });
+    expect(exam.length).toBe(12);
+    for (const q of exam) {
+      const t = q.topic.replace("Topic ", "");
+      // every choice is a definition of the same topic ("... number <t>.<i> ...")
+      expect(q.choices.every((c) => c.includes(`number ${t}.`))).toBe(true);
+    }
+  });
 });
