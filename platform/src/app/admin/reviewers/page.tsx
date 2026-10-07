@@ -20,7 +20,7 @@ export default async function AdminReviewersPage({
   const supabase = await createClient();
   const { q, topicId: topicFilter, status: statusFilter } = await searchParams;
 
-  const [allEntries, { data: topics }, { data: subtopics }] = await Promise.all([
+  const [everyEntry, { data: topics }, { data: subtopics }] = await Promise.all([
     // reviewer_entries just crossed 1000 rows — a plain `.select()` would
     // silently cap at PostgREST's 1000-row default and hide the newest
     // entries from this admin management view. Paginated.
@@ -31,6 +31,9 @@ export default async function AdminReviewersPage({
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);
 
+  // Admin-only midterm reviewer rows live in their own section (/admin/reviewers/midterm), not in this list.
+  const allEntries = everyEntry.filter((e) => !isAdminOnlyReviewerTitle(e.title));
+  const adminOnlyCount = everyEntry.length - allEntries.length;
   const hasFilter = Boolean(q?.trim() || topicFilter || statusFilter);
   const query = q?.trim().toLowerCase();
   const filtered = allEntries.filter((e) => {
@@ -64,9 +67,14 @@ export default async function AdminReviewersPage({
         <div className="flex flex-wrap items-center gap-3">
           <PublishAllReviewerDraftsButton
             draftCount={
-              allEntries.filter((e) => e.status === "draft" && !e.notes?.includes("FLAGGED FOR REVIEW") && !isAdminOnlyReviewerTitle(e.title)).length
+              allEntries.filter((e) => e.status === "draft" && !e.notes?.includes("FLAGGED FOR REVIEW")).length
             }
           />
+          {adminOnlyCount > 0 && (
+            <Link href="/admin/reviewers/midterm" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
+              Midterm Reviewer (admin only, {adminOnlyCount} entries) →
+            </Link>
+          )}
           {flaggedCount > 0 && (
             <Link
               href="/admin/reviewers/flagged"

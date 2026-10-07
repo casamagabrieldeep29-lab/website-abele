@@ -7,7 +7,7 @@ import { ReviewersBrowser, type ReviewerEntry } from "./reviewers-browser";
 import { PageHeader } from "@/components/page-header";
 import { RequestTranscription } from "@/components/request-transcription";
 import { Button } from "@/components/ui/button";
-import { getSessionUser } from "@/lib/auth/session";
+import { getAuthContext, getSessionUser } from "@/lib/auth/session";
 
 type ReviewerEntryRow = Pick<
   ReviewerEntry,
@@ -27,7 +27,8 @@ export default async function ReviewersPage({
   // ~2,000 entries / ~1.3 MB of text, identical for every student — served from
   // the shared cache (src/lib/shared-content.ts) instead of re-downloaded from
   // Supabase on every visit. The taxonomy is shared the same way.
-  const [allEntries, taxonomy] = await Promise.all([getPublishedReviewerEntries(), getTaxonomy()]);
+  const [allEntries, taxonomy, auth] = await Promise.all([getPublishedReviewerEntries(), getTaxonomy(), getAuthContext()]);
+  const isAdmin = auth.profile?.role === "admin";
   const entries: ReviewerEntryRow[] = allEntries.map(toLightEntry);
   // Names are attached in the browser from this small lookup instead of being
   // copied onto every one of the ~2,000 entries (see entry-lookup.ts).
@@ -40,6 +41,7 @@ export default async function ReviewersPage({
         description="Quick-reference tables, formulas, and constants — filterable by area and topic."
         action={
           <div className="flex flex-wrap items-center gap-2">
+            {isAdmin && <Button render={<Link href="/admin/reviewers/midterm">Midterm Reviewer (admin only) →</Link>} nativeButton={false} size="sm" />}
             <Button render={<Link href="/reviewers/quiz">Formula Trainer →</Link>} nativeButton={false} size="sm" variant="secondary" />
             <RequestTranscription />
           </div>
