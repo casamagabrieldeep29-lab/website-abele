@@ -40,6 +40,8 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
   );
   const [count, setCount] = useState(30);
   const [minutes, setMinutes] = useState(0);
+  // reveal the correct answer and its explanation right after each question
+  const [showAnswers, setShowAnswers] = useState(true);
 
   const [questions, setQuestions] = useState<ExamQuestion[]>([]);
   const [answers, setAnswers] = useState<Record<string, number>>({});
@@ -291,6 +293,24 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
           </div>
         </section>
 
+        <label className="flex items-start gap-2 rounded-md border border-border px-3 py-2 text-sm">
+          <input
+            type="checkbox"
+            className="mt-1"
+            checked={showAnswers}
+            onChange={(e) => setShowAnswers(e.target.checked)}
+          />
+          <span>
+            <span className="font-medium">
+              Show the answer after each question
+            </span>
+            <span className="block text-xs text-muted-foreground">
+              The correct choice and its explanation appear as soon as you
+              answer, and that answer is locked.
+            </span>
+          </span>
+        </label>
+
         <div className="flex items-center gap-3">
           <Button
             onClick={generate}
@@ -312,6 +332,9 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
   if (phase === "exam") {
     const q = questions[index];
     const answered = Object.keys(answers).length;
+    const mine = answers[q.id];
+    const revealed = showAnswers && mine !== undefined;
+    const isLast = index === questions.length - 1;
     return (
       <div className="space-y-4">
         <div className="sticky top-0 z-10 flex flex-wrap items-center justify-between gap-2 border-b bg-background/95 py-2 backdrop-blur">
@@ -333,7 +356,7 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
               key={x.id}
               type="button"
               onClick={() => setIndex(i)}
-              className={`h-7 w-7 rounded text-xs ${i === index ? "bg-primary text-primary-foreground" : answers[x.id] !== undefined ? "bg-primary/20 text-foreground" : "border border-border text-muted-foreground"}`}
+              className={`h-7 w-7 rounded text-xs ${i === index ? "bg-primary text-primary-foreground" : answers[x.id] === undefined ? "border border-border text-muted-foreground" : showAnswers ? (answers[x.id] === x.correct ? "bg-success/30 text-foreground" : "bg-destructive/30 text-foreground") : "bg-primary/20 text-foreground"}`}
               aria-label={`Go to question ${i + 1}`}
             >
               {i + 1}
@@ -353,16 +376,49 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
               <button
                 key={i}
                 type="button"
+                disabled={revealed}
                 onClick={() => setAnswers((a) => ({ ...a, [q.id]: i }))}
-                className={`flex w-full items-start gap-2 rounded-md border px-3 py-2 text-left text-sm ${answers[q.id] === i ? "border-primary bg-primary/10" : "border-border hover:bg-muted/50"}`}
+                className={`flex w-full items-start gap-2 rounded-md border px-3 py-2 text-left text-sm ${
+                  revealed
+                    ? i === q.correct
+                      ? "border-success bg-success/15 font-semibold"
+                      : i === mine
+                        ? "border-destructive bg-destructive/15"
+                        : "border-border opacity-60"
+                    : mine === i
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:bg-muted/50"
+                }`}
               >
                 <span className="font-semibold">{LETTERS[i]}.</span>
                 <span className={q.kind === "formula" ? "font-mono" : ""}>
                   {renderFormula(c)}
                 </span>
+                {revealed && i === q.correct && (
+                  <span className="ml-auto">✓</span>
+                )}
+                {revealed && i === mine && i !== q.correct && (
+                  <span className="ml-auto">✗</span>
+                )}
               </button>
             ))}
           </div>
+          {revealed && (
+            <div
+              className={`mt-3 rounded-md border px-3 py-2 text-sm ${mine === q.correct ? "border-success/40 bg-success/10" : "border-destructive/40 bg-destructive/10"}`}
+            >
+              <p className="font-semibold">
+                {mine === q.correct
+                  ? "Correct!"
+                  : `Not quite. The answer is ${LETTERS[q.correct]}.`}
+              </p>
+              <div className="mt-1 space-y-0.5 text-xs leading-relaxed text-muted-foreground">
+                {q.explain.map((l, li) => (
+                  <p key={li}>{renderFormula(l)}</p>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -374,11 +430,11 @@ export function MidtermExam({ rows }: { rows: MidtermRow[] }) {
             ← Previous
           </Button>
           <div className="flex gap-2">
-            {index < questions.length - 1 ? (
+            {!isLast ? (
               <Button onClick={() => setIndex((i) => i + 1)}>Next →</Button>
             ) : null}
             <Button
-              variant={index < questions.length - 1 ? "secondary" : "default"}
+              variant={isLast ? "default" : "secondary"}
               onClick={() => {
                 const left = questions.length - answered;
                 if (
