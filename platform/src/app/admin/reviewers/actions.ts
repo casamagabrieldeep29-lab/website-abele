@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { expireReviewerContent } from "@/lib/shared-content";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { createClient } from "@/lib/supabase/server";
-import { NOT_FLAGGED_REVIEWER_FILTER } from "@/lib/flagged-questions";
+import { ADMIN_ONLY_REVIEWER_PREFIX, NOT_FLAGGED_REVIEWER_FILTER } from "@/lib/flagged-questions";
 
 function fieldsFromForm(formData: FormData) {
   const str = (name: string) => {
@@ -89,6 +89,8 @@ export async function publishAllReviewerDrafts(): Promise<{ published: number }>
     .update({ status: "published" })
     .eq("status", "draft")
     .or(NOT_FLAGGED_REVIEWER_FILTER)
+    // Admin-only reviewer material is never bulk-published.
+    .not("title", "ilike", `${ADMIN_ONLY_REVIEWER_PREFIX}%`)
     .select("id");
   if (error) throw new Error(error.message);
   expireReviewerContent();

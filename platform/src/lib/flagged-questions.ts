@@ -16,3 +16,14 @@ export const NOT_FLAGGED_FILTER = "explanation.is.null,explanation.not.ilike.%FL
 // (used when the PAES source standard itself has a genuine anomaly, e.g. a
 // formula contradicting its own method text).
 export const NOT_FLAGGED_REVIEWER_FILTER = "notes.is.null,notes.not.ilike.%FLAGGED FOR REVIEW%";
+
+// Reviewer entries whose title starts with this prefix are admin-only study
+// material (e.g. the midterm reviewer). They stay as drafts so students can
+// never read them (RLS only exposes status = 'published'), and the bulk
+// "Publish All Drafts" action skips them so one click can't release them.
+// They can still be published one by one on purpose.
+export const ADMIN_ONLY_REVIEWER_PREFIX = "Admin Reviewer:";
+
+export function isAdminOnlyReviewerTitle(title: string): boolean {
+  return title.startsWith(ADMIN_ONLY_REVIEWER_PREFIX);
+}

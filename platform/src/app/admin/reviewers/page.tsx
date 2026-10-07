@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { isAdminOnlyReviewerTitle } from "@/lib/flagged-questions";
 import { createClient } from "@/lib/supabase/server";
 import { fetchAllRows } from "@/lib/supabase/paginate";
 import { Button } from "@/components/ui/button";
@@ -63,7 +64,7 @@ export default async function AdminReviewersPage({
         <div className="flex flex-wrap items-center gap-3">
           <PublishAllReviewerDraftsButton
             draftCount={
-              allEntries.filter((e) => e.status === "draft" && !e.notes?.includes("FLAGGED FOR REVIEW")).length
+              allEntries.filter((e) => e.status === "draft" && !e.notes?.includes("FLAGGED FOR REVIEW") && !isAdminOnlyReviewerTitle(e.title)).length
             }
           />
           {flaggedCount > 0 && (
