@@ -22,7 +22,9 @@ export default async function MidtermReviewerPage() {
   const rows = await fetchAllRows<MidtermRow>((from, to) =>
     supabase
       .from("reviewer_entries")
-      .select("id, kind, title, formula, variables, table_content, description, notes")
+      .select(
+        "id, kind, title, formula, variables, table_content, description, notes",
+      )
       .ilike("title", `${ADMIN_ONLY_REVIEWER_PREFIX}%`)
       .order("notes")
       .range(from, to),
@@ -31,8 +33,16 @@ export default async function MidtermReviewerPage() {
   return (
     <main className="min-h-screen bg-background">
       <header className="flex items-center justify-between border-b px-6 py-4">
-        <span className="text-lg font-bold text-primary">ABELIEVER — Midterm Reviewer (admin only)</span>
+        <span className="text-lg font-bold text-primary">
+          ABELIEVER — Midterm Reviewer (admin only)
+        </span>
         <div className="flex gap-4 text-sm text-muted-foreground">
+          <Link
+            href="/admin/reviewers/midterm/exam"
+            className="font-medium text-primary hover:underline"
+          >
+            Custom exam →
+          </Link>
           <Link href="/reviewers" className="hover:underline">
             Reviewers
           </Link>
