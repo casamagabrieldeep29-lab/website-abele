@@ -41,11 +41,11 @@ function coverageTier(weightPercent: number): { label: string; className: string
   return { label: "Foundational Topic", className: "bg-muted text-muted-foreground", featured: false };
 }
 
-// Both headline numbers are real counts rounded DOWN, never estimated, and
-// are updated by hand because this page is static (no database read per view).
-// Checked 2026-10-13: 6,995 published questions, 413 student accounts.
-// Raise them only when the real count passes the next round number.
-const PRODUCT_PROOF = ["6,900+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
+// The student count is a real count rounded down. The question count is a
+// TARGET figure chosen by Gabriel on 2026-10-13 ("9,000+") while the real
+// published count was 6,995; he is adding the remaining questions. This page is
+// static (no database read per view), so both numbers are updated by hand.
+const PRODUCT_PROOF = ["9,000+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
 
 const WORKFLOW_STEPS = [
   { title: "Practice", description: "Answer focused ABE questions, organized by the official exam coverage." },
