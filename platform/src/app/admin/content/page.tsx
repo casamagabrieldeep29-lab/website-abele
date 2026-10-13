@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AutoCategorizePanel } from "./auto-categorize-panel";
 import { PublishAllDraftsButton } from "./publish-all-drafts-button";
+import { RefreshCachesButton } from "./refresh-caches-button";
 
 export default async function AdminContentPage() {
   await requireAdmin();
@@ -54,6 +55,7 @@ export default async function AdminContentPage() {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
+          <RefreshCachesButton />
           <PublishAllDraftsButton draftCount={totalDraftCount ?? 0} />
           {(flaggedCount ?? 0) > 0 && (
             <Link

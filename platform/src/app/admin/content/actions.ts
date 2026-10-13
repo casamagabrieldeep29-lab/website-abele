@@ -301,3 +301,14 @@ export async function createQuestion(topicId: string, formData: FormData) {
   expirePublishedCounts();
   revalidatePath(`/admin/content/${topicId}`);
 }
+
+/**
+ * Makes questions loaded straight into the database (bulk imports and
+ * corrections) show up at once: expires the shared published-question caches
+ * instead of waiting out their 24-hour TTL.
+ */
+export async function refreshQuestionCaches() {
+  await requireAdmin();
+  expirePublishedCounts();
+  revalidatePath("/admin/content");
+}
