@@ -41,12 +41,11 @@ function coverageTier(weightPercent: number): { label: string; className: string
   return { label: "Foundational Topic", className: "bg-muted text-muted-foreground", featured: false };
 }
 
-// The rest of this page's numbers are pulled from the live database and
-// rounded down, never estimated (see the hero's "170+" line below). The
-// question count is the one deliberate exception — Gabriel asked for it to
-// read "7,000+" after being told the real published count is 3,530, so this
-// is a chosen marketing figure, not a database read.
-const PRODUCT_PROOF = ["7,000+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
+// Both headline numbers are real counts rounded DOWN, never estimated, and
+// are updated by hand because this page is static (no database read per view).
+// Checked 2026-10-13: 6,995 published questions, 413 student accounts.
+// Raise them only when the real count passes the next round number.
+const PRODUCT_PROOF = ["6,900+ Questions", "Mock Exams", "Mistake Bank", "Progress Tracking", "AI Explanations"];
 
 const WORKFLOW_STEPS = [
   { title: "Practice", description: "Answer focused ABE questions, organized by the official exam coverage." },
@@ -113,7 +112,7 @@ export default function Home() {
                     Already have an account? Sign in
                   </Link>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">Trusted by 170+ future ABE engineers.</p>
+                <p className="mt-3 text-sm text-muted-foreground">Trusted by 400+ future ABE engineers.</p>
 
                 {/* Product-proof row — every label here is a real, shipped feature or a real count pulled from the database, never an invented stat. */}
                 <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/70 pt-6">

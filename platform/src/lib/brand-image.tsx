@@ -66,7 +66,7 @@ function LogoBadge({ size }: { size: number }) {
 }
 
 export function renderShareImage(width: number, height: number) {
-  const chips = ["7,000+ Questions", "Mock Exams", "Mistake Bank", "AI Explanations"];
+  const chips = ["6,900+ Questions", "Mock Exams", "Mistake Bank", "AI Explanations"];
   return new ImageResponse(
     (
       <div
