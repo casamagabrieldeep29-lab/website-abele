@@ -3,6 +3,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { MockExamSession, type MockChoice, type MockQuestion } from "./mock-exam-session";
 import { getSessionUser } from "@/lib/auth/session";
+import { MOCK_EXAM_TIME_LIMIT_MINUTES, nowMs, remainingMs } from "@/lib/mock-timing";
+import { completeMockExam } from "../actions";
 
 const AREA_LABELS: Record<string, string> = { area_1: "Area 1", area_2: "Area 2", area_3: "Area 3" };
 
@@ -29,6 +31,16 @@ export default async function MockExamAttemptPage({
 
   const config = attempt.config as { question_ids: string[]; time_limit_minutes: number; area?: string };
   const questionIds = config.question_ids ?? [];
+
+  // The server owns the clock (see src/lib/mock-timing.ts). An attempt whose time
+  // is already up is finished here and sent to its results instead of being
+  // opened and instantly auto-submitted in the browser.
+  const timeLimitMinutes = config.time_limit_minutes ?? MOCK_EXAM_TIME_LIMIT_MINUTES;
+  const timeLeftMs = remainingMs(attempt.started_at, timeLimitMinutes, nowMs());
+  if (Number.isFinite(timeLeftMs) && timeLeftMs <= 0) {
+    await completeMockExam(attemptId);
+    redirect(`/mock/${attemptId}/results`);
+  }
 
   const [{ data: questions }, { data: choices }, { data: existingAnswers }] = await Promise.all([
     supabase.from("student_questions").select("id, question_text").in("id", questionIds),
@@ -74,8 +86,7 @@ export default async function MockExamAttemptPage({
           attemptId={attempt.id}
           questions={mockQuestions}
           initialAnswers={Object.fromEntries(answersByQuestion)}
-          startedAt={attempt.started_at}
-          timeLimitMinutes={config.time_limit_minutes ?? 60}
+          initialRemainingMs={Number.isFinite(timeLeftMs) ? timeLeftMs : timeLimitMinutes * 60_000}
         />
       )}
     </main>

@@ -26,6 +26,7 @@ import { formatDateManila, currentHourManila } from "@/lib/manila-week";
 import { StatCard } from "@/components/stat-card";
 import type { PlanDay } from "@/app/study-plan/actions";
 import { fetchTopicMastery } from "@/lib/mastery";
+import { mockExpiryCutoffIso } from "@/lib/mock-timing";
 
 type TopicMastery = TopicMasteryRow;
 
@@ -158,6 +159,8 @@ export default async function DashboardPage() {
       .eq("user_id", user.id)
       .eq("mode", "mock")
       .eq("status", "in_progress")
+      // a mock older than its 3-hour limit is over; do not offer to resume it
+      .gte("started_at", mockExpiryCutoffIso())
       .order("started_at", { ascending: false })
       .limit(1)
       .maybeSingle(),

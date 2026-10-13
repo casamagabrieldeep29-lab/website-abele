@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { completeMockExam } from "../actions";
+import { formatClock } from "@/lib/mock-timing";
 
 export type MockChoice = { id: string; text: string };
 export type MockQuestion = { id: string; text: string; choices: MockChoice[] };
@@ -24,14 +25,13 @@ export function MockExamSession({
   attemptId,
   questions,
   initialAnswers,
-  startedAt,
-  timeLimitMinutes,
+  initialRemainingMs,
 }: {
   attemptId: string;
   questions: MockQuestion[];
   initialAnswers: Record<string, string[]>;
-  startedAt: string;
-  timeLimitMinutes: number;
+  /** Time left, worked out by the server at page load (never from the device clock). */
+  initialRemainingMs: number;
 }) {
   const router = useRouter();
   const [answers, setAnswers] = useState<Record<string, string[]>>(initialAnswers);
@@ -67,13 +67,14 @@ export function MockExamSession({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const deadline = useMemo(
-    () => new Date(startedAt).getTime() + timeLimitMinutes * 60 * 1000,
-    [startedAt, timeLimitMinutes],
-  );
-  const [remainingMs, setRemainingMs] = useState(() => deadline - Date.now());
+  // Count down from the server's figure on the browser's monotonic timer, so a
+  // wrong device clock can neither shorten the exam nor submit it early.
+  const deadlineRef = useRef<number | null>(null);
+  const [remainingMs, setRemainingMs] = useState(initialRemainingMs);
+  const submittingRef = useRef(false);
 
   const finishExam = useCallback(() => {
+    submittingRef.current = true;
     setSubmitting(true);
     completeMockExam(attemptId).then(() => {
       router.push(`/mock/${attemptId}/results`);
@@ -81,16 +82,27 @@ export function MockExamSession({
   }, [attemptId, router]);
 
   useEffect(() => {
+    deadlineRef.current = performance.now() + initialRemainingMs;
     const interval = setInterval(() => {
-      const remaining = deadline - Date.now();
+      if (deadlineRef.current === null) return;
+      const remaining = deadlineRef.current - performance.now();
       setRemainingMs(remaining);
-      if (remaining <= 0) {
-        clearInterval(interval);
-        finishExam();
-      }
+      if (remaining > 0 || submittingRef.current) return;
+      // Time looks up: the server confirms against its own clock before ending the exam.
+      submittingRef.current = true;
+      setSubmitting(true);
+      completeMockExam(attemptId, true).then((res) => {
+        if (res.done) {
+          router.push(`/mock/${attemptId}/results`);
+        } else {
+          deadlineRef.current = performance.now() + res.remainingMs;
+          submittingRef.current = false;
+          setSubmitting(false);
+        }
+      });
     }, 1000);
     return () => clearInterval(interval);
-  }, [deadline, finishExam]);
+  }, [attemptId, initialRemainingMs, router]);
 
   const answeredCount = Object.keys(answers).length;
   const unansweredCount = questions.length - answeredCount;
@@ -106,8 +118,6 @@ export function MockExamSession({
     setError(saveError ? "Couldn't save that answer. Check your connection and try again." : null);
   }
 
-  const minutes = Math.max(0, Math.floor(remainingMs / 60000));
-  const seconds = Math.max(0, Math.floor((remainingMs % 60000) / 1000));
   const timeLow = remainingMs < 5 * 60 * 1000;
 
   const submitBar = (
@@ -118,7 +128,7 @@ export function MockExamSession({
       </p>
       <div className="flex items-center gap-3">
         <p className={`font-mono text-lg font-semibold ${timeLow ? "text-destructive" : "text-primary"}`}>
-          {minutes}:{seconds.toString().padStart(2, "0")}
+          {formatClock(remainingMs)}
         </p>
         <Button type="button" size="sm" disabled={submitting} onClick={() => setConfirmingSubmit(true)}>
           {submitting ? "Submitting…" : "Submit exam"}

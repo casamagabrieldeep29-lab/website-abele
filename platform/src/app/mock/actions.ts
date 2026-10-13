@@ -6,6 +6,7 @@ import { groupIntoUnits } from "@/lib/series";
 import { pickSubjectItems } from "@/lib/mock-selection";
 import { getMockPool } from "@/lib/published-counts";
 import { getTaxonomy } from "@/lib/shared-content";
+import { AUTO_SUBMIT_GRACE_MS, MOCK_EXAM_TIME_LIMIT_MINUTES, remainingMs } from "@/lib/mock-timing";
 
 export type MockArea = "area_1" | "area_2" | "area_3";
 
@@ -19,8 +20,6 @@ const MAX_STANDARDS_SHARE = 0.15;
 const SUBJECT_STANDARDS_SHARE: Record<string, number> = {
   "Agricultural and Biosystems Machinery Specifications, Testing and Evaluation": 0.3,
 };
-
-const MOCK_EXAM_TIME_LIMIT_MINUTES = 180; // 3 hours per area, matching the real board exam.
 
 // A question this short is almost never a genuine PRC-style board item —
 // real board questions are full scenario/definition sentences, not a
@@ -162,17 +161,33 @@ export async function startAreaMockExam(formData: FormData) {
   redirect(`/mock/${attempt.id}`);
 }
 
-export async function completeMockExam(attemptId: string) {
+/**
+ * Finishes a mock attempt. `auto` marks a submit triggered by the countdown
+ * reaching zero in the browser: the server then checks its own clock first and
+ * refuses to end an exam that still has time left (it hands back the real time
+ * remaining so the page can re-sync). A manual "Submit exam" always completes.
+ */
+export async function completeMockExam(
+  attemptId: string,
+  auto = false,
+): Promise<{ done: true } | { done: false; remainingMs: number }> {
   const supabase = await createClient();
-  const [{ data: { user } }, { count: correctCount }] = await Promise.all([
+  const [{ data: { user } }, { count: correctCount }, { data: attempt }] = await Promise.all([
     supabase.auth.getUser(),
     supabase
       .from("attempt_answers")
       .select("id", { count: "exact", head: true })
       .eq("attempt_id", attemptId)
       .eq("is_correct", true),
+    supabase.from("attempts").select("started_at, config, status").eq("id", attemptId).maybeSingle(),
   ]);
   if (!user) redirect("/login");
+
+  if (auto && attempt && attempt.status !== "completed") {
+    const limit = (attempt.config as { time_limit_minutes?: number } | null)?.time_limit_minutes ?? MOCK_EXAM_TIME_LIMIT_MINUTES;
+    const left = remainingMs(attempt.started_at, limit, Date.now());
+    if (Number.isFinite(left) && left > AUTO_SUBMIT_GRACE_MS) return { done: false, remainingMs: left };
+  }
 
   const { error } = await supabase
     .from("attempts")
@@ -186,4 +201,5 @@ export async function completeMockExam(attemptId: string) {
 
   if (error) throw new Error(error.message);
   await supabase.rpc("check_and_award_achievements");
+  return { done: true };
 }
