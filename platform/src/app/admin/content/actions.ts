@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { PUBLISHED_COUNTS_TAG } from "@/lib/published-counts";
 import { requireAdmin } from "@/lib/auth/require-admin";
+import { expireTaxonomy } from "@/lib/shared-content";
 import { createClient } from "@/lib/supabase/server";
 import { getAIProvider } from "@/lib/ai";
 import { buildCategorizeQuestionsPrompt, buildCategorizeQuestionsSystemInstruction } from "@/lib/ai/prompts";
@@ -310,5 +311,6 @@ export async function createQuestion(topicId: string, formData: FormData) {
 export async function refreshQuestionCaches() {
   await requireAdmin();
   expirePublishedCounts();
+  expireTaxonomy(); // topic -> subject assignments feed the Mock Exam pool
   revalidatePath("/admin/content");
 }
