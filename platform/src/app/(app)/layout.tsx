@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { GlobalSearch } from "@/components/global-search/global-search";
 import { ProfileCompletionModal } from "@/components/profile-completion-modal";
 import { NoticeCampaignModal } from "@/components/notice-campaign-modal";
+import { WelcomeMessage } from "@/components/welcome-message";
 import { getActiveNoticeCampaignForUser, type ActiveNoticeCampaign } from "@/lib/notice-campaigns";
 import { signOut } from "@/app/dashboard/actions";
 
@@ -72,6 +73,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       </SidebarInset>
       {showProfilePrompt && <ProfileCompletionModal />}
       {activeCampaign && <NoticeCampaignModal campaign={activeCampaign} />}
+      {/* Only when no other popup is up, so dialogs never stack. */}
+      {!showProfilePrompt && !activeCampaign && <WelcomeMessage name={profile?.display_name ?? null} />}
     </SidebarProvider>
   );
 }
