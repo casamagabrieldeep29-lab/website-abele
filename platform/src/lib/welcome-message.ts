@@ -27,8 +27,8 @@ export const INSPIRATIONS = [
 ];
 
 export const ANNOUNCEMENT = {
-  title: "Now accepting thesis commissions",
-  body: "Need help with your thesis? DM me on Facebook or TikTok.",
+  title: "Need help with your thesis?",
+  body: "I'm accepting thesis commissions. Let's talk about your project.",
   facebookUrl: "https://www.facebook.com/ggabdcc",
   tiktokUrl: "https://www.tiktok.com/@ggabdcc",
 };

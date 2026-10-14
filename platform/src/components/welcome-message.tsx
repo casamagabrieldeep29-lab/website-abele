@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ANNOUNCEMENT, INSPIRATIONS } from "@/lib/welcome-message";
 
@@ -33,31 +33,35 @@ export function WelcomeMessage({ name }: { name: string | null }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="size-5 text-primary" />
-            {name ? `Welcome back, ${name}` : "Welcome back"}
+      <DialogContent className="gap-4 p-5 sm:max-w-md">
+        <DialogHeader className="gap-3 pr-8">
+          <DialogTitle className="flex items-center gap-2 text-lg leading-tight font-semibold tracking-tight">
+            <Sparkles className="size-4 shrink-0 text-primary" />
+            <span className="min-w-0 truncate">{name ? `Welcome back, ${name}` : "Welcome back"}</span>
           </DialogTitle>
-          <DialogDescription className="pt-1 text-base leading-relaxed text-foreground">&ldquo;{quote}&rdquo;</DialogDescription>
+          <DialogDescription className="border-l-2 border-primary/70 pl-3 text-[15px] leading-relaxed text-foreground/90">
+            {quote}
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="rounded-md border border-primary/30 bg-primary/5 p-3">
-          <p className="text-sm font-semibold text-primary">{ANNOUNCEMENT.title}</p>
-          <p className="mt-1 text-sm text-muted-foreground">{ANNOUNCEMENT.body}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Button render={<a href={ANNOUNCEMENT.facebookUrl} target="_blank" rel="noopener noreferrer" />} nativeButton={false} size="sm" variant="secondary">
+        <div className="flex flex-col gap-2 rounded-lg border border-border/70 bg-background/30 px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <div className="min-w-0">
+            <p className="text-sm font-medium text-foreground">{ANNOUNCEMENT.title}</p>
+            <p className="mt-0.5 text-xs leading-snug text-foreground/70">{ANNOUNCEMENT.body}</p>
+          </div>
+          <div className="flex shrink-0 gap-1.5">
+            <Button render={<a href={ANNOUNCEMENT.facebookUrl} target="_blank" rel="noopener noreferrer" />} nativeButton={false} size="sm" variant="outline" className="border-foreground/25 text-foreground hover:bg-foreground/10">
               Facebook
             </Button>
-            <Button render={<a href={ANNOUNCEMENT.tiktokUrl} target="_blank" rel="noopener noreferrer" />} nativeButton={false} size="sm" variant="secondary">
+            <Button render={<a href={ANNOUNCEMENT.tiktokUrl} target="_blank" rel="noopener noreferrer" />} nativeButton={false} size="sm" variant="outline" className="border-foreground/25 text-foreground hover:bg-foreground/10">
               TikTok
             </Button>
           </div>
         </div>
 
-        <DialogFooter>
-          <Button onClick={() => setOpen(false)}>Let&apos;s study</Button>
-        </DialogFooter>
+        <Button size="lg" className="h-10 w-full text-sm font-semibold" onClick={() => setOpen(false)}>
+          Let&apos;s study
+        </Button>
       </DialogContent>
     </Dialog>
   );
