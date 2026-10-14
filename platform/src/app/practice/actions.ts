@@ -672,7 +672,12 @@ export async function startCaseProblems(seriesKey?: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  let query = supabase.from("student_questions").select("id, series_key, series_position").not("series_key", "is", null);
+  // Only questions tagged as part of a connected problem — a small, capped set.
+  let query = supabase
+    .from("student_questions")
+    .select("id, series_key, series_position")
+    .not("series_key", "is", null)
+    .limit(500);
   if (seriesKey) query = query.eq("series_key", seriesKey);
   const { data: members } = await query;
   if (!members || members.length === 0) {

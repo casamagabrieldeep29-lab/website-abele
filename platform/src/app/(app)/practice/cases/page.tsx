@@ -24,7 +24,8 @@ export default async function ConnectedProblemsPage() {
     supabase
       .from("student_questions")
       .select("id, series_key, series_position, topic_id, question_text")
-      .not("series_key", "is", null),
+      .not("series_key", "is", null)
+      .limit(500),
     getTaxonomy(),
   ]);
   const topicName = new Map((taxonomy.topics ?? []).map((t) => [t.id, t.name]));
