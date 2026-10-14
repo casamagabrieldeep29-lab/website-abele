@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
 import { startFormulaQuiz, startSavedFormulaQuiz } from "@/app/reviewers/quiz-actions";
@@ -43,7 +43,6 @@ export default async function FormulaQuizPage({
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Quick study</CardTitle>
-              <CardDescription>{totalPublished} published formulas available.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {[10, 20].map((n) => (

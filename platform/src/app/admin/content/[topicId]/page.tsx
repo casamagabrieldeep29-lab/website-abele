@@ -82,12 +82,12 @@ export default async function AdminTopicContentPage({
                 }}
                 className="text-sm text-muted-foreground hover:underline"
               >
-                {showArchived ? "Hide" : "Show"} {archivedCount} archived
+                {showArchived ? "Hide" : "Show"} archived
               </Link>
             )}
             {publishableDraftCount > 0 && (
               <form action={publishAllInTopic.bind(null, topicId)}>
-                <Button type="submit">Publish all {publishableDraftCount} drafts</Button>
+                <Button type="submit">Publish all drafts</Button>
               </form>
             )}
           </div>
@@ -120,8 +120,8 @@ export default async function AdminTopicContentPage({
 
         <p className="mt-2 text-xs text-muted-foreground">
           {hasFilter
-            ? `${filteredQuestions.length} matching ${filteredQuestions.length === 1 ? "question" : "questions"} of ${questions.length} shown`
-            : `Showing the ${visibleQuestions.length} most recent of ${questions.length} — search or filter above to see the rest.`}
+            ? (filteredQuestions.length === 0 ? "No questions match." : "Showing matching questions.")
+            : "Showing the most recent questions — search or filter above to see the rest."}
         </p>
 
         <div className="mt-4 space-y-4">

@@ -675,9 +675,6 @@ function TosGroupedEntries({
               <CollapsibleTrigger className="flex w-full items-center gap-2 px-3 py-2 text-left">
                 <ChevronRight className="size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 group-data-open:rotate-90" />
                 <span className="min-w-0 flex-1 text-sm font-medium break-words">{group.name}</span>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {group.entries.length} {group.entries.length === 1 ? "entry" : "entries"}
-                </span>
               </CollapsibleTrigger>
               <CollapsibleContent open={open}>
                 <GroupBody entries={group.entries} kind={kind} details={details} />

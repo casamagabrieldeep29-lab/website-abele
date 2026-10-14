@@ -82,8 +82,8 @@ export default async function FlaggedReviewerEntriesPage({
 
         <p className="mt-2 text-xs text-muted-foreground">
           {hasFilter
-            ? `${flagged.length} matching ${flagged.length === 1 ? "entry" : "entries"} of ${allFlagged.length} total`
-            : `${allFlagged.length} flagged ${allFlagged.length === 1 ? "entry" : "entries"} total.`}
+            ? (flagged.length === 0 ? "No flagged entries match." : "Showing matching flagged entries.")
+            : "Flagged entries awaiting review."}
         </p>
 
         <div className="mt-4 space-y-4">

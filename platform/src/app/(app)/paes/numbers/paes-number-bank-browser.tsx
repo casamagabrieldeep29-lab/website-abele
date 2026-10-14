@@ -78,12 +78,29 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
 
   return (
     <div className="mt-6">
-      <Input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by value, symbol, title, PAES number…"
-        className="max-w-md"
-      />
+      <div className="flex flex-wrap items-center gap-2">
+        <Input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by value, symbol, title, PAES number…"
+          className="max-w-md"
+        />
+        {availableReferences.length > 0 && (
+          <select
+            value={reference}
+            onChange={(e) => setReference(e.target.value)}
+            aria-label="Filter by PAES standard"
+            className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+          >
+            <option value="all">All standards</option>
+            {availableReferences.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
         <button type="button" onClick={() => setCategory("all")}>
@@ -100,23 +117,6 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
         ))}
       </div>
 
-      {availableReferences.length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          <button type="button" onClick={() => setReference("all")}>
-            <Badge variant={reference === "all" ? "secondary" : "outline"} className="cursor-pointer px-2.5 py-1">
-              All standards
-            </Badge>
-          </button>
-          {availableReferences.map((r) => (
-            <button key={r} type="button" onClick={() => setReference(r)}>
-              <Badge variant={reference === r ? "secondary" : "outline"} className="cursor-pointer px-2.5 py-1">
-                {r}
-              </Badge>
-            </button>
-          ))}
-        </div>
-      )}
-
       {filtered.length === 0 ? (
         <p className="mt-5 text-sm text-muted-foreground">
           {entries.length === 0 ? "No PAES numeric content published yet." : "No matches for your search or filter."}
@@ -126,7 +126,7 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
           {constants.length > 0 && (
             <div>
               <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Quick Values</p>
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {constants.slice(0, limits.constants).map((entry) => (
                   <div key={entry.id} className="relative pt-2">
                     <ReferenceBadge paesReference={entry.paes_reference} />
@@ -142,7 +142,7 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
                   className="mt-4"
                   onClick={() => setShown({ ...limits, key: filterKey, constants: limits.constants + CONSTANTS_PAGE_SIZE })}
                 >
-                  Show more values ({constants.length - limits.constants} more)
+                  Show more values
                 </Button>
               )}
             </div>
@@ -167,7 +167,7 @@ export function PaesNumberBankBrowser({ entries }: { entries: PaesNumberBankEntr
                   className="mt-4"
                   onClick={() => setShown({ ...limits, key: filterKey, tables: limits.tables + TABLES_PAGE_SIZE })}
                 >
-                  Show more tables ({tables.length - limits.tables} more)
+                  Show more tables
                 </Button>
               )}
             </div>

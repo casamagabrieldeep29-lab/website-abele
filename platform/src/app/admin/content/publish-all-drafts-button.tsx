@@ -14,7 +14,7 @@ export function PublishAllDraftsButton({ draftCount }: { draftCount: number }) {
   if (result !== null) {
     return (
       <p className="rounded-md border border-success/30 bg-success/5 px-3 py-2 text-sm text-success">
-        Published {result} question{result === 1 ? "" : "s"}.
+        Published all draft questions.
       </p>
     );
   }
@@ -22,7 +22,7 @@ export function PublishAllDraftsButton({ draftCount }: { draftCount: number }) {
   if (!expanded) {
     return (
       <Button type="button" variant="outline" size="sm" onClick={() => setExpanded(true)}>
-        Publish All Drafts ({draftCount})
+        Publish All Drafts
       </Button>
     );
   }
@@ -30,7 +30,7 @@ export function PublishAllDraftsButton({ draftCount }: { draftCount: number }) {
   return (
     <div className="space-y-2 rounded-md border border-border bg-muted/30 p-3">
       <p className="text-sm">
-        This publishes all <strong>{draftCount}</strong> draft questions across every topic — not just
+        This publishes <strong>all</strong> draft questions across every topic — not just
         one topic. Flagged questions are excluded and won&apos;t be touched; review those separately from
         the Flagged Questions link above. Students will immediately see the rest in Practice, Mock Exams,
         Quiz Builder, and Recalled Questions. You can unpublish individual questions afterward if needed.
@@ -47,7 +47,7 @@ export function PublishAllDraftsButton({ draftCount }: { draftCount: number }) {
             })
           }
         >
-          {isPending ? "Publishing…" : `Yes, publish all ${draftCount}`}
+          {isPending ? "Publishing…" : "Yes, publish all"}
         </Button>
         <Button type="button" variant="outline" size="sm" onClick={() => setExpanded(false)} disabled={isPending}>
           Cancel

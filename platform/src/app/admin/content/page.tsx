@@ -62,7 +62,7 @@ export default async function AdminContentPage() {
               href="/admin/content/flagged"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-destructive hover:underline"
             >
-              ⚑ {flaggedCount} flagged question{flaggedCount === 1 ? "" : "s"} need review →
+              ⚑ Flagged questions need review →
             </Link>
           )}
         </div>
@@ -92,8 +92,8 @@ export default async function AdminContentPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-2">
-                    <Badge variant="secondary">{draftCount} draft</Badge>
-                    <Badge variant="outline">{publishedCount} published</Badge>
+                    {draftCount > 0 && <Badge variant="secondary">Has drafts</Badge>}
+                    {publishedCount > 0 && <Badge variant="outline">Published</Badge>}
                   </div>
                 </CardContent>
               </Card>

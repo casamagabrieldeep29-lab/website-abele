@@ -111,9 +111,6 @@ function PaesStandardGroup({
                 {paesReference}
                 {officialTitle && <span className="font-semibold"> — {officialTitle}</span>}
               </h2>
-              <p className="text-xs text-muted-foreground">
-                {entries.length} {entries.length === 1 ? "entry" : "entries"}
-              </p>
             </div>
           </CollapsibleTrigger>
           <Link

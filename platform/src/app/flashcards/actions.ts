@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fetchTopicMastery } from "@/lib/mastery";
+import { fetchAreaTopicIds, isFlashcardAreaKey } from "@/lib/flashcard-areas";
 
 const MAX_SESSION_SIZE = 50;
 
@@ -22,99 +23,100 @@ async function redirectToSession(ids: string[]) {
   redirect(`/flashcards/study?ids=${ids.slice(0, MAX_SESSION_SIZE).join(",")}`);
 }
 
-/** Quick / Random: N flashcards drawn from the given Area's published pool. */
-export async function startQuickFlashcards(areaTopicId: string, formData: FormData) {
+/** Back to the area page (not the picker) when a mode finds nothing. */
+async function redirectEmpty(areaKey: string) {
+  redirect(`/flashcards?area=${areaKey}&empty=1`);
+}
+
+async function requireUser() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+  return { supabase, user };
+}
+
+/** Published card ids on the given topics. */
+async function publishedCardIds(supabase: Awaited<ReturnType<typeof createClient>>, topicIds: string[]) {
+  if (topicIds.length === 0) return [];
+  const { data } = await supabase
+    .from("flashcards")
+    .select("id")
+    .eq("status", "published")
+    .in("topic_id", topicIds);
+  return (data ?? []).map((c) => c.id as string);
+}
+
+/** Quick / Random: N flashcards drawn from the given Area's published pool. */
+export async function startQuickFlashcards(areaKey: string, formData: FormData) {
+  if (!isFlashcardAreaKey(areaKey)) redirect("/flashcards");
+  const { supabase } = await requireUser();
 
   const count = Number(formData.get("count") ?? 10);
-  const { data } = await supabase.from("flashcards").select("id").eq("status", "published").eq("topic_id", areaTopicId);
-  const ids = shuffle((data ?? []).map((c) => c.id)).slice(0, count);
+  const ids = shuffle(await publishedCardIds(supabase, await fetchAreaTopicIds(supabase, areaKey))).slice(0, count);
+  if (ids.length === 0) await redirectEmpty(areaKey);
   await redirectToSession(ids);
 }
 
 /**
- * By topic (used by Question Bank / dashboard deep-links into one specific
- * MCQ topic). Flashcards only ever live on the Area 1/2/3 umbrella topics,
- * so this maps the given topic to its mock_area and serves that Area's
- * flashcards rather than querying the specific topic id directly (which
- * would always return nothing).
+ * By topic (Question Bank / dashboard deep-links into one specific topic).
+ * Cards live on the real topics, so serve that topic's own cards; if the
+ * topic has none, fall back to the rest of its Area.
  */
 export async function startFlashcardsByTopic(topicId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  const { supabase } = await requireUser();
+
+  const own = await publishedCardIds(supabase, [topicId]);
+  if (own.length > 0) await redirectToSession(shuffle(own));
 
   const { data: topic } = await supabase.from("topics").select("mock_area").eq("id", topicId).single();
   if (!topic) await redirectToSession([]);
-
-  const areaNumber = topic!.mock_area.split("_")[1];
-  const { data: areaTopic } = await supabase.from("topics").select("id").eq("name", `Area ${areaNumber}`).single();
-  if (!areaTopic) await redirectToSession([]);
-
-  const { data } = await supabase.from("flashcards").select("id").eq("status", "published").eq("topic_id", areaTopic!.id);
-  await redirectToSession(shuffle((data ?? []).map((c) => c.id)));
+  const ids = await publishedCardIds(supabase, await fetchAreaTopicIds(supabase, topic!.mock_area));
+  await redirectToSession(shuffle(ids));
 }
 
-/**
- * Weak Areas, scoped to one Area 1/2/3 topic. Flashcards live at Area
- * granularity, but real mastery data (get_topic_mastery()) is tracked per
- * fine-grained MCQ topic — so this checks whether ANY of the caller's
- * weak/needs-review topics falls under this Area's mock_area, and if so
- * serves that Area's whole flashcard set. That's the coarsest honest match
- * available given the data shape, not a fabricated finer-grained result.
- */
-export async function startWeakAreaFlashcards(areaTopicId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+/** Weak Areas: cards on the Area's topics the caller is weak in (developing / needs review). */
+export async function startWeakAreaFlashcards(areaKey: string) {
+  if (!isFlashcardAreaKey(areaKey)) redirect("/flashcards");
+  const { supabase } = await requireUser();
 
-  const [{ data: areaTopic }, { data: mastery }] = await Promise.all([
-    supabase.from("topics").select("mock_area").eq("id", areaTopicId).single(),
+  const [areaTopicIds, { data: mastery }] = await Promise.all([
+    fetchAreaTopicIds(supabase, areaKey),
     fetchTopicMastery(supabase),
   ]);
+  const inArea = new Set(areaTopicIds);
   const weakTopicIds = (mastery ?? [])
     .filter((m: { status: string }) => m.status === "needs_review" || m.status === "developing")
-    .map((m: { topic_id: string }) => m.topic_id);
+    .map((m: { topic_id: string }) => m.topic_id)
+    .filter((id: string) => inArea.has(id));
 
-  if (!areaTopic || weakTopicIds.length === 0) await redirectToSession([]);
-
-  const { data: weakTopics } = await supabase.from("topics").select("mock_area").in("id", weakTopicIds);
-  const hasWeakInArea = (weakTopics ?? []).some((t) => t.mock_area === areaTopic!.mock_area);
-  if (!hasWeakInArea) await redirectToSession([]);
-
-  const { data } = await supabase.from("flashcards").select("id").eq("status", "published").eq("topic_id", areaTopicId);
-  await redirectToSession(shuffle((data ?? []).map((c) => c.id)));
+  const ids = await publishedCardIds(supabase, weakTopicIds);
+  if (ids.length === 0) await redirectEmpty(areaKey);
+  await redirectToSession(shuffle(ids));
 }
 
-/** Mistakes, scoped to one Area 1/2/3 topic — same reasoning as Weak Areas above. */
-export async function startMistakeFlashcards(areaTopicId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+/** Mistakes: cards on the Area's topics that currently appear in the caller's Mistake Bank. */
+export async function startMistakeFlashcards(areaKey: string) {
+  if (!isFlashcardAreaKey(areaKey)) redirect("/flashcards");
+  const { supabase } = await requireUser();
 
-  const [{ data: areaTopic }, { data: mistakes }] = await Promise.all([
-    supabase.from("topics").select("mock_area").eq("id", areaTopicId).single(),
+  const [areaTopicIds, { data: mistakes }] = await Promise.all([
+    fetchAreaTopicIds(supabase, areaKey),
     supabase.rpc("get_mistake_bank"),
   ]);
-  const mistakeTopicIds = [...new Set((mistakes ?? []).map((m: { topic_id: string }) => m.topic_id))];
+  const inArea = new Set(areaTopicIds);
+  const mistakeTopicIds = [...new Set((mistakes ?? []).map((m: { topic_id: string }) => m.topic_id))].filter((id) =>
+    inArea.has(id as string),
+  ) as string[];
 
-  if (!areaTopic || mistakeTopicIds.length === 0) await redirectToSession([]);
-
-  const { data: mistakeTopics } = await supabase.from("topics").select("mock_area").in("id", mistakeTopicIds);
-  const hasMistakeInArea = (mistakeTopics ?? []).some((t) => t.mock_area === areaTopic!.mock_area);
-  if (!hasMistakeInArea) await redirectToSession([]);
-
-  const { data } = await supabase.from("flashcards").select("id").eq("status", "published").eq("topic_id", areaTopicId);
-  await redirectToSession(shuffle((data ?? []).map((c) => c.id)));
+  const ids = await publishedCardIds(supabase, mistakeTopicIds);
+  if (ids.length === 0) await redirectEmpty(areaKey);
+  await redirectToSession(shuffle(ids));
 }
 
 /** Saved flashcards (bookmarked via `is_saved` on flashcard_progress), scoped to one Area. */
-export async function startSavedFlashcards(areaTopicId: string) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+export async function startSavedFlashcards(areaKey: string) {
+  if (!isFlashcardAreaKey(areaKey)) redirect("/flashcards");
+  const { supabase, user } = await requireUser();
 
   const { data: saved } = await supabase
     .from("flashcard_progress")
@@ -122,10 +124,14 @@ export async function startSavedFlashcards(areaTopicId: string) {
     .eq("user_id", user.id)
     .eq("is_saved", true);
   const savedIds = (saved ?? []).map((p) => p.flashcard_id);
-  if (savedIds.length === 0) await redirectToSession([]);
+  if (savedIds.length === 0) await redirectEmpty(areaKey);
 
-  const { data } = await supabase.from("flashcards").select("id").eq("topic_id", areaTopicId).in("id", savedIds);
-  await redirectToSession(shuffle((data ?? []).map((c) => c.id)));
+  const areaTopicIds = await fetchAreaTopicIds(supabase, areaKey);
+  if (areaTopicIds.length === 0) await redirectEmpty(areaKey);
+  const { data } = await supabase.from("flashcards").select("id").in("topic_id", areaTopicIds).in("id", savedIds);
+  const ids = (data ?? []).map((c) => c.id as string);
+  if (ids.length === 0) await redirectEmpty(areaKey);
+  await redirectToSession(shuffle(ids));
 }
 
 export async function reviewFlashcard(flashcardId: string, state: "know" | "learning" | "dont_know") {

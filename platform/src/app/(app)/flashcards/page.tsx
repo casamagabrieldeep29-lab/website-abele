@@ -10,25 +10,18 @@ import {
   startSavedFlashcards,
   startWeakAreaFlashcards,
 } from "@/app/flashcards/actions";
+import { FLASHCARD_AREAS, fetchAreaTopicIds } from "@/lib/flashcard-areas";
 
 export default async function FlashcardsPage({
   searchParams,
 }: {
   searchParams: Promise<{ empty?: string; area?: string }>;
 }) {
-  const { empty, area: areaTopicId } = await searchParams;
-  const { supabase, user, profile } = await getAuthContext();
+  const { empty, area: areaParam } = await searchParams;
+  const { supabase, user } = await getAuthContext();
   if (!user) redirect("/login");
 
-  const isAdmin = profile?.role === "admin";
-
-  const { data: areaTopics } = await supabase
-    .from("topics")
-    .select("id, name")
-    .in("name", ["Area 1", "Area 2", "Area 3"])
-    .order("name");
-
-  const currentArea = (areaTopics ?? []).find((a) => a.id === areaTopicId);
+  const currentArea = FLASHCARD_AREAS.find((a) => a.key === areaParam);
 
   // No area chosen yet — show the Area 1/2/3 picker first.
   if (!currentArea) {
@@ -37,28 +30,30 @@ export default async function FlashcardsPage({
         <PageHeader title="Flashcards" description="Pick an area to study its terms, definitions, and formulas." />
 
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          {(areaTopics ?? []).map((area) => (
-            <Link key={area.id} href={`/flashcards?area=${area.id}`} className="block">
+          {FLASHCARD_AREAS.map((area) => (
+            <Link key={area.key} href={`/flashcards?area=${area.key}`} className="block">
               <Card className="h-full transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm hover:ring-primary/40">
                 <CardHeader>
-                  <CardTitle className="text-base">{area.name}</CardTitle>
+                  <CardTitle className="text-base">{area.label}</CardTitle>
                 </CardHeader>
               </Card>
             </Link>
           ))}
-          {(areaTopics ?? []).length === 0 && (
-            <p className="text-sm text-muted-foreground">No flashcards published yet. Ask your administrator to add some.</p>
-          )}
         </div>
       </div>
     );
   }
 
-  const { count: totalPublished, error } = await supabase
-    .from("flashcards")
-    .select("id", { count: "exact", head: true })
-    .eq("status", "published")
-    .eq("topic_id", currentArea.id);
+  // Cards sit on their real topics; the Area is derived from the topics' mock_area.
+  const areaTopicIds = await fetchAreaTopicIds(supabase, currentArea.key);
+  const { count: totalPublished, error } =
+    areaTopicIds.length === 0
+      ? { count: 0, error: null }
+      : await supabase
+          .from("flashcards")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "published")
+          .in("topic_id", areaTopicIds);
 
   if (error) {
     return <p className="text-sm text-destructive">Couldn&apos;t load flashcards: {error.message}</p>;
@@ -66,7 +61,7 @@ export default async function FlashcardsPage({
 
   return (
     <div className="mx-auto w-full max-w-4xl">
-      <PageHeader title={currentArea.name} description="Active recall for ABE terms, definitions, and formulas." />
+      <PageHeader title={currentArea.label} description="Active recall for ABE terms, definitions, and formulas." />
       <Link href="/flashcards" className="mt-2 inline-block text-sm text-muted-foreground hover:underline">
         ← All areas
       </Link>
@@ -84,18 +79,17 @@ export default async function FlashcardsPage({
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Quick study</CardTitle>
-              {isAdmin && <CardDescription>{totalPublished} published flashcards available.</CardDescription>}
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {[10, 20].map((n) => (
-                <form key={n} action={startQuickFlashcards.bind(null, currentArea.id)}>
+                <form key={n} action={startQuickFlashcards.bind(null, currentArea.key)}>
                   <input type="hidden" name="count" value={n} />
                   <Button type="submit" variant="secondary" size="sm">
                     Quick {n}
                   </Button>
                 </form>
               ))}
-              <form action={startQuickFlashcards.bind(null, currentArea.id)}>
+              <form action={startQuickFlashcards.bind(null, currentArea.key)}>
                 <input type="hidden" name="count" value={200} />
                 <Button type="submit" variant="secondary" size="sm">
                   Random (all)
@@ -110,7 +104,7 @@ export default async function FlashcardsPage({
               <CardDescription>Uses your real mastery data — topics marked developing or needs review.</CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={startWeakAreaFlashcards.bind(null, currentArea.id)}>
+              <form action={startWeakAreaFlashcards.bind(null, currentArea.key)}>
                 <Button type="submit" size="sm">
                   Start →
                 </Button>
@@ -124,7 +118,7 @@ export default async function FlashcardsPage({
               <CardDescription>Flashcards for topics currently in your Mistake Bank.</CardDescription>
             </CardHeader>
             <CardContent>
-              <form action={startMistakeFlashcards.bind(null, currentArea.id)}>
+              <form action={startMistakeFlashcards.bind(null, currentArea.key)}>
                 <Button type="submit" size="sm">
                   Start →
                 </Button>
@@ -137,7 +131,7 @@ export default async function FlashcardsPage({
               <CardTitle className="text-base">Saved Flashcards</CardTitle>
             </CardHeader>
             <CardContent>
-              <form action={startSavedFlashcards.bind(null, currentArea.id)}>
+              <form action={startSavedFlashcards.bind(null, currentArea.key)}>
                 <Button type="submit" size="sm" variant="outline">
                   Start →
                 </Button>

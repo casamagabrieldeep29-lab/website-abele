@@ -95,8 +95,8 @@ export default async function FlaggedQuestionsPage({
 
         <p className="mt-2 text-xs text-muted-foreground">
           {hasFilter
-            ? `${filtered.length} matching ${filtered.length === 1 ? "question" : "questions"} of ${allFlagged.length} total`
-            : `Showing the ${flagged.length} most recent of ${allFlagged.length} total — search or filter above to see the rest.`}
+            ? (filtered.length === 0 ? "No flagged questions match." : "Showing matching flagged questions.")
+            : "Showing the most recent flagged questions — search or filter above to see the rest."}
         </p>
 
         <div className="mt-4 space-y-4">

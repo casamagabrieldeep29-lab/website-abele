@@ -72,7 +72,7 @@ export default async function AdminReviewersPage({
           />
           {adminOnlyCount > 0 && (
             <Link href="/admin/reviewers/midterm" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
-              Midterm Reviewer (admin only, {adminOnlyCount} entries) →
+              Midterm Reviewer (admin only) →
             </Link>
           )}
           {flaggedCount > 0 && (
@@ -80,7 +80,7 @@ export default async function AdminReviewersPage({
               href="/admin/reviewers/flagged"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-destructive hover:underline"
             >
-              ⚑ {flaggedCount} flagged {flaggedCount === 1 ? "entry needs" : "entries need"} review →
+              ⚑ Flagged entries need review →
             </Link>
           )}
         </div>
@@ -117,8 +117,8 @@ export default async function AdminReviewersPage({
 
         <p className="text-xs text-muted-foreground">
           {hasFilter
-            ? `${filtered.length} matching ${filtered.length === 1 ? "entry" : "entries"} of ${allEntries.length} total`
-            : `Showing the ${entries.length} most recent of ${allEntries.length} total — search or filter above to see the rest.`}
+            ? (filtered.length === 0 ? "No entries match." : "Showing matching entries.")
+            : "Showing the most recent entries — search or filter above to see the rest."}
         </p>
 
         {entries.map((e) => (

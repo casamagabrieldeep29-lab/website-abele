@@ -12,33 +12,31 @@ export default async function AdminFlashcardsPage() {
 
   const [{ data: cards }, { data: topics }, { data: subtopics }] = await Promise.all([
     supabase.from("flashcards").select("*").order("created_at", { ascending: false }),
-    supabase.from("topics").select("id, name").order("name"),
+    supabase.from("topics").select("id, name, mock_area").order("name"),
     supabase.from("subtopics").select("id, name, topic_id").order("name"),
   ]);
 
-  // Flashcards only ever attach to the Area 1/2/3 umbrella topics (unlike
-  // MCQ questions, which use the full fine-grained topic taxonomy) — the
-  // picker is restricted to those so new cards can't drift back onto a
-  // specific topic like Hydrology or Irrigation and Drainage Engineering.
-  const areaTopics = (topics ?? []).filter((t) => /^Area [123]$/.test(t.name));
+  // Cards sit on the real topics (Hydrology, Pumps, ...); the picker lists them grouped by Area.
+  const pickerTopics = topics ?? [];
 
-  const topicNameById = new Map((topics ?? []).map((t) => [t.id, t.name]));
+  const topicById = new Map((topics ?? []).map((t) => [t.id, t]));
   const cardsByTopic = new Map<string, typeof cards>();
   for (const c of cards ?? []) {
     const list = cardsByTopic.get(c.topic_id) ?? [];
     list.push(c);
     cardsByTopic.set(c.topic_id, list);
   }
-  const totalDraftCount = (cards ?? []).filter((c) => c.status === "draft").length;
-  const totalPublishedCount = (cards ?? []).filter((c) => c.status === "published").length;
+  const hasDrafts = (cards ?? []).some((c) => c.status === "draft");
+  const hasPublished = (cards ?? []).some((c) => c.status === "published");
 
   const groups: TopicGroup[] = [...cardsByTopic.entries()]
     .map(([topicId, topicCards]) => ({
       topicId,
-      topicName: topicNameById.get(topicId) ?? "(unknown topic)",
+      topicName: topicById.get(topicId)?.name ?? "(unknown topic)",
+      area: topicById.get(topicId)?.mock_area ?? "",
       cards: topicCards ?? [],
     }))
-    .sort((a, b) => a.topicName.localeCompare(b.topicName));
+    .sort((a, b) => a.area.localeCompare(b.area) || a.topicName.localeCompare(b.topicName));
 
   return (
     <main className="min-h-screen bg-background">
@@ -55,24 +53,24 @@ export default async function AdminFlashcardsPage() {
             Front/back study cards for active recall. Never invent content — only enter verified terms/definitions.
           </p>
           <div className="flex flex-wrap gap-2">
-            {totalDraftCount > 0 && (
+            {hasDrafts && (
               <form action={publishAllDraftFlashcards.bind(null, undefined)}>
                 <Button type="submit" size="sm">
-                  Publish all drafts ({totalDraftCount})
+                  Publish all drafts
                 </Button>
               </form>
             )}
-            {totalPublishedCount > 0 && (
+            {hasPublished && (
               <form action={unpublishAllFlashcards.bind(null, undefined)}>
                 <Button type="submit" size="sm" variant="outline">
-                  Unpublish all ({totalPublishedCount})
+                  Unpublish all
                 </Button>
               </form>
             )}
           </div>
         </div>
 
-        <FlashcardsAdminBrowser groups={groups} topics={areaTopics} subtopics={subtopics ?? []} />
+        <FlashcardsAdminBrowser groups={groups} topics={pickerTopics} subtopics={subtopics ?? []} />
         {groups.length === 0 && <p className="text-sm text-muted-foreground">No flashcards yet.</p>}
 
         <Card>
@@ -83,7 +81,7 @@ export default async function AdminFlashcardsPage() {
             <form action={createFlashcard} className="space-y-2">
               <textarea name="front" placeholder="Front (term/question)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
               <textarea name="back" placeholder="Back (definition/answer)" required rows={2} className="w-full rounded-md border border-border bg-background px-2 py-1.5 text-sm" />
-              <TopicSubtopicFields topics={areaTopics} subtopics={subtopics ?? []} />
+              <TopicSubtopicFields topics={pickerTopics} subtopics={subtopics ?? []} />
               <Button type="submit" size="sm">
                 Add flashcard (as draft)
               </Button>

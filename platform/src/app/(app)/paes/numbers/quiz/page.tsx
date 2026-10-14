@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/page-header";
 import { startNumberBankQuiz, startSavedNumberBankQuiz } from "@/app/reviewers/quiz-actions";
@@ -44,7 +44,6 @@ export default async function NumberBankQuizPage({
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Quick study</CardTitle>
-              <CardDescription>{totalPublished} published entries available.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               {[10, 20].map((n) => (
