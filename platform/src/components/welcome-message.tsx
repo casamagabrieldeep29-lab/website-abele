@@ -2,31 +2,49 @@
 
 import { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
+import { Playfair_Display } from "next/font/google";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ANNOUNCEMENT, INSPIRATIONS } from "@/lib/welcome-message";
 
-const SEEN_KEY = "abeliever-welcome-seen";
+// Elegant italic serif for the quote only; loaded once and scoped to this component.
+const quoteFont = Playfair_Display({ subsets: ["latin"], style: "italic", weight: ["400", "500"], display: "swap" });
+
+const LAST_SHOWN_KEY = "abeliever-welcome-last-shown";
+const LAST_QUOTE_KEY = "abeliever-welcome-last-quote";
+// Opening the site again after this long counts as a new visit and greets again;
+// clicking around inside the app does not.
+const NEW_VISIT_AFTER_MS = 30 * 60 * 1000;
 
 /**
- * Greets the student each time they open the website (once per browser
- * session, so moving between pages doesn't repeat it) with a random
- * inspirational line and the current announcement.
+ * Greets the student each time they open the website with a different
+ * inspirational line (never the same one twice in a row) plus the current
+ * announcement. Moving between pages during one visit does not repeat it.
  */
 export function WelcomeMessage({ name }: { name: string | null }) {
   const [open, setOpen] = useState(false);
   const [quote, setQuote] = useState("");
 
   useEffect(() => {
+    let lastQuote = -1;
     try {
-      if (sessionStorage.getItem(SEEN_KEY)) return;
-      sessionStorage.setItem(SEEN_KEY, "1");
+      const lastShown = Number(localStorage.getItem(LAST_SHOWN_KEY) ?? 0);
+      if (Date.now() - lastShown < NEW_VISIT_AFTER_MS) return;
+      lastQuote = Number(localStorage.getItem(LAST_QUOTE_KEY) ?? -1);
     } catch {
       // Storage blocked: still greet, just may repeat on a later page load.
     }
-    // Reading sessionStorage is only possible after mount, so the open state has to be set here.
+    let next = Math.floor(Math.random() * INSPIRATIONS.length);
+    if (INSPIRATIONS.length > 1 && next === lastQuote) next = (next + 1) % INSPIRATIONS.length;
+    try {
+      localStorage.setItem(LAST_SHOWN_KEY, String(Date.now()));
+      localStorage.setItem(LAST_QUOTE_KEY, String(next));
+    } catch {
+      // ignore
+    }
+    // Reading storage is only possible after mount, so the open state has to be set here.
     /* eslint-disable react-hooks/set-state-in-effect */
-    setQuote(INSPIRATIONS[Math.floor(Math.random() * INSPIRATIONS.length)]);
+    setQuote(INSPIRATIONS[next]);
     setOpen(true);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
@@ -39,7 +57,7 @@ export function WelcomeMessage({ name }: { name: string | null }) {
             <Sparkles className="size-4 shrink-0 text-primary" />
             <span className="min-w-0 truncate">{name ? `Welcome back, ${name}` : "Welcome back"}</span>
           </DialogTitle>
-          <DialogDescription className="border-l-2 border-primary/70 pl-3 text-[15px] leading-relaxed text-foreground/90">
+          <DialogDescription className={`border-l-2 border-primary/70 pl-3 text-lg leading-relaxed text-foreground ${quoteFont.className}`}>
             {quote}
           </DialogDescription>
         </DialogHeader>
