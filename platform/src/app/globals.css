@@ -324,13 +324,31 @@
  * it scroll normally with the page is effectively free by comparison.
  * Default keeps its plain flat background — this selector never matches it.
  */
-.theme-ocean body,
-.theme-forest body,
-.theme-pink body {
+/* The photo lives on a viewport-sized fixed layer behind everything, not on
+   <body>: a body background stretches over the whole (often very tall) page,
+   so "cover" zoomed and cropped it and it scrolled away. A fixed pseudo-element
+   is composited once and stays put while the content scrolls, on every page. */
+.theme-ocean body::before,
+.theme-forest body::before,
+.theme-pink body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.6)), var(--hero-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+/* Pages outside the app shell (admin, mock/practice/PAES sessions, login,
+   landing...) wrap themselves in an opaque min-h-screen bg-background box that
+   would hide the photo; let it show through like the app shell does. */
+.theme-ocean :is(main, div).min-h-screen.bg-background,
+.theme-forest :is(main, div).min-h-screen.bg-background,
+.theme-pink :is(main, div).min-h-screen.bg-background {
+  background-color: transparent;
 }
 
 /* The authenticated app shell's <main> (SidebarInset) has an opaque
