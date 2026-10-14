@@ -211,6 +211,9 @@ export function PaesQuizSession({
       });
     }
     setConfidenceSaving(false);
+    // "Not sure" / "Guessed" move straight on; "Knew it" keeps the Next button
+    // so the student can still read the explanation.
+    if (value !== "knew_it") advance();
   }
 
   if (finished) {
