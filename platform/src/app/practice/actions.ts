@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { pickDailyQuestionId, todayStartIso } from "@/lib/daily-question";
 import { getUserSettings, type PracticeMode } from "@/lib/study-preferences";
-import { fetchLatestOutcomes, weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
+import { fetchLatestOutcomes, groupIntoUnits, weighAndSampleCandidates, type SeriesCandidate } from "@/lib/series";
 import { getCandidatePool, getPublishedSnapshot } from "@/lib/published-counts";
 import type { MockArea } from "@/app/mock/actions";
 import { fetchTopicMastery } from "@/lib/mastery";
@@ -655,6 +655,46 @@ export async function startDailyQuestion() {
 
   if (error || !attempt) {
     throw new Error(error?.message ?? "Failed to start today's question");
+  }
+
+  redirect(`/practice/${attempt.id}`);
+}
+
+/**
+ * Connected Problems: plays sequenced problems strictly in order — the opening
+ * question first, then each follow-up — never shuffled or split. With a
+ * `seriesKey` it plays that one problem; without one it plays every connected
+ * problem, with the problems in random order but each problem's own parts in
+ * sequence.
+ */
+export async function startCaseProblems(seriesKey?: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  let query = supabase.from("student_questions").select("id, series_key, series_position").not("series_key", "is", null);
+  if (seriesKey) query = query.eq("series_key", seriesKey);
+  const { data: members } = await query;
+  if (!members || members.length === 0) {
+    throw new Error("No connected problems are available yet.");
+  }
+
+  const units = groupIntoUnits(members);
+  const ordered = seriesKey ? units : units.sort(() => Math.random() - 0.5);
+  const questionIds = ordered.flat().map((m) => m.id);
+
+  const { data: attempt, error } = await supabase
+    .from("attempts")
+    .insert({
+      user_id: user.id,
+      mode: "practice",
+      total_questions: questionIds.length,
+      config: { question_ids: questionIds, kind: "case" },
+    })
+    .select("id")
+    .single();
+  if (error || !attempt) {
+    throw new Error(error?.message ?? "Failed to start connected problems");
   }
 
   redirect(`/practice/${attempt.id}`);

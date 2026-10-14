@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { SlidersHorizontal } from "lucide-react";
+import { Link2, SlidersHorizontal } from "lucide-react";
 import { getAuthContext } from "@/lib/auth/session";
 import { getPublishedSnapshot } from "@/lib/published-counts";
 import { getTaxonomy } from "@/lib/shared-content";
@@ -46,10 +46,16 @@ export default async function PracticePage() {
         title="Practice"
         description="Pick a topic. Questions are answered one at a time with immediate feedback."
         action={
-          <Button render={<Link href="/quiz-builder" />} nativeButton={false} variant="outline" size="sm">
-            <SlidersHorizontal className="size-4" />
-            Customize a session
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button render={<Link href="/practice/cases" />} nativeButton={false} variant="outline" size="sm">
+              <Link2 className="size-4" />
+              Connected problems
+            </Button>
+            <Button render={<Link href="/quiz-builder" />} nativeButton={false} variant="outline" size="sm">
+              <SlidersHorizontal className="size-4" />
+              Customize a session
+            </Button>
+          </div>
         }
       />
 

@@ -1,6 +1,7 @@
 import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { fetchAllRows } from "@/lib/supabase/paginate";
+import type { SeriesInfo } from "@/components/series-banner";
 
 export type SeriesCandidate = {
   id: string;
@@ -202,4 +203,38 @@ export async function weighAndSampleCandidates(
     selected.push(...weightedSampleUnits(mastered, count - selected.length));
   }
   return selected;
+}
+
+/**
+ * For the given questions, where each one sits inside its connected problem
+ * (series_key): its 1-based part number among ALL published members, and the
+ * opening question's text for follow-up parts. Questions that belong to no
+ * series are simply absent from the result. Two small reads (the ids, then the
+ * few members of the series involved).
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function fetchSeriesInfo(supabase: SupabaseClient<any>, questionIds: string[]): Promise<Record<string, SeriesInfo>> {
+  if (questionIds.length === 0) return {};
+  const { data: own } = await supabase.from("student_questions").select("id, series_key").in("id", questionIds).not("series_key", "is", null);
+  const keys = [...new Set((own ?? []).map((r: { series_key: string }) => r.series_key))];
+  if (keys.length === 0) return {};
+
+  const { data: members } = await supabase
+    .from("student_questions")
+    .select("id, series_key, series_position, question_text")
+    .in("series_key", keys);
+  const byKey = new Map<string, { id: string; series_position: number | null; question_text: string }[]>();
+  for (const m of members ?? []) {
+    const list = byKey.get(m.series_key) ?? [];
+    list.push(m);
+    byKey.set(m.series_key, list);
+  }
+  const info: Record<string, SeriesInfo> = {};
+  for (const list of byKey.values()) {
+    list.sort((a, b) => (a.series_position ?? 0) - (b.series_position ?? 0));
+    list.forEach((m, i) => {
+      info[m.id] = { part: i + 1, statement: i === 0 ? null : list[0].question_text };
+    });
+  }
+  return info;
 }

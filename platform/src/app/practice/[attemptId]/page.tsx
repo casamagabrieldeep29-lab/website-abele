@@ -3,12 +3,14 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PracticeSession, type PracticeChoice, type PracticeQuestion } from "./practice-session";
 import { getSessionUser } from "@/lib/auth/session";
+import { fetchSeriesInfo } from "@/lib/series";
 
 const SESSION_LABELS: Record<string, string> = {
   quick: "Quick Practice",
   custom: "Custom Quiz",
   concept: "Concept Practice",
   daily: "Question of the Day",
+  case: "Connected Problems",
 };
 
 export default async function PracticeAttemptPage({
@@ -83,11 +85,13 @@ export default async function PracticeAttemptPage({
     choicesByQuestion.set(c.question_id, list);
   }
 
+  const seriesInfo = await fetchSeriesInfo(supabase, questionIds);
   const practiceQuestions: PracticeQuestion[] = (questions ?? []).map((q) => ({
     id: q.id,
     text: q.question_text,
     choices: choicesByQuestion.get(q.id) ?? [],
     category: q.category,
+    series: seriesInfo[q.id],
   }));
 
   const [{ data: existingAnswers }, { data: notes }, { data: bookmarks }] = await Promise.all([

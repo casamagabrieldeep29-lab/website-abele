@@ -5,6 +5,7 @@ import { MockExamSession, type MockChoice, type MockQuestion } from "./mock-exam
 import { getSessionUser } from "@/lib/auth/session";
 import { MOCK_EXAM_TIME_LIMIT_MINUTES, nowMs, remainingMs } from "@/lib/mock-timing";
 import { completeMockExam } from "../actions";
+import { fetchSeriesInfo } from "@/lib/series";
 
 const AREA_LABELS: Record<string, string> = { area_1: "Area 1", area_2: "Area 2", area_3: "Area 3" };
 
@@ -48,6 +49,7 @@ export default async function MockExamAttemptPage({
     supabase.from("attempt_answers").select("question_id, selected_choice_ids").eq("attempt_id", attemptId),
   ]);
 
+  const seriesInfo = await fetchSeriesInfo(supabase, questionIds);
   const questionById = new Map((questions ?? []).map((q) => [q.id, q]));
   const choicesByQuestion = new Map<string, MockChoice[]>();
   for (const c of choices ?? []) {
@@ -60,7 +62,7 @@ export default async function MockExamAttemptPage({
   const mockQuestions: MockQuestion[] = questionIds
     .map((id) => questionById.get(id))
     .filter((q): q is { id: string; question_text: string } => Boolean(q))
-    .map((q) => ({ id: q.id, text: q.question_text, choices: choicesByQuestion.get(q.id) ?? [] }));
+    .map((q) => ({ id: q.id, text: q.question_text, choices: choicesByQuestion.get(q.id) ?? [], series: seriesInfo[q.id] }));
 
   const answersByQuestion = new Map(
     (existingAnswers ?? []).map((a) => [a.question_id, a.selected_choice_ids as string[]]),

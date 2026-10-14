@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { completeMockExam } from "../actions";
 import { formatClock } from "@/lib/mock-timing";
+import { SeriesBanner, type SeriesInfo } from "@/components/series-banner";
 
 export type MockChoice = { id: string; text: string };
-export type MockQuestion = { id: string; text: string; choices: MockChoice[] };
+export type MockQuestion = { id: string; text: string; choices: MockChoice[]; series?: SeriesInfo };
 
 /**
  * All 100 items render at once in one scrollable page (matching the real
@@ -194,6 +195,7 @@ export function MockExamSession({
         {questions.map((question, i) => (
           <Card key={question.id} id={`mock-q-${i}`} className="scroll-mt-44">
             <CardHeader>
+              {question.series && <SeriesBanner info={question.series} />}
               <div className="flex items-start justify-between gap-3">
                 <CardTitle className="text-base font-medium leading-relaxed">
                   {i + 1}. {question.text}

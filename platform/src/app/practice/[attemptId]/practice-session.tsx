@@ -13,6 +13,7 @@ import { setBookmark } from "../bookmarks-actions";
 import { TeachMeThis } from "@/components/teach-me-this";
 import { ExplanationDisplay } from "@/components/explanation-display";
 import { studentFacingExplanation } from "@/lib/explanation";
+import { SeriesBanner, type SeriesInfo } from "@/components/series-banner";
 
 export type PracticeChoice = { id: string; text: string };
 export type PracticeQuestion = {
@@ -20,6 +21,7 @@ export type PracticeQuestion = {
   text: string;
   choices: PracticeChoice[];
   category: "term" | "solving" | null;
+  series?: SeriesInfo;
 };
 
 type ExistingAnswer = {
@@ -225,6 +227,7 @@ export function PracticeSession({
       <div className="mt-4 grid grid-cols-1 items-start gap-4 xl:grid-cols-2">
         <Card>
           <CardHeader>
+            {question.series && <SeriesBanner info={question.series} />}
             <div className="flex items-start justify-between gap-3">
               <CardTitle className="text-base font-medium leading-relaxed">
                 {question.text}
