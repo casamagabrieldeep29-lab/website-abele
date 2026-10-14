@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { setBookmark } from "../practice/bookmarks-actions";
+import { SeriesBanner, type SeriesInfo } from "@/components/series-banner";
 
 export type BookmarkRow = {
   bookmark_id: string;
@@ -11,6 +12,7 @@ export type BookmarkRow = {
   question_text: string;
   topic_name: string;
   created_at: string;
+  series?: SeriesInfo;
 };
 
 export function BookmarksList({ rows: initialRows }: { rows: BookmarkRow[] }) {
@@ -36,6 +38,11 @@ export function BookmarksList({ rows: initialRows }: { rows: BookmarkRow[] }) {
           <CardContent className="flex items-start justify-between gap-3 py-3">
             <div className="max-w-3xl">
               <p className="text-xs text-muted-foreground">{row.topic_name}</p>
+              {row.series && (
+                <div className="mt-1.5">
+                  <SeriesBanner info={row.series} compact />
+                </div>
+              )}
               <p className="mt-1 text-sm">{row.question_text}</p>
             </div>
             <Button size="sm" variant="outline" className="shrink-0" onClick={() => remove(row.question_id)}>

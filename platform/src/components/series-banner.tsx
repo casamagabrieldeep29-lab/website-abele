@@ -13,15 +13,15 @@ export type SeriesInfo = {
  * opening question so the student always has the problem statement in front of
  * them, however the question was reached.
  */
-export function SeriesBanner({ info }: { info: SeriesInfo }) {
+export function SeriesBanner({ info, compact = false }: { info: SeriesInfo; compact?: boolean }) {
   return (
-    <div className="mb-3 rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-xs">
+    <div className={`rounded-md border border-primary/30 bg-primary/5 px-3 py-2 text-xs ${compact ? "mb-1.5" : "mb-3"}`}>
       <p className="flex items-center gap-1.5 font-semibold text-primary">
         <Link2 className="size-3.5" />
         Connected problem · Part {info.part}
       </p>
       {info.statement && (
-        <details open className="mt-1.5">
+        <details open={!compact} className="mt-1.5">
           <summary className="cursor-pointer text-muted-foreground">Problem statement (Part 1)</summary>
           <p className="mt-1 text-sm leading-relaxed text-foreground">{info.statement}</p>
         </details>

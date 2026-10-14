@@ -11,6 +11,7 @@ import { startAdaptivePracticeAttempt, startSubtopicPracticeAttempt } from "@/ap
 import { startFlashcardsByTopic } from "@/app/flashcards/actions";
 import { getHarmonizedAccent } from "@/lib/harmonized-accents";
 import { getSubtopicQuestions, type QuestionBankQuestion } from "./actions";
+import { SeriesBanner } from "@/components/series-banner";
 
 const SESSION_SIZE = 20;
 const MAX_WEIGHT_PERCENT = 18;
@@ -440,7 +441,10 @@ function TopicQuestions({
           }`}
         >
           <span className="shrink-0 tabular-nums">{i + 1}.</span>
-          <span className="line-clamp-2">{q.question_text}</span>
+          <div className="min-w-0 flex-1">
+            {q.series && <SeriesBanner info={q.series} compact />}
+            <span className="line-clamp-2">{q.question_text}</span>
+          </div>
         </li>
       ))}
     </ol>

@@ -5,6 +5,7 @@ import { BookmarksList, type BookmarkRow } from "@/app/notes/bookmarks-list";
 import { PageHeader } from "@/components/page-header";
 import { PageContainer } from "@/components/page-container";
 import { getSessionUser } from "@/lib/auth/session";
+import { fetchSeriesInfo } from "@/lib/series";
 
 export default async function NotesPage() {
   const supabase = await createClient();
@@ -24,7 +25,9 @@ export default async function NotesPage() {
   }
 
   const rows = (data ?? []) as NoteRow[];
-  const bookmarkRows = (bookmarkData ?? []) as BookmarkRow[];
+  const bookmarked = (bookmarkData ?? []) as BookmarkRow[];
+  const seriesInfo = await fetchSeriesInfo(supabase, bookmarked.map((b) => b.question_id));
+  const bookmarkRows = bookmarked.map((b) => (seriesInfo[b.question_id] ? { ...b, series: seriesInfo[b.question_id] } : b));
 
   return (
     <PageContainer size="wide" className="space-y-8">

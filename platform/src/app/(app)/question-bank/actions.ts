@@ -1,8 +1,10 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { fetchSeriesInfo } from "@/lib/series";
+import type { SeriesInfo } from "@/components/series-banner";
 
-export type QuestionBankQuestion = { id: string; question_text: string };
+export type QuestionBankQuestion = { id: string; question_text: string; series?: SeriesInfo };
 
 /**
  * Individual question text is only fetched once a Topic node is actually
@@ -23,5 +25,8 @@ export async function getSubtopicQuestions(subtopicId: string): Promise<Question
     .eq("subtopic_id", subtopicId)
     .order("id");
 
-  return data ?? [];
+  const questions: QuestionBankQuestion[] = data ?? [];
+  // Follow-up parts of a connected problem carry the opening question with them.
+  const seriesInfo = await fetchSeriesInfo(supabase, questions.map((q) => q.id));
+  return questions.map((q) => (seriesInfo[q.id] ? { ...q, series: seriesInfo[q.id] } : q));
 }
