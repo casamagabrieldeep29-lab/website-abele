@@ -1,7 +1,23 @@
+import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
 
+// ABELIEVER moved to www.abelieverofficial.com (2026-10). Anyone who opens one
+// of these old addresses sees the "we've moved" announcement instead of the
+// site, so continuing to study means switching to the new address. Preview
+// deployments and localhost are not in this list, so they keep working.
+const MOVED_HOSTS = new Set(["abeliever.dev", "www.abeliever.dev", "abeliever.vercel.app"]);
+
 export function proxy(request: NextRequest) {
+  const host = (request.headers.get("host") ?? "").toLowerCase().split(":")[0];
+
+  if (MOVED_HOSTS.has(host)) {
+    const response = NextResponse.rewrite(new URL("/moved", request.url));
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("Cache-Control", "no-store");
+    return response;
+  }
+
   return updateSession(request);
 }
 

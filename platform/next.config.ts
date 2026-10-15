@@ -27,13 +27,12 @@ const cspHeader = `
 const MAIN_ORIGIN = "https://www.abelieverofficial.com";
 
 const nextConfig: NextConfig = {
-  // Old and bare addresses all land on the one main address. Temporary (307)
-  // for now so a mistake is undoable; make these permanent once verified.
-  // abeliever.vercel.app is deliberately NOT redirected: it stays a working
-  // alias, and a cross-host redirect would break sign-in links already sent
-  // from it (their cookies live on that host).
+  // The bare new domain lands on the main address. Temporary (307) for now so
+  // a mistake is undoable; make it permanent once verified. The OLD addresses
+  // (abeliever.dev, www.abeliever.dev, abeliever.vercel.app) are not redirected
+  // here: src/proxy.ts shows them the "we've moved" announcement instead.
   async redirects() {
-    return ["abeliever.dev", "www.abeliever.dev", "abelieverofficial.com"].map((host) => ({
+    return ["abelieverofficial.com"].map((host) => ({
       source: "/:path*",
       has: [{ type: "host" as const, value: host }],
       destination: `${MAIN_ORIGIN}/:path*`,
