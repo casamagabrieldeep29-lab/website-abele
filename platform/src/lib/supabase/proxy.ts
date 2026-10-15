@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { isAuthRetryableFetchError } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 import { trialMsFor } from "@/lib/trial";
+import { FOLLOW_ACK_COOKIE, FOLLOW_ACK_META_KEY } from "@/lib/social-links";
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
@@ -178,6 +179,19 @@ export async function updateSession(request: NextRequest) {
       const expiresAt = new Date(profile.trial_started_at).getTime() + trialMsFor(profile.trial_started_at);
       if (Date.now() >= expiresAt) {
         return NextResponse.redirect(new URL("/trial-expired", request.url));
+      }
+    }
+
+    // Mandatory one-time "follow our official pages" announcement (src/app/follow). Admins skip it. A
+    // student has passed it if their account carries the acknowledgement (read from the session token, no
+    // extra request) or this device has the cookie. Page loads only, so server actions are never redirected.
+    if (profile && profile.role !== "admin" && request.method === "GET") {
+      const meta = (claimsData?.claims as { user_metadata?: Record<string, unknown> } | undefined)?.user_metadata;
+      const passed = Boolean(meta?.[FOLLOW_ACK_META_KEY]) || request.cookies.get(FOLLOW_ACK_COOKIE)?.value === "1";
+      if (!passed) {
+        const followUrl = new URL("/follow", request.url);
+        followUrl.searchParams.set("next", request.nextUrl.pathname);
+        return NextResponse.redirect(followUrl);
       }
     }
   }
