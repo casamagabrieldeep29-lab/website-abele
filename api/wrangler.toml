@@ -2,6 +2,10 @@ name = "abeliever-api"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
 
+# Served on the project's own domain (it is already on Cloudflare), not on workers.dev.
+workers_dev = false
+routes = [{ pattern = "api.abelieverofficial.com", custom_domain = true }]
+
 # Public values only. Secrets (TURSO_URL, TURSO_TOKEN) are set with `wrangler secret put`
 # or `wrangler secret bulk .dev.vars`. Never put a key in this file.
 [vars]

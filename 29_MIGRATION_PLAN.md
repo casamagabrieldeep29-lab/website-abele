@@ -126,3 +126,10 @@ Summary:
 What can slow it down: the owner's account and DNS steps, Claude's usage limit (a batch of work stopped on it on 2026-10-14), and testing with real students.
 
 Before the Nov 19 exam: domain live, new landing and signup, shared content on Turso. After the exam: hosting switch, per-user data, community features.
+
+## Status 2026-10-16: Worker is LIVE (phase 1, read-only, not yet used by the app)
+
+- Deployed `abeliever-api` to Cloudflare at **https://api.abelieverofficial.com** (custom domain on the project's own zone, workers.dev disabled), daily keep-alive cron. Turso database `abeliever` (AWS ap-northeast-1) holds the shared content: 7,971 published questions, 31,884 choices, taxonomy. Secrets (TURSO_URL/TURSO_TOKEN) set with `wrangler secret bulk`; nothing secret in the repo (`api/.dev.vars` is git-ignored).
+- Live check with a real Supabase login (throwaway account, deleted after): taxonomy 19 KB, id snapshot 307 KB (cold 2.8 s, then edge-cached), 10 questions 7.8 KB in 113 ms (cached 53 ms), 4 choices each, no answer/explanation fields. No/bad token -> 401 on every /v1 route; foreign origins get no CORS header.
+- Known: Cloudflare's cache adds `max-age=14400` (4 h) for browsers on cached copies, so an edited question can look stale for up to 4 h on a device that already fetched it; the admin "Refresh question lists" button must also purge the edge cache (and ideally the Worker should send `max-age` itself).
+- Next: add `CONTENT_SOURCE=turso` flag in the Next.js app for shared reads (taxonomy, snapshot, question text+choices) with automatic Supabase fallback; test on a Vercel preview first; keep grading/answers in Supabase.
