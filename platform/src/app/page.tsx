@@ -155,7 +155,7 @@ export default function Home() {
                     <span className="size-2.5 rounded-full bg-gold/50" />
                     <span className="size-2.5 rounded-full bg-success/40" />
                     <span className="ml-3 truncate rounded-md bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">
-                      abeliever.vercel.app/practice
+                      abelieverofficial.com/practice
                     </span>
                   </div>
 

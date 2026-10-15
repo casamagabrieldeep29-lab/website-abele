@@ -134,7 +134,7 @@ export function renderShareImage(width: number, height: number) {
             ))}
           </div>
 
-          <div style={{ display: "flex", fontSize: 28, color: GREEN, marginTop: 10 }}>www.abeliever.dev</div>
+          <div style={{ display: "flex", fontSize: 28, color: GREEN, marginTop: 10 }}>www.abelieverofficial.com</div>
         </div>
       </div>
     ),

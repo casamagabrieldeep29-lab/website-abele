@@ -24,7 +24,22 @@ const cspHeader = `
   upgrade-insecure-requests;
 `;
 
+const MAIN_ORIGIN = "https://www.abelieverofficial.com";
+
 const nextConfig: NextConfig = {
+  // Old and bare addresses all land on the one main address. Temporary (307)
+  // for now so a mistake is undoable; make these permanent once verified.
+  // abeliever.vercel.app is deliberately NOT redirected: it stays a working
+  // alias, and a cross-host redirect would break sign-in links already sent
+  // from it (their cookies live on that host).
+  async redirects() {
+    return ["abeliever.dev", "www.abeliever.dev", "abelieverofficial.com"].map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: host }],
+      destination: `${MAIN_ORIGIN}/:path*`,
+      permanent: false,
+    }));
+  },
   async headers() {
     return [
       {

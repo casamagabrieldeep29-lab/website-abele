@@ -5,4 +5,4 @@
  * cards must always resolve to the real production domain.
  */
 export const PUBLIC_ORIGIN =
-  process.env.NODE_ENV === "production" ? "https://www.abeliever.dev" : "http://localhost:3000";
+  process.env.NODE_ENV === "production" ? "https://www.abelieverofficial.com" : "http://localhost:3000";
