@@ -10,6 +10,9 @@
 import { createClient } from "@libsql/client";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { applyMigrations } from "../src/migrate";
+import { loadDevVars } from "./env";
+
+loadDevVars(); // TURSO_URL / TURSO_TOKEN for the target database (omit both to use the local file)
 
 // Local convenience: reuse the web app's env file for the Supabase URL and service key.
 function loadEnvFile(path: string) {

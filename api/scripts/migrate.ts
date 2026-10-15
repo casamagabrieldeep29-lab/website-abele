@@ -1,6 +1,9 @@
 import { createClient } from "@libsql/client";
 import { mkdirSync } from "node:fs";
 import { applyMigrations } from "../src/migrate";
+import { loadDevVars } from "./env";
+
+loadDevVars();
 
 // Production: TURSO_URL + TURSO_TOKEN from the environment. Local default: a file database
 // in api/.local/ so nothing needs a login while developing.
