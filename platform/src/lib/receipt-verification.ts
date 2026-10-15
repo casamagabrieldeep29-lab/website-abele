@@ -2,15 +2,17 @@ import "server-only";
 import { GoogleGenAI } from "@google/genai";
 import { collectApiKeys } from "./ai";
 import { logError } from "./log-error";
+import { UPGRADE_PRICE_PHP } from "./payment-methods";
 
 export type ReceiptVerification = { verified: boolean; reason: string };
 
 // Shared between every vision provider below — the actual judgment criteria
 // are provider-agnostic, only how the image/prompt get attached to the
 // request differs.
-function buildVerificationPrompt(referenceNumber: string): string {
+function buildVerificationPrompt(referenceNumber: string, amountPhp: number): string {
+  const amount = amountPhp.toFixed(2);
   return (
-    "This is a screenshot of a GCash/Maya/bank payment confirmation. Check two things strictly — " +
+    "This is a screenshot of a GCash/Maya/bank payment confirmation. Check three things strictly — " +
     "when in doubt, answer no rather than guessing yes:\n\n" +
     `(1) REFERENCE NUMBER: the screenshot must show a reference/transaction number that is an EXACT ` +
     `digit-for-digit match to "${referenceNumber}" (you may ignore spacing, dashes, and letter case ` +
@@ -26,7 +28,10 @@ function buildVerificationPrompt(referenceNumber: string): string {
     "shown that conflicts with it) as a MATCH, not a mismatch — only answer no here if a visible " +
     "character actively conflicts with this specific name (e.g. a different first name, or a surname " +
     "that IS shown and doesn't match), not merely because part of the name wasn't displayed.\n\n" +
-    "Both conditions must clearly hold for a yes. Reply with EXACTLY one line in this format: " +
+    `(3) AMOUNT: the screenshot must show an amount sent of at least PHP ${amount} (for example ` +
+    `"${amount}" or "Total Amount Sent ${amount}"). An amount LOWER than PHP ${amount} does NOT count, ` +
+    "and neither does a receipt where the amount is not visible or is unreadable. A higher amount is fine.\n\n" +
+    "All three conditions must clearly hold for a yes. Reply with EXACTLY one line in this format: " +
     "VERIFIED: <yes|no> | REASON: <one short sentence>."
   );
 }
@@ -43,6 +48,7 @@ async function askGemini(
   imageBase64: string,
   mimeType: string,
   referenceNumber: string,
+  amountPhp: number,
 ): Promise<ReceiptVerification> {
   const client = new GoogleGenAI({ apiKey });
   const response = await client.models.generateContent({
@@ -50,7 +56,7 @@ async function askGemini(
     contents: [
       {
         role: "user",
-        parts: [{ inlineData: { mimeType, data: imageBase64 } }, { text: buildVerificationPrompt(referenceNumber) }],
+        parts: [{ inlineData: { mimeType, data: imageBase64 } }, { text: buildVerificationPrompt(referenceNumber, amountPhp) }],
       },
     ],
   });
@@ -74,6 +80,7 @@ async function askMistral(
   imageBase64: string,
   mimeType: string,
   referenceNumber: string,
+  amountPhp: number,
 ): Promise<ReceiptVerification> {
   const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
     method: "POST",
@@ -84,7 +91,7 @@ async function askMistral(
         {
           role: "user",
           content: [
-            { type: "text", text: buildVerificationPrompt(referenceNumber) },
+            { type: "text", text: buildVerificationPrompt(referenceNumber, amountPhp) },
             { type: "image_url", image_url: { url: `data:${mimeType};base64,${imageBase64}` } },
           ],
         },
@@ -124,10 +131,11 @@ async function askGeminiWithRetry(
   imageBase64: string,
   mimeType: string,
   referenceNumber: string,
+  amountPhp: number,
 ): Promise<ReceiptVerification> {
   for (let attempt = 0; ; attempt++) {
     try {
-      return await askGemini(apiKey, model, imageBase64, mimeType, referenceNumber);
+      return await askGemini(apiKey, model, imageBase64, mimeType, referenceNumber, amountPhp);
     } catch (err) {
       if (attempt >= OVERLOAD_RETRY_DELAYS_MS.length || !isTransientOverload(err)) throw err;
       await sleep(OVERLOAD_RETRY_DELAYS_MS[attempt]);
@@ -151,10 +159,11 @@ async function askMistralWithRetry(
   imageBase64: string,
   mimeType: string,
   referenceNumber: string,
+  amountPhp: number,
 ): Promise<ReceiptVerification> {
   for (let attempt = 0; ; attempt++) {
     try {
-      return await askMistral(apiKey, model, imageBase64, mimeType, referenceNumber);
+      return await askMistral(apiKey, model, imageBase64, mimeType, referenceNumber, amountPhp);
     } catch (err) {
       if (attempt >= OVERLOAD_RETRY_DELAYS_MS.length || !isTransientMistralError(err)) throw err;
       await sleep(OVERLOAD_RETRY_DELAYS_MS[attempt]);
@@ -198,6 +207,7 @@ export async function verifyReceipt(
   imageBase64: string,
   mimeType: string,
   referenceNumber: string,
+  amountPhp: number = UPGRADE_PRICE_PHP,
 ): Promise<ReceiptVerification> {
   const geminiKeys = collectApiKeys("GEMINI_API_KEY");
   const mistralKeys = collectApiKeys("MISTRAL_API_KEY");
@@ -213,7 +223,7 @@ export async function verifyReceipt(
   for (const apiKey of geminiKeys) {
     keysTried++;
     try {
-      return await askGeminiWithRetry(apiKey, geminiModel, imageBase64, mimeType, referenceNumber);
+      return await askGeminiWithRetry(apiKey, geminiModel, imageBase64, mimeType, referenceNumber, amountPhp);
     } catch (err) {
       lastErr = err;
     }
@@ -221,7 +231,7 @@ export async function verifyReceipt(
   for (const apiKey of mistralKeys) {
     keysTried++;
     try {
-      return await askMistralWithRetry(apiKey, mistralModel, imageBase64, mimeType, referenceNumber);
+      return await askMistralWithRetry(apiKey, mistralModel, imageBase64, mimeType, referenceNumber, amountPhp);
     } catch (err) {
       lastErr = err;
     }

@@ -123,7 +123,7 @@ export async function submitPaymentRequest(_prev: SubmitPaymentResult, formData:
 
     if (!uploadError) {
       receiptPath = path;
-      const verification = await verifyReceipt(buffer.toString("base64"), mimeType, referenceNumber);
+      const verification = await verifyReceipt(buffer.toString("base64"), mimeType, referenceNumber, UPGRADE_PRICE_PHP);
       autoApproved = verification.verified;
       adminNote = verification.reason;
     } else {
