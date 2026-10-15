@@ -1,0 +1,25 @@
+name = "abeliever-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+
+# Public values only. Secrets (TURSO_URL, TURSO_TOKEN) are set with `wrangler secret put`
+# or `wrangler secret bulk .dev.vars`. Never put a key in this file.
+[vars]
+# Students keep their Supabase accounts; the Worker only verifies the Supabase access token.
+AUTH_JWKS_URL = "https://khwkchwwjtipobygigla.supabase.co/auth/v1/.well-known/jwks.json"
+SUPABASE_URL = "https://khwkchwwjtipobygigla.supabase.co"
+# Web origins allowed to call the API.
+ALLOWED_ORIGINS = "https://www.abelieverofficial.com,http://localhost:3000"
+
+# Per-IP request limit, checked before auth. The API fails open if this binding is missing or errors.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "2001"
+simple = { limit = 120, period = 60 }
+
+[observability]
+enabled = true
+
+# Daily keep-alive for Turso, 03:00 UTC (free databases are archived after about 10 idle days).
+[triggers]
+crons = ["0 3 * * *"]

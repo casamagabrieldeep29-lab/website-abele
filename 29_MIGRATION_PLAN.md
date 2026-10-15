@@ -4,6 +4,15 @@ Status: PLANNING ONLY. Written 2026-10-15. The owner plans to migrate ABELIEVER 
 
 Owner decisions so far (2026-10-15): stop using Vercel; buy the domain **abelieverofficial.com** (looked unregistered when checked, confirm at the registrar); use Cloudflare, Turso and Supabase as in CSE. The owner will create an **official ABELIEVER Gmail** to own the new accounts (registrar/Cloudflare, Turso, GitHub). Recommended: turn on 2-step verification, add a recovery phone/email, keep the credentials only in a password manager (never in chat or commits), and later add `info@abelieverofficial.com` with Cloudflare Email Routing (free) forwarding to that Gmail.
 
+**Status update 2026-10-16.**
+- Domain done: **www.abelieverofficial.com** is live (bought on Cloudflare, attached to the Vercel project). The old addresses (abeliever.dev, www.abeliever.dev, abeliever.vercel.app) show a mandatory "we've moved" page (`src/proxy.ts`). Supabase Seoul's Site URL and redirect list use the new domain. Sydney (standby) still has the old ones.
+- Accounts created by the owner on the official Gmail: Cloudflare, GitHub, Turso, Supabase (2-step verification on). Nothing is hosted or stored there yet.
+- **Decision: Option B (incremental "strangler")** — keep the Next.js app on Vercel, add a Hono Worker + Turso behind it, move shared read-heavy content first (questions, choices, taxonomy, reviewers, flashcards, series) with edge caching, then per-user data, last the front end. Auth stays on Supabase (Worker verifies its JWT).
+- Defaults until the owner says otherwise: before the Nov 19-20 exam do only the safe first step (shared content to Turso behind a flag, no student data moved); the hosting switch and per-user data come after the exam; stay on free plans (no $5 Workers plan without asking).
+- **Phase 1 foundation built (2026-10-16) in `api/`** (repo root, so the Next.js build never sees it): Hono Worker (`/health`, `/v1/taxonomy`, `/v1/snapshot`, `/v1/questions?ids=`), Supabase-JWT check, per-IP rate limit (fails open), Cache-API edge cache, migrations as code, `npm run content:export` (Supabase -> libSQL, read-only), guard tests (auth on every route, no answers/explanations ever served, statement budgets, no table scans). Developed against a LOCAL libSQL file, so nothing needed a login yet.
+- Measured on the real export: 7,971 published questions, 31,884 choices (every question has exactly 4), 9.7 MB database. Worker bundle 55.9 KiB gzip (limit 3 MiB). A 10-question session = 50 database rows, 7.8 KB; taxonomy 19 KB / 116 rows; the full id snapshot 307 KB / 7,971 rows but only on an edge-cache miss. Grading, answers and explanations deliberately stay in Supabase.
+- Next: owner logs in to Turso and Cloudflare (wrangler/turso CLI, browser approval), I create the Turso DB, deploy the Worker, load the content, then switch the Next.js app's shared reads behind a flag (`CONTENT_SOURCE=turso`) with a Supabase fallback.
+
 Reference project: `C:\Users\Gabriel\OneDrive\Pictures\Documents\CSE` — read `ARCHITECTURE.md`, `ROADMAP.md`, `HANDOFF.md`, `app/api` and `app/web`. No keys are copied here.
 
 ## How CSE is built (what to reuse)
