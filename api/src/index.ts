@@ -19,6 +19,9 @@ export default {
         ? {
             match: async (url) => cache.match(new Request(url)),
             put: async (url, res) => cache.put(new Request(url), res),
+            delete: async (url) => {
+              await cache.delete(new Request(url));
+            },
           }
         : undefined,
     });

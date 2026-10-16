@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from "next/cache";
 import { PUBLISHED_COUNTS_TAG } from "@/lib/published-counts";
+import { syncQuestionsInBackground } from "@/lib/worker-sync";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { expireTaxonomy } from "@/lib/shared-content";
 import { createClient } from "@/lib/supabase/server";
@@ -69,14 +70,20 @@ export async function autoCategorizeBatch(): Promise<{ processed: number; remain
   }
 
   let processed = 0;
+  const categorizedIds: string[] = [];
   for (const item of classifications) {
     const question = batch[item.index - 1];
     if (!question) continue;
     const category = item.category === "term" || item.category === "solving" ? item.category : null;
     if (!category) continue;
     const { error } = await supabase.from("questions").update({ category }).eq("id", question.id);
-    if (!error) processed++;
+    if (!error) {
+      processed++;
+      categorizedIds.push(question.id);
+    }
   }
+  // The category travels with the question to the Worker's copy (it decides whether "Teach me" starts by itself).
+  syncQuestionsInBackground(categorizedIds);
 
   const { count: remaining } = await supabase
     .from("questions")
@@ -97,6 +104,7 @@ export async function publishQuestion(questionId: string) {
     .eq("id", questionId);
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground([questionId]);
   revalidatePath("/admin/content");
 }
 
@@ -109,6 +117,7 @@ export async function unpublishQuestion(questionId: string) {
     .eq("id", questionId);
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground([questionId]);
   revalidatePath("/admin/content");
 }
 
@@ -120,14 +129,16 @@ export async function unpublishQuestion(questionId: string) {
 export async function publishAllInTopic(topicId: string) {
   await requireAdmin();
   const supabase = await createClient();
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("questions")
     .update({ status: "published" })
     .eq("topic_id", topicId)
     .eq("status", "draft")
-    .or(NOT_FLAGGED_FILTER);
+    .or(NOT_FLAGGED_FILTER)
+    .select("id");
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground((data ?? []).map((r) => r.id));
   revalidatePath("/admin/content");
 }
 
@@ -150,6 +161,7 @@ export async function publishAllDrafts(): Promise<{ published: number }> {
     .select("id");
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground((data ?? []).map((r) => r.id));
   revalidatePath("/admin/content");
   return { published: data?.length ?? 0 };
 }
@@ -170,6 +182,7 @@ export async function setQuestionAdditionalMockAreas(questionId: string, topicId
     .update({ additional_mock_areas: areas })
     .eq("id", questionId);
   if (error) throw new Error(error.message);
+  syncQuestionsInBackground([questionId]);
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -221,6 +234,7 @@ export async function updateQuestion(questionId: string, topicId: string, formDa
     if (error) throw new Error(error.message);
   }
 
+  syncQuestionsInBackground([questionId]);
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -230,6 +244,7 @@ export async function archiveQuestion(questionId: string, topicId: string) {
   const { error } = await supabase.from("questions").update({ status: "archived" }).eq("id", questionId);
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground([questionId]);
   revalidatePath(`/admin/content/${topicId}`);
 }
 
@@ -239,6 +254,7 @@ export async function unarchiveQuestion(questionId: string, topicId: string) {
   const { error } = await supabase.from("questions").update({ status: "draft" }).eq("id", questionId);
   if (error) throw new Error(error.message);
   expirePublishedCounts();
+  syncQuestionsInBackground([questionId]);
   revalidatePath(`/admin/content/${topicId}`);
 }
 

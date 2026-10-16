@@ -116,3 +116,50 @@ describe("plan: no query scans a whole table (except the cached snapshot)", () =
     expect(await plan(SQL.choicesByQuestionIds(2), [Q1, Q2])).not.toMatch(/SCAN choices/);
   });
 });
+
+describe("sync (admin edits pushed to the Worker)", () => {
+  const KEY = "sync-key";
+  const app = () => createApp({ db: makeDb(() => client), env: { INTERNAL_KEY: KEY }, verifyToken: async (t) => (t === "good" ? { id: "u1", email: null } : null) });
+  const Q3 = "33333333-3333-4333-8333-333333333333";
+  const C = (n: number) => `c3c3c3c3-0000-4000-8000-00000000000${n}`;
+  const q3 = (text: string, choices = 4) => ({
+    id: Q3, topic_id: T1, question_text: text, question_type: "single_choice", difficulty: "easy", topic_mock_area: "area_1",
+    choices: Array.from({ length: choices }, (_, i) => ({ id: C(i), choice_text: `${text} option ${i}`, sort_order: i })),
+  });
+  const post = (body: unknown, headers: Record<string, string> = { "x-internal-key": KEY }) =>
+    app().request("/v1/admin/sync", { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(body) });
+  const read = async () => j(await app().request(`/v1/questions?ids=${Q3}`, { headers: { "x-internal-key": KEY } }));
+
+  it("never lets a student's login write", async () => {
+    expect((await post({ upsert: [q3("x")] }, { authorization: "Bearer good" })).status).toBe(403);
+    expect((await post({ upsert: [q3("x")] }, {})).status).toBe(401);
+    expect(await read()).toEqual([]);
+  });
+
+  it("rejects malformed bodies", async () => {
+    expect((await post({ upsert: [{ ...q3("x"), id: "nope" }] })).status).toBe(400);
+    expect((await post({ upsert: [q3("x", 1)] })).status).toBe(400);
+    expect((await post({ upsert: [{ ...q3("  ") }] })).status).toBe(400);
+    expect((await post({ remove: Array.from({ length: 101 }, () => Q3) })).status).toBe(400);
+  });
+
+  it("adds, edits (choices replaced) and removes a question", async () => {
+    expect((await post({ upsert: [q3("first text")] })).status).toBe(200);
+    let rows = await read();
+    expect(rows).toHaveLength(1);
+    expect(rows[0].question_text).toBe("first text");
+    expect(rows[0].choices).toHaveLength(4);
+
+    // an edit with only 3 choices must replace the old 4, not add to them
+    expect((await post({ upsert: [q3("edited text", 3)] })).status).toBe(200);
+    rows = await read();
+    expect(rows[0].question_text).toBe("edited text");
+    expect(rows[0].choices).toHaveLength(3);
+    expect(JSON.stringify(rows)).not.toMatch(/is_correct|explanation/);
+
+    expect((await post({ remove: [Q3] })).status).toBe(200);
+    expect(await read()).toEqual([]);
+    const left = await client.execute({ sql: "SELECT COUNT(*) AS c FROM choices WHERE question_id = ?", args: [Q3] });
+    expect(Number(left.rows[0].c)).toBe(0);
+  });
+});
