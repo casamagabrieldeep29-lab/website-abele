@@ -22,9 +22,17 @@ export async function acknowledgeFollow(formData: FormData) {
   const { data } = await supabase.auth.getUser();
   if (data.user) {
     // A failure here only means other devices may ask once more; this device is covered by the cookie.
-    await supabase.auth.updateUser({ data: { [FOLLOW_ACK_META_KEY]: new Date().toISOString() } }).catch(() => {});
+    try {
+      await supabase.auth.updateUser({ data: { [FOLLOW_ACK_META_KEY]: new Date().toISOString() } });
+      // The flag lives in the access token's claims, which only change when the token is refreshed. Refresh it
+      // now so the new token (stored in the same session cookies that keep students signed in) carries the flag.
+      await supabase.auth.refreshSession();
+    } catch {
+      // Not fatal: the device cookie below still lets this device through.
+    }
   }
   const jar = await cookies();
-  jar.set(FOLLOW_ACK_COOKIE, "1", { maxAge: 60 * 60 * 24 * 365, path: "/", httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" });
+  // Not a secret (just "1"), so it doesn't need to be httpOnly.
+  jar.set(FOLLOW_ACK_COOKIE, "1", { maxAge: 60 * 60 * 24 * 365, path: "/", httpOnly: false, sameSite: "lax", secure: process.env.NODE_ENV === "production" });
   redirect(safeNext(formData.get("next")));
 }
