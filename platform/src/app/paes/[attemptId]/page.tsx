@@ -1,3 +1,4 @@
+import { loadQuestionContent, type QuestionRow } from "@/lib/question-content";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -39,17 +40,12 @@ export default async function PaesQuizAttemptPage({
   const config =
     (attempt.config as { question_ids?: string[]; timed_seconds?: number; paes_reference?: string } | null) ?? {};
   const questionIds = config.question_ids ?? [];
-  const safeIds = questionIds.length ? questionIds : ["00000000-0000-0000-0000-000000000000"];
 
-  const [{ data: questions }, { data: choices }, { data: existingAnswers }] = await Promise.all([
-    supabase.from("student_questions").select("id, question_text, paes_reference").in("id", safeIds),
-    supabase
-      .from("student_choices")
-      .select("id, question_id, choice_text, sort_order")
-      .in("question_id", safeIds)
-      .order("sort_order"),
+  const [content, { data: existingAnswers }] = await Promise.all([
+    loadQuestionContent(supabase, questionIds),
     supabase.from("attempt_answers").select("question_id, selected_choice_ids, is_correct").eq("attempt_id", attemptId),
   ]);
+  const { questions, choices } = content;
 
   const questionById = new Map((questions ?? []).map((q) => [q.id, q]));
   const choicesByQuestion = new Map<string, PaesChoice[]>();
@@ -63,7 +59,7 @@ export default async function PaesQuizAttemptPage({
   // same pattern as the Mock Exam session, not re-sorted by id.
   const paesQuestions: PaesQuestion[] = questionIds
     .map((id) => questionById.get(id))
-    .filter((q): q is { id: string; question_text: string; paes_reference: string | null } => Boolean(q))
+    .filter((q): q is QuestionRow => Boolean(q))
     .map((q) => ({
       id: q.id,
       text: q.question_text,

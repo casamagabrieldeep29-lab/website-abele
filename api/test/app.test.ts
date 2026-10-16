@@ -47,6 +47,20 @@ describe("auth", () => {
   });
 });
 
+describe("server-to-server key", () => {
+  const withKey = () => createApp({ db: makeDb(() => client), env: { INTERNAL_KEY: "s3cret-key" }, verifyToken: async () => null });
+  it("lets the app in with the right key, and nothing else", async () => {
+    expect((await withKey().request("/v1/taxonomy", { headers: { "x-internal-key": "s3cret-key" } })).status).toBe(200);
+    expect((await withKey().request("/v1/taxonomy", { headers: { "x-internal-key": "wrong" } })).status).toBe(401);
+    expect((await withKey().request("/v1/taxonomy", { headers: { "x-internal-key": "" } })).status).toBe(401);
+    expect((await withKey().request("/v1/taxonomy")).status).toBe(401);
+  });
+  it("is off when no key is configured, even if a header is sent", async () => {
+    const noKey = createApp({ db: makeDb(() => client), env: {}, verifyToken: async () => null });
+    expect((await noKey.request("/v1/taxonomy", { headers: { "x-internal-key": "anything" } })).status).toBe(401);
+  });
+});
+
 describe("content", () => {
   it("returns the taxonomy", async () => {
     const body = await j(await appFor().request("/v1/taxonomy", authed));

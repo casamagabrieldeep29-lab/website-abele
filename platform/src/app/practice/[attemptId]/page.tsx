@@ -1,3 +1,4 @@
+import { loadQuestionContent, type QuestionRow } from "@/lib/question-content";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -47,15 +48,14 @@ export default async function PracticeAttemptPage({
   // preserving their order. Otherwise fall back to the original behavior:
   // every published question in the attempt's topic, in id order.
   let questions: { id: string; question_text: string; category: "term" | "solving" | null }[] | null;
+  let loadedChoices: { id: string; question_id: string; choice_text: string; sort_order: number }[] | null = null;
   if (isCustomSet) {
-    const { data } = await supabase
-      .from("student_questions")
-      .select("id, question_text, category")
-      .in("id", config.question_ids!);
-    const byId = new Map((data ?? []).map((q) => [q.id, q]));
+    const content = await loadQuestionContent(supabase, config.question_ids!);
+    loadedChoices = content.choices;
+    const byId = new Map(content.questions.map((q) => [q.id, q]));
     questions = config.question_ids!
       .map((id) => byId.get(id))
-      .filter((q): q is { id: string; question_text: string; category: "term" | "solving" | null } => Boolean(q));
+      .filter((q): q is QuestionRow => Boolean(q));
   } else {
     // Ordered so a connected series (same series_key) always stays
     // contiguous and in its intended step order, rather than the
@@ -72,11 +72,15 @@ export default async function PracticeAttemptPage({
 
   const questionIds = (questions ?? []).map((q) => q.id);
 
-  const { data: choices } = await supabase
-    .from("student_choices")
-    .select("id, question_id, choice_text, sort_order")
-    .in("question_id", questionIds.length ? questionIds : ["00000000-0000-0000-0000-000000000000"])
-    .order("sort_order");
+  const choices =
+    loadedChoices ??
+    (
+      await supabase
+        .from("student_choices")
+        .select("id, question_id, choice_text, sort_order")
+        .in("question_id", questionIds.length ? questionIds : ["00000000-0000-0000-0000-000000000000"])
+        .order("sort_order")
+    ).data;
 
   const choicesByQuestion = new Map<string, PracticeChoice[]>();
   for (const c of choices ?? []) {

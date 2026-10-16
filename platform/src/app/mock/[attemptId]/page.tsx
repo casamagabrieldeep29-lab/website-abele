@@ -1,3 +1,4 @@
+import { loadQuestionContent, type QuestionRow } from "@/lib/question-content";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
@@ -43,11 +44,11 @@ export default async function MockExamAttemptPage({
     redirect(`/mock/${attemptId}/results`);
   }
 
-  const [{ data: questions }, { data: choices }, { data: existingAnswers }] = await Promise.all([
-    supabase.from("student_questions").select("id, question_text").in("id", questionIds),
-    supabase.from("student_choices").select("id, question_id, choice_text, sort_order").in("question_id", questionIds).order("sort_order"),
+  const [content, { data: existingAnswers }] = await Promise.all([
+    loadQuestionContent(supabase, questionIds),
     supabase.from("attempt_answers").select("question_id, selected_choice_ids").eq("attempt_id", attemptId),
   ]);
+  const { questions, choices } = content;
 
   const seriesInfo = await fetchSeriesInfo(supabase, questionIds);
   const questionById = new Map((questions ?? []).map((q) => [q.id, q]));
@@ -61,7 +62,7 @@ export default async function MockExamAttemptPage({
   // Preserve the original randomized order from when the exam was started.
   const mockQuestions: MockQuestion[] = questionIds
     .map((id) => questionById.get(id))
-    .filter((q): q is { id: string; question_text: string } => Boolean(q))
+    .filter((q): q is QuestionRow => Boolean(q))
     .map((q) => ({ id: q.id, text: q.question_text, choices: choicesByQuestion.get(q.id) ?? [], series: seriesInfo[q.id] }));
 
   const answersByQuestion = new Map(

@@ -12,6 +12,14 @@ export type Deps = {
   cache?: EdgeCache;
 };
 
+/** Constant-time string comparison, so the key can't be guessed from response timing. */
+function timingSafeEqual(a: string, b: string): boolean {
+  const ea = new TextEncoder().encode(a), eb = new TextEncoder().encode(b);
+  let diff = ea.length ^ eb.length;
+  for (let i = 0; i < Math.max(ea.length, eb.length); i++) diff |= (ea[i] ?? 0) ^ (eb[i] ?? 0);
+  return diff === 0;
+}
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const MAX_IDS = 50;
 
@@ -51,8 +59,11 @@ export function createApp(deps: Deps) {
 
   app.get("/health", (c) => c.json({ ok: true }));
 
-  // Every /v1 route needs a valid Supabase access token (students keep their accounts).
+  // Every /v1 route needs either a valid Supabase access token (students keep their accounts) or the
+  // server-to-server key the Next.js app sends (the app has already verified the student by then).
   app.use("/v1/*", async (c, next) => {
+    const internal = c.req.header("x-internal-key");
+    if (internal && env.INTERNAL_KEY && timingSafeEqual(internal, env.INTERNAL_KEY)) return next();
     const h = c.req.header("authorization") ?? "";
     const token = /^Bearer (.+)$/i.exec(h)?.[1];
     if (!token) return c.json({ error: "unauthorized" }, 401);
