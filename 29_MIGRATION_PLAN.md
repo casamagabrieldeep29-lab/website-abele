@@ -148,3 +148,16 @@ Before the Nov 19 exam: domain live, new landing and signup, shared content on T
 - Warm pass (same 19 pages again): 90 requests, **24 KB total**. Per-student pages cost close to nothing.
 - Reading: with the 24 h shared caches, steady-state egress is roughly one ~1.7 MB refill per cache expiry plus about 1 KB per page view, far inside 5 GB/month. The earlier overuse came from the pre-fix whole-table reads, not from what remains.
 - Decision: moving reviewers/recalled/snapshot reads to the Worker would save about 1.7 MB per day, so it is not worth the risk before the Nov 19-20 exam. Per-student data and the whole-topic practice read stay in Supabase until after the exam. Re-check Supabase usage after the quota resets on 17 Oct.
+
+## Plan: leave Vercel entirely (decided 2026-10-16; cutover after the Nov 19-20 exam)
+
+Why: Vercel Hobby is non-commercial only (the site sells a plan), so staying means a paid Pro seat. Target: the whole Next.js app on Cloudflare Workers through the OpenNext adapter, next to the API Worker. Domain, Supabase, Turso and the Worker API do not change.
+
+Facts to verify (found by search, not yet tested here): the old 3 MiB compressed Worker limit was reportedly replaced by 64 MB uncompressed on all plans (Sept 2026); Next 16's Node-runtime `proxy.ts` and `after()` must work under the adapter; the Free plan's 10 ms CPU per request and 100k requests/day may be too tight for server-rendered pages.
+
+Phase 0, spike (no production impact, branch `cf-host`): add `@opennextjs/cloudflare` + wrangler, build, record bundle size. Deploy to a test hostname (e.g. `app-test.abelieverofficial.com`, added to the Supabase redirect list). Check: login and cookies, `proxy.ts` gates (follow, plan/trial, moved), `unstable_cache` + tag expiry (needs an R2/KV incremental cache), `after()` for the Worker sync, Open Graph/icon image routes, Gemini calls, CSP, env vars/secrets. Measure CPU time and request counts per page. Go/no-go: fits the Free plan -> continue free; exceeds CPU -> Workers Paid (about $5/month) is the cheapest fallback.
+Phase 1, parity: full test suite, walkthrough as student and admin (practice, mock, PAES, upgrade receipt, admin edit -> Worker sync), egress log on, mobile check.
+Phase 2, cutover (after the exam, low-traffic hour): point `www` and the bare domain at the app Worker (custom domain on the existing zone), keep the Vercel project untouched as the rollback (switch DNS back). Same domain, so the Supabase Site URL does not change.
+Phase 3, old addresses: `abeliever.dev`/`www.abeliever.dev` currently get the "we've moved" page from Vercel. Either add `abeliever.dev` as a second Cloudflare zone (free) and serve the same page, or let it lapse (auto-renew off). `abeliever.vercel.app` simply goes away.
+Phase 4, decommission: after 1-2 stable weeks, remove the Vercel project, GitHub integration and env vars; update the rollback notes (CONTENT_SOURCE is then a Worker secret/var, not a Vercel env).
+Risks: CPU limit, cache semantics, deploy tooling on Windows (wrangler/OpenNext build; CI on GitHub Actions is the safer path), losing Vercel skew protection.
