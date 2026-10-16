@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { GlobalSearch } from "@/components/global-search/global-search";
 import { ProfileCompletionModal } from "@/components/profile-completion-modal";
 import { NoticeCampaignModal } from "@/components/notice-campaign-modal";
+import { PasswordNudge } from "@/components/password-nudge";
 import { WelcomeMessage } from "@/components/welcome-message";
 import { getActiveNoticeCampaignForUser, type ActiveNoticeCampaign } from "@/lib/notice-campaigns";
 import { signOut } from "@/app/dashboard/actions";
@@ -40,11 +41,16 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     promptRow && !promptRow.academic_status && !promptRow.profile_prompt_dismissed_at,
   );
 
+  // Accounts that never set a password get a very obvious pop-up (and a banner
+  // that stays on every page) until they do. If the profile read failed
+  // (campaignRow null) nothing is shown rather than guessing.
+  const showPasswordNudge = Boolean(campaignRow && !campaignRow.has_password) && !showProfilePrompt;
+
   // Only one popup at a time — the one-shot profile prompt above takes
-  // priority (it's a smaller, one-time ask), so a scheduled notice campaign
-  // never stacks a second dialog on top of it.
+  // priority (it's a smaller, one-time ask), then the password nudge, so a
+  // scheduled notice campaign never stacks a second dialog on top of either.
   let activeCampaign: ActiveNoticeCampaign | null = null;
-  if (!showProfilePrompt && campaignRow) {
+  if (!showProfilePrompt && !showPasswordNudge && campaignRow) {
     try {
       activeCampaign = await getActiveNoticeCampaignForUser(supabase, user.id, campaignRow);
     } catch {
@@ -69,12 +75,15 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <GlobalSearch />
           </div>
         </header>
-        <div className="flex-1 p-4 sm:p-6 lg:px-8 2xl:px-10">{children}</div>
+        <div className="flex-1 p-4 sm:p-6 lg:px-8 2xl:px-10">
+          {showPasswordNudge && <PasswordNudge />}
+          {children}
+        </div>
       </SidebarInset>
       {showProfilePrompt && <ProfileCompletionModal />}
       {activeCampaign && <NoticeCampaignModal campaign={activeCampaign} />}
       {/* Only when no other popup is up, so dialogs never stack. */}
-      {!showProfilePrompt && !activeCampaign && <WelcomeMessage name={profile?.display_name ?? null} />}
+      {!showProfilePrompt && !showPasswordNudge && !activeCampaign && <WelcomeMessage name={profile?.display_name ?? null} />}
     </SidebarProvider>
   );
 }
