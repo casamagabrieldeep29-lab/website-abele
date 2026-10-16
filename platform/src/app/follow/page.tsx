@@ -34,8 +34,8 @@ export default async function FollowPage({ searchParams }: { searchParams: Promi
         </div>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">You&apos;re part of the ABELIEVER family!</h1>
         <p className="mx-auto mt-4 max-w-md text-base text-muted-foreground">
-          Welcome to our new home. Before you keep reviewing, follow our official page so you never miss an update on
-          your road to the board exam.
+          Welcome to our new home. Follow our official page on Facebook or TikTok so you never miss an update on your
+          road to the board exam. It&apos;s optional, so you can skip it if you don&apos;t use them.
         </p>
 
         <ul className="mx-auto mt-6 max-w-sm space-y-2 text-left">
@@ -48,7 +48,7 @@ export default async function FollowPage({ searchParams }: { searchParams: Promi
         </ul>
 
         <p className="mx-auto mt-6 max-w-md text-sm font-medium">
-          This is a one-time step. It takes a few seconds, and you only do it once.
+          You only see this once, and it takes a few seconds.
         </p>
 
         <FollowGate next={safeNext} />

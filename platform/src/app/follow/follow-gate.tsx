@@ -7,9 +7,9 @@ import { acknowledgeFollow } from "./actions";
 const WAIT_SECONDS = 5;
 
 /**
- * The only way past the announcement: open the official Facebook page, wait a few seconds, then continue.
- * There is deliberately no close button and no skip. (Facebook can't confirm a follow, so this only
- * guarantees the page was opened.)
+ * The announcement is optional: open the official Facebook page, wait a few seconds, then continue, or skip
+ * straight away (not everyone has Facebook). Either way it is shown only once. (Facebook can't confirm a
+ * follow, so the first path only guarantees the page was opened.)
  */
 export function FollowGate({ next }: { next: string }) {
   const [opened, setOpened] = useState(false);
@@ -55,9 +55,19 @@ export function FollowGate({ next }: { next: string }) {
         </button>
       </form>
 
+      <form action={acknowledgeFollow} className="w-full max-w-sm">
+        <input type="hidden" name="next" value={next} />
+        <button
+          type="submit"
+          className="inline-flex h-10 w-full items-center justify-center rounded-lg px-6 text-sm font-medium text-muted-foreground underline underline-offset-4 hover:text-foreground"
+        >
+          I don&apos;t use Facebook — skip for now
+        </button>
+      </form>
+
       <p className="text-xs text-muted-foreground" aria-live="polite">
         {!opened
-          ? "Tap the Facebook button first to unlock the next step."
+          ? "Open the Facebook page to unlock \"continue\", or skip if you don't have an account."
           : left > 0
             ? `Almost there… you can continue in ${left} second${left === 1 ? "" : "s"}.`
             : "Thank you! You can continue now."}
