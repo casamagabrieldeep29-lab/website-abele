@@ -37,6 +37,7 @@ type Row = {
 export async function syncQuestionsToWorker(ids: string[]): Promise<void> {
   const key = process.env.CONTENT_API_KEY;
   const unique = [...new Set(ids)];
+  console.log(`[worker-sync] start: ${unique.length} question(s), key ${key ? "present" : "MISSING"}`);
   if (!key || unique.length === 0) return;
   try {
     const admin = createAdminClient();
@@ -84,7 +85,8 @@ export async function syncQuestionsToWorker(ids: string[]): Promise<void> {
         signal: AbortSignal.timeout(15000),
         cache: "no-store",
       });
-      if (!res.ok) throw new Error(`Worker sync answered ${res.status}`);
+      if (!res.ok) throw new Error(`Worker sync answered ${res.status}: ${(await res.text().catch(() => "")).slice(0, 200)}`);
+      console.log(`[worker-sync] sent: upsert ${upsert.length}, remove ${remove.length}, Worker answered ${res.status}`);
     }
   } catch (err) {
     console.error("[worker-sync] failed, the Worker copy may lag until the next export:", err instanceof Error ? err.message : err);
@@ -93,5 +95,12 @@ export async function syncQuestionsToWorker(ids: string[]): Promise<void> {
 
 /** Run the sync after the response is sent, so an admin click is never slowed down by it. */
 export function syncQuestionsInBackground(ids: string[]) {
-  after(() => syncQuestionsToWorker(ids));
+  console.log(`[worker-sync] scheduled for ${ids.length} question(s)`);
+  try {
+    after(() => syncQuestionsToWorker(ids));
+  } catch (err) {
+    // after() is unavailable outside a request: run it directly rather than skipping the update.
+    console.error("[worker-sync] after() failed, running directly:", err instanceof Error ? err.message : err);
+    void syncQuestionsToWorker(ids);
+  }
 }
