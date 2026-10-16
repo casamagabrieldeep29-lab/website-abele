@@ -141,3 +141,10 @@ Before the Nov 19 exam: domain live, new landing and signup, shared content on T
 - **Rollback (one setting):** `vercel env rm CONTENT_SOURCE production --yes` then `printf supabase | vercel env add CONTENT_SOURCE production --yes` and redeploy. Fallback to Supabase is also automatic on any Worker error or after 3 s.
 - Not moved yet: practice sessions that load a whole topic, the published-snapshot/taxonomy caches (still Supabase, expired via tags), per-user data. Taxonomy edits are not synced to the Worker (rare; use the export).
 - Note: pages opened before a deploy keep talking to the old build (skew protection); reload after a deploy when testing.
+
+## Egress audit 2026-10-16 (real student account, 19 pages, local app on production data)
+
+- Cold pass (shared caches empty): 94 Supabase requests, 1,728 KB. Almost all of it is the one-time shared refill: `reviewer_entries` 1,410 KB (3 reads), `get_recalled_questions` 294 KB. Per-student reads were about 12 KB.
+- Warm pass (same 19 pages again): 90 requests, **24 KB total**. Per-student pages cost close to nothing.
+- Reading: with the 24 h shared caches, steady-state egress is roughly one ~1.7 MB refill per cache expiry plus about 1 KB per page view, far inside 5 GB/month. The earlier overuse came from the pre-fix whole-table reads, not from what remains.
+- Decision: moving reviewers/recalled/snapshot reads to the Worker would save about 1.7 MB per day, so it is not worth the risk before the Nov 19-20 exam. Per-student data and the whole-topic practice read stay in Supabase until after the exam. Re-check Supabase usage after the quota resets on 17 Oct.
